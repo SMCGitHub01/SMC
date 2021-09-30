@@ -1,0 +1,9 @@
+{
+	"name": "df-d365-byod",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f723c7b4-7205-4b5a-a85e-6589ff3ac675",
+		"tenantId": "fe754037-10dc-495e-90da-045b680fb646"
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"name": "ACCPRD_SugarCRM",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SugarCRM_Production",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ACC&PRD"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

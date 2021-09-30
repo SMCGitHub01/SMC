@@ -1,0 +1,95 @@
+{
+	"name": "PRD_IFS_Products",
+	"properties": {
+		"activities": [
+			{
+				"name": "IFS_Products",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ExcelSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": false,
+							"wildcardFileName": {
+								"value": "@{pipeline().parameters.Excelfile}",
+								"type": "Expression"
+							},
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": {
+							"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
+							"type": "Expression"
+						},
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false,
+							"culture": "nl-nl"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_IFS_Products",
+						"type": "DatasetReference",
+						"parameters": {
+							"WorkSheet": "@{pipeline().parameters.Worksheet}",
+							"Excelfile": "@{pipeline().parameters.ExcelFile}"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
+							"TableName": "@{pipeline().parameters.TargetTableName}"
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"Worksheet": {
+				"type": "string"
+			},
+			"Excelfile": {
+				"type": "string"
+			},
+			"StartDateTime": {
+				"type": "string"
+			},
+			"TargetTableName": {
+				"type": "string"
+			},
+			"TargetSchemaName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "PRD-IFS"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-03-27T13:45:56Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

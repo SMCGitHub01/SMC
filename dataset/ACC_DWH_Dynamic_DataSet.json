@@ -1,0 +1,27 @@
+{
+	"name": "ACC_DWH_Dynamic_DataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure_D365_DEV",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ACC"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

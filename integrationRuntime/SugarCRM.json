@@ -1,0 +1,7 @@
+{
+	"name": "SugarCRM",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Connection US SugarCRM"
+	}
+}

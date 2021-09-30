@@ -1,0 +1,61 @@
+{
+	"name": "PRD_FillMetadata_DWH",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy DWH view metadata",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT c.TABLE_CATALOG AS TableCatalog, \nc.TABLE_SCHEMA AS TableSchema, \nc.TABLE_NAME AS TableName, \nc.COLUMN_NAME AS ColumnName,\nCASE WHEN x.TABLE_NAME IS NULL THEN 0 WHEN x.TABLE_NAME IS NOT NULL THEN 1 END AS PrimaryKey,\nc.ORDINAL_POSITION AS OrdinalPosition, \nCASE\n\t\t\t\tWHEN c.DATA_TYPE IN ('real','money','decimal','numeric') THEN 'numeric(28,12)'\n\t\t\t\tWHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH < 1 THEN 'nvarchar(max)'\n\t\t\t\tWHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH > 1024 THEN 'nvarchar(max)'\n\t\t\t\tWHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH BETWEEN 1 AND 1024 THEN 'nvarchar(' + convert(varchar,CHARACTER_MAXIMUM_LENGTH) + ')'\n\t\t\t\t--WHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH BETWEEN 8 AND 32 THEN 'nvarchar(32)'\n\t\t\t\t--WHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH BETWEEN 32 AND 128 THEN 'nvarchar(128)'\n\t\t\t\t--WHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH BETWEEN 128 AND 1024 THEN 'nvarchar(1024)'\n\t\t\t\tELSE c.DATA_TYPE\n\t\t\t END as DataType \nFROM information_schema.columns c\nLEFT OUTER JOIN (SELECT TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME \n\t\t         FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE\n                 WHERE OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA + '.' + QUOTENAME(CONSTRAINT_NAME)), 'ISPRIMARYKEY') = 1\n                ) x ON x.TABLE_SCHEMA = c.TABLE_SCHEMA\n                   AND x.TABLE_NAME   = c.TABLE_NAME\n                   AND x.COLUMN_NAME  = c.COLUMN_NAME\nWHERE\t(c.TABLE_NAME LIKE '%fact%' OR c.TABLE_NAME LIKE '%dim%'  OR c.TABLE_NAME LIKE '%help%' OR c.TABLE_NAME LIKE '%tbl%') \nAND\t\t c.TABLE_NAME NOT IN ('DimensionAttributeStaging','DerivedDimensionAttributeStaging','DerivedDimensionAttributeValuesStaging','DimensionAttributeTranslationStaging')\nORDER BY c.TABLE_SCHEMA, c.TABLE_NAME, c.ORDINAL_POSITION",
+							"type": "Expression"
+						},
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBatchSize": 10000,
+						"preCopyScript": "DELETE a\n\tFROM metadata.SourceInformationSchema a\nWHERE TableCatalog = 'd365-byod-prod'",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_DWH_Dynamic_DataSet",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "dummy"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_DWH_Dynamic_DataSet",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "metadata.SourceInformationSchema"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "PRD-MetaData"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-03-27T14:05:43Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

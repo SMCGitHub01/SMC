@@ -1,0 +1,35 @@
+{
+	"name": "ACC_IFS_GLTransActions",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blobstoragescm",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"CSVFile": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ACC"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().CSVFile",
+					"type": "Expression"
+				},
+				"container": "dwh-ifs-gltransactions"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

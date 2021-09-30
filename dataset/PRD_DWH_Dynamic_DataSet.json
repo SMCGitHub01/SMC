@@ -1,0 +1,27 @@
+{
+	"name": "PRD_DWH_Dynamic_DataSet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure_D365_PROD",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "PRD"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

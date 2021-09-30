@@ -1,0 +1,17 @@
+{
+	"name": "SugarCRM_Production",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "This connection is setup on 2020/09/25 together with Mohammed A Hassan (SMC US IT Department), Kirk Becnel and Stefan Jaenicke (creator of the views)\nFor support@1smc.com",
+		"annotations": [],
+		"type": "MySql",
+		"typeProperties": {
+			"connectionString": "server=10.164.112.231;port=3306;database=sugarcrm_prod;user=nlbyodrd;sslmode=1;usesystemtruststore=0",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI1Yjc5ZDA1NC0yODYzLTRkZmItODVjOC05ZmM3NDJlNGNkYWQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "SugarCRM",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

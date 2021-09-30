@@ -1,0 +1,35 @@
+{
+	"name": "PRD_IFS_SalesInvoices",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blobstoragesmcprd",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"CSVFile": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "PRD"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().CSVFile",
+					"type": "Expression"
+				},
+				"container": "dwh-ifs-salesinvoice"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
