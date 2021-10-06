@@ -1,0 +1,659 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "df-d365-byod"
+		},
+		"staggingadfsmc_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
+		},
+		"SugarCRM_Production_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
+		},
+		"KeyVault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "DWHConnectionStringDEV"
+		},
+		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "DWHConnectionStringPRD"
+		},
+		"blobstoragescm_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "BlobStorageDevelopment"
+		},
+		"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "BlobStorageProduction"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/KeyVault')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/staggingadfsmc')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('staggingadfsmc_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SugarCRM')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"description": "Connection US SugarCRM",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Azure_D365_DEV')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "KeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Azure_D365_PROD')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "KeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SugarCRM_Production')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "This connection is setup on 2020/09/25 together with Mohammed A Hassan (SMC US IT Department), Kirk Becnel and Stefan Jaenicke (creator of the views)\nFor support@1smc.com",
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"connectionString": "[parameters('SugarCRM_Production_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "SugarCRM",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/SugarCRM')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/blobstoragescm')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "KeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/blobstoragesmcprd')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "KeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACCPRD_SugarCRM')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SugarCRM_Production",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "ACC&PRD"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SugarCRM_Production')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_BYOD_DEV_DS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_DEV",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"SchemaName": {
+						"type": "string"
+					},
+					"TableName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().SchemaName",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().TableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_BudgetDirectSales')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"WorkSheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Worksheet",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().Excelfile",
+							"type": "Expression"
+						},
+						"container": "dwhbudgetdirectsales"
+					},
+					"range": "",
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_BudgetInDirectSales')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"WorkSheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Worksheet",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().Excelfile",
+							"type": "Expression"
+						},
+						"container": "dwhbudgetindirectsales"
+					},
+					"range": "",
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_DWH_Dynamic_DataSet')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_DEV",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"TableName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"tableName": {
+						"value": "@dataset().TableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_Distributeur')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"WorkSheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Worksheet",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().Excelfile",
+							"type": "Expression"
+						},
+						"container": "dwhdistributielijsten"
+					},
+					"range": "",
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_IFS_Customer')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"WorkSheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Worksheet",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().Excelfile",
+							"type": "Expression"
+						},
+						"container": "dwh-ifs-customers"
+					},
+					"range": "",
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_IFS_GLAccounts')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"WorkSheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Worksheet",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().Excelfile",
+							"type": "Expression"
+						},
+						"container": "dwh-ifs-glaccount"
+					},
+					"range": "",
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_IFS_GLTransActions')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"CSVFile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().CSVFile",
+							"type": "Expression"
+						},
+						"container": "dwh-ifs-gltransactions"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_IFS_Products')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"WorkSheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Worksheet",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().Excelfile",
+							"type": "Expression"
+						},
+						"container": "dwh-ifs-products"
+					},
+					"range": "",
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_IFS_SalesInvoices')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"CSVFile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().CSVFile",
+							"type": "Expression"
+						},
+						"container": "dwh-ifs-salesinvoice"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_BYOD_DS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_PROD",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"SchemaName": {
+						"type": "string"
+					},
+					"TableName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().SchemaName",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().TableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
+			]
+		}
+	]
+}
