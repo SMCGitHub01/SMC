@@ -1,0 +1,6 @@
+{
+	"name": "Zendesk",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
