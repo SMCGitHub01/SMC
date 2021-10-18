@@ -16,17 +16,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "BinarySource",
+						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "FileServerReadSettings",
 							"recursive": true,
-							"deleteFilesAfterCompletion": false
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "BinaryReadSettings",
-							"compressionProperties": {
-								"type": "ZipDeflateReadSettings"
-							}
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -39,13 +36,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ZendeskZips",
+						"referenceName": "Zendesk",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "Binary1",
+						"referenceName": "unpackZip",
 						"type": "DatasetReference"
 					}
 				]
