@@ -5,9 +5,9 @@
 		"annotations": [],
 		"type": "FileServer",
 		"typeProperties": {
-			"host": "c:\\General\\File exchange folder (MAX7D)\\FO\\DWH ",
+			"host": "\\\\amssrv011",
 			"userId": "aquapro-dmn\\vader",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyMmViODY4Yy04N2QzLTQwYTAtOGU3Zi0xMzk4MTdkYWQwMDUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzMDExMjk5Yy1iZjkzLTRiNjgtODZkMi1lODUyZGZiMGZkOTAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ZenDesk",
