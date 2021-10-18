@@ -1,0 +1,26 @@
+{
+	"name": "ZendeskUnzip",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blobstoragescm",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "DWHZendeskExport.zip",
+				"container": "dwh-zendesk"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			}
+		]
+	}
+}

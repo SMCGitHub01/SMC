@@ -27,9 +27,14 @@
 						}
 					},
 					"sink": {
-						"type": "BinarySink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
 							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false
@@ -42,7 +47,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "unpackZip",
+						"referenceName": "ZendeskUnzip",
 						"type": "DatasetReference"
 					}
 				]
