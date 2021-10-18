@@ -8,6 +8,9 @@
 		"SugarCRM_Production_connectionString": {
 			"value": ""
 		},
+		"ZendeskDownload_password": {
+			"value": ""
+		},
 		"staggingadfsmc_connectionString": {
 			"value": ""
 		},
@@ -19,6 +22,12 @@
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"ZendeskDownload_properties_typeProperties_host": {
+			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+		},
+		"ZendeskDownload_properties_typeProperties_userId": {
+			"value": "aquapro-dmn\\rdel-admin"
 		},
 		"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 			"value": "BlobStorageDevelopment"

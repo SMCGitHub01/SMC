@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
 		},
+		"ZendeskDownload_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ZendeskDownload'"
+		},
 		"staggingadfsmc_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
@@ -26,6 +30,14 @@
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"ZendeskDownload_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+		},
+		"ZendeskDownload_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "aquapro-dmn\\rdel-admin"
 		},
 		"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
@@ -6829,6 +6841,77 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BinarySource",
+								"storeSettings": {
+									"type": "FileServerReadSettings",
+									"recursive": true,
+									"deleteFilesAfterCompletion": false
+								},
+								"formatSettings": {
+									"type": "BinaryReadSettings",
+									"compressionProperties": {
+										"type": "ZipDeflateReadSettings"
+									}
+								}
+							},
+							"sink": {
+								"type": "BinarySink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "ZendeskZips",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Binary1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "ACC-Process_DWH"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ZendeskZips')]",
+				"[concat(variables('factoryId'), '/datasets/Binary1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACCPRD_SugarCRM')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -7261,6 +7344,28 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Binary1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "dwh-zendesk"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_BYOD_DS')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -7672,6 +7777,63 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Zendesk')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ZendeskDownload",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "DWHZendeskExport.zip"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ZendeskZips')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ZendeskDownload",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "DWHZendeskExport.zip"
+					},
+					"compression": {
+						"type": "ZipDeflate",
+						"level": "Fastest"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Azure_D365_DEV')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -7746,6 +7908,30 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/SugarCRM')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ZendeskDownload')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('ZendeskDownload_properties_typeProperties_host')]",
+					"userId": "[parameters('ZendeskDownload_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ZendeskDownload_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ZenDesk",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ZenDesk')]"
 			]
 		},
 		{
@@ -7888,6 +8074,16 @@
 			"properties": {
 				"type": "SelfHosted",
 				"description": "Connection US SugarCRM",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ZenDesk')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
 				"typeProperties": {}
 			},
 			"dependsOn": []

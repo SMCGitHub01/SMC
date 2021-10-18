@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
 		},
+		"ZendeskDownload_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ZendeskDownload'"
+		},
 		"staggingadfsmc_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
@@ -26,6 +30,14 @@
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"ZendeskDownload_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+		},
+		"ZendeskDownload_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "aquapro-dmn\\rdel-admin"
 		},
 		"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
@@ -68,6 +80,9 @@
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
 					},
+					"ZendeskDownload_password": {
+						"value": "[parameters('ZendeskDownload_password')]"
+					},
 					"KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
 					},
@@ -76,6 +91,12 @@
 					},
 					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
+					},
+					"ZendeskDownload_properties_typeProperties_host": {
+						"value": "[parameters('ZendeskDownload_properties_typeProperties_host')]"
+					},
+					"ZendeskDownload_properties_typeProperties_userId": {
+						"value": "[parameters('ZendeskDownload_properties_typeProperties_userId')]"
 					},
 					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
