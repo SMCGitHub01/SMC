@@ -9,8 +9,7 @@
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
-				"type": "FileServerLocation",
-				"fileName": "DWHZendeskExport.zip"
+				"type": "FileServerLocation"
 			},
 			"compression": {
 				"type": "ZipDeflate",
