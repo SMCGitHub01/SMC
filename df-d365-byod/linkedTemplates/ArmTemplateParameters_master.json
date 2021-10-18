@@ -27,7 +27,7 @@
 			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
 		},
 		"ZendeskDownload_properties_typeProperties_userId": {
-			"value": "aquapro-dmn\\rdel-admin"
+			"value": "AMSSRV011\\DWHZendesk"
 		},
 		"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 			"value": "BlobStorageDevelopment"

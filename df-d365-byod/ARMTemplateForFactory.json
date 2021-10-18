@@ -37,7 +37,7 @@
 		},
 		"ZendeskDownload_properties_typeProperties_userId": {
 			"type": "string",
-			"defaultValue": "aquapro-dmn\\rdel-admin"
+			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
