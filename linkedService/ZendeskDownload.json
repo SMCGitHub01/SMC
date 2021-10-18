@@ -6,8 +6,8 @@
 		"type": "FileServer",
 		"typeProperties": {
 			"host": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH",
-			"userId": "aquapro-dmn\\rdel-admin",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIxNDUxYjdmMC1kZmZjLTRlYzAtOTcxZS1mODZkYTg0YWRmNmEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"userId": "AMSSRV011\\DWHZendesk",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjMTBiMGE3ZS01NzY0LTRhNjktODY5Zi01NDc5YjU3YWFmMjUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ZenDesk",
