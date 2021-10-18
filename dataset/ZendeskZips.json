@@ -1,5 +1,5 @@
 {
-	"name": "zips",
+	"name": "ZendeskZips",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ZendeskDownload",
