@@ -457,8 +457,6 @@
 						"container": "dwh-zendesk"
 					},
 					"columnDelimiter": ",",
-					"compressionCodec": "ZipDeflate",
-					"compressionLevel": "Optimal",
 					"escapeChar": "\\",
 					"quoteChar": "\""
 				},
@@ -483,6 +481,8 @@
 						"fileName": "DWHZendeskExport.zip"
 					},
 					"columnDelimiter": ",",
+					"compressionCodec": "ZipDeflate",
+					"compressionLevel": "Fastest",
 					"escapeChar": "\\",
 					"firstRowAsHeader": false,
 					"quoteChar": "\""

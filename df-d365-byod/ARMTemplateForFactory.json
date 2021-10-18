@@ -6867,7 +6867,10 @@
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
+									"type": "DelimitedTextReadSettings",
+									"compressionProperties": {
+										"type": "ZipDeflateReadSettings"
+									}
 								}
 							},
 							"sink": {
@@ -7773,8 +7776,6 @@
 						"container": "dwh-zendesk"
 					},
 					"columnDelimiter": ",",
-					"compressionCodec": "ZipDeflate",
-					"compressionLevel": "Optimal",
 					"escapeChar": "\\",
 					"quoteChar": "\""
 				},
@@ -7801,6 +7802,8 @@
 						"fileName": "DWHZendeskExport.zip"
 					},
 					"columnDelimiter": ",",
+					"compressionCodec": "ZipDeflate",
+					"compressionLevel": "Fastest",
 					"escapeChar": "\\",
 					"firstRowAsHeader": false,
 					"quoteChar": "\""
