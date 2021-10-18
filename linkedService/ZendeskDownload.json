@@ -6,8 +6,8 @@
 		"type": "FileServer",
 		"typeProperties": {
 			"host": "\\\\amssrv011",
-			"userId": "rdel-admin@aquapro.nl",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJhZGEyNmU0Yi03YjRkLTRlZDYtYmEzNi1iZjk3M2YzMTBkYTUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"userId": "aquapro-dmn\\rdel-admin",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjYjNkNTgyOC1lMzkzLTQ1MGQtODZjZC01ODY3YmRhNGMwZTMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ZenDesk",
