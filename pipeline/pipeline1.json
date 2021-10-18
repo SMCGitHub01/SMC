@@ -32,15 +32,7 @@
 					"sink": {
 						"type": "BinarySink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings",
-							"metadata": [
-								{
-									"value": "$$LASTMODIFIED"
-								},
-								{
-									"value": "$$LASTMODIFIED"
-								}
-							]
+							"type": "AzureBlobStorageWriteSettings"
 						}
 					},
 					"enableStaging": false
