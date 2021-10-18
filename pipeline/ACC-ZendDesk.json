@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "ACC-ZendDesk",
 	"properties": {
 		"activities": [
 			{
@@ -58,7 +58,7 @@
 			}
 		],
 		"folder": {
-			"name": "ACC-Process_DWH"
+			"name": "ACC-Zendesk"
 		},
 		"annotations": []
 	}
