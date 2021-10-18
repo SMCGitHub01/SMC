@@ -6860,37 +6860,39 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "BinarySource",
+								"type": "DelimitedTextSource",
 								"storeSettings": {
 									"type": "FileServerReadSettings",
 									"recursive": true,
-									"deleteFilesAfterCompletion": false
+									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
-									"type": "BinaryReadSettings",
-									"compressionProperties": {
-										"type": "ZipDeflateReadSettings"
-									}
+									"type": "DelimitedTextReadSettings"
 								}
 							},
 							"sink": {
-								"type": "BinarySink",
+								"type": "DelimitedTextSink",
 								"storeSettings": {
 									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
 								}
 							},
 							"enableStaging": false
 						},
 						"inputs": [
 							{
-								"referenceName": "ZendeskZips",
+								"referenceName": "Zendesk",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "Binary1",
+								"referenceName": "ZendeskUnzip",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -6907,8 +6909,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ZendeskZips')]",
-				"[concat(variables('factoryId'), '/datasets/Binary1')]"
+				"[concat(variables('factoryId'), '/datasets/Zendesk')]",
+				"[concat(variables('factoryId'), '/datasets/ZendeskUnzip')]"
 			]
 		},
 		{
@@ -7338,28 +7340,6 @@
 					"quoteChar": "\""
 				},
 				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Binary1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Binary",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "dwh-zendesk"
-					}
-				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
@@ -7808,29 +7788,34 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ZendeskZips')]",
+			"name": "[concat(parameters('factoryName'), '/ZendeskUnzip')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "ZendeskDownload",
+					"referenceName": "blobstoragescm",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "Binary",
+				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
-						"type": "FileServerLocation",
-						"fileName": "DWHZendeskExport.zip"
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "DWHZendeskExport.zip",
+						"container": "dwh-zendesk"
 					},
-					"compression": {
-						"type": "ZipDeflate",
-						"level": "Fastest"
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
 					}
-				}
+				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
 			]
 		},
 		{
