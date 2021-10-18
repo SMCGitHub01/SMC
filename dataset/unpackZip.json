@@ -1,0 +1,21 @@
+{
+	"name": "unpackZip",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blobstoragescm",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "dwh-zendesk"
+			},
+			"compression": {
+				"type": "deflate",
+				"level": "Fastest"
+			}
+		}
+	}
+}
