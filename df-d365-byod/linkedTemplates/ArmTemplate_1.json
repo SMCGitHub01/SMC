@@ -487,6 +487,8 @@
 						"container": "dwh-zendesk"
 					},
 					"columnDelimiter": ",",
+					"compressionCodec": "ZipDeflate",
+					"compressionLevel": "Fastest",
 					"escapeChar": "\\",
 					"quoteChar": "\""
 				},
