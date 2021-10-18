@@ -6892,7 +6892,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "ZendeskUnzip",
+								"referenceName": "Unzip",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -6910,7 +6910,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/Zendesk')]",
-				"[concat(variables('factoryId'), '/datasets/ZendeskUnzip')]"
+				"[concat(variables('factoryId'), '/datasets/Unzip')]"
 			]
 		},
 		{
@@ -7757,6 +7757,34 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Unzip')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "dwh-zendesk"
+					},
+					"columnDelimiter": ",",
+					"compressionCodec": "ZipDeflate",
+					"compressionLevel": "Optimal",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Zendesk')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -7785,38 +7813,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ZendeskUnzip')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "dwh-zendesk"
-					},
-					"columnDelimiter": ",",
-					"compressionCodec": "deflate",
-					"compressionLevel": "Optimal",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
 			]
 		},
 		{

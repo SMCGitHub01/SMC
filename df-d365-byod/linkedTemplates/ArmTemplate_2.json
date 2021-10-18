@@ -3022,7 +3022,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "ZendeskUnzip",
+								"referenceName": "Unzip",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
