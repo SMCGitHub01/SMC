@@ -10,12 +10,11 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "DWHZendeskExport.zip",
 				"container": "dwh-zendesk"
 			},
 			"columnDelimiter": ",",
-			"compressionCodec": "ZipDeflate",
-			"compressionLevel": "Fastest",
+			"compressionCodec": "deflate",
+			"compressionLevel": "Optimal",
 			"escapeChar": "\\",
 			"quoteChar": "\""
 		},
