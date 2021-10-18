@@ -13,8 +13,6 @@
 				"container": "dwh-zendesk"
 			},
 			"columnDelimiter": ",",
-			"compressionCodec": "ZipDeflate",
-			"compressionLevel": "Optimal",
 			"escapeChar": "\\",
 			"quoteChar": "\""
 		},
