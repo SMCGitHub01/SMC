@@ -19,6 +19,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "FileServerReadSettings",
+							"fileListPath": "DWHZendeskExport.zip",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
