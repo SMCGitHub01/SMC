@@ -6841,13 +6841,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"name": "[concat(parameters('factoryName'), '/ACC-ZendDesk')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "ImportToBlob",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -6908,7 +6908,7 @@
 					"cancelAfter": {}
 				},
 				"folder": {
-					"name": "ACC-Process_DWH"
+					"name": "ACC-Zendesk"
 				},
 				"annotations": []
 			},
