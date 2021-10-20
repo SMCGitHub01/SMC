@@ -53,7 +53,7 @@
 						"referenceName": "ACC_Zendesk_Blob",
 						"type": "DatasetReference",
 						"parameters": {
-							"CSVFile": "@{pipeline().parameters.CSVFile}"
+							"CSVFile": "TicketsCreated.csv"
 						}
 					}
 				],
