@@ -50,11 +50,8 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ACC_IFS_SalesInvoices",
-						"type": "DatasetReference",
-						"parameters": {
-							"CSVFile": "@{pipeline().parameters.CSVFile}"
-						}
+						"referenceName": "ACC_Zendesk_Blob",
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
