@@ -90,13 +90,13 @@
 					},
 					"activities": [
 						{
-							"name": "IFS_SalesInvoice",
+							"name": "zenDeskTickets",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "ACC_IFS_SalesInvoice",
+									"referenceName": "ACC_ZenDesk_Tickets",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
