@@ -3512,7 +3512,7 @@
 								"referenceName": "ACC_Zendesk_Blob",
 								"type": "DatasetReference",
 								"parameters": {
-									"CSVFile": "TicketsCreated.csv"
+									"CSVFile": "@{pipeline().parameters.CSVFile}"
 								}
 							}
 						],
@@ -7613,7 +7613,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": " @dataset().CSVFile",
+						"fileName": "TicketsCreated.csv",
 						"container": "dwh-zendesk"
 					},
 					"columnDelimiter": ";",

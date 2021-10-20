@@ -68,7 +68,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": " @dataset().CSVFile",
+						"fileName": "TicketsCreated.csv",
 						"container": "dwh-zendesk"
 					},
 					"columnDelimiter": ";",
