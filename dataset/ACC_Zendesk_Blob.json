@@ -15,10 +15,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().CSVFile",
-					"type": "Expression"
-				},
+				"fileName": "TicketsCreated.csv",
 				"container": "dwh-zendesk"
 			},
 			"columnDelimiter": ";",
@@ -28,6 +25,39 @@
 		},
 		"schema": [
 			{
+				"name": "Naam van ticketorganisatie",
+				"type": "String"
+			},
+			{
+				"name": "Ticket-id",
+				"type": "String"
+			},
+			{
+				"name": "Ticketgroep",
+				"type": "String"
+			},
+			{
+				"name": "Ticket gemaakt - Datum",
+				"type": "String"
+			},
+			{
+				"name": "Ticket opgelost - Datum",
+				"type": "String"
+			},
+			{
+				"name": "Naam van medewerker",
+				"type": "String"
+			},
+			{
+				"name": "Id van medewerker",
+				"type": "String"
+			},
+			{
+				"name": "Debiteurnummer",
+				"type": "String"
+			},
+			{
+				"name": "Tickets",
 				"type": "String"
 			}
 		]
