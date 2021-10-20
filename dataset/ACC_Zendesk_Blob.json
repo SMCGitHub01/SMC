@@ -1,0 +1,32 @@
+{
+	"name": "ACC_Zendesk_Blob",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blobstoragescm",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"CSVFile": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": " @dataset().CSVFile",
+				"container": "dwh-zendesk"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			}
+		]
+	}
+}
