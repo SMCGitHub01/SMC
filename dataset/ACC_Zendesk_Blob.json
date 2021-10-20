@@ -15,7 +15,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "TicketsCreated.csv",
+				"fileName": {
+					"value": "@dataset().CSVfile",
+					"type": "Expression"
+				},
 				"container": "dwh-zendesk"
 			},
 			"columnDelimiter": ";",
