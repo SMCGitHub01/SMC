@@ -5,6 +5,9 @@
 			"referenceName": "blobstoragescm",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "ACC&PRD"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
