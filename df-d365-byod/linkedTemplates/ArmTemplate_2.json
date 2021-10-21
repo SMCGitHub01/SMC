@@ -549,7 +549,7 @@
 										"source": {
 											"type": "AzureSqlSource",
 											"sqlReaderQuery": {
-												"value": "SELECT @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}  WHERE ModifiedDateTime >= DATEADD(DAY, -5, GETDATE())",
+												"value": "SELECT @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}  --WHERE ModifiedDateTime >= DATEADD(DAY, -5, GETDATE())",
 												"type": "Expression"
 											},
 											"partitionOption": "None"
@@ -3334,6 +3334,29 @@
 							"activities": [
 								{
 									"name": "Execute_Pipeline",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "ACC_Materialize_Views",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"LoadGroupID": {
+												"value": "@{Item().LoadGroupID}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											}
+										}
+									}
+								},
+								{
+									"name": "Execute_Pipeline_copy1",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
 									"userProperties": [],
