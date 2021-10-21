@@ -1926,7 +1926,7 @@
 						}
 					},
 					{
-						"name": "spFactSalesOrders_999",
+						"name": "spFactSalesOrders_Hist",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
@@ -1945,7 +1945,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[[process].[spFactSalesOrders_999]"
+							"storedProcedureName": "[[process].[spFactSalesOrders_History]"
 						},
 						"linkedServiceName": {
 							"referenceName": "Azure_D365_DEV",
