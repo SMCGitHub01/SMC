@@ -553,7 +553,14 @@
 					{
 						"name": "Lookup_Current_Sync_And_Date",
 						"type": "Lookup",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "ACC_ZendDesk_ToBlob",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -669,6 +676,20 @@
 									}
 								}
 							]
+						}
+					},
+					{
+						"name": "ACC_ZendDesk_ToBlob",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ACC_ZendDesk_ToBlob",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
 						}
 					}
 				],
@@ -1484,6 +1505,12 @@
 								"dependencyConditions": [
 									"Succeeded"
 								]
+							},
+							{
+								"activity": "ACC_Process_Zendesk",
+								"dependencyConditions": [
+									"Succeeded"
+								]
 							}
 						],
 						"policy": {
@@ -1924,6 +1951,27 @@
 							"referenceName": "Azure_D365_DEV",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "ACC_Process_Zendesk",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ACC_Process_Zendesk",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
@@ -1937,7 +1985,8 @@
 				"lastPublishTime": "2020-12-10T13:46:15Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ACC_Process_IFS_Stage')]"
+				"[concat(variables('factoryId'), '/pipelines/ACC_Process_IFS_Stage')]",
+				"[concat(variables('factoryId'), '/pipelines/ACC_Process_Zendesk')]"
 			]
 		},
 		{
