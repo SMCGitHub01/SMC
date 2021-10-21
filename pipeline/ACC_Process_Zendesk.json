@@ -5,7 +5,14 @@
 			{
 				"name": "Lookup_Current_Sync_And_Date",
 				"type": "Lookup",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "ACC_ZendDesk_ToBlob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -121,6 +128,19 @@
 							}
 						}
 					]
+				}
+			},
+			{
+				"name": "ACC_ZendDesk_ToBlob",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ACC_ZendDesk_ToBlob",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
