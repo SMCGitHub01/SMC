@@ -627,7 +627,7 @@
 						}
 					},
 					{
-						"name": "ForEach IFS_SalesInvoice",
+						"name": "ForEach zendesk",
 						"type": "ForEach",
 						"dependsOn": [
 							{
@@ -690,6 +690,33 @@
 							},
 							"waitOnCompletion": true,
 							"parameters": {}
+						}
+					},
+					{
+						"name": "fill_dwhZendesk",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "ForEach zendesk",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dwh].[FactZendeskTickets_INCR_77]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_DEV",
+							"type": "LinkedServiceReference"
 						}
 					}
 				],
