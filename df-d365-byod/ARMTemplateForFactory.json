@@ -1184,7 +1184,7 @@
 										"source": {
 											"type": "AzureSqlSource",
 											"sqlReaderQuery": {
-												"value": "SELECT @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName} \n WHERE ModifiedDateTime >= DATEADD(DAY, -5, GETDATE())",
+												"value": "SELECT  @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName} \n WHERE ModifiedDateTime >= DATEADD(DAY, -5, GETDATE())",
 												"type": "Expression"
 											},
 											"partitionOption": "None"
