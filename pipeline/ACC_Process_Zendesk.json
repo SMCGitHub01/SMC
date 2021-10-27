@@ -163,7 +163,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dwh].[FactZendeskTickets_INCR_77]"
+					"storedProcedureName": "[dwh].[FactZendeskTickets_INCR]"
 				},
 				"linkedServiceName": {
 					"referenceName": "Azure_D365_DEV",
