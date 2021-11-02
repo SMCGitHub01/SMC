@@ -232,6 +232,46 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "spFactSalesOrders_Hist",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[process].[spFactSalesOrders_History]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "ACC-Zendesk"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACCPRD_SugarCRM')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -573,50 +613,6 @@
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_IFS_Products')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"WorkSheet": {
-						"type": "string"
-					},
-					"Excelfile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC"
-				},
-				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": {
-						"value": "@dataset().Worksheet",
-						"type": "Expression"
-					},
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().Excelfile",
-							"type": "Expression"
-						},
-						"container": "dwh-ifs-products"
-					},
-					"range": "",
-					"firstRowAsHeader": true
 				},
 				"schema": []
 			},
