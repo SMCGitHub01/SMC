@@ -522,6 +522,26 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "Process Zendesk",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Lookup_Current_Sync_And_Date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ACC_Process_Zendesk",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"folder": {
