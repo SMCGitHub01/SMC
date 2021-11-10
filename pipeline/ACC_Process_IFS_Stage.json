@@ -91,13 +91,13 @@
 					"isSequential": false,
 					"activities": [
 						{
-							"name": "IFS_InventoryTransactions",
+							"name": "IFS_Products",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "ACC_IFS_InventoryTransactions",
+									"referenceName": "ACC_IFS_Products",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -568,13 +568,13 @@
 					"isSequential": false,
 					"activities": [
 						{
-							"name": "IFS_Products_copy1",
+							"name": "IFS_InventoryTransactions",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "ACC_IFS_Products",
+									"referenceName": "ACC_IFS_InventoryTransactions",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
