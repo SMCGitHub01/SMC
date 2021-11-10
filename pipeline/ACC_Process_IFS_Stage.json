@@ -565,7 +565,7 @@
 						"value": "@activity('Lookup_Full_ExcelFiles_IFS_InventoryTransactions').output.value",
 						"type": "Expression"
 					},
-					"isSequential": false,
+					"isSequential": true,
 					"activities": [
 						{
 							"name": "IFS_InventoryTransactions",
