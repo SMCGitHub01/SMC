@@ -36,7 +36,14 @@
 						},
 						"disableMetricsCollection": false
 					},
-					"enableStaging": false,
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "blobstoragescm",
+							"type": "LinkedServiceReference"
+						},
+						"enableCompression": true
+					},
 					"translator": {
 						"type": "TabularTranslator",
 						"typeConversion": true,
