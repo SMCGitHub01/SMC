@@ -19,7 +19,8 @@
 						"type": "ExcelSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
+							"maxConcurrentConnections": 1,
+							"recursive": false,
 							"wildcardFileName": {
 								"value": "@{pipeline().parameters.Excelfile}",
 								"type": "Expression"
