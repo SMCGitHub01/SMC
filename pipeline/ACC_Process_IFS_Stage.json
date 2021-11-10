@@ -579,14 +579,6 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"Worksheet": {
-										"value": "@{Item().SourceSchemaName}",
-										"type": "Expression"
-									},
-									"Excelfile": {
-										"value": "@{Item().SourceTableName}",
-										"type": "Expression"
-									},
 									"StartDateTime": {
 										"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
 										"type": "Expression"

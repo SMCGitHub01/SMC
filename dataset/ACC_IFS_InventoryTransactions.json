@@ -1,15 +1,12 @@
 {
-	"name": "ACC_IFS_InventoryTransactionsxls",
+	"name": "ACC_IFS_InventoryTransactions",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "blobstoragescm",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"WorkSheet": {
-				"type": "string"
-			},
-			"Excelfile": {
+			"CSVFile": {
 				"type": "string"
 			}
 		},
@@ -17,22 +14,20 @@
 			"name": "ACC"
 		},
 		"annotations": [],
-		"type": "Excel",
+		"type": "DelimitedText",
 		"typeProperties": {
-			"sheetName": {
-				"value": "@dataset().Worksheet",
-				"type": "Expression"
-			},
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@dataset().Excelfile",
+					"value": "@dataset().CSVFile",
 					"type": "Expression"
 				},
 				"container": "dwh-ifs-inventorytransactions"
 			},
-			"range": "",
-			"firstRowAsHeader": true
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
 		},
 		"schema": []
 	},

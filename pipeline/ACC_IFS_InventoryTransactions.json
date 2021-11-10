@@ -16,16 +16,18 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "ExcelSource",
+						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"maxConcurrentConnections": 1,
-							"recursive": false,
+							"recursive": true,
 							"wildcardFileName": {
-								"value": "@{pipeline().parameters.Excelfile}",
+								"value": "@{pipeline().parameters.CSVFile}",
 								"type": "Expression"
 							},
 							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -36,14 +38,7 @@
 						},
 						"disableMetricsCollection": false
 					},
-					"enableStaging": true,
-					"stagingSettings": {
-						"linkedServiceName": {
-							"referenceName": "blobstoragescm",
-							"type": "LinkedServiceReference"
-						},
-						"enableCompression": true
-					},
+					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
 						"typeConversion": true,
@@ -59,8 +54,7 @@
 						"referenceName": "ACC_IFS_InventoryTransactions",
 						"type": "DatasetReference",
 						"parameters": {
-							"WorkSheet": "@{pipeline().parameters.Worksheet}",
-							"Excelfile": "@{pipeline().parameters.ExcelFile}"
+							"CSVFile": "@{pipeline().parameters.CSVFile}"
 						}
 					}
 				],
@@ -77,10 +71,7 @@
 			}
 		],
 		"parameters": {
-			"Worksheet": {
-				"type": "string"
-			},
-			"Excelfile": {
+			"CSVFile": {
 				"type": "string"
 			},
 			"StartDateTime": {
