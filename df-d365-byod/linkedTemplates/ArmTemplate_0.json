@@ -581,7 +581,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ACC_IFS_Products')]",
+			"name": "[concat(parameters('factoryName'), '/ACC_IFS_InventoryTransactions')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -590,10 +590,7 @@
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
-					"WorkSheet": {
-						"type": "string"
-					},
-					"Excelfile": {
+					"CSVFile": {
 						"type": "string"
 					}
 				},
@@ -601,22 +598,20 @@
 					"name": "ACC"
 				},
 				"annotations": [],
-				"type": "Excel",
+				"type": "DelimitedText",
 				"typeProperties": {
-					"sheetName": {
-						"value": "@dataset().Worksheet",
-						"type": "Expression"
-					},
 					"location": {
 						"type": "AzureBlobStorageLocation",
 						"fileName": {
-							"value": "@dataset().Excelfile",
+							"value": "@dataset().CSVFile",
 							"type": "Expression"
 						},
-						"container": "dwh-ifs-products"
+						"container": "dwh-ifs-inventorytransactions"
 					},
-					"range": "",
-					"firstRowAsHeader": true
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
 				},
 				"schema": []
 			},

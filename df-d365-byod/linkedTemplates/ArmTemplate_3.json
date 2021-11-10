@@ -798,7 +798,7 @@
 						}
 					},
 					{
-						"name": "Lookup_Full_ExcelFiles_IFS_InventoryTransactions",
+						"name": "Lookup_Full_CSVFiles_IFS_InventoryTransactions",
 						"description": "Lookup the tables from the source database which are used in the full copy.",
 						"type": "Lookup",
 						"dependsOn": [
@@ -842,7 +842,7 @@
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Lookup_Full_ExcelFiles_IFS_InventoryTransactions",
+								"activity": "Lookup_Full_CSVFiles_IFS_InventoryTransactions",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -851,10 +851,10 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Lookup_Full_ExcelFiles_IFS_InventoryTransactions').output.value",
+								"value": "@activity('Lookup_Full_CSVFiles_IFS_InventoryTransactions').output.value",
 								"type": "Expression"
 							},
-							"isSequential": false,
+							"isSequential": true,
 							"activities": [
 								{
 									"name": "IFS_InventoryTransactions",
@@ -868,11 +868,7 @@
 										},
 										"waitOnCompletion": true,
 										"parameters": {
-											"Worksheet": {
-												"value": "@{Item().SourceSchemaName}",
-												"type": "Expression"
-											},
-											"Excelfile": {
+											"CSVFile": {
 												"value": "@{Item().SourceTableName}",
 												"type": "Expression"
 											},
