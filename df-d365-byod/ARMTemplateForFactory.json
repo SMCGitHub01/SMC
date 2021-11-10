@@ -2581,6 +2581,7 @@
 								"value": "@activity('Lookup_Full_ExcelFiles_IFS_Products').output.value",
 								"type": "Expression"
 							},
+							"isSequential": false,
 							"activities": [
 								{
 									"name": "IFS_Products",
@@ -2625,12 +2626,6 @@
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Lookup_Full_ExcelFiles_IFS_Products",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
 								"activity": "Lookup_Full_ExcelFiles_IFS_GLAccounts",
 								"dependencyConditions": [
 									"Succeeded"
@@ -2643,6 +2638,7 @@
 								"value": "@activity('Lookup_Full_ExcelFiles_IFS_GLAccounts').output.value",
 								"type": "Expression"
 							},
+							"isSequential": false,
 							"activities": [
 								{
 									"name": "IFS_GLAccounts",
@@ -2687,12 +2683,6 @@
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Lookup_Full_ExcelFiles_IFS_Products",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
 								"activity": "Lookup_Full_ExcelFiles_IFS_Customer",
 								"dependencyConditions": [
 									"Succeeded"
@@ -2705,6 +2695,7 @@
 								"value": "@activity('Lookup_Full_ExcelFiles_IFS_Customer').output.value",
 								"type": "Expression"
 							},
+							"isSequential": false,
 							"activities": [
 								{
 									"name": "IFS_Customer",
@@ -2881,6 +2872,7 @@
 								"value": "@activity('Lookup_Full_CSVFiles_IFS_SalesInvoice').output.value",
 								"type": "Expression"
 							},
+							"isSequential": false,
 							"activities": [
 								{
 									"name": "IFS_SalesInvoice",
@@ -2973,6 +2965,7 @@
 								"value": "@activity('Lookup_Full_CSVFiles_IFS_GLTransActions').output.value",
 								"type": "Expression"
 							},
+							"isSequential": false,
 							"activities": [
 								{
 									"name": "IFS_GLTransActions",
@@ -2987,6 +2980,103 @@
 										"waitOnCompletion": true,
 										"parameters": {
 											"CSVFile": {
+												"value": "@{Item().SourceTableName}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											},
+											"TargetTableName": {
+												"value": "@{Item().TargetTableName}",
+												"type": "Expression"
+											},
+											"TargetSchemaName": {
+												"value": "@{Item().TargetSchemaName}",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_Full_ExcelFiles_IFS_InventoryTransactions",
+						"description": "Lookup the tables from the source database which are used in the full copy.",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 16 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach IFS_InventoryTransactions",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Full_ExcelFiles_IFS_InventoryTransactions",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Full_ExcelFiles_IFS_InventoryTransactions').output.value",
+								"type": "Expression"
+							},
+							"isSequential": false,
+							"activities": [
+								{
+									"name": "IFS_InventoryTransactions",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "ACC_IFS_InventoryTransactions",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"Worksheet": {
+												"value": "@{Item().SourceSchemaName}",
+												"type": "Expression"
+											},
+											"Excelfile": {
 												"value": "@{Item().SourceTableName}",
 												"type": "Expression"
 											},
@@ -3025,7 +3115,8 @@
 				"[concat(variables('factoryId'), '/pipelines/ACC_IFS_GLAccounts')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_IFS_Customer')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_IFS_SalesInvoice')]",
-				"[concat(variables('factoryId'), '/pipelines/ACC_IFS_GLTransActions')]"
+				"[concat(variables('factoryId'), '/pipelines/ACC_IFS_GLTransActions')]",
+				"[concat(variables('factoryId'), '/pipelines/ACC_IFS_InventoryTransactions')]"
 			]
 		},
 		{
@@ -8500,6 +8591,154 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_IFS_InventoryTransactions')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"WorkSheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Worksheet",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().Excelfile",
+							"type": "Expression"
+						},
+						"container": "dwh-ifs-inventorytransactions"
+					},
+					"range": "",
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_IFS_InventoryTransactions')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "IFS_InventoryTransactions",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": false,
+									"wildcardFileName": {
+										"value": "@{pipeline().parameters.Excelfile}",
+										"type": "Expression"
+									},
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": {
+									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
+									"type": "Expression"
+								},
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false,
+									"culture": "nl-nl"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ACC_IFS_InventoryTransactions",
+								"type": "DatasetReference",
+								"parameters": {
+									"WorkSheet": "@{pipeline().parameters.Worksheet}",
+									"Excelfile": "@{pipeline().parameters.ExcelFile}"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
+									"TableName": "@{pipeline().parameters.TargetTableName}"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Worksheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					},
+					"StartDateTime": {
+						"type": "string"
+					},
+					"TargetTableName": {
+						"type": "string"
+					},
+					"TargetSchemaName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC-IFS"
+				},
+				"annotations": [],
+				"lastPublishTime": "2020-12-10T13:46:04Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ACC_IFS_InventoryTransactions')]",
+				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]"
+			]
 		}
 	]
 }
