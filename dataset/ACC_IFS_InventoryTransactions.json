@@ -1,0 +1,40 @@
+{
+	"name": "ACC_IFS_InventoryTransactions",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "blobstoragescm",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"WorkSheet": {
+				"type": "string"
+			},
+			"Excelfile": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ACC"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": {
+				"value": "@dataset().Worksheet",
+				"type": "Expression"
+			},
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().Excelfile",
+					"type": "Expression"
+				},
+				"container": "dwh-ifs-inventorytransactions"
+			},
+			"range": "",
+			"firstRowAsHeader": true
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
