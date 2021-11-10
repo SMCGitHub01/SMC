@@ -88,15 +88,16 @@
 						"value": "@activity('Lookup_Full_ExcelFiles_IFS_Products').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
-							"name": "IFS_Products",
+							"name": "IFS_InventoryTransactions",
 							"type": "ExecutePipeline",
 							"dependsOn": [],
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "ACC_IFS_Products",
+									"referenceName": "ACC_IFS_InventoryTransactions",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -144,6 +145,7 @@
 						"value": "@activity('Lookup_Full_ExcelFiles_IFS_GLAccounts').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "IFS_GLAccounts",
@@ -200,6 +202,7 @@
 						"value": "@activity('Lookup_Full_ExcelFiles_IFS_Customer').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "IFS_Customer",
@@ -376,6 +379,7 @@
 						"value": "@activity('Lookup_Full_CSVFiles_IFS_SalesInvoice').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "IFS_SalesInvoice",
@@ -468,6 +472,7 @@
 						"value": "@activity('Lookup_Full_CSVFiles_IFS_GLTransActions').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "IFS_GLTransActions",
@@ -560,6 +565,7 @@
 						"value": "@activity('Lookup_Full_ExcelFiles_IFS_InventoryTransactions').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "IFS_Products_copy1",
