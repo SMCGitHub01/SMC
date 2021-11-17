@@ -5918,7 +5918,7 @@
 						}
 					},
 					{
-						"name": "spFactSalesOrders_Hist",
+						"name": "spLoadDataAfterFullLoad",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
@@ -5937,7 +5937,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[[process].[spFactSalesOrders_History]"
+							"storedProcedureName": "[[process].[spLoadDataAfterFullLoad]"
 						},
 						"linkedServiceName": {
 							"referenceName": "Azure_D365_PROD",
