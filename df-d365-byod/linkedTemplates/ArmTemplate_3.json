@@ -2341,7 +2341,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "ACC_ZenDesk_Tickets",
+											"referenceName": "PRD_ZenDesk_Tickets",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
@@ -2420,7 +2420,9 @@
 				"annotations": [],
 				"lastPublishTime": "2020-12-10T13:46:15Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PRD_ZenDesk_Tickets')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_Process_Customers_IFS')]",
