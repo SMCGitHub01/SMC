@@ -4258,7 +4258,7 @@
 							"storedProcedureName": "[[process].[FactZendeskTickets_INCR]"
 						},
 						"linkedServiceName": {
-							"referenceName": "Azure_D365_DEV",
+							"referenceName": "Azure_D365_PROD",
 							"type": "LinkedServiceReference"
 						}
 					}
@@ -4276,7 +4276,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_ZendDesk_ToBlob')]",
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]",
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_ZenDesk_Tickets')]"
 			]
 		},
