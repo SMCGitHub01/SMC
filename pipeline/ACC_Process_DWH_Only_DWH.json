@@ -93,7 +93,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "ACC_Materialize_Views",
+									"referenceName": "ACC_Materialize_Views_copy1",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
