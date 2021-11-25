@@ -54,78 +54,9 @@
 					"batchCount": 4,
 					"activities": [
 						{
-							"name": "Materialize_Full_Views",
-							"type": "Copy",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [
-								{
-									"name": "Source",
-									"value": "@{concat(item().SourceSchemaName, '.', item().SourceTableName)}"
-								},
-								{
-									"name": "Destination",
-									"value": "@{concat(item().TargetSchemaName, '.', item().TargetTableName)}"
-								}
-							],
-							"typeProperties": {
-								"source": {
-									"type": "AzureSqlSource",
-									"sqlReaderQuery": {
-										"value": "SELECT @{item().SourceConnectionID} as HSO_DnA_SourceConnectionID, @{item().TargetMappingID} as HSO_DnA_TargetMappingID, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_InsertDateTime, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_UpdateDateTime, null as HSO_DnA_DeleteDateTime, @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}",
-										"type": "Expression"
-									},
-									"partitionOption": "None"
-								},
-								"sink": {
-									"type": "AzureSqlSink",
-									"writeBatchSize": 1000000,
-									"preCopyScript": {
-										"value": "TRUNCATE TABLE @{item().TargetSchemaName}.@{item().TargetTableName}",
-										"type": "Expression"
-									},
-									"disableMetricsCollection": false
-								},
-								"enableStaging": false
-							},
-							"inputs": [
-								{
-									"referenceName": "ACC_BYOD_DEV_DS",
-									"type": "DatasetReference",
-									"parameters": {
-										"SchemaName": "@{item().SourceSchemaName}",
-										"TableName": "@{item().SourceTableName}"
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "ACC_BYOD_DEV_DS",
-									"type": "DatasetReference",
-									"parameters": {
-										"SchemaName": "@{item().TargetSchemaName}",
-										"TableName": "@{item().TargetTableName}"
-									}
-								}
-							]
-						},
-						{
-							"name": "Update_Target_Mapping",
+							"name": "Stored procedure1",
 							"type": "SqlServerStoredProcedure",
-							"dependsOn": [
-								{
-									"activity": "Materialize_Full_Views",
-									"dependencyConditions": [
-										"Succeeded"
-									]
-								}
-							],
+							"dependsOn": [],
 							"policy": {
 								"timeout": "7.00:00:00",
 								"retry": 0,
@@ -135,21 +66,11 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"storedProcedureName": "[process].[UpdateTargetMapping]",
+								"storedProcedureName": "[process].[FullLoadDWHTable]",
 								"storedProcedureParameters": {
-									"GetStartDate": {
-										"value": {
-											"value": "@pipeline().parameters.StartDateTime",
-											"type": "Expression"
-										},
-										"type": "DateTime"
-									},
-									"TargetMappingID": {
-										"value": {
-											"value": "@{item().TargetMappingID}",
-											"type": "Expression"
-										},
-										"type": "Int32"
+									"TableName": {
+										"value": "@{item().SourceTableName}",
+										"type": "String"
 									}
 								}
 							},
