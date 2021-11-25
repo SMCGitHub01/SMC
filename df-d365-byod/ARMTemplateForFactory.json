@@ -8081,13 +8081,13 @@
 							"source": {
 								"type": "AzureSqlSource",
 								"sqlReaderQuery": {
-									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 16 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 16 ",
 									"type": "Expression"
 								},
 								"partitionOption": "None"
 							},
 							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
+								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dummy",
@@ -8203,6 +8203,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_ZendDesk_ToBlob')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_ZenDesk_Tickets')]"
