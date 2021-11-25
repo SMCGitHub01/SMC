@@ -103,7 +103,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "ACC_ZenDesk_Tickets",
+									"referenceName": "PRD_ZenDesk_Tickets",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
