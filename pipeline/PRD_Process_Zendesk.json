@@ -162,11 +162,8 @@
 					"secureInput": false
 				},
 				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[process].[FactZendeskTickets_INCR]"
-				},
 				"linkedServiceName": {
-					"referenceName": "Azure_D365_DEV",
+					"referenceName": "Azure_D365_PROD",
 					"type": "LinkedServiceReference"
 				}
 			}
