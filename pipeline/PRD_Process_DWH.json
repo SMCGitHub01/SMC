@@ -502,6 +502,26 @@
 					"referenceName": "Azure_D365_PROD",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "process Zendesk",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Lookup_Current_Sync_And_Date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PRD_Process_Zendesk",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"folder": {
