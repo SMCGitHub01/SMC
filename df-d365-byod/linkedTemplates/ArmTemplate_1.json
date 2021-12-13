@@ -717,7 +717,8 @@
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
-						"type": "FileServerLocation"
+						"type": "FileServerLocation",
+						"fileName": "dbo.View_Test.csv"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
