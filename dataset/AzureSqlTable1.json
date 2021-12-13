@@ -1,0 +1,81 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Azure_D365_DEV",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "HSO_DnA_SourceConnectionID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "HSO_DnA_TargetMappingID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "HSO_DnA_InsertDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "HSO_DnA_UpdateDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "HSO_DnA_DeleteDateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "ConsignmentWarehouse_YN",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DataAreaID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LocationBK",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LocationID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LocationName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LocationType",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Site",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Source",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WMSLocationId",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dwh",
+			"table": "DimLocation"
+		}
+	}
+}
