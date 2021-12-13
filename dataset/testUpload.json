@@ -1,5 +1,5 @@
 {
-	"name": "Zendesk_copy1",
+	"name": "testUpload",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ZendeskDownload",
