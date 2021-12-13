@@ -75,7 +75,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "SalesPriceAgreementStaging"
+			"table": "View_Test"
 		}
 	}
 }
