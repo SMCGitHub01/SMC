@@ -74,8 +74,8 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "dwh",
-			"table": "DimLocation"
+			"schema": "dbo",
+			"table": "SalesPriceAgreementStaging"
 		}
 	}
 }
