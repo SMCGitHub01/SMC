@@ -1,0 +1,28 @@
+{
+	"name": "Zendesk_copy1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ZendeskDownload",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "ACC&PRD"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			}
+		]
+	}
+}
