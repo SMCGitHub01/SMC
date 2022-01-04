@@ -23,7 +23,7 @@
 					"sink": {
 						"type": "DelimitedTextSink",
 						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
+							"type": "FileServerWriteSettings"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
@@ -49,11 +49,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ACC_Zendesk_Blob",
-						"type": "DatasetReference",
-						"parameters": {
-							"CSVFile": "xxx"
-						}
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
 					}
 				]
 			}
