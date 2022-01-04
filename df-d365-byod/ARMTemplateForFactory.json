@@ -8453,8 +8453,7 @@
 							"sink": {
 								"type": "DelimitedTextSink",
 								"storeSettings": {
-									"type": "FileServerWriteSettings",
-									"copyBehavior": "FlattenHierarchy"
+									"type": "FileServerWriteSettings"
 								},
 								"formatSettings": {
 									"type": "DelimitedTextWriteSettings",
