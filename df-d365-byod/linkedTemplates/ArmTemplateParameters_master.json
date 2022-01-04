@@ -27,10 +27,10 @@
 			"value": "DWHConnectionStringPRD"
 		},
 		"Invent_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
+			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
 		},
 		"Invent_properties_typeProperties_userId": {
-			"value": "smc-admin-byod-dta"
+			"value": "AMSSRV011\\DWHZendesk"
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"

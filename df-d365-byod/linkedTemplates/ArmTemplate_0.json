@@ -11,13 +11,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
-		"Invent_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Invent'"
-		},
 		"staggingadfsmc_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
+		},
+		"Invent_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Invent'"
 		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
@@ -26,14 +26,6 @@
 		"ZendeskDownload_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ZendeskDownload'"
-		},
-		"Invent_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
-		},
-		"Invent_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "smc-admin-byod-dta"
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -46,6 +38,14 @@
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringPRD"
+		},
+		"Invent_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+		},
+		"Invent_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"ZendeskDownload_properties_typeProperties_host": {
 			"type": "string",
@@ -77,24 +77,6 @@
 				"type": "AzureSqlMI",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureSqlMI1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Invent')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "FileServer",
-				"typeProperties": {
-					"host": "[parameters('Invent_properties_typeProperties_host')]",
-					"userId": "[parameters('Invent_properties_typeProperties_userId')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('Invent_password')]"
-					}
 				}
 			},
 			"dependsOn": []
@@ -165,32 +147,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Invent",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation",
-						"fileName": "invent.csv"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Invent')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Azure_D365_DEV')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -232,6 +188,30 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Invent')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('Invent_properties_typeProperties_host')]",
+					"userId": "[parameters('Invent_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Invent_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ZenDesk",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ZenDesk')]"
 			]
 		},
 		{
@@ -320,81 +300,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/QueryOut')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SqlMISource",
-								"sqlReaderQuery": "WITH laatstesalesorder\nAS (SELECT ProductBK,\n           ISNULL(MAX(ConfirmationDate), CAST('19000101' AS DATE)) dt\n    FROM dbo.vwSalesOrderExplsion\n    GROUP BY ProductBK),\n     aataldagengeleden\nAS (SELECT s.ProductBK,\n           DATEDIFF(DAY, GETDATE(), s.dt) dagen\n    FROM laatstesalesorder s)\nSELECT --[LocationName],\n    SUM(PhysicalInventory) voorraad,\n    SUM(inv.PhysicalReservedQuantity) reserved,\n    SUM(inv.TotalAvailableQuantity) Available,\n    ISNULL(MAX(dagen), -5000) AS dagen,\n    pr.ProductNumber\nFROM [dwh].FactAvailableQuantity inv\n    INNER JOIN dwh.DimLocation\n        ON DimLocation.LocationBK = inv.DimLocationBK\n    INNER JOIN dwh.DimProduct pr\n        ON inv.DimProductBK = pr.ProductBK\n    LEFT JOIN aataldagengeleden d\n        ON d.ProductBK = pr.ProductBK\nWHERE LocationID IN ( 'EIN', 'WOM' )\nGROUP BY pr.ProductNumber;",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "FileServerWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "AzureSqlMITable1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DelimitedText2",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "OUT-PRD"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/AzureSqlMITable1')]",
-				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]"
 			]
 		},
 		{
@@ -573,6 +478,94 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_Distributeur')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"WorkSheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Worksheet",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().Excelfile",
+							"type": "Expression"
+						},
+						"container": "dwhdistributielijsten"
+					},
+					"range": "",
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_IFS_Customer')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"WorkSheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": {
+						"value": "@dataset().Worksheet",
+						"type": "Expression"
+					},
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().Excelfile",
+							"type": "Expression"
+						},
+						"container": "dwh-ifs-customers"
+					},
+					"range": "",
+					"firstRowAsHeader": true
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
 			]
 		}
 	]

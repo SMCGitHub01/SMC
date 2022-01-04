@@ -37,11 +37,11 @@
 		},
 		"Invent_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
 		},
 		"Invent_properties_typeProperties_userId": {
 			"type": "string",
-			"defaultValue": "smc-admin-byod-dta"
+			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -9885,9 +9885,15 @@
 						"type": "SecureString",
 						"value": "[parameters('Invent_password')]"
 					}
+				},
+				"connectVia": {
+					"referenceName": "ZenDesk",
+					"type": "IntegrationRuntimeReference"
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ZenDesk')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/KeyVault')]",
