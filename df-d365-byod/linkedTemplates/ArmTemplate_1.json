@@ -422,7 +422,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "invent.txt"
+						"fileName": "invent.csv"
 					},
 					"columnDelimiter": ";",
 					"escapeChar": "\\",

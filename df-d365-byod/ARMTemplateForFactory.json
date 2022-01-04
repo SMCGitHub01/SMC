@@ -37,7 +37,7 @@
 		},
 		"Invent_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\"
 		},
 		"Invent_properties_typeProperties_userId": {
 			"type": "string",
@@ -9305,7 +9305,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "invent.txt"
+						"fileName": "invent.csv"
 					},
 					"columnDelimiter": ";",
 					"escapeChar": "\\",
