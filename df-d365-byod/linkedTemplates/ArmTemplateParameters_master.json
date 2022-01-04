@@ -8,6 +8,9 @@
 		"AzureSqlMI1_connectionString": {
 			"value": ""
 		},
+		"Invent_password": {
+			"value": ""
+		},
 		"SugarCRM_Production_connectionString": {
 			"value": ""
 		},
@@ -22,6 +25,12 @@
 		},
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"value": "DWHConnectionStringPRD"
+		},
+		"Invent_properties_typeProperties_host": {
+			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
+		},
+		"Invent_properties_typeProperties_userId": {
+			"value": "smc-admin-byod-dta"
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"

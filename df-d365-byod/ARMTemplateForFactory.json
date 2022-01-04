@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
+		"Invent_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Invent'"
+		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
@@ -30,6 +34,14 @@
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringPRD"
+		},
+		"Invent_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
+		},
+		"Invent_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "smc-admin-byod-dta"
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -8468,7 +8480,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "DelimitedText1",
+								"referenceName": "DelimitedText2",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -8486,7 +8498,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/AzureSqlMITable1')]",
-				"[concat(variables('factoryId'), '/datasets/DelimitedText1')]"
+				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]"
 			]
 		},
 		{
@@ -9267,6 +9279,32 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Invent",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "invent.csv"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Invent')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_BYOD_DS')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -9832,6 +9870,24 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Invent')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('Invent_properties_typeProperties_host')]",
+					"userId": "[parameters('Invent_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Invent_password')]"
+					}
+				}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/KeyVault')]",

@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
+		"Invent_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Invent'"
+		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
@@ -30,6 +34,14 @@
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringPRD"
+		},
+		"Invent_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
+		},
+		"Invent_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "smc-admin-byod-dta"
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -81,6 +93,9 @@
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
+					"Invent_password": {
+						"value": "[parameters('Invent_password')]"
+					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
 					},
@@ -89,6 +104,12 @@
 					},
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"Invent_properties_typeProperties_host": {
+						"value": "[parameters('Invent_properties_typeProperties_host')]"
+					},
+					"Invent_properties_typeProperties_userId": {
+						"value": "[parameters('Invent_properties_typeProperties_userId')]"
 					},
 					"KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
