@@ -21,9 +21,14 @@
 						"partitionOption": "None"
 					},
 					"sink": {
-						"type": "BinarySink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
 							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false
@@ -36,7 +41,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "Binary1",
+						"referenceName": "DelimitedText2",
 						"type": "DatasetReference"
 					}
 				]
