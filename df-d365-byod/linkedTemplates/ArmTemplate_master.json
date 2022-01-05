@@ -37,7 +37,7 @@
 		},
 		"Invent_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\"
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
 		},
 		"Invent_properties_typeProperties_userId": {
 			"type": "string",

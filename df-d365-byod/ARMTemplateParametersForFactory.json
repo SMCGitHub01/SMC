@@ -27,7 +27,7 @@
 			"value": "DWHConnectionStringPRD"
 		},
 		"Invent_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\"
+			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
 		},
 		"Invent_properties_typeProperties_userId": {
 			"value": "AMSSRV011\\DWHZendesk"
