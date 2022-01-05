@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "invent.csv"
+				"fileName": "invent.txt",
+				"folderPath": "FO/INVENT"
 			},
 			"columnDelimiter": ";",
 			"escapeChar": "\\",
