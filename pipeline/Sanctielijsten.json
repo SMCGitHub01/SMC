@@ -382,6 +382,34 @@
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
+							},
+							{
+								"sink": {
+									"name": "column30",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"sink": {
+									"name": "column31",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"sink": {
+									"name": "column32",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"sink": {
+									"name": "column33",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
 							}
 						],
 						"typeConversion": true,
