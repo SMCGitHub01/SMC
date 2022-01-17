@@ -16,14 +16,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "JsonSource",
+						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "JsonReadSettings"
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -36,36 +36,6 @@
 						"type": "TabularTranslator",
 						"mappings": [
 							{
-								"source": {
-									"path": "$['results'][0]['start_date']"
-								},
-								"sink": {
-									"name": "start_date",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['results'][0]['standard_order']"
-								},
-								"sink": {
-									"name": "standard_order",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['results'][0]['source_list_url']"
-								},
-								"sink": {
-									"name": "source_list_url",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['results'][0]['id']"
-								},
 								"sink": {
 									"name": "id",
 									"type": "String"
@@ -73,50 +43,48 @@
 							},
 							{
 								"source": {
-									"path": "$['results'][0]['addresses'][0]['country']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['results'][0]['addresses'][0]['postal_code']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['results'][0]['addresses'][0]['state']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['results'][0]['addresses'][0]['city']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['results'][0]['addresses'][0]['address']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['results'][0]['end_date']"
+									"name": "source",
+									"type": "String"
 								},
 								"sink": {
-									"name": "end_date",
+									"name": "source",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"path": "$['results'][0]['federal_register_notice']"
+									"name": "entity_number",
+									"type": "String"
 								},
 								"sink": {
-									"name": "federal_register_notice",
+									"name": "entity_number",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"path": "$['results'][0]['name']"
+									"name": "type",
+									"type": "String"
+								},
+								"sink": {
+									"name": "type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "programs",
+									"type": "String"
+								},
+								"sink": {
+									"name": "programs",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "name",
+									"type": "String"
 								},
 								"sink": {
 									"name": "name",
@@ -125,7 +93,148 @@
 							},
 							{
 								"source": {
-									"path": "$['results'][0]['remarks']"
+									"name": "title",
+									"type": "String"
+								},
+								"sink": {
+									"name": "title",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "addresses",
+									"type": "String"
+								},
+								"sink": {
+									"name": "addresses",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "federal_register_notice",
+									"type": "String"
+								},
+								"sink": {
+									"name": "federal_register_notice",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "start_date",
+									"type": "String"
+								},
+								"sink": {
+									"name": "start_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "end_date",
+									"type": "String"
+								},
+								"sink": {
+									"name": "end_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "standard_order",
+									"type": "String"
+								},
+								"sink": {
+									"name": "standard_order",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "license_requirement",
+									"type": "String"
+								},
+								"sink": {
+									"name": "license_requirement",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "license_policy",
+									"type": "String"
+								},
+								"sink": {
+									"name": "license_policy",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "call_sign",
+									"type": "String"
+								},
+								"sink": {
+									"name": "call_sign",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "vessel_type",
+									"type": "String"
+								},
+								"sink": {
+									"name": "vessel_type",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "gross_tonnage",
+									"type": "String"
+								},
+								"sink": {
+									"name": "gross_tonnage",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "gross_registered_tonnage",
+									"type": "String"
+								},
+								"sink": {
+									"name": "gross_registered_tonnage",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "vessel_flag",
+									"type": "String"
+								},
+								"sink": {
+									"name": "vessel_flag",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "vessel_owner",
+									"type": "String"
+								},
+								"sink": {
+									"name": "vessel_owner",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "remarks",
+									"type": "String"
 								},
 								"sink": {
 									"name": "remarks",
@@ -134,16 +243,68 @@
 							},
 							{
 								"source": {
-									"path": "$['results'][0]['source']"
+									"name": "source_list_url",
+									"type": "String"
 								},
 								"sink": {
-									"name": "source",
+									"name": "source_list_url",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"path": "$['results'][0]['source_information_url']"
+									"name": "alt_names",
+									"type": "String"
+								},
+								"sink": {
+									"name": "alt_names",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "citizenships",
+									"type": "String"
+								},
+								"sink": {
+									"name": "citizenships",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "dates_of_birth",
+									"type": "String"
+								},
+								"sink": {
+									"name": "dates_of_birth",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "nationalities",
+									"type": "String"
+								},
+								"sink": {
+									"name": "nationalities",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "places_of_birth",
+									"type": "String"
+								},
+								"sink": {
+									"name": "places_of_birth",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "source_information_url",
+									"type": "String"
 								},
 								"sink": {
 									"name": "source_information_url",
@@ -152,50 +313,20 @@
 							},
 							{
 								"source": {
-									"path": "$['search_performed_at']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['sources_used'][0]['last_imported']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['sources_used'][0]['source_last_updated']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['sources_used'][0]['source']"
+									"name": "ids",
+									"type": "String"
 								},
 								"sink": {
-									"name": "source",
+									"name": "ids",
 									"type": "String"
 								}
-							},
-							{
-								"source": {
-									"path": "$['sources_used'][0]['import_rate']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['offset']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['total']"
-								}
 							}
-						],
-						"mapComplexValuesToString": true
+						]
 					}
 				},
 				"inputs": [
 					{
-						"referenceName": "Json1",
+						"referenceName": "sanctielijsten",
 						"type": "DatasetReference"
 					}
 				],
