@@ -13,6 +13,106 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_BudgetDirectSales')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "BudgetDirectSalesFiles",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": false,
+									"wildcardFileName": {
+										"value": "@{pipeline().parameters.Excelfile}",
+										"type": "Expression"
+									},
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": {
+									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
+									"type": "Expression"
+								},
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BudgetDirectSales",
+								"type": "DatasetReference",
+								"parameters": {
+									"WorkSheet": "@{pipeline().parameters.Worksheet}",
+									"Excelfile": "@{pipeline().parameters.Excelfile}"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
+									"TableName": "@{pipeline().parameters.TargetTableName}"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Worksheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					},
+					"StartDateTime": {
+						"type": "string"
+					},
+					"TargetTableName": {
+						"type": "string"
+					},
+					"TargetSchemaName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD-Process_DWH"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-03-27T14:05:41Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_BudgetInDirectSales')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1988,14 +2088,14 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "DelimitedTextSource",
+								"type": "JsonSource",
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
+									"type": "JsonReadSettings"
 								}
 							},
 							"sink": {
@@ -2009,363 +2109,175 @@
 								"mappings": [
 									{
 										"source": {
-											"name": "_id",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['start_date']"
+										},
+										"sink": {
+											"name": "start_date",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['results'][0]['standard_order']"
+										},
+										"sink": {
+											"name": "standard_order",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['results'][0]['source_list_url']"
+										},
+										"sink": {
+											"name": "source_list_url",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['results'][0]['id']"
 										},
 										"sink": {
 											"name": "id",
-											"type": "String",
-											"physicalType": "nvarchar"
+											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "source",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['addresses'][0]['country']"
 										},
-										"sink": {
-											"name": "source",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
+										"sink": {}
 									},
 									{
 										"source": {
-											"name": "entity_number",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['addresses'][0]['postal_code']"
 										},
-										"sink": {
-											"name": "entity_number",
-											"type": "Int32",
-											"physicalType": "int"
-										}
+										"sink": {}
 									},
 									{
 										"source": {
-											"name": "type",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['addresses'][0]['state']"
 										},
-										"sink": {
-											"name": "type",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
+										"sink": {}
 									},
 									{
 										"source": {
-											"name": "programs",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['addresses'][0]['city']"
 										},
-										"sink": {
-											"name": "programs",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
+										"sink": {}
 									},
 									{
 										"source": {
-											"name": "name",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['addresses'][0]['address']"
 										},
-										"sink": {
-											"name": "name",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
+										"sink": {}
 									},
 									{
 										"source": {
-											"name": "title",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "title",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "addresses",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "addresses",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "federal_register_notice",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "federal_register_notice",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "start_date",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "start_date",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "end_date",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['end_date']"
 										},
 										"sink": {
 											"name": "end_date",
-											"type": "String",
-											"physicalType": "nvarchar"
+											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "standard_order",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['federal_register_notice']"
 										},
 										"sink": {
-											"name": "standard_order",
-											"type": "String",
-											"physicalType": "nvarchar"
+											"name": "federal_register_notice",
+											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "license_requirement",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['name']"
 										},
 										"sink": {
-											"name": "license_requirement",
-											"type": "String",
-											"physicalType": "nvarchar"
+											"name": "name",
+											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "license_policy",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "license_policy",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "call_sign",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "call_sign",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "vessel_type",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "vessel_type",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "gross_tonnage",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "gross_tonnage",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "gross_registered_tonnage",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "gross_registered_tonnage",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "vessel_flag",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "vessel_flag",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "vessel_owner",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "vessel_owner",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "remarks",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['remarks']"
 										},
 										"sink": {
 											"name": "remarks",
-											"type": "String",
-											"physicalType": "nvarchar"
+											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "source_list_url",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['source']"
 										},
 										"sink": {
-											"name": "source_list_url",
-											"type": "String",
-											"physicalType": "nvarchar"
+											"name": "source",
+											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "alt_names",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "alt_names",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "citizenships",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "citizenships",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "dates_of_birth",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "dates_of_birth",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "nationalities",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "nationalities",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "places_of_birth",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "places_of_birth",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "source_information_url",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['results'][0]['source_information_url']"
 										},
 										"sink": {
 											"name": "source_information_url",
-											"type": "String",
-											"physicalType": "nvarchar"
+											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "ids",
-											"type": "String",
-											"physicalType": "String"
+											"path": "$['search_performed_at']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['sources_used'][0]['last_imported']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['sources_used'][0]['source_last_updated']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['sources_used'][0]['source']"
 										},
 										"sink": {
-											"name": "ids",
-											"type": "String",
-											"physicalType": "nvarchar"
+											"name": "source",
+											"type": "String"
 										}
+									},
+									{
+										"source": {
+											"path": "$['sources_used'][0]['import_rate']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['offset']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['total']"
+										},
+										"sink": {}
 									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
+								]
 							}
 						},
 						"inputs": [
 							{
-								"referenceName": "sanctielijsten",
+								"referenceName": "Json1",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -3564,137 +3476,6 @@
 				"lastPublishTime": "2020-12-10T13:46:15Z"
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Process_DWH_Only')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_Current_Sync_And_Date",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							}
-						}
-					},
-					{
-						"name": "Lookup_Load_Group",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT DISTINCT LoadgroupID, LoadOrder FROM process.ProcessView WHERE SourceConnectionID = 1 ORDER BY LoadOrder",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "For_Each_Load_Group",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Load_Group",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Load_Group').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Execute_Pipeline",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "PRD_Materialize_Views",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"LoadGroupID": {
-												"value": "@{Item().LoadGroupID}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "PRD-Process_DWH"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-03-28T07:41:14Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PRD_Materialize_Views')]"
-			]
 		}
 	]
 }

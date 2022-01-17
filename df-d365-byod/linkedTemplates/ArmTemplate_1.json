@@ -434,6 +434,122 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Json1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "cons.json",
+						"container": "sanctielijsten"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"results": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"start_date": {
+										"type": "string"
+									},
+									"standard_order": {
+										"type": "string"
+									},
+									"source_list_url": {
+										"type": "string"
+									},
+									"id": {
+										"type": "string"
+									},
+									"addresses": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"country": {
+													"type": "string"
+												},
+												"postal_code": {
+													"type": "string"
+												},
+												"state": {
+													"type": "string"
+												},
+												"city": {
+													"type": "string"
+												},
+												"address": {
+													"type": "string"
+												}
+											}
+										}
+									},
+									"end_date": {
+										"type": "string"
+									},
+									"federal_register_notice": {
+										"type": "string"
+									},
+									"name": {
+										"type": "string"
+									},
+									"remarks": {
+										"type": "string"
+									},
+									"source": {
+										"type": "string"
+									},
+									"source_information_url": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"search_performed_at": {
+							"type": "string"
+						},
+						"sources_used": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"last_imported": {
+										"type": "string"
+									},
+									"source_last_updated": {
+										"type": "string"
+									},
+									"source": {
+										"type": "string"
+									},
+									"import_rate": {
+										"type": "string"
+									}
+								}
+							}
+						},
+						"offset": {
+							"type": "integer"
+						},
+						"total": {
+							"type": "integer"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_BYOD_DS')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -782,43 +898,6 @@
 					},
 					"range": "",
 					"firstRowAsHeader": true
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_IFS_SalesInvoices')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragesmcprd",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"CSVFile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "PRD"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().CSVFile",
-							"type": "Expression"
-						},
-						"container": "dwh-ifs-salesinvoice"
-					},
-					"columnDelimiter": ";",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
 				},
 				"schema": []
 			},

@@ -13,6 +13,43 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_IFS_SalesInvoices')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragesmcprd",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"CSVFile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().CSVFile",
+							"type": "Expression"
+						},
+						"container": "dwh-ifs-salesinvoice"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Unzip')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -2890,106 +2927,6 @@
 				"[concat(variables('factoryId'), '/datasets/Zendesk')]",
 				"[concat(variables('factoryId'), '/datasets/Unzip')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_BudgetDirectSales')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "BudgetDirectSalesFiles",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "ExcelSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": false,
-									"wildcardFileName": {
-										"value": "@{pipeline().parameters.Excelfile}",
-										"type": "Expression"
-									},
-									"enablePartitionDiscovery": false
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": {
-									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
-									"type": "Expression"
-								},
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "PRD_BudgetDirectSales",
-								"type": "DatasetReference",
-								"parameters": {
-									"WorkSheet": "@{pipeline().parameters.Worksheet}",
-									"Excelfile": "@{pipeline().parameters.Excelfile}"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
-									"TableName": "@{pipeline().parameters.TargetTableName}"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"Worksheet": {
-						"type": "string"
-					},
-					"Excelfile": {
-						"type": "string"
-					},
-					"StartDateTime": {
-						"type": "string"
-					},
-					"TargetTableName": {
-						"type": "string"
-					},
-					"TargetSchemaName": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "PRD-Process_DWH"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-03-27T14:05:41Z"
-			},
-			"dependsOn": []
 		}
 	]
 }
