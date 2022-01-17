@@ -361,7 +361,7 @@
 							},
 							{
 								"source": {
-									"name": "source_information_url",
+									"name": "source",
 									"type": "String",
 									"physicalType": "String"
 								},
@@ -384,6 +384,11 @@
 								}
 							},
 							{
+								"source": {
+									"name": "ids",
+									"type": "String",
+									"physicalType": "String"
+								},
 								"sink": {
 									"name": "column30",
 									"type": "String",
@@ -391,6 +396,11 @@
 								}
 							},
 							{
+								"source": {
+									"name": "ids",
+									"type": "String",
+									"physicalType": "String"
+								},
 								"sink": {
 									"name": "column31",
 									"type": "String",
@@ -398,6 +408,11 @@
 								}
 							},
 							{
+								"source": {
+									"name": "ids",
+									"type": "String",
+									"physicalType": "String"
+								},
 								"sink": {
 									"name": "column32",
 									"type": "String",
@@ -405,6 +420,11 @@
 								}
 							},
 							{
+								"source": {
+									"name": "ids",
+									"type": "String",
+									"physicalType": "String"
+								},
 								"sink": {
 									"name": "column33",
 									"type": "String",
