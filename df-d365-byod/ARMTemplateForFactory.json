@@ -8534,6 +8534,16 @@
 								"mappings": [
 									{
 										"source": {
+											"name": "_id",
+											"type": "String"
+										},
+										"sink": {
+											"name": "id",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
 											"name": "source",
 											"type": "String"
 										},
@@ -10159,10 +10169,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "cons.csv",
+						"fileName": "consolidated.csv",
 						"container": "sanctielijsten"
 					},
-					"columnDelimiter": ";",
+					"columnDelimiter": ",",
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
 					"quoteChar": "\""

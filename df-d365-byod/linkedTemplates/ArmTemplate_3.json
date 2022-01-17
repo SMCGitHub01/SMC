@@ -2009,6 +2009,16 @@
 								"mappings": [
 									{
 										"source": {
+											"name": "_id",
+											"type": "String"
+										},
+										"sink": {
+											"name": "id",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
 											"name": "source",
 											"type": "String"
 										},
