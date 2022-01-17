@@ -2272,7 +2272,8 @@
 										},
 										"sink": {}
 									}
-								]
+								],
+								"mapComplexValuesToString": true
 							}
 						},
 						"inputs": [

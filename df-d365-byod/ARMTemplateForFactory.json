@@ -8697,7 +8697,8 @@
 										},
 										"sink": {}
 									}
-								]
+								],
+								"mapComplexValuesToString": true
 							}
 						},
 						"inputs": [
