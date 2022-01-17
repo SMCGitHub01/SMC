@@ -16,14 +16,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "JsonSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
+							"type": "JsonReadSettings"
 						}
 					},
 					"sink": {
@@ -37,363 +37,164 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "_id",
-									"type": "String",
-									"physicalType": "String"
+									"path": "$['results'][0]['start_date']"
+								},
+								"sink": {
+									"name": "start_date",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['results'][0]['standard_order']"
+								},
+								"sink": {
+									"name": "standard_order",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['results'][0]['source_list_url']"
+								},
+								"sink": {
+									"name": "source_list_url",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['results'][0]['id']"
 								},
 								"sink": {
 									"name": "id",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "source",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "source",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"path": "$['results'][0]['addresses'][0]['country']"
 								}
 							},
 							{
 								"source": {
-									"name": "entity_number",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "entity_number",
-									"type": "Int32",
-									"physicalType": "int"
+									"path": "$['results'][0]['addresses'][0]['postal_code']"
 								}
 							},
 							{
 								"source": {
-									"name": "type",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "type",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"path": "$['results'][0]['addresses'][0]['state']"
 								}
 							},
 							{
 								"source": {
-									"name": "programs",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "programs",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"path": "$['results'][0]['addresses'][0]['city']"
 								}
 							},
 							{
 								"source": {
-									"name": "name",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "name",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"path": "$['results'][0]['addresses'][0]['address']"
 								}
 							},
 							{
 								"source": {
-									"name": "title",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "title",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "addresses",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "addresses",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "federal_register_notice",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "federal_register_notice",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "start_date",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "start_date",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "end_date",
-									"type": "String",
-									"physicalType": "String"
+									"path": "$['results'][0]['end_date']"
 								},
 								"sink": {
 									"name": "end_date",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "standard_order",
-									"type": "String",
-									"physicalType": "String"
+									"path": "$['results'][0]['federal_register_notice']"
 								},
 								"sink": {
-									"name": "standard_order",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "federal_register_notice",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "license_requirement",
-									"type": "String",
-									"physicalType": "String"
+									"path": "$['results'][0]['name']"
 								},
 								"sink": {
-									"name": "license_requirement",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "name",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "license_policy",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "license_policy",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "call_sign",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "call_sign",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "vessel_type",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "vessel_type",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "gross_tonnage",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "gross_tonnage",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "gross_registered_tonnage",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "gross_registered_tonnage",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "vessel_flag",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "vessel_flag",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "vessel_owner",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "vessel_owner",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "remarks",
-									"type": "String",
-									"physicalType": "String"
+									"path": "$['results'][0]['remarks']"
 								},
 								"sink": {
 									"name": "remarks",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "source_list_url",
-									"type": "String",
-									"physicalType": "String"
+									"path": "$['results'][0]['source']"
 								},
 								"sink": {
-									"name": "source_list_url",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "source",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "alt_names",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "alt_names",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "citizenships",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "citizenships",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "dates_of_birth",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "dates_of_birth",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "nationalities",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "nationalities",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "places_of_birth",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "places_of_birth",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "source_information_url",
-									"type": "String",
-									"physicalType": "String"
+									"path": "$['results'][0]['source_information_url']"
 								},
 								"sink": {
 									"name": "source_information_url",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "ids",
-									"type": "String",
-									"physicalType": "String"
+									"path": "$['search_performed_at']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sources_used'][0]['last_imported']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sources_used'][0]['source_last_updated']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sources_used'][0]['source']"
 								},
 								"sink": {
-									"name": "ids",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "source",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['sources_used'][0]['import_rate']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['offset']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total']"
 								}
 							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
+						]
 					}
 				},
 				"inputs": [
 					{
-						"referenceName": "sanctielijsten",
+						"referenceName": "Json1",
 						"type": "DatasetReference"
 					}
 				],
