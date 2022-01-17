@@ -361,7 +361,7 @@
 							},
 							{
 								"source": {
-									"name": "source",
+									"name": "source_information_url",
 									"type": "String",
 									"physicalType": "String"
 								},
@@ -379,54 +379,6 @@
 								},
 								"sink": {
 									"name": "ids",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "ids",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "column30",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "ids",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "column31",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "ids",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "column32",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "ids",
-									"type": "String",
-									"physicalType": "String"
-								},
-								"sink": {
-									"name": "column33",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
