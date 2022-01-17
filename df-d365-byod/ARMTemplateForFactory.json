@@ -8513,14 +8513,14 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "JsonSource",
+								"type": "DelimitedTextSource",
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
-									"type": "JsonReadSettings"
+									"type": "DelimitedTextReadSettings"
 								}
 							},
 							"sink": {
@@ -8534,91 +8534,48 @@
 								"mappings": [
 									{
 										"source": {
-											"path": "$['results'][0]['start_date']"
+											"name": "source",
+											"type": "String"
 										},
 										"sink": {
-											"name": "start_date",
+											"name": "source",
 											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"path": "$['results'][0]['standard_order']"
+											"name": "entity_number",
+											"type": "String"
 										},
 										"sink": {
-											"name": "standard_order",
+											"name": "entity_number",
 											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"path": "$['results'][0]['source_list_url']"
+											"name": "type",
+											"type": "String"
 										},
 										"sink": {
-											"name": "source_list_url",
+											"name": "type",
 											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"path": "$['results'][0]['id']"
+											"name": "programs",
+											"type": "String"
 										},
 										"sink": {
-											"name": "id",
+											"name": "programs",
 											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"path": "$['results'][0]['addresses'][0]['country']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
-											"path": "$['results'][0]['addresses'][0]['postal_code']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
-											"path": "$['results'][0]['addresses'][0]['state']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
-											"path": "$['results'][0]['addresses'][0]['city']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
-											"path": "$['results'][0]['addresses'][0]['address']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
-											"path": "$['results'][0]['end_date']"
-										},
-										"sink": {
-											"name": "end_date",
+											"name": "name",
 											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['results'][0]['federal_register_notice']"
-										},
-										"sink": {
-											"name": "federal_register_notice",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['results'][0]['name']"
 										},
 										"sink": {
 											"name": "name",
@@ -8627,7 +8584,148 @@
 									},
 									{
 										"source": {
-											"path": "$['results'][0]['remarks']"
+											"name": "title",
+											"type": "String"
+										},
+										"sink": {
+											"name": "title",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "addresses",
+											"type": "String"
+										},
+										"sink": {
+											"name": "addresses",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "federal_register_notice",
+											"type": "String"
+										},
+										"sink": {
+											"name": "federal_register_notice",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "start_date",
+											"type": "String"
+										},
+										"sink": {
+											"name": "start_date",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "end_date",
+											"type": "String"
+										},
+										"sink": {
+											"name": "end_date",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "standard_order",
+											"type": "String"
+										},
+										"sink": {
+											"name": "standard_order",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "license_requirement",
+											"type": "String"
+										},
+										"sink": {
+											"name": "license_requirement",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "license_policy",
+											"type": "String"
+										},
+										"sink": {
+											"name": "license_policy",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "call_sign",
+											"type": "String"
+										},
+										"sink": {
+											"name": "call_sign",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "vessel_type",
+											"type": "String"
+										},
+										"sink": {
+											"name": "vessel_type",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "gross_tonnage",
+											"type": "String"
+										},
+										"sink": {
+											"name": "gross_tonnage",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "gross_registered_tonnage",
+											"type": "String"
+										},
+										"sink": {
+											"name": "gross_registered_tonnage",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "vessel_flag",
+											"type": "String"
+										},
+										"sink": {
+											"name": "vessel_flag",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "vessel_owner",
+											"type": "String"
+										},
+										"sink": {
+											"name": "vessel_owner",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "remarks",
+											"type": "String"
 										},
 										"sink": {
 											"name": "remarks",
@@ -8636,16 +8734,68 @@
 									},
 									{
 										"source": {
-											"path": "$['results'][0]['source']"
+											"name": "source_list_url",
+											"type": "String"
 										},
 										"sink": {
-											"name": "source",
+											"name": "source_list_url",
 											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"path": "$['results'][0]['source_information_url']"
+											"name": "alt_names",
+											"type": "String"
+										},
+										"sink": {
+											"name": "alt_names",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "citizenships",
+											"type": "String"
+										},
+										"sink": {
+											"name": "citizenships",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "dates_of_birth",
+											"type": "String"
+										},
+										"sink": {
+											"name": "dates_of_birth",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "nationalities",
+											"type": "String"
+										},
+										"sink": {
+											"name": "nationalities",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "places_of_birth",
+											"type": "String"
+										},
+										"sink": {
+											"name": "places_of_birth",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "source_information_url",
+											"type": "String"
 										},
 										"sink": {
 											"name": "source_information_url",
@@ -8654,56 +8804,20 @@
 									},
 									{
 										"source": {
-											"path": "$['search_performed_at']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
-											"path": "$['sources_used'][0]['last_imported']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
-											"path": "$['sources_used'][0]['source_last_updated']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
-											"path": "$['sources_used'][0]['source']"
+											"name": "ids",
+											"type": "String"
 										},
 										"sink": {
-											"name": "source",
+											"name": "ids",
 											"type": "String"
 										}
-									},
-									{
-										"source": {
-											"path": "$['sources_used'][0]['import_rate']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
-											"path": "$['offset']"
-										},
-										"sink": {}
-									},
-									{
-										"source": {
-											"path": "$['total']"
-										},
-										"sink": {}
 									}
-								],
-								"mapComplexValuesToString": true
+								]
 							}
 						},
 						"inputs": [
 							{
-								"referenceName": "Json1",
+								"referenceName": "sanctielijsten",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -8726,7 +8840,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Json1')]",
+				"[concat(variables('factoryId'), '/datasets/sanctielijsten')]",
 				"[concat(variables('factoryId'), '/datasets/ACC_DWH_Dynamic_DataSet')]"
 			]
 		},
@@ -9553,124 +9667,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/Invent')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Json1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "cons.json",
-						"container": "sanctielijsten"
-					}
-				},
-				"schema": {
-					"type": "object",
-					"properties": {
-						"results": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"start_date": {
-										"type": "string"
-									},
-									"standard_order": {
-										"type": "string"
-									},
-									"source_list_url": {
-										"type": "string"
-									},
-									"id": {
-										"type": "string"
-									},
-									"addresses": {
-										"type": "array",
-										"items": {
-											"type": "object",
-											"properties": {
-												"country": {
-													"type": "string"
-												},
-												"postal_code": {
-													"type": "string"
-												},
-												"state": {
-													"type": "string"
-												},
-												"city": {
-													"type": "string"
-												},
-												"address": {
-													"type": "string"
-												}
-											}
-										}
-									},
-									"end_date": {
-										"type": "string"
-									},
-									"federal_register_notice": {
-										"type": "string"
-									},
-									"name": {
-										"type": "string"
-									},
-									"remarks": {
-										"type": "string"
-									},
-									"source": {
-										"type": "string"
-									},
-									"source_information_url": {
-										"type": "string"
-									}
-								}
-							}
-						},
-						"search_performed_at": {
-							"type": "string"
-						},
-						"sources_used": {
-							"type": "array",
-							"items": {
-								"type": "object",
-								"properties": {
-									"last_imported": {
-										"type": "string"
-									},
-									"source_last_updated": {
-										"type": "string"
-									},
-									"source": {
-										"type": "string"
-									},
-									"import_rate": {
-										"type": "string"
-									}
-								}
-							}
-						},
-						"offset": {
-							"type": "integer"
-						},
-						"total": {
-							"type": "integer"
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
 			]
 		},
 		{
