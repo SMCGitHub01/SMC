@@ -8535,6 +8535,16 @@
 								"mappings": [
 									{
 										"source": {
+											"name": "_id",
+											"type": "String"
+										},
+										"sink": {
+											"name": "id",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
 											"name": "source",
 											"type": "String"
 										},
@@ -8800,6 +8810,16 @@
 										},
 										"sink": {
 											"name": "source_information_url",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "ids",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ids",
 											"type": "String"
 										}
 									}
