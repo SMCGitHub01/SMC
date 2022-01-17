@@ -189,7 +189,8 @@
 									"path": "$['total']"
 								}
 							}
-						]
+						],
+						"mapComplexValuesToString": true
 					}
 				},
 				"inputs": [
