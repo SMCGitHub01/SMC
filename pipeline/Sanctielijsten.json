@@ -32,6 +32,356 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "_id",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "id",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "source",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "source",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "entity_number",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "entity_number",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "type",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "type",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "programs",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "programs",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "title",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "title",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "addresses",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "addresses",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "federal_register_notice",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "federal_register_notice",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "start_date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "start_date",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "end_date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "end_date",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "standard_order",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "standard_order",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "license_requirement",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "license_requirement",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "license_policy",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "license_policy",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "call_sign",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "call_sign",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "vessel_type",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "vessel_type",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "gross_tonnage",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "gross_tonnage",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "gross_registered_tonnage",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "gross_registered_tonnage",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "vessel_flag",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "vessel_flag",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "vessel_owner",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "vessel_owner",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "remarks",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "remarks",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "source_list_url",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "source_list_url",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "alt_names",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "alt_names",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "citizenships",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "citizenships",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "dates_of_birth",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "dates_of_birth",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "nationalities",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "nationalities",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "places_of_birth",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "places_of_birth",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "source_information_url",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "source_information_url",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ids",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ids",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
