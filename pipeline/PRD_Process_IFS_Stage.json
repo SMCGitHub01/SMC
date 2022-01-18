@@ -88,6 +88,7 @@
 						"value": "@activity('Lookup_Full_ExcelFiles_IFS_Products').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "IFS_Products",
@@ -150,6 +151,7 @@
 						"value": "@activity('Lookup_Full_ExcelFiles_IFS_GLAccounts').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "IFS_GLAccounts",
@@ -212,6 +214,7 @@
 						"value": "@activity('Lookup_Full_ExcelFiles_IFS_Customer').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "IFS_Customer",
@@ -388,6 +391,7 @@
 						"value": "@activity('Lookup_Full_CSVFiles_IFS_SalesInvoice').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "IFS_SalesInvoice",
@@ -480,6 +484,7 @@
 						"value": "@activity('Lookup_Full_CSVFiles_IFS_GLTransActions').output.value",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "IFS_GLTransActions",
@@ -539,7 +544,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 16 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+							"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 17 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
 							"type": "Expression"
 						},
 						"partitionOption": "None"
