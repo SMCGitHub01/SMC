@@ -545,7 +545,7 @@
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "ACC_BYOD_DEV_DS",
+						"referenceName": "PRD_BYOD_DS",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dummy",
@@ -581,7 +581,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "ACC_IFS_InventoryTransactions",
+									"referenceName": "PRD_IFS_InventoryTransactions",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
