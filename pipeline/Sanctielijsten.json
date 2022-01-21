@@ -362,7 +362,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"recursive": false,
+							"fileListPath": "sanctielijsten/FULL-1_0 .csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -375,7 +375,7 @@
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
-					"enableSkipIncompatibleRow": false,
+					"enableSkipIncompatibleRow": true,
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
