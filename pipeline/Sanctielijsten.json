@@ -471,7 +471,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id1",
+									"name": "Entity_logical_id23",
 									"type": "String"
 								},
 								"sink": {
@@ -611,7 +611,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id1",
+									"name": "Entity_logical_id35",
 									"type": "String"
 								},
 								"sink": {
@@ -731,7 +731,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id1",
+									"name": "Entity_logical_id44",
 									"type": "String"
 								},
 								"sink": {
@@ -821,7 +821,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id44",
+									"name": "Entity_logical_id52",
 									"type": "String"
 								},
 								"sink": {
@@ -901,7 +901,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id1",
+									"name": "Entity_logical_id9",
 									"type": "String"
 								},
 								"sink": {
