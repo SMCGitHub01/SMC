@@ -610,8 +610,12 @@
 								}
 							},
 							{
+								"source": {
+									"name": "Entity_logical_id35",
+									"type": "String"
+								},
 								"sink": {
-									"name": "Entity_logical_id3",
+									"name": "Entity_logical_id35",
 									"type": "String"
 								}
 							},
@@ -726,8 +730,12 @@
 								}
 							},
 							{
+								"source": {
+									"name": "Entity_logical_id44",
+									"type": "String"
+								},
 								"sink": {
-									"name": "Entity_logical_id4",
+									"name": "Entity_logical_id44",
 									"type": "String"
 								}
 							},
@@ -812,8 +820,12 @@
 								}
 							},
 							{
+								"source": {
+									"name": "Entity_logical_id52",
+									"type": "String"
+								},
 								"sink": {
-									"name": "Entity_logical_id5",
+									"name": "Entity_logical_id52",
 									"type": "String"
 								}
 							},
@@ -888,8 +900,12 @@
 								}
 							},
 							{
+								"source": {
+									"name": "Entity_logical_id9",
+									"type": "String"
+								},
 								"sink": {
-									"name": "Entity_logical_id6",
+									"name": "Entity_logical_id9",
 									"type": "String"
 								}
 							},
