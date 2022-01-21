@@ -470,7 +470,8 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id2"
+									"name": "Entity_logical_id23",
+									"type": "String"
 								},
 								"sink": {
 									"name": "Entity_logical_id2",
