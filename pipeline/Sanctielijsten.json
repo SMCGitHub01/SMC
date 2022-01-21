@@ -331,7 +331,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "sanctielijsten",
+						"referenceName": "sanctielijsten_comma",
 						"type": "DatasetReference"
 					}
 				],
@@ -341,6 +341,54 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"TableName": "stage.consolidated"
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data1_copy1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"fileListPath": "sanctielijsten/FULL-1_0 .csv",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": false
+				},
+				"inputs": [
+					{
+						"referenceName": "sanctielijsten_comma",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ACC_DWH_Dynamic_DataSet",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "stage.FULL-1_0"
 						}
 					}
 				]

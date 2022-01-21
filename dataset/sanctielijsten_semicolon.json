@@ -1,5 +1,5 @@
 {
-	"name": "sanctielijsten_comma",
+	"name": "sanctielijsten_semicolon",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "blobstoragescm",
@@ -12,7 +12,7 @@
 				"type": "AzureBlobStorageLocation",
 				"container": "sanctielijsten"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": ";",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
