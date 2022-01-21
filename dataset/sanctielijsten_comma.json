@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "consolidated.csv",
 				"container": "sanctielijsten"
 			},
 			"columnDelimiter": ",",
