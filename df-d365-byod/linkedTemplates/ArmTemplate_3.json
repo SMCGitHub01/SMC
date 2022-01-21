@@ -2278,7 +2278,7 @@
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
+							"enableSkipIncompatibleRow": true,
 							"translator": {
 								"type": "TabularTranslator",
 								"mappings": [
@@ -2622,14 +2622,14 @@
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
+							"enableSkipIncompatibleRow": true,
 							"translator": {
 								"type": "TabularTranslator",
 								"mappings": [
 									{
 										"source": {
-											"name": "Date_file",
-											"type": "String"
+											"type": "String",
+											"ordinal": 1
 										},
 										"sink": {
 											"name": "Date_file",
@@ -2638,18 +2638,18 @@
 									},
 									{
 										"source": {
+											"type": "String",
+											"ordinal": 2
+										},
+										"sink": {
 											"name": "Entity_logical_id1",
 											"type": "String"
-										},
-										"sink": {
-											"name": "Entity_logical_id",
-											"type": "Byte"
 										}
 									},
 									{
 										"source": {
-											"name": "Subject_type",
-											"type": "String"
+											"type": "String",
+											"ordinal": 3
 										},
 										"sink": {
 											"name": "Subject_type",
@@ -2658,8 +2658,8 @@
 									},
 									{
 										"source": {
-											"name": "Leba_numtitle",
-											"type": "String"
+											"type": "String",
+											"ordinal": 4
 										},
 										"sink": {
 											"name": "Leba_numtitle",
@@ -2668,8 +2668,8 @@
 									},
 									{
 										"source": {
-											"name": "Leba_publication_date",
-											"type": "String"
+											"type": "String",
+											"ordinal": 5
 										},
 										"sink": {
 											"name": "Leba_publication_date",
@@ -2678,8 +2678,8 @@
 									},
 									{
 										"source": {
-											"name": "Leba_url",
-											"type": "String"
+											"type": "String",
+											"ordinal": 6
 										},
 										"sink": {
 											"name": "Leba_url",
@@ -2688,8 +2688,8 @@
 									},
 									{
 										"source": {
-											"name": "Programme",
-											"type": "String"
+											"type": "String",
+											"ordinal": 7
 										},
 										"sink": {
 											"name": "Programme",
@@ -2698,8 +2698,8 @@
 									},
 									{
 										"source": {
-											"name": "Entity_remark",
-											"type": "String"
+											"type": "String",
+											"ordinal": 8
 										},
 										"sink": {
 											"name": "Entity_remark",
@@ -2708,28 +2708,28 @@
 									},
 									{
 										"source": {
-											"name": "Naal_logical_id",
-											"type": "String"
+											"type": "String",
+											"ordinal": 9
 										},
 										"sink": {
 											"name": "Naal_logical_id",
-											"type": "Byte"
+											"type": "String"
 										}
 									},
 									{
 										"source": {
+											"type": "String",
+											"ordinal": 10
+										},
+										"sink": {
 											"name": "Entity_logical_id23",
 											"type": "String"
-										},
-										"sink": {
-											"name": "Entity_logical_id2",
-											"type": "Byte"
 										}
 									},
 									{
 										"source": {
-											"name": "Naal_leba_numtitle",
-											"type": "String"
+											"type": "String",
+											"ordinal": 11
 										},
 										"sink": {
 											"name": "Naal_leba_numtitle",
@@ -2738,8 +2738,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_leba_publication_date",
-											"type": "String"
+											"type": "String",
+											"ordinal": 12
 										},
 										"sink": {
 											"name": "Naal_leba_publication_date",
@@ -2748,8 +2748,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_leba_url",
-											"type": "String"
+											"type": "String",
+											"ordinal": 13
 										},
 										"sink": {
 											"name": "Naal_leba_url",
@@ -2758,8 +2758,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_programme",
-											"type": "String"
+											"type": "String",
+											"ordinal": 14
 										},
 										"sink": {
 											"name": "Naal_programme",
@@ -2768,8 +2768,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_lastname",
-											"type": "String"
+											"type": "String",
+											"ordinal": 15
 										},
 										"sink": {
 											"name": "Naal_lastname",
@@ -2778,8 +2778,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_firstname",
-											"type": "String"
+											"type": "String",
+											"ordinal": 16
 										},
 										"sink": {
 											"name": "Naal_firstname",
@@ -2788,8 +2788,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_middlename",
-											"type": "String"
+											"type": "String",
+											"ordinal": 17
 										},
 										"sink": {
 											"name": "Naal_middlename",
@@ -2798,8 +2798,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_wholename",
-											"type": "String"
+											"type": "String",
+											"ordinal": 18
 										},
 										"sink": {
 											"name": "Naal_wholename",
@@ -2808,8 +2808,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_gender",
-											"type": "String"
+											"type": "String",
+											"ordinal": 19
 										},
 										"sink": {
 											"name": "Naal_gender",
@@ -2818,8 +2818,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_title",
-											"type": "String"
+											"type": "String",
+											"ordinal": 20
 										},
 										"sink": {
 											"name": "Naal_title",
@@ -2828,8 +2828,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_function",
-											"type": "String"
+											"type": "String",
+											"ordinal": 21
 										},
 										"sink": {
 											"name": "Naal_function",
@@ -2838,8 +2838,8 @@
 									},
 									{
 										"source": {
-											"name": "Naal_language",
-											"type": "String"
+											"type": "String",
+											"ordinal": 22
 										},
 										"sink": {
 											"name": "Naal_language",
@@ -2848,8 +2848,8 @@
 									},
 									{
 										"source": {
-											"name": "Addr_logical_id",
-											"type": "String"
+											"type": "String",
+											"ordinal": 23
 										},
 										"sink": {
 											"name": "Addr_logical_id",
@@ -2858,18 +2858,18 @@
 									},
 									{
 										"source": {
+											"type": "String",
+											"ordinal": 24
+										},
+										"sink": {
 											"name": "Entity_logical_id35",
 											"type": "String"
-										},
-										"sink": {
-											"name": "Entity_logical_id3",
-											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "Addr_leba_numtitle",
-											"type": "String"
+											"type": "String",
+											"ordinal": 25
 										},
 										"sink": {
 											"name": "Addr_leba_numtitle",
@@ -2878,8 +2878,8 @@
 									},
 									{
 										"source": {
-											"name": "Addr_leba_publication_date",
-											"type": "String"
+											"type": "String",
+											"ordinal": 26
 										},
 										"sink": {
 											"name": "Addr_leba_publication_date",
@@ -2888,8 +2888,8 @@
 									},
 									{
 										"source": {
-											"name": "Addr_leba_url",
-											"type": "String"
+											"type": "String",
+											"ordinal": 27
 										},
 										"sink": {
 											"name": "Addr_leba_url",
@@ -2898,8 +2898,8 @@
 									},
 									{
 										"source": {
-											"name": "Addr_programme",
-											"type": "String"
+											"type": "String",
+											"ordinal": 28
 										},
 										"sink": {
 											"name": "Addr_programme",
@@ -2908,8 +2908,8 @@
 									},
 									{
 										"source": {
-											"name": "Addr_number",
-											"type": "String"
+											"type": "String",
+											"ordinal": 29
 										},
 										"sink": {
 											"name": "Addr_number",
@@ -2918,8 +2918,8 @@
 									},
 									{
 										"source": {
-											"name": "Addr_street",
-											"type": "String"
+											"type": "String",
+											"ordinal": 30
 										},
 										"sink": {
 											"name": "Addr_street",
@@ -2928,8 +2928,8 @@
 									},
 									{
 										"source": {
-											"name": "Addr_zipcode",
-											"type": "String"
+											"type": "String",
+											"ordinal": 31
 										},
 										"sink": {
 											"name": "Addr_zipcode",
@@ -2938,8 +2938,8 @@
 									},
 									{
 										"source": {
-											"name": "Addr_city",
-											"type": "String"
+											"type": "String",
+											"ordinal": 32
 										},
 										"sink": {
 											"name": "Addr_city",
@@ -2948,8 +2948,8 @@
 									},
 									{
 										"source": {
-											"name": "Addr_country",
-											"type": "String"
+											"type": "String",
+											"ordinal": 33
 										},
 										"sink": {
 											"name": "Addr_country",
@@ -2958,8 +2958,8 @@
 									},
 									{
 										"source": {
-											"name": "Addr_other",
-											"type": "String"
+											"type": "String",
+											"ordinal": 34
 										},
 										"sink": {
 											"name": "Addr_other",
@@ -2968,8 +2968,8 @@
 									},
 									{
 										"source": {
-											"name": "Birt_logical_id",
-											"type": "String"
+											"type": "String",
+											"ordinal": 35
 										},
 										"sink": {
 											"name": "Birt_logical_id",
@@ -2978,18 +2978,18 @@
 									},
 									{
 										"source": {
+											"type": "String",
+											"ordinal": 36
+										},
+										"sink": {
 											"name": "Entity_logical_id44",
 											"type": "String"
-										},
-										"sink": {
-											"name": "Entity_logical_id4",
-											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "Birt_leba_numtitle",
-											"type": "String"
+											"type": "String",
+											"ordinal": 37
 										},
 										"sink": {
 											"name": "Birt_leba_numtitle",
@@ -2998,8 +2998,8 @@
 									},
 									{
 										"source": {
-											"name": "Birt_leba_publication_date",
-											"type": "String"
+											"type": "String",
+											"ordinal": 38
 										},
 										"sink": {
 											"name": "Birt_leba_publication_date",
@@ -3008,8 +3008,8 @@
 									},
 									{
 										"source": {
-											"name": "Birt_leba_url",
-											"type": "String"
+											"type": "String",
+											"ordinal": 39
 										},
 										"sink": {
 											"name": "Birt_leba_url",
@@ -3018,8 +3018,8 @@
 									},
 									{
 										"source": {
-											"name": "Birt_programme",
-											"type": "String"
+											"type": "String",
+											"ordinal": 40
 										},
 										"sink": {
 											"name": "Birt_programme",
@@ -3028,8 +3028,8 @@
 									},
 									{
 										"source": {
-											"name": "Birt_date",
-											"type": "String"
+											"type": "String",
+											"ordinal": 41
 										},
 										"sink": {
 											"name": "Birt_date",
@@ -3038,8 +3038,8 @@
 									},
 									{
 										"source": {
-											"name": "Birt_place",
-											"type": "String"
+											"type": "String",
+											"ordinal": 42
 										},
 										"sink": {
 											"name": "Birt_place",
@@ -3048,8 +3048,8 @@
 									},
 									{
 										"source": {
-											"name": "Birt_country",
-											"type": "String"
+											"type": "String",
+											"ordinal": 43
 										},
 										"sink": {
 											"name": "Birt_country",
@@ -3058,8 +3058,8 @@
 									},
 									{
 										"source": {
-											"name": "Iden_logical_id",
-											"type": "String"
+											"type": "String",
+											"ordinal": 44
 										},
 										"sink": {
 											"name": "Iden_logical_id",
@@ -3068,18 +3068,18 @@
 									},
 									{
 										"source": {
+											"type": "String",
+											"ordinal": 45
+										},
+										"sink": {
 											"name": "Entity_logical_id52",
 											"type": "String"
-										},
-										"sink": {
-											"name": "Entity_logical_id5",
-											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "Iden_leba_numtitle",
-											"type": "String"
+											"type": "String",
+											"ordinal": 46
 										},
 										"sink": {
 											"name": "Iden_leba_numtitle",
@@ -3088,8 +3088,8 @@
 									},
 									{
 										"source": {
-											"name": "Iden_leba_publication_date",
-											"type": "String"
+											"type": "String",
+											"ordinal": 47
 										},
 										"sink": {
 											"name": "Iden_leba_publication_date",
@@ -3098,8 +3098,8 @@
 									},
 									{
 										"source": {
-											"name": "Iden_leba_url",
-											"type": "String"
+											"type": "String",
+											"ordinal": 48
 										},
 										"sink": {
 											"name": "Iden_leba_url",
@@ -3108,8 +3108,8 @@
 									},
 									{
 										"source": {
-											"name": "Iden_programme",
-											"type": "String"
+											"type": "String",
+											"ordinal": 49
 										},
 										"sink": {
 											"name": "Iden_programme",
@@ -3118,8 +3118,8 @@
 									},
 									{
 										"source": {
-											"name": "Iden_number",
-											"type": "String"
+											"type": "String",
+											"ordinal": 50
 										},
 										"sink": {
 											"name": "Iden_number",
@@ -3128,8 +3128,8 @@
 									},
 									{
 										"source": {
-											"name": "Iden_country",
-											"type": "String"
+											"type": "String",
+											"ordinal": 51
 										},
 										"sink": {
 											"name": "Iden_country",
@@ -3138,8 +3138,8 @@
 									},
 									{
 										"source": {
-											"name": "Citi_logical_id",
-											"type": "String"
+											"type": "String",
+											"ordinal": 52
 										},
 										"sink": {
 											"name": "Citi_logical_id",
@@ -3148,18 +3148,18 @@
 									},
 									{
 										"source": {
+											"type": "String",
+											"ordinal": 53
+										},
+										"sink": {
 											"name": "Entity_logical_id9",
 											"type": "String"
-										},
-										"sink": {
-											"name": "Entity_logical_id6",
-											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "Citi_leba_numtitle",
-											"type": "String"
+											"type": "String",
+											"ordinal": 54
 										},
 										"sink": {
 											"name": "Citi_leba_numtitle",
@@ -3168,8 +3168,8 @@
 									},
 									{
 										"source": {
-											"name": "Citi_leba_publication_date",
-											"type": "String"
+											"type": "String",
+											"ordinal": 55
 										},
 										"sink": {
 											"name": "Citi_leba_publication_date",
@@ -3178,8 +3178,8 @@
 									},
 									{
 										"source": {
-											"name": "Citi_leba_url",
-											"type": "String"
+											"type": "String",
+											"ordinal": 56
 										},
 										"sink": {
 											"name": "Citi_leba_url",
@@ -3188,8 +3188,8 @@
 									},
 									{
 										"source": {
-											"name": "Citi_programme",
-											"type": "String"
+											"type": "String",
+											"ordinal": 57
 										},
 										"sink": {
 											"name": "Citi_programme",
@@ -3198,8 +3198,8 @@
 									},
 									{
 										"source": {
-											"name": "Citi_country",
-											"type": "String"
+											"type": "String",
+											"ordinal": 58
 										},
 										"sink": {
 											"name": "Citi_country",
@@ -3208,8 +3208,8 @@
 									},
 									{
 										"source": {
-											"name": "EU_ref_num",
-											"type": "String"
+											"type": "String",
+											"ordinal": 59
 										},
 										"sink": {
 											"name": "EU_ref_num",
