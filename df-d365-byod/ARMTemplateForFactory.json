@@ -8704,7 +8704,14 @@
 					{
 						"name": "USConsolidated",
 						"type": "Copy",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "truncateSanctionlists",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -9048,7 +9055,14 @@
 					{
 						"name": "EU_FSD_lists",
 						"type": "Copy",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "truncateSanctionlists",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -9688,6 +9702,26 @@
 								}
 							}
 						]
+					},
+					{
+						"name": "truncateSanctionlists",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[process].[truncateSanctionlists]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_DEV",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -9699,7 +9733,8 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/sanctielijst_USconsolidated')]",
 				"[concat(variables('factoryId'), '/datasets/ACC_DWH_Dynamic_DataSet')]",
-				"[concat(variables('factoryId'), '/datasets/sanctielijst_EU_FSD')]"
+				"[concat(variables('factoryId'), '/datasets/sanctielijst_EU_FSD')]",
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
 			]
 		},
 		{
