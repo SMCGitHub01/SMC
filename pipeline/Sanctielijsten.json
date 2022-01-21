@@ -17,14 +17,9 @@
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
-						"additionalColumns": [
-							{
-								"value": "$$FILEPATH"
-							}
-						],
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"recursive": false,
+							"fileListPath": "sanctielijsten/consolidated.csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
