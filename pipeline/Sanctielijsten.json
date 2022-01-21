@@ -19,7 +19,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"fileListPath": "sanctielijsten/consolidated.csv",
+							"recursive": false,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -362,7 +362,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"fileListPath": "sanctielijsten/FULL-1_0 .csv",
+							"recursive": false,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
