@@ -362,7 +362,7 @@
 						"type": "DelimitedTextSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"fileListPath": "sanctielijsten/FULL-1_0 .csv",
+							"recursive": false,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -391,8 +391,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id1",
-									"type": "String"
+									"name": "Entity_logical_id"
 								},
 								"sink": {
 									"name": "Entity_logical_id",
@@ -471,8 +470,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id23",
-									"type": "String"
+									"name": "Entity_logical_id2"
 								},
 								"sink": {
 									"name": "Entity_logical_id2",
@@ -611,8 +609,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id35",
-									"type": "String"
+									"name": "Entity_logical_id3"
 								},
 								"sink": {
 									"name": "Entity_logical_id3",
@@ -731,8 +728,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id44",
-									"type": "String"
+									"name": "Entity_logical_id4"
 								},
 								"sink": {
 									"name": "Entity_logical_id4",
@@ -821,8 +817,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id52",
-									"type": "String"
+									"name": "Entity_logical_id5"
 								},
 								"sink": {
 									"name": "Entity_logical_id5",
@@ -901,8 +896,7 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id9",
-									"type": "String"
+									"name": "Entity_logical_id6"
 								},
 								"sink": {
 									"name": "Entity_logical_id6",
