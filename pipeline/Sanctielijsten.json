@@ -331,7 +331,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "sanctielijsten_comma",
+						"referenceName": "sanctielijst_USconsolidated",
 						"type": "DatasetReference"
 					}
 				],
@@ -974,7 +974,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "sanctielijsten_semicolon",
+						"referenceName": "sanctielijst_EU_FSD",
 						"type": "DatasetReference"
 					}
 				],

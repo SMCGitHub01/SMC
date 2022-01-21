@@ -1,9 +1,12 @@
 {
-	"name": "sanctielijsten_comma",
+	"name": "sanctielijst_USconsolidated",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "blobstoragescm",
 			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "sanctielijsten"
 		},
 		"annotations": [],
 		"type": "DelimitedText",

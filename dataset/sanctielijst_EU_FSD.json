@@ -1,9 +1,12 @@
 {
-	"name": "sanctielijsten_semicolon",
+	"name": "sanctielijst_EU_FSD",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "blobstoragescm",
 			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "sanctielijsten"
 		},
 		"annotations": [],
 		"type": "DelimitedText",
