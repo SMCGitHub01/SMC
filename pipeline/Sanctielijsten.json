@@ -391,10 +391,11 @@
 							},
 							{
 								"source": {
-									"name": "Entity_logical_id"
+									"name": "Entity_logical_id1",
+									"type": "String"
 								},
 								"sink": {
-									"name": "Entity_logical_id",
+									"name": "Entity_logical_id1",
 									"type": "Byte"
 								}
 							},
@@ -474,8 +475,8 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Entity_logical_id2",
-									"type": "Byte"
+									"name": "Entity_logical_id23",
+									"type": "String"
 								}
 							},
 							{
@@ -609,9 +610,6 @@
 								}
 							},
 							{
-								"source": {
-									"name": "Entity_logical_id3"
-								},
 								"sink": {
 									"name": "Entity_logical_id3",
 									"type": "String"
@@ -728,9 +726,6 @@
 								}
 							},
 							{
-								"source": {
-									"name": "Entity_logical_id4"
-								},
 								"sink": {
 									"name": "Entity_logical_id4",
 									"type": "String"
@@ -817,9 +812,6 @@
 								}
 							},
 							{
-								"source": {
-									"name": "Entity_logical_id5"
-								},
 								"sink": {
 									"name": "Entity_logical_id5",
 									"type": "String"
@@ -896,9 +888,6 @@
 								}
 							},
 							{
-								"source": {
-									"name": "Entity_logical_id6"
-								},
 								"sink": {
 									"name": "Entity_logical_id6",
 									"type": "String"
