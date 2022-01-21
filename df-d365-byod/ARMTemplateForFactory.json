@@ -9722,6 +9722,597 @@
 							"referenceName": "Azure_D365_DEV",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "UK_list",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "truncateSanctionlists",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": false,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 1
+										},
+										"sink": {
+											"name": "Last_Updated",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 2
+										},
+										"sink": {
+											"name": "Unique_ID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 3
+										},
+										"sink": {
+											"name": "OFSI_ID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 4
+										},
+										"sink": {
+											"name": "UN_Reference_ID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 5
+										},
+										"sink": {
+											"name": "Primary_Name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 6
+										},
+										"sink": {
+											"name": "a_k_a",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 7
+										},
+										"sink": {
+											"name": "a_k_a_Non_Latin_Script",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 8
+										},
+										"sink": {
+											"name": "Regime_Name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 9
+										},
+										"sink": {
+											"name": "Entity_Vessel_or_Individual",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 10
+										},
+										"sink": {
+											"name": "Regime_Type_UK_UN",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 11
+										},
+										"sink": {
+											"name": "Sanctions_Imposed",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 12
+										},
+										"sink": {
+											"name": "Other_Information",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 13
+										},
+										"sink": {
+											"name": "UK_Statement_of_Reasons",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 14
+										},
+										"sink": {
+											"name": "Address_Line_1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 15
+										},
+										"sink": {
+											"name": "Address_Line_2",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 16
+										},
+										"sink": {
+											"name": "Address_Line_3",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 17
+										},
+										"sink": {
+											"name": "Address_Line_4",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 18
+										},
+										"sink": {
+											"name": "Postcode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 19
+										},
+										"sink": {
+											"name": "Primary_Address_Country",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 20
+										},
+										"sink": {
+											"name": "Other_suspected_locations",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 21
+										},
+										"sink": {
+											"name": "Phone_number",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 22
+										},
+										"sink": {
+											"name": "Website",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 23
+										},
+										"sink": {
+											"name": "Email_address",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 24
+										},
+										"sink": {
+											"name": "Date_Designated",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 25
+										},
+										"sink": {
+											"name": "Name_1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 26
+										},
+										"sink": {
+											"name": "Name_2",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 27
+										},
+										"sink": {
+											"name": "Name_3",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 28
+										},
+										"sink": {
+											"name": "Name_4",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 29
+										},
+										"sink": {
+											"name": "Name_5",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 30
+										},
+										"sink": {
+											"name": "Name_6",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 31
+										},
+										"sink": {
+											"name": "Honorary_Professional_Religious_titles",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 32
+										},
+										"sink": {
+											"name": "D_O_B",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 33
+										},
+										"sink": {
+											"name": "Nationality_ies",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 34
+										},
+										"sink": {
+											"name": "National_Identifier_number",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 35
+										},
+										"sink": {
+											"name": "Passport_number",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 36
+										},
+										"sink": {
+											"name": "Position",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 37
+										},
+										"sink": {
+											"name": "Gender",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 38
+										},
+										"sink": {
+											"name": "Town_of_birth",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 39
+										},
+										"sink": {
+											"name": "Country_of_birth",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 40
+										},
+										"sink": {
+											"name": "Type_of_entity",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 41
+										},
+										"sink": {
+											"name": "Subsidiaries",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 42
+										},
+										"sink": {
+											"name": "Parent_company",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 43
+										},
+										"sink": {
+											"name": "Business_registration_number_s",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 44
+										},
+										"sink": {
+											"name": "IMO_number",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 45
+										},
+										"sink": {
+											"name": "Current_owner_operator_s",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 46
+										},
+										"sink": {
+											"name": "Previous_owner_operator_s",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 47
+										},
+										"sink": {
+											"name": "Current_believed_flag_of_ship",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 48
+										},
+										"sink": {
+											"name": "Previous_flags",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 49
+										},
+										"sink": {
+											"name": "Type_of_ship",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 50
+										},
+										"sink": {
+											"name": "Tonnage_of_ship",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 51
+										},
+										"sink": {
+											"name": "Length_of_ship",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 52
+										},
+										"sink": {
+											"name": "Year_Built",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 53
+										},
+										"sink": {
+											"name": "Hull_identification_number_HIN",
+											"type": "String"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "sanctielijst_UK_list",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_DWH_Dynamic_DataSet",
+								"type": "DatasetReference",
+								"parameters": {
+									"TableName": "stage.uk-sanctions-list"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -9734,7 +10325,8 @@
 				"[concat(variables('factoryId'), '/datasets/sanctielijst_USconsolidated')]",
 				"[concat(variables('factoryId'), '/datasets/ACC_DWH_Dynamic_DataSet')]",
 				"[concat(variables('factoryId'), '/datasets/sanctielijst_EU_FSD')]",
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]",
+				"[concat(variables('factoryId'), '/datasets/sanctielijst_UK_list')]"
 			]
 		},
 		{
@@ -11818,6 +12410,274 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sanctielijst_UK_list')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "sanctielijsten"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "uk-sanctions-list.csv",
+						"container": "sanctielijsten"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Date_file",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id1",
+						"type": "String"
+					},
+					{
+						"name": "Subject_type",
+						"type": "String"
+					},
+					{
+						"name": "Leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Programme",
+						"type": "String"
+					},
+					{
+						"name": "Entity_remark",
+						"type": "String"
+					},
+					{
+						"name": "Naal_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id9",
+						"type": "String"
+					},
+					{
+						"name": "Naal_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Naal_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Naal_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Naal_programme",
+						"type": "String"
+					},
+					{
+						"name": "Naal_lastname",
+						"type": "String"
+					},
+					{
+						"name": "Naal_firstname",
+						"type": "String"
+					},
+					{
+						"name": "Naal_middlename",
+						"type": "String"
+					},
+					{
+						"name": "Naal_wholename",
+						"type": "String"
+					},
+					{
+						"name": "Naal_gender",
+						"type": "String"
+					},
+					{
+						"name": "Naal_title",
+						"type": "String"
+					},
+					{
+						"name": "Naal_function",
+						"type": "String"
+					},
+					{
+						"name": "Naal_language",
+						"type": "String"
+					},
+					{
+						"name": "Addr_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id23",
+						"type": "String"
+					},
+					{
+						"name": "Addr_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Addr_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Addr_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Addr_programme",
+						"type": "String"
+					},
+					{
+						"name": "Addr_number",
+						"type": "String"
+					},
+					{
+						"name": "Addr_street",
+						"type": "String"
+					},
+					{
+						"name": "Addr_zipcode",
+						"type": "String"
+					},
+					{
+						"name": "Addr_city",
+						"type": "String"
+					},
+					{
+						"name": "Addr_country",
+						"type": "String"
+					},
+					{
+						"name": "Addr_other",
+						"type": "String"
+					},
+					{
+						"name": "Birt_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id35",
+						"type": "String"
+					},
+					{
+						"name": "Birt_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Birt_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Birt_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Birt_programme",
+						"type": "String"
+					},
+					{
+						"name": "Birt_date",
+						"type": "String"
+					},
+					{
+						"name": "Birt_place",
+						"type": "String"
+					},
+					{
+						"name": "Birt_country",
+						"type": "String"
+					},
+					{
+						"name": "Iden_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id44",
+						"type": "String"
+					},
+					{
+						"name": "Iden_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Iden_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Iden_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Iden_programme",
+						"type": "String"
+					},
+					{
+						"name": "Iden_number",
+						"type": "String"
+					},
+					{
+						"name": "Iden_country",
+						"type": "String"
+					},
+					{
+						"name": "Citi_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id52",
+						"type": "String"
+					},
+					{
+						"name": "Citi_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Citi_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Citi_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Citi_programme",
+						"type": "String"
+					},
+					{
+						"name": "Citi_country",
+						"type": "String"
+					},
+					{
+						"name": "EU_ref_num",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
 		}
 	]
 }
