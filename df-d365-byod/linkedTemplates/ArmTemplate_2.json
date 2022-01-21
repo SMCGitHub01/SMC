@@ -124,6 +124,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "consolidated.csv",
 						"container": "sanctielijsten"
 					},
 					"columnDelimiter": ",",
@@ -298,6 +299,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "FULL-1_0 .csv",
 						"container": "sanctielijsten"
 					},
 					"columnDelimiter": ";",
@@ -307,119 +309,239 @@
 				},
 				"schema": [
 					{
-						"name": "_id",
+						"name": "Date_file",
 						"type": "String"
 					},
 					{
-						"name": "source",
+						"name": "Entity_logical_id1",
 						"type": "String"
 					},
 					{
-						"name": "entity_number",
+						"name": "Subject_type",
 						"type": "String"
 					},
 					{
-						"name": "type",
+						"name": "Leba_numtitle",
 						"type": "String"
 					},
 					{
-						"name": "programs",
+						"name": "Leba_publication_date",
 						"type": "String"
 					},
 					{
-						"name": "name",
+						"name": "Leba_url",
 						"type": "String"
 					},
 					{
-						"name": "title",
+						"name": "Programme",
 						"type": "String"
 					},
 					{
-						"name": "addresses",
+						"name": "Entity_remark",
 						"type": "String"
 					},
 					{
-						"name": "federal_register_notice",
+						"name": "Naal_logical_id",
 						"type": "String"
 					},
 					{
-						"name": "start_date",
+						"name": "Entity_logical_id9",
 						"type": "String"
 					},
 					{
-						"name": "end_date",
+						"name": "Naal_leba_numtitle",
 						"type": "String"
 					},
 					{
-						"name": "standard_order",
+						"name": "Naal_leba_publication_date",
 						"type": "String"
 					},
 					{
-						"name": "license_requirement",
+						"name": "Naal_leba_url",
 						"type": "String"
 					},
 					{
-						"name": "license_policy",
+						"name": "Naal_programme",
 						"type": "String"
 					},
 					{
-						"name": "call_sign",
+						"name": "Naal_lastname",
 						"type": "String"
 					},
 					{
-						"name": "vessel_type",
+						"name": "Naal_firstname",
 						"type": "String"
 					},
 					{
-						"name": "gross_tonnage",
+						"name": "Naal_middlename",
 						"type": "String"
 					},
 					{
-						"name": "gross_registered_tonnage",
+						"name": "Naal_wholename",
 						"type": "String"
 					},
 					{
-						"name": "vessel_flag",
+						"name": "Naal_gender",
 						"type": "String"
 					},
 					{
-						"name": "vessel_owner",
+						"name": "Naal_title",
 						"type": "String"
 					},
 					{
-						"name": "remarks",
+						"name": "Naal_function",
 						"type": "String"
 					},
 					{
-						"name": "source_list_url",
+						"name": "Naal_language",
 						"type": "String"
 					},
 					{
-						"name": "alt_names",
+						"name": "Addr_logical_id",
 						"type": "String"
 					},
 					{
-						"name": "citizenships",
+						"name": "Entity_logical_id23",
 						"type": "String"
 					},
 					{
-						"name": "dates_of_birth",
+						"name": "Addr_leba_numtitle",
 						"type": "String"
 					},
 					{
-						"name": "nationalities",
+						"name": "Addr_leba_publication_date",
 						"type": "String"
 					},
 					{
-						"name": "places_of_birth",
+						"name": "Addr_leba_url",
 						"type": "String"
 					},
 					{
-						"name": "source_information_url",
+						"name": "Addr_programme",
 						"type": "String"
 					},
 					{
-						"name": "ids",
+						"name": "Addr_number",
+						"type": "String"
+					},
+					{
+						"name": "Addr_street",
+						"type": "String"
+					},
+					{
+						"name": "Addr_zipcode",
+						"type": "String"
+					},
+					{
+						"name": "Addr_city",
+						"type": "String"
+					},
+					{
+						"name": "Addr_country",
+						"type": "String"
+					},
+					{
+						"name": "Addr_other",
+						"type": "String"
+					},
+					{
+						"name": "Birt_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id35",
+						"type": "String"
+					},
+					{
+						"name": "Birt_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Birt_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Birt_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Birt_programme",
+						"type": "String"
+					},
+					{
+						"name": "Birt_date",
+						"type": "String"
+					},
+					{
+						"name": "Birt_place",
+						"type": "String"
+					},
+					{
+						"name": "Birt_country",
+						"type": "String"
+					},
+					{
+						"name": "Iden_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id44",
+						"type": "String"
+					},
+					{
+						"name": "Iden_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Iden_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Iden_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Iden_programme",
+						"type": "String"
+					},
+					{
+						"name": "Iden_number",
+						"type": "String"
+					},
+					{
+						"name": "Iden_country",
+						"type": "String"
+					},
+					{
+						"name": "Citi_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id52",
+						"type": "String"
+					},
+					{
+						"name": "Citi_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Citi_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Citi_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Citi_programme",
+						"type": "String"
+					},
+					{
+						"name": "Citi_country",
+						"type": "String"
+					},
+					{
+						"name": "EU_ref_num",
 						"type": "String"
 					}
 				]

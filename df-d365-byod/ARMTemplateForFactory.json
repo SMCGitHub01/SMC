@@ -8718,7 +8718,7 @@
 								"type": "DelimitedTextSource",
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
-									"fileListPath": "sanctielijsten/consolidated.csv",
+									"recursive": false,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -9062,7 +9062,7 @@
 								"type": "DelimitedTextSource",
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
-									"fileListPath": "sanctielijsten/FULL-1_0 .csv",
+									"recursive": false,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -9075,7 +9075,602 @@
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
-							"enableSkipIncompatibleRow": false
+							"enableSkipIncompatibleRow": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Date_file",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Date_file",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "Entity_logical_id1",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Entity_logical_id",
+											"type": "Byte"
+										}
+									},
+									{
+										"source": {
+											"name": "Subject_type",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Subject_type",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Leba_numtitle",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Leba_numtitle",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Leba_publication_date",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Leba_publication_date",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "Leba_url",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Leba_url",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Programme",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Programme",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Entity_remark",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Entity_remark",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_logical_id",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_logical_id",
+											"type": "Byte"
+										}
+									},
+									{
+										"source": {
+											"name": "Entity_logical_id23",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Entity_logical_id2",
+											"type": "Byte"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_leba_numtitle",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_leba_numtitle",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_leba_publication_date",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_leba_publication_date",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_leba_url",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_leba_url",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_programme",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_programme",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_lastname",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_lastname",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_firstname",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_firstname",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_middlename",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_middlename",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_wholename",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_wholename",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_gender",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_gender",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_title",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_title",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_function",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_function",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Naal_language",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Naal_language",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_logical_id",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_logical_id",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Entity_logical_id35",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Entity_logical_id3",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_leba_numtitle",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_leba_numtitle",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_leba_publication_date",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_leba_publication_date",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_leba_url",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_leba_url",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_programme",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_programme",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_number",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_number",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_street",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_street",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_zipcode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_zipcode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_city",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_city",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_country",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_country",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Addr_other",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Addr_other",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Birt_logical_id",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Birt_logical_id",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Entity_logical_id44",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Entity_logical_id4",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Birt_leba_numtitle",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Birt_leba_numtitle",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Birt_leba_publication_date",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Birt_leba_publication_date",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Birt_leba_url",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Birt_leba_url",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Birt_programme",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Birt_programme",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Birt_date",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Birt_date",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Birt_place",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Birt_place",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Birt_country",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Birt_country",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Iden_logical_id",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Iden_logical_id",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Entity_logical_id52",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Entity_logical_id5",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Iden_leba_numtitle",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Iden_leba_numtitle",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Iden_leba_publication_date",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Iden_leba_publication_date",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Iden_leba_url",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Iden_leba_url",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Iden_programme",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Iden_programme",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Iden_number",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Iden_number",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Iden_country",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Iden_country",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Citi_logical_id",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Citi_logical_id",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Entity_logical_id9",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Entity_logical_id6",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Citi_leba_numtitle",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Citi_leba_numtitle",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Citi_leba_publication_date",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Citi_leba_publication_date",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Citi_leba_url",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Citi_leba_url",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Citi_programme",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Citi_programme",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Citi_country",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Citi_country",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "EU_ref_num",
+											"type": "String"
+										},
+										"sink": {
+											"name": "EU_ref_num",
+											"type": "String"
+										}
+									}
+								]
+							}
 						},
 						"inputs": [
 							{
@@ -10461,6 +11056,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "consolidated.csv",
 						"container": "sanctielijsten"
 					},
 					"columnDelimiter": ",",
@@ -10931,6 +11527,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "FULL-1_0 .csv",
 						"container": "sanctielijsten"
 					},
 					"columnDelimiter": ";",
@@ -10940,119 +11537,239 @@
 				},
 				"schema": [
 					{
-						"name": "_id",
+						"name": "Date_file",
 						"type": "String"
 					},
 					{
-						"name": "source",
+						"name": "Entity_logical_id1",
 						"type": "String"
 					},
 					{
-						"name": "entity_number",
+						"name": "Subject_type",
 						"type": "String"
 					},
 					{
-						"name": "type",
+						"name": "Leba_numtitle",
 						"type": "String"
 					},
 					{
-						"name": "programs",
+						"name": "Leba_publication_date",
 						"type": "String"
 					},
 					{
-						"name": "name",
+						"name": "Leba_url",
 						"type": "String"
 					},
 					{
-						"name": "title",
+						"name": "Programme",
 						"type": "String"
 					},
 					{
-						"name": "addresses",
+						"name": "Entity_remark",
 						"type": "String"
 					},
 					{
-						"name": "federal_register_notice",
+						"name": "Naal_logical_id",
 						"type": "String"
 					},
 					{
-						"name": "start_date",
+						"name": "Entity_logical_id9",
 						"type": "String"
 					},
 					{
-						"name": "end_date",
+						"name": "Naal_leba_numtitle",
 						"type": "String"
 					},
 					{
-						"name": "standard_order",
+						"name": "Naal_leba_publication_date",
 						"type": "String"
 					},
 					{
-						"name": "license_requirement",
+						"name": "Naal_leba_url",
 						"type": "String"
 					},
 					{
-						"name": "license_policy",
+						"name": "Naal_programme",
 						"type": "String"
 					},
 					{
-						"name": "call_sign",
+						"name": "Naal_lastname",
 						"type": "String"
 					},
 					{
-						"name": "vessel_type",
+						"name": "Naal_firstname",
 						"type": "String"
 					},
 					{
-						"name": "gross_tonnage",
+						"name": "Naal_middlename",
 						"type": "String"
 					},
 					{
-						"name": "gross_registered_tonnage",
+						"name": "Naal_wholename",
 						"type": "String"
 					},
 					{
-						"name": "vessel_flag",
+						"name": "Naal_gender",
 						"type": "String"
 					},
 					{
-						"name": "vessel_owner",
+						"name": "Naal_title",
 						"type": "String"
 					},
 					{
-						"name": "remarks",
+						"name": "Naal_function",
 						"type": "String"
 					},
 					{
-						"name": "source_list_url",
+						"name": "Naal_language",
 						"type": "String"
 					},
 					{
-						"name": "alt_names",
+						"name": "Addr_logical_id",
 						"type": "String"
 					},
 					{
-						"name": "citizenships",
+						"name": "Entity_logical_id23",
 						"type": "String"
 					},
 					{
-						"name": "dates_of_birth",
+						"name": "Addr_leba_numtitle",
 						"type": "String"
 					},
 					{
-						"name": "nationalities",
+						"name": "Addr_leba_publication_date",
 						"type": "String"
 					},
 					{
-						"name": "places_of_birth",
+						"name": "Addr_leba_url",
 						"type": "String"
 					},
 					{
-						"name": "source_information_url",
+						"name": "Addr_programme",
 						"type": "String"
 					},
 					{
-						"name": "ids",
+						"name": "Addr_number",
+						"type": "String"
+					},
+					{
+						"name": "Addr_street",
+						"type": "String"
+					},
+					{
+						"name": "Addr_zipcode",
+						"type": "String"
+					},
+					{
+						"name": "Addr_city",
+						"type": "String"
+					},
+					{
+						"name": "Addr_country",
+						"type": "String"
+					},
+					{
+						"name": "Addr_other",
+						"type": "String"
+					},
+					{
+						"name": "Birt_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id35",
+						"type": "String"
+					},
+					{
+						"name": "Birt_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Birt_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Birt_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Birt_programme",
+						"type": "String"
+					},
+					{
+						"name": "Birt_date",
+						"type": "String"
+					},
+					{
+						"name": "Birt_place",
+						"type": "String"
+					},
+					{
+						"name": "Birt_country",
+						"type": "String"
+					},
+					{
+						"name": "Iden_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id44",
+						"type": "String"
+					},
+					{
+						"name": "Iden_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Iden_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Iden_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Iden_programme",
+						"type": "String"
+					},
+					{
+						"name": "Iden_number",
+						"type": "String"
+					},
+					{
+						"name": "Iden_country",
+						"type": "String"
+					},
+					{
+						"name": "Citi_logical_id",
+						"type": "String"
+					},
+					{
+						"name": "Entity_logical_id52",
+						"type": "String"
+					},
+					{
+						"name": "Citi_leba_numtitle",
+						"type": "String"
+					},
+					{
+						"name": "Citi_leba_publication_date",
+						"type": "String"
+					},
+					{
+						"name": "Citi_leba_url",
+						"type": "String"
+					},
+					{
+						"name": "Citi_programme",
+						"type": "String"
+					},
+					{
+						"name": "Citi_country",
+						"type": "String"
+					},
+					{
+						"name": "EU_ref_num",
 						"type": "String"
 					}
 				]
