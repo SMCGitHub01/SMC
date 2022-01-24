@@ -1015,7 +1015,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[sanct].[truncateSanctionlists]"
+					"storedProcedureName": "sanct.truncateSanctionlists"
 				},
 				"linkedServiceName": {
 					"referenceName": "Azure_D365_DEV",
