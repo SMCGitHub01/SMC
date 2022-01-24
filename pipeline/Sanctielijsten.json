@@ -347,7 +347,7 @@
 						"referenceName": "ACC_DWH_Dynamic_DataSet",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "stage.consolidated"
+							"TableName": "sanct.us_sanctions_list"
 						}
 					}
 				]
@@ -997,7 +997,7 @@
 						"referenceName": "ACC_DWH_Dynamic_DataSet",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "stage.FULL-1_0"
+							"TableName": "sanct.eu_sanctions_list"
 						}
 					}
 				]
@@ -1015,7 +1015,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[process].[truncateSanctionlists]"
+					"storedProcedureName": "[sanct].[truncateSanctionlists]"
 				},
 				"linkedServiceName": {
 					"referenceName": "Azure_D365_DEV",
@@ -1607,7 +1607,7 @@
 						"referenceName": "ACC_DWH_Dynamic_DataSet",
 						"type": "DatasetReference",
 						"parameters": {
-							"TableName": "stage.uk-sanctions-list"
+							"TableName": "sanct.uk_sanctions_list"
 						}
 					}
 				]
