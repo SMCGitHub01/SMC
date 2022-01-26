@@ -23,7 +23,13 @@
 					"headers": {
 						"Content-type": "application/json"
 					},
-					"body": "{\"sku\":\n{\"name\":\"S3\":\"tier\":\"Standard\"},\"location\":\"West Europe\"}",
+					"body": {
+						"sku": {
+							"name": "S3",
+							"tier": "Standard"
+						},
+						"location": "West Europe"
+					},
 					"authentication": {
 						"type": "MSI",
 						"resource": "https://management.azure.com/"
