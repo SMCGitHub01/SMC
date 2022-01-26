@@ -9414,6 +9414,20 @@
 							},
 							"enableStaging": false,
 							"enableSkipIncompatibleRow": true,
+							"logSettings": {
+								"enableCopyActivityLog": true,
+								"copyActivityLogSettings": {
+									"logLevel": "Warning",
+									"enableReliableLogging": false
+								},
+								"logLocationSettings": {
+									"linkedServiceName": {
+										"referenceName": "blobstoragescm",
+										"type": "LinkedServiceReference"
+									},
+									"path": "sanctielijsten"
+								}
+							},
 							"translator": {
 								"type": "TabularTranslator",
 								"mappings": [
@@ -10650,7 +10664,8 @@
 				"[concat(variables('factoryId'), '/datasets/ACC_DWH_Dynamic_DataSet')]",
 				"[concat(variables('factoryId'), '/datasets/sanctielijst_EU_FSD')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]",
-				"[concat(variables('factoryId'), '/datasets/sanctielijst_UK_list')]"
+				"[concat(variables('factoryId'), '/datasets/sanctielijst_UK_list')]",
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
 			]
 		},
 		{
@@ -12945,6 +12960,45 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Daily_DownScale_ACC')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "To make sure the database is at level S3 (in case an error occured during the night)",
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "ACC_DownScale",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2022-01-26T10:47:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								9
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/ACC_DownScale')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Daily_PRD')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -13002,45 +13056,6 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Daily_DownScale_ACC')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "To make sure the database is at level S3 (in case an error occured during the night)",
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "ACC_DownScale",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2022-01-26T10:47:00Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								9
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ACC_DownScale')]"
-			]
 		}
 	]
 }
