@@ -34,7 +34,7 @@
 		"parameters": {
 			"DBName": {
 				"type": "string",
-				"defaultValue": "d365-byod-prod"
+				"defaultValue": "d365-byod-dev"
 			},
 			"ResourceGroup": {
 				"type": "string",
