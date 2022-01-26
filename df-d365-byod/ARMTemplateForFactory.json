@@ -378,6 +378,76 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ACC_DownScale')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Down_Scale_Azure_SQLDB",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
+								"type": "Expression"
+							},
+							"method": "PUT",
+							"headers": {
+								"Content-type": "application/json"
+							},
+							"body": {
+								"sku": {
+									"name": "S3",
+									"tier": "Standard"
+								},
+								"location": "West Europe"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://management.azure.com/"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"DBName": {
+						"type": "string",
+						"defaultValue": "d365-byod-dev"
+					},
+					"ResourceGroup": {
+						"type": "string",
+						"defaultValue": "D365-BYOD-DEV-TEST-ACC"
+					},
+					"SQLServerName": {
+						"type": "string",
+						"defaultValue": "smc-byod-dta"
+					},
+					"SubscriptionID": {
+						"type": "string",
+						"defaultValue": "59beecb9-e864-42bf-b76a-4e3c69488675"
+					}
+				},
+				"folder": {
+					"name": "ScaleDatabases/ACC"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACC_FillMetadata_DWH')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2348,7 +2418,14 @@
 					{
 						"name": "Lookup_Current_Sync_And_Date",
 						"type": "Lookup",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "UpScale",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -2868,6 +2945,41 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
+					},
+					{
+						"name": "UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ACC_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "DownScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "spLoadDataAfterFullLoad",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ACC_DownScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
@@ -2886,6 +2998,8 @@
 				"[concat(variables('factoryId'), '/pipelines/ACC_Process_SugarCRM_DataBase')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_Process_Zendesk')]",
+				"[concat(variables('factoryId'), '/pipelines/ACC_UpScale')]",
+				"[concat(variables('factoryId'), '/pipelines/ACC_DownScale')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_Materialize_Views')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_DistributionList')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_BudgetDirectSales')]",
@@ -4297,6 +4411,76 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ACC_UpScale')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Up_Scale_Azure_SQLDB",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
+								"type": "Expression"
+							},
+							"method": "PUT",
+							"headers": {
+								"Content-type": "application/json"
+							},
+							"body": {
+								"sku": {
+									"name": "S7",
+									"tier": "Standard"
+								},
+								"location": "West Europe"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://management.azure.com/"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"DBName": {
+						"type": "string",
+						"defaultValue": "d365-byod-dev"
+					},
+					"ResourceGroup": {
+						"type": "string",
+						"defaultValue": "D365-BYOD-DEV-TEST-ACC"
+					},
+					"SQLServerName": {
+						"type": "string",
+						"defaultValue": "smc-byod-dta"
+					},
+					"SubscriptionID": {
+						"type": "string",
+						"defaultValue": "59beecb9-e864-42bf-b76a-4e3c69488675"
+					}
+				},
+				"folder": {
+					"name": "ScaleDatabases/ACC"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACC_ZenDesk_Tickets')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -4474,76 +4658,6 @@
 				"[concat(variables('factoryId'), '/datasets/Zendesk')]",
 				"[concat(variables('factoryId'), '/datasets/Unzip')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DownScale_ACC')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Down_Scale_Azure_SQLDB",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": {
-								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
-								"type": "Expression"
-							},
-							"method": "PUT",
-							"headers": {
-								"Content-type": "application/json"
-							},
-							"body": {
-								"sku": {
-									"name": "S3",
-									"tier": "Standard"
-								},
-								"location": "West Europe"
-							},
-							"authentication": {
-								"type": "MSI",
-								"resource": "https://management.azure.com/"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"DBName": {
-						"type": "string",
-						"defaultValue": "d365-byod-dev"
-					},
-					"ResourceGroup": {
-						"type": "string",
-						"defaultValue": "D365-BYOD-DEV-TEST-ACC"
-					},
-					"SQLServerName": {
-						"type": "string",
-						"defaultValue": "smc-byod-dta"
-					},
-					"SubscriptionID": {
-						"type": "string",
-						"defaultValue": "59beecb9-e864-42bf-b76a-4e3c69488675"
-					}
-				},
-				"folder": {
-					"name": "ScaleDatabases/ACC"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/PRD_BudgetDirectSales')]",
@@ -4853,6 +4967,76 @@
 				"[concat(variables('factoryId'), '/datasets/PRD_Distributeur')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_DownScale')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Down_Scale_Azure_SQLDB",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
+								"type": "Expression"
+							},
+							"method": "PUT",
+							"headers": {
+								"Content-type": "application/json"
+							},
+							"body": {
+								"sku": {
+									"name": "S3",
+									"tier": "Standard"
+								},
+								"location": "West Europe"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://management.azure.com/"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"DBName": {
+						"type": "string",
+						"defaultValue": "d365-byod-prod"
+					},
+					"ResourceGroup": {
+						"type": "string",
+						"defaultValue": "D365-BYOD-DEV-TEST-ACC"
+					},
+					"SQLServerName": {
+						"type": "string",
+						"defaultValue": "smc-byod-dta"
+					},
+					"SubscriptionID": {
+						"type": "string",
+						"defaultValue": "59beecb9-e864-42bf-b76a-4e3c69488675"
+					}
+				},
+				"folder": {
+					"name": "ScaleDatabases/PRD"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/PRD_FillMetadata_DWH')]",
@@ -8520,6 +8704,76 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_UpScale')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Up_Scale_Azure_SQLDB",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
+								"type": "Expression"
+							},
+							"method": "PUT",
+							"headers": {
+								"Content-type": "application/json"
+							},
+							"body": {
+								"sku": {
+									"name": "S7",
+									"tier": "Standard"
+								},
+								"location": "West Europe"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://management.azure.com/"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"DBName": {
+						"type": "string",
+						"defaultValue": "d365-byod-prod"
+					},
+					"ResourceGroup": {
+						"type": "string",
+						"defaultValue": "D365-BYOD-DEV-TEST-ACC"
+					},
+					"SQLServerName": {
+						"type": "string",
+						"defaultValue": "smc-byod-dta"
+					},
+					"SubscriptionID": {
+						"type": "string",
+						"defaultValue": "59beecb9-e864-42bf-b76a-4e3c69488675"
+					}
+				},
+				"folder": {
+					"name": "ScaleDatabases/PRD"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_ZenDesk_Tickets')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -10398,76 +10652,6 @@
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]",
 				"[concat(variables('factoryId'), '/datasets/sanctielijst_UK_list')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/UpScale_ACC')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Up_Scale_Azure_SQLDB",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": {
-								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
-								"type": "Expression"
-							},
-							"method": "PUT",
-							"headers": {
-								"Content-type": "application/json"
-							},
-							"body": {
-								"sku": {
-									"name": "S7",
-									"tier": "Standard"
-								},
-								"location": "West Europe"
-							},
-							"authentication": {
-								"type": "MSI",
-								"resource": "https://management.azure.com/"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"DBName": {
-						"type": "string",
-						"defaultValue": "d365-byod-dev"
-					},
-					"ResourceGroup": {
-						"type": "string",
-						"defaultValue": "D365-BYOD-DEV-TEST-ACC"
-					},
-					"SQLServerName": {
-						"type": "string",
-						"defaultValue": "smc-byod-dta"
-					},
-					"SubscriptionID": {
-						"type": "string",
-						"defaultValue": "59beecb9-e864-42bf-b76a-4e3c69488675"
-					}
-				},
-				"folder": {
-					"name": "ScaleDatabases/ACC"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
@@ -12816,146 +13000,6 @@
 			"properties": {
 				"type": "SelfHosted",
 				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DownScale_PRD')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Down_Scale_Azure_SQLDB",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": {
-								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
-								"type": "Expression"
-							},
-							"method": "PUT",
-							"headers": {
-								"Content-type": "application/json"
-							},
-							"body": {
-								"sku": {
-									"name": "S3",
-									"tier": "Standard"
-								},
-								"location": "West Europe"
-							},
-							"authentication": {
-								"type": "MSI",
-								"resource": "https://management.azure.com/"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"DBName": {
-						"type": "string",
-						"defaultValue": "d365-byod-prod"
-					},
-					"ResourceGroup": {
-						"type": "string",
-						"defaultValue": "D365-BYOD-DEV-TEST-ACC"
-					},
-					"SQLServerName": {
-						"type": "string",
-						"defaultValue": "smc-byod-dta"
-					},
-					"SubscriptionID": {
-						"type": "string",
-						"defaultValue": "59beecb9-e864-42bf-b76a-4e3c69488675"
-					}
-				},
-				"folder": {
-					"name": "ScaleDatabases/PRD"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/UpScale_PRD')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Up_Scale_Azure_SQLDB",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": {
-								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
-								"type": "Expression"
-							},
-							"method": "PUT",
-							"headers": {
-								"Content-type": "application/json"
-							},
-							"body": {
-								"sku": {
-									"name": "S7",
-									"tier": "Standard"
-								},
-								"location": "West Europe"
-							},
-							"authentication": {
-								"type": "MSI",
-								"resource": "https://management.azure.com/"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"DBName": {
-						"type": "string",
-						"defaultValue": "d365-byod-prod"
-					},
-					"ResourceGroup": {
-						"type": "string",
-						"defaultValue": "D365-BYOD-DEV-TEST-ACC"
-					},
-					"SQLServerName": {
-						"type": "string",
-						"defaultValue": "smc-byod-dta"
-					},
-					"SubscriptionID": {
-						"type": "string",
-						"defaultValue": "59beecb9-e864-42bf-b76a-4e3c69488675"
-					}
-				},
-				"folder": {
-					"name": "ScaleDatabases/PRD"
-				},
-				"annotations": []
 			},
 			"dependsOn": []
 		}
