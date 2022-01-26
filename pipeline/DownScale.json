@@ -55,6 +55,9 @@
 				"defaultValue": "59beecb9-e864-42bf-b76a-4e3c69488675"
 			}
 		},
+		"folder": {
+			"name": "ScaleDatabases/ACC"
+		},
 		"annotations": []
 	}
 }
