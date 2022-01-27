@@ -196,8 +196,14 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"workspaceGuid": "@item().workspaceGuid",
-									"datasetGuid": "@item().workspaceGuid",
+									"workspaceGuid": {
+										"value": "@item().workspaceGuid",
+										"type": "Expression"
+									},
+									"datasetGuid": {
+										"value": "@item().datasetGuid",
+										"type": "Expression"
+									},
 									"autorization": {
 										"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
 										"type": "Expression"
