@@ -268,7 +268,8 @@
 		],
 		"parameters": {
 			"SecretName_TenantId": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "f07b1ff3c02a4348ad86af432614ba46"
 			},
 			"SecretName_SPClientId": {
 				"type": "String"
