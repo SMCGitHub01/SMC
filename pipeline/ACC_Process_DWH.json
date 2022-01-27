@@ -548,7 +548,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "spLoadDataAfterFullLoad",
+						"activity": "RefreshPowerBI",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -558,6 +558,26 @@
 				"typeProperties": {
 					"pipeline": {
 						"referenceName": "ACC_DownScale",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "RefreshPowerBI",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "spLoadDataAfterFullLoad",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "RefreshPowerBI",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
