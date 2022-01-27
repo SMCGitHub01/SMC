@@ -9841,7 +9841,7 @@
 												"type": "Expression"
 											},
 											"datasetGuid": {
-												"value": "@item().workspaceGuid",
+												"value": "@item().datasetGuid",
 												"type": "Expression"
 											},
 											"autorization": {
