@@ -4671,7 +4671,7 @@
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
-								"activity": "spLoadDataAfterFullLoad",
+								"activity": "RefreshPowerBI",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -4681,6 +4681,27 @@
 						"typeProperties": {
 							"pipeline": {
 								"referenceName": "ACC_DownScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "RefreshPowerBI",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "spLoadDataAfterFullLoad",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "RefreshPowerBI",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -4712,7 +4733,14 @@
 					{
 						"name": "Lookup_Current_Sync_And_Date",
 						"type": "Lookup",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "PRD_UpScale",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -5227,6 +5255,41 @@
 						"typeProperties": {
 							"pipeline": {
 								"referenceName": "PRD_Process_Zendesk",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "PRD_UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "PRD_DownScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "spLoadDataAfterFullLoad",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_DownScale",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,

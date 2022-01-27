@@ -2965,7 +2965,7 @@
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
-								"activity": "spLoadDataAfterFullLoad",
+								"activity": "RefreshPowerBI",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -2975,6 +2975,27 @@
 						"typeProperties": {
 							"pipeline": {
 								"referenceName": "ACC_DownScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "RefreshPowerBI",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "spLoadDataAfterFullLoad",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "RefreshPowerBI",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -3000,6 +3021,7 @@
 				"[concat(variables('factoryId'), '/pipelines/ACC_Process_Zendesk')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_UpScale')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_DownScale')]",
+				"[concat(variables('factoryId'), '/pipelines/RefreshPowerBI')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_Materialize_Views')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_DistributionList')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_BudgetDirectSales')]",
@@ -6380,7 +6402,14 @@
 					{
 						"name": "Lookup_Current_Sync_And_Date",
 						"type": "Lookup",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "PRD_UpScale",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -6900,6 +6929,41 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
+					},
+					{
+						"name": "PRD_UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "PRD_DownScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "spLoadDataAfterFullLoad",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_DownScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
@@ -6918,6 +6982,8 @@
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_SugarCRM_DataBase')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_Zendesk')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_UpScale')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_DownScale')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_Materialize_Views')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_DistributionList')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_BudgetDirectSales')]",
