@@ -273,7 +273,7 @@
 			},
 			"SecretName_SPClientId": {
 				"type": "String",
-				"defaultValue": "ClientId1"
+				"defaultValue": "ClientId"
 			},
 			"SecretName_SPSecret": {
 				"type": "String",
@@ -288,7 +288,8 @@
 				"defaultValue": "2cfcf959-ab5e-402e-bf14-dac9670cd8f2"
 			},
 			"datasetGuid": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "ef2a19e0-cd98-461d-8c9a-55618e8af556"
 			}
 		},
 		"variables": {
