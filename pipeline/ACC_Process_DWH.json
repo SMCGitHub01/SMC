@@ -577,7 +577,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "RefreshPowerBI_ACC",
+						"referenceName": "RefreshPowerBI_ACC_copy1",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
