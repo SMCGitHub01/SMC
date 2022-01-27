@@ -233,12 +233,10 @@
 				"defaultValue": "https://powerbirefreshadf1.vault.azure.net/"
 			},
 			"workspaceGuid": {
-				"type": "string",
-				"defaultValue": "2cfcf959-ab5e-402e-bf14-dac9670cd8f2"
+				"type": "string"
 			},
 			"datasetGuid": {
-				"type": "string",
-				"defaultValue": "ef2a19e0-cd98-461d-8c9a-55618e8af556"
+				"type": "string"
 			}
 		},
 		"variables": {
