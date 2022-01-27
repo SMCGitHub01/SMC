@@ -85,7 +85,7 @@
 								"method": "GET",
 								"headers": {
 									"Authorization": {
-										"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
+										"value": "@pipeline().parameters.autorization",
 										"type": "Expression"
 									},
 									"Content-Type": "application/json"
