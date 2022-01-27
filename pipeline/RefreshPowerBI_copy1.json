@@ -269,13 +269,15 @@
 		"parameters": {
 			"SecretName_TenantId": {
 				"type": "String",
-				"defaultValue": "f07b1ff3c02a4348ad86af432614ba46"
+				"defaultValue": "TenantIId"
 			},
 			"SecretName_SPClientId": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "ClientId"
 			},
 			"SecretName_SPSecret": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "ClientSecret"
 			},
 			"KeyVaultDNSName": {
 				"type": "string",
