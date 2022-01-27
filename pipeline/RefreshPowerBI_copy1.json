@@ -273,7 +273,7 @@
 			},
 			"SecretName_SPClientId": {
 				"type": "String",
-				"defaultValue": "ClientId"
+				"defaultValue": "ClientId1"
 			},
 			"SecretName_SPSecret": {
 				"type": "String",
