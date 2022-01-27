@@ -1,5 +1,5 @@
 {
-	"name": "RefreshPowerBI_copy1",
+	"name": "RefreshPowerBI",
 	"properties": {
 		"activities": [
 			{
@@ -101,41 +101,6 @@
 						}
 					],
 					"timeout": "0.03:00:00"
-				}
-			},
-			{
-				"name": "If dataset refresh failed",
-				"type": "IfCondition",
-				"dependsOn": [
-					{
-						"activity": "Until dataset refresh completion",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"expression": {
-						"value": "@equals(first(json(string(activity('Get dataset refresh status').output)).value).status,'Failed')",
-						"type": "Expression"
-					},
-					"ifTrueActivities": [
-						{
-							"name": "SaveErrorMessages",
-							"description": "In case of an error in processing of the dataset, the actual messages are saved in the pipeline variable \"ProcessingErrors\".",
-							"type": "SetVariable",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"variableName": "ProcessingErrors",
-								"value": {
-									"value": "@string(json(first(json(string(activity('Get dataset refresh status').output)).value).serviceExceptionJson))",
-									"type": "Expression"
-								}
-							}
-						}
-					]
 				}
 			},
 			{
