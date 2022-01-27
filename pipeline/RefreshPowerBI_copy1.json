@@ -185,19 +185,31 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "RefreshPowerBI_RefreshModels",
-							"type": "ExecutePipeline",
+							"name": "Call dataset refresh",
+							"type": "WebActivity",
 							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": true
+							},
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "RefreshPowerBI_RefreshModels",
-									"type": "PipelineReference"
+								"url": {
+									"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',Item().workspaceGuid,'/datasets/',Item().datasetGuid,'/refreshes')",
+									"type": "Expression"
 								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"workspaceGuid": "@{Item().workspaceGuid}",
-									"datasetGuid": "@{Item().datasetGuid}"
+								"method": "POST",
+								"headers": {
+									"Authorization": {
+										"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
+										"type": "Expression"
+									}
+								},
+								"body": {
+									"notifyOption": "NoNotification"
 								}
 							}
 						}
