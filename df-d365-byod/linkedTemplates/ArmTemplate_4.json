@@ -4967,7 +4967,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "RefreshPowerBI",
+								"referenceName": "RefreshPowerBI_ACC",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -4987,7 +4987,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/ACC_Process_IFS_Stage')]",
-				"[concat(variables('factoryId'), '/pipelines/ACC_Process_Zendesk')]"
+				"[concat(variables('factoryId'), '/pipelines/ACC_Process_Zendesk')]",
+				"[concat(variables('factoryId'), '/pipelines/RefreshPowerBI_ACC')]"
 			]
 		},
 		{

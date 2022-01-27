@@ -2995,7 +2995,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "RefreshPowerBI",
+								"referenceName": "RefreshPowerBI_ACC",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -3021,7 +3021,7 @@
 				"[concat(variables('factoryId'), '/pipelines/ACC_Process_Zendesk')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_UpScale')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_DownScale')]",
-				"[concat(variables('factoryId'), '/pipelines/RefreshPowerBI')]",
+				"[concat(variables('factoryId'), '/pipelines/RefreshPowerBI_ACC')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_Materialize_Views')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_DistributionList')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_BudgetDirectSales')]",
