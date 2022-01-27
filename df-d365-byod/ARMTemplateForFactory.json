@@ -8973,7 +8973,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "SqlMISource",
-								"sqlReaderQuery": "WITH laatstesalesorder\nAS (SELECT ProductBK,\n           ISNULL(MAX(ConfirmationDate), NULL) dt\n    FROM dbo.vwSalesOrderExplsion\n    GROUP BY ProductBK),\n     aataldagengeleden\nAS (SELECT s.ProductBK,\n           DATEDIFF(DAY, GETDATE(), s.dt) dagen\n    FROM laatstesalesorder s),\n     invent\nAS (SELECT --[LocationName],\n        SUM(PhysicalInventory) PhysicalInventory,\n        SUM(inv.PhysicalReservedQuantity) PhysicalReservedQuantity,\n        SUM(inv.OnOrderQuantity) OnOrderQuantity,\n        inv.DimProductBK\n    FROM [dwh].FactAvailableQuantity inv\n        LEFT JOIN dwh.DimLocation\n            ON LocationBK = inv.DimLocationBK\n    WHERE LocationID = 'EIN'\n    GROUP BY inv.DimProductBK),\n\n\tInventCompleet AS (\n--\t\tsELECT * FROM invent WHERE  invent.DimProductBK LIKE 'WNL-04-F04V%'\nSELECT --[LocationName],\n    SUM(PhysicalInventory) voorraad,\n    SUM(inv.PhysicalReservedQuantity) reserved,\n    SUM(inv.OnOrderQuantity) onorder,\n    ISNULL(MAX(dagen), -5000) AS dagen,\n    pr.ProductNumber,\n    STRING_AGG(pr.ProductLifecycleState, ';') lifecycle\nFROM invent inv\n    INNER JOIN dwh.DimProduct pr\n        ON inv.DimProductBK = pr.ProductBK\n    LEFT JOIN aataldagengeleden d\n        ON d.ProductBK = pr.ProductBK\n--\t\tLEFT JOIN dwh.DimLocation ON LocationBK=inv.DimLocationBK\nWHERE --pr.ProductNumber = 'WNL-04-F04V' AND \n    inv.PhysicalInventory + inv.PhysicalReservedQuantity + inv.OnOrderQuantity <> 0\nGROUP BY pr.ProductNumber)\n\nSELECT voorraad =  CAST(inv.voorraad AS INT),\navailable = CAST(CASE WHEN inv.voorraad-inv.reserved-inv.onorder < 0 THEN 0 ELSE inv.voorraad-inv.reserved-inv.onorder END AS INT),\nmarker = CASE WHEN (dagen * -1) < 365 THEN '' ELSE CASE WHEN inv.lifecycle LIKE '%SP-SR%' THEN '' ELSE 'Y' END END\n,inv.ProductNumber, (dagen * -1) dagen, CASE WHEN inv.lifecycle LIKE '%SP-SR%' THEN 'SP-SR' ELSE '' END lifecycle\nFROM InventCompleet inv\n\n\n\n",
+								"sqlReaderQuery": "WITH laatstesalesorder\nAS (SELECT ProductBK,\n           ISNULL(MAX(ConfirmationDate), NULL) dt\n    FROM dbo.vwSalesOrderExplsion\n    GROUP BY ProductBK),\n     aataldagengeleden\nAS (SELECT s.ProductBK,\n           DATEDIFF(DAY, GETDATE(), s.dt) dagen\n    FROM laatstesalesorder s),\n     invent\nAS (SELECT --[LocationName],\n        SUM(PhysicalInventory) PhysicalInventory,\n        SUM(inv.PhysicalReservedQuantity) PhysicalReservedQuantity,\n        SUM(inv.OnOrderQuantity) OnOrderQuantity,\n        inv.DimProductBK\n    FROM [dwh].FactAvailableQuantity inv\n        LEFT JOIN dwh.DimLocation\n            ON LocationBK = inv.DimLocationBK\n    WHERE LocationID = 'EIN' AND inv.InventStatus='available'\n    GROUP BY inv.DimProductBK),\n\n\tInventCompleet AS (\n--\t\tsELECT * FROM invent WHERE  invent.DimProductBK LIKE 'WNL-04-F04V%'\nSELECT --[LocationName],\n    SUM(PhysicalInventory) voorraad,\n    SUM(inv.PhysicalReservedQuantity) reserved,\n    SUM(inv.OnOrderQuantity) onorder,\n    ISNULL(MAX(dagen), -5000) AS dagen,\n    pr.ProductNumber,\n    STRING_AGG(pr.ProductLifecycleState, ';') lifecycle\nFROM invent inv\n    INNER JOIN dwh.DimProduct pr\n        ON inv.DimProductBK = pr.ProductBK\n    LEFT JOIN aataldagengeleden d\n        ON d.ProductBK = pr.ProductBK\n--\t\tLEFT JOIN dwh.DimLocation ON LocationBK=inv.DimLocationBK\nWHERE --pr.ProductNumber = 'WNL-04-F04V' AND \n    inv.PhysicalInventory + inv.PhysicalReservedQuantity + inv.OnOrderQuantity <> 0\nGROUP BY pr.ProductNumber)\n\nSELECT voorraad =  CAST(inv.voorraad AS INT),\navailable = CAST(CASE WHEN inv.voorraad-inv.reserved-inv.onorder < 0 THEN 0 ELSE inv.voorraad-inv.reserved-inv.onorder END AS INT),\nmarker = CASE WHEN (dagen * -1) < 365 THEN '' ELSE CASE WHEN inv.lifecycle LIKE '%SP-SR%' THEN '' ELSE 'Y' END END\n,inv.ProductNumber, (dagen * -1) dagen, CASE WHEN inv.lifecycle LIKE '%SP-SR%' THEN 'SP-SR' ELSE '' END lifecycle\nFROM InventCompleet inv\n\n\n\n",
 								"partitionOption": "None"
 							},
 							"sink": {
@@ -9018,6 +9018,629 @@
 				"[concat(variables('factoryId'), '/datasets/AzureSqlMITable1')]",
 				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RefreshPowerBI')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Call dataset refresh",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get AAD Token",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')",
+								"type": "Expression"
+							},
+							"method": "POST",
+							"headers": {
+								"Authorization": {
+									"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
+									"type": "Expression"
+								}
+							},
+							"body": {
+								"notifyOption": "NoNotification"
+							}
+						}
+					},
+					{
+						"name": "Until dataset refresh completion",
+						"type": "Until",
+						"dependsOn": [
+							{
+								"activity": "Call dataset refresh",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@not(equals(first(json(string(activity('Get dataset refresh status').output)).value).status,'Unknown'))",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Wait 15 seconds",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 15
+									}
+								},
+								{
+									"name": "Get dataset refresh status",
+									"type": "WebActivity",
+									"dependsOn": [
+										{
+											"activity": "Wait 15 seconds",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": true
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"url": {
+											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes?$top=1')",
+											"type": "Expression"
+										},
+										"method": "GET",
+										"headers": {
+											"Authorization": {
+												"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
+												"type": "Expression"
+											},
+											"Content-Type": "application/json"
+										}
+									}
+								}
+							],
+							"timeout": "0.03:00:00"
+						}
+					},
+					{
+						"name": "If dataset refresh failed",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Until dataset refresh completion",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@equals(first(json(string(activity('Get dataset refresh status').output)).value).status,'Failed')",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "SaveErrorMessages",
+									"description": "In case of an error in processing of the dataset, the actual messages are saved in the pipeline variable \"ProcessingErrors\".",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "ProcessingErrors",
+										"value": {
+											"value": "@string(json(first(json(string(activity('Get dataset refresh status').output)).value).serviceExceptionJson))",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Get AAD Token",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get Secret from AKV",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Get ClientId from AKV",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Get TenantId from AKV",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+								"type": "Expression"
+							},
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"body": {
+								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Get TenantId from AKV",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_TenantId,'/?api-version=7.0')",
+								"type": "Expression"
+							},
+							"method": "GET",
+							"headers": {},
+							"body": {
+								"simple": "body"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "Get ClientId from AKV",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPClientId,'/?api-version=7.0')",
+								"type": "Expression"
+							},
+							"method": "GET",
+							"headers": {},
+							"body": {
+								"simple": "body"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "Get Secret from AKV",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPSecret,'/?api-version=7.0')",
+								"type": "Expression"
+							},
+							"method": "GET",
+							"headers": {},
+							"body": {
+								"simple": "body"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"SecretName_TenantId": {
+						"type": "String"
+					},
+					"SecretName_SPClientId": {
+						"type": "String"
+					},
+					"SecretName_SPSecret": {
+						"type": "String"
+					},
+					"KeyVaultDNSName": {
+						"type": "string"
+					},
+					"workspaceGuid": {
+						"type": "string"
+					},
+					"datasetGuid": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"ProcessingErrors": {
+						"type": "Boolean"
+					}
+				},
+				"folder": {
+					"name": "50-powerbi"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RefreshPowerBI_copy1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Call dataset refresh",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get AAD Token",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')",
+								"type": "Expression"
+							},
+							"method": "POST",
+							"headers": {
+								"Authorization": {
+									"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
+									"type": "Expression"
+								}
+							},
+							"body": {
+								"notifyOption": "NoNotification"
+							}
+						}
+					},
+					{
+						"name": "Until dataset refresh completion",
+						"type": "Until",
+						"dependsOn": [
+							{
+								"activity": "Call dataset refresh",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@not(equals(first(json(string(activity('Get dataset refresh status').output)).value).status,'Unknown'))",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Wait 15 seconds",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 15
+									}
+								},
+								{
+									"name": "Get dataset refresh status",
+									"type": "WebActivity",
+									"dependsOn": [
+										{
+											"activity": "Wait 15 seconds",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": true
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"url": {
+											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes?$top=1')",
+											"type": "Expression"
+										},
+										"method": "GET",
+										"headers": {
+											"Authorization": {
+												"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
+												"type": "Expression"
+											},
+											"Content-Type": "application/json"
+										}
+									}
+								}
+							],
+							"timeout": "0.03:00:00"
+						}
+					},
+					{
+						"name": "If dataset refresh failed",
+						"type": "IfCondition",
+						"dependsOn": [
+							{
+								"activity": "Until dataset refresh completion",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"expression": {
+								"value": "@equals(first(json(string(activity('Get dataset refresh status').output)).value).status,'Failed')",
+								"type": "Expression"
+							},
+							"ifTrueActivities": [
+								{
+									"name": "SaveErrorMessages",
+									"description": "In case of an error in processing of the dataset, the actual messages are saved in the pipeline variable \"ProcessingErrors\".",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "ProcessingErrors",
+										"value": {
+											"value": "@string(json(first(json(string(activity('Get dataset refresh status').output)).value).serviceExceptionJson))",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Get AAD Token",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Get Secret from AKV",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Get ClientId from AKV",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Get TenantId from AKV",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": true
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+								"type": "Expression"
+							},
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"body": {
+								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
+								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Get TenantId from AKV",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_TenantId,'/?api-version=7.0')",
+								"type": "Expression"
+							},
+							"method": "GET",
+							"headers": {},
+							"body": {
+								"simple": "body"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "Get ClientId from AKV",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPClientId,'/?api-version=7.0')",
+								"type": "Expression"
+							},
+							"method": "GET",
+							"headers": {},
+							"body": {
+								"simple": "body"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					},
+					{
+						"name": "Get Secret from AKV",
+						"type": "WebActivity",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": true,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": {
+								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPSecret,'/?api-version=7.0')",
+								"type": "Expression"
+							},
+							"method": "GET",
+							"headers": {},
+							"body": {
+								"simple": "body"
+							},
+							"authentication": {
+								"type": "MSI",
+								"resource": "https://vault.azure.net"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"SecretName_TenantId": {
+						"type": "String",
+						"defaultValue": "TenantIId"
+					},
+					"SecretName_SPClientId": {
+						"type": "String",
+						"defaultValue": "ClientId"
+					},
+					"SecretName_SPSecret": {
+						"type": "String",
+						"defaultValue": "ClientSecret"
+					},
+					"KeyVaultDNSName": {
+						"type": "string",
+						"defaultValue": "https://powerbirefreshadf1.vault.azure.net/"
+					},
+					"workspaceGuid": {
+						"type": "string",
+						"defaultValue": "2cfcf959-ab5e-402e-bf14-dac9670cd8f2"
+					},
+					"datasetGuid": {
+						"type": "string"
+					}
+				},
+				"variables": {
+					"ProcessingErrors": {
+						"type": "Boolean"
+					}
+				},
+				"folder": {
+					"name": "50-powerbi"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Sanctielijsten')]",
