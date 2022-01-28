@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
+		"Dynamics1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Dynamics1'"
+		},
 		"Invent_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Invent'"
@@ -34,6 +38,10 @@
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringPRD"
+		},
+		"Dynamics1_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "vader@smcpneumatics.nl"
 		},
 		"Invent_properties_typeProperties_host": {
 			"type": "string",
@@ -9791,7 +9799,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT \n      [workspaceGuid]\n      ,[datasetGuid]\n  FROM [audit].[RefreshBIModels] WHERE dwh='ACC' ",
+								"sqlReaderQuery": "SELECT \n      [workspaceGuid]\n      ,[datasetGuid]\n  FROM [audit].[RefreshBIModels] WHERE dwh='ACC'  and active=1",
 								"partitionOption": "None"
 							},
 							"dataset": {
@@ -13063,7 +13071,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "FULL-1_0 .csv",
+						"fileName": "FULL-1_0.csv",
 						"container": "sanctielijsten"
 					},
 					"columnDelimiter": ";",
@@ -13820,6 +13828,26 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Dynamics1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Dynamics",
+				"typeProperties": {
+					"deploymentType": "Online",
+					"serviceUri": "https://aquapro.operations.dynamics.com/",
+					"authenticationType": "Office365",
+					"username": "[parameters('Dynamics1_properties_typeProperties_username')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Dynamics1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Invent')]",
