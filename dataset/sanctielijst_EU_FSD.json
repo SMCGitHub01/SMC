@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "FULL-1_0 .csv",
+				"fileName": "FULL-1_0.csv",
 				"container": "sanctielijsten"
 			},
 			"columnDelimiter": ";",
