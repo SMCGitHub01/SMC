@@ -5608,14 +5608,7 @@
 					{
 						"name": "Lookup_Current_Sync_And_Date",
 						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "UpScale",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
+						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -6130,41 +6123,6 @@
 						"typeProperties": {
 							"pipeline": {
 								"referenceName": "ACC_Process_Zendesk",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "UpScale",
-						"type": "ExecutePipeline",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "ACC_UpScale",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "DownScale",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "RefreshPowerBI",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "ACC_DownScale",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
