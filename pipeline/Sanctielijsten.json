@@ -538,7 +538,7 @@
 								},
 								"sink": {
 									"name": "Naal_leba_publication_date",
-									"type": "DateTime"
+									"type": "String"
 								}
 							},
 							{
@@ -1009,12 +1009,6 @@
 								"sink": {
 									"name": "EU_ref_num",
 									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "EUid",
-									"type": "Int64"
 								}
 							}
 						]
