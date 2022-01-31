@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "https://scsanctions.un.org/resources/xml/en/consolidated.xml",
+			"url": "https://scsanctions.un.org/resources/xml/en/",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
