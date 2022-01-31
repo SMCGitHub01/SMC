@@ -428,7 +428,7 @@
 								},
 								"sink": {
 									"name": "Date_file",
-									"type": "DateTime"
+									"type": "String"
 								}
 							},
 							{
@@ -468,7 +468,7 @@
 								},
 								"sink": {
 									"name": "Leba_publication_date",
-									"type": "DateTime"
+									"type": "String"
 								}
 							},
 							{
@@ -1009,6 +1009,12 @@
 								"sink": {
 									"name": "EU_ref_num",
 									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "EUid",
+									"type": "Int64"
 								}
 							}
 						]
