@@ -16,20 +16,21 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
-						"queryTimeout": "02:01:00",
-						"partitionOption": "None"
-					},
-					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "XmlSource",
 						"storeSettings": {
-							"type": "FileServerWriteSettings"
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".csv"
+							"type": "XmlReadSettings",
+							"validationMode": "none",
+							"namespaces": true
 						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -37,48 +38,138 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "ITEMNUMBER",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['DATAID']"
 								},
 								"sink": {
-									"type": "String",
-									"physicalType": "String",
-									"ordinal": 1
+									"name": "DATAID",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "PRICE",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 6,
-									"precision": 32
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['VERSIONNUM']"
 								},
 								"sink": {
-									"type": "String",
-									"physicalType": "String",
-									"ordinal": 2
+									"name": "VERSIONNUM",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['FIRST_NAME']"
+								},
+								"sink": {
+									"name": "FIRST_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['SECOND_NAME']"
+								},
+								"sink": {
+									"name": "SECOND_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['THIRD_NAME']"
+								},
+								"sink": {
+									"name": "THIRD_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['UN_LIST_TYPE']"
+								},
+								"sink": {
+									"name": "UN_LIST_TYPE",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['REFERENCE_NUMBER']"
+								},
+								"sink": {
+									"name": "REFERENCE_NUMBER",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['LISTED_ON']"
+								},
+								"sink": {
+									"name": "LISTED_ON",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['COMMENTS1']"
+								},
+								"sink": {
+									"name": "COMMENTS1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['DESIGNATION']['VALUE']"
+								},
+								"sink": {
+									"name": "DESIGNATION",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['INDIVIDUAL_ALIAS']['ALIAS_NAME']"
+								},
+								"sink": {
+									"name": "ALIAS_NAME",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['INDIVIDUAL_ADDRESS']['COUNTRY']"
+								},
+								"sink": {
+									"name": "COUNTRY",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['INDIVIDUAL_PLACE_OF_BIRTH']"
+								},
+								"sink": {
+									"name": "INDIVIDUAL_PLACE_OF_BIRTH",
+									"type": "String"
 								}
 							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
+						]
 					}
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "XmlUN",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "testUpload",
-						"type": "DatasetReference"
+						"referenceName": "ACC_BYOD_DEV_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "sanct",
+							"TableName": "vn_sanctions_list"
+						}
 					}
 				]
 			}
