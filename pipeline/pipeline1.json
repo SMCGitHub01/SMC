@@ -91,7 +91,7 @@
 								}
 							}
 						],
-						"collectionReference": "['INDIVIDUAL']",
+						"collectionReference": "['INDIVIDUALS']['INDIVIDUAL']",
 						"mapComplexValuesToString": true
 					}
 				},
