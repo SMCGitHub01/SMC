@@ -38,28 +38,10 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['INDIVIDUAL'][0]['DATAID']"
+									"path": "['DATAID']"
 								},
 								"sink": {
 									"name": "DATAID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['INDIVIDUAL'][0]['VERSIONNUM']"
-								},
-								"sink": {
-									"name": "VERSIONNUM",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['INDIVIDUAL'][0]['FIRST_NAME']"
-								},
-								"sink": {
-									"name": "FIRST_NAME",
 									"type": "String"
 								}
 							}
