@@ -3591,6 +3591,315 @@
 								}
 							}
 						]
+					},
+					{
+						"name": "VN_Individuals",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "truncateSanctionlists",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "XmlSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "XmlReadSettings",
+									"validationMode": "none",
+									"namespaces": true
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "[['DATAID']"
+										},
+										"sink": {
+											"name": "DATAID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['VERSIONNUM']"
+										},
+										"sink": {
+											"name": "VERSIONNUM",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['FIRST_NAME']"
+										},
+										"sink": {
+											"name": "FIRST_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['UN_LIST_TYPE']"
+										},
+										"sink": {
+											"name": "UN_LIST_TYPE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['REFERENCE_NUMBER']"
+										},
+										"sink": {
+											"name": "REFERENCE_NUMBER",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['LISTED_ON']"
+										},
+										"sink": {
+											"name": "LISTED_ON",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['COMMENTS1']"
+										},
+										"sink": {
+											"name": "COMMENTS1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['ENTITY_ALIAS']['ALIAS_NAME']"
+										},
+										"sink": {
+											"name": "ALIAS_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['ENTITY_ADDRESS']['COUNTRY']"
+										},
+										"sink": {
+											"name": "COUNTRY",
+											"type": "String"
+										}
+									}
+								],
+								"collectionReference": "[['CONSOLIDATED_LIST']['ENTITIES']['ENTITY']",
+								"mapComplexValuesToString": true
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "XmlUN",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sanct",
+									"TableName": "vn_sanctions_list"
+								}
+							}
+						]
+					},
+					{
+						"name": "VN_Entities",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "VN_Individuals",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "XmlSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "XmlReadSettings",
+									"validationMode": "none",
+									"namespaces": true
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "[['DATAID']"
+										},
+										"sink": {
+											"name": "DATAID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['VERSIONNUM']"
+										},
+										"sink": {
+											"name": "VERSIONNUM",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['FIRST_NAME']"
+										},
+										"sink": {
+											"name": "FIRST_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['SECOND_NAME']"
+										},
+										"sink": {
+											"name": "SECOND_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['THIRD_NAME']"
+										},
+										"sink": {
+											"name": "THIRD_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['UN_LIST_TYPE']"
+										},
+										"sink": {
+											"name": "UN_LIST_TYPE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['REFERENCE_NUMBER']"
+										},
+										"sink": {
+											"name": "REFERENCE_NUMBER",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['LISTED_ON']"
+										},
+										"sink": {
+											"name": "LISTED_ON",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['COMMENTS1']"
+										},
+										"sink": {
+											"name": "COMMENTS1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['INDIVIDUAL_ALIAS']['ALIAS_NAME']"
+										},
+										"sink": {
+											"name": "ALIAS_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['INDIVIDUAL_ADDRESS']['COUNTRY']"
+										},
+										"sink": {
+											"name": "COUNTRY",
+											"type": "String"
+										}
+									}
+								],
+								"collectionReference": "[['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']",
+								"mapComplexValuesToString": true
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "XmlUN",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sanct",
+									"TableName": "vn_sanctions_list"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -3608,7 +3917,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "test",
+						"name": "VN_Individuals",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -3643,7 +3952,7 @@
 								"mappings": [
 									{
 										"source": {
-											"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['DATAID']"
+											"path": "[['DATAID']"
 										},
 										"sink": {
 											"name": "DATAID",
@@ -3652,7 +3961,7 @@
 									},
 									{
 										"source": {
-											"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['VERSIONNUM']"
+											"path": "[['VERSIONNUM']"
 										},
 										"sink": {
 											"name": "VERSIONNUM",
@@ -3661,7 +3970,7 @@
 									},
 									{
 										"source": {
-											"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['FIRST_NAME']"
+											"path": "[['FIRST_NAME']"
 										},
 										"sink": {
 											"name": "FIRST_NAME",
@@ -3670,25 +3979,7 @@
 									},
 									{
 										"source": {
-											"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['SECOND_NAME']"
-										},
-										"sink": {
-											"name": "SECOND_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['THIRD_NAME']"
-										},
-										"sink": {
-											"name": "THIRD_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['UN_LIST_TYPE']"
+											"path": "[['UN_LIST_TYPE']"
 										},
 										"sink": {
 											"name": "UN_LIST_TYPE",
@@ -3697,7 +3988,7 @@
 									},
 									{
 										"source": {
-											"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['REFERENCE_NUMBER']"
+											"path": "[['REFERENCE_NUMBER']"
 										},
 										"sink": {
 											"name": "REFERENCE_NUMBER",
@@ -3706,7 +3997,7 @@
 									},
 									{
 										"source": {
-											"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['LISTED_ON']"
+											"path": "[['LISTED_ON']"
 										},
 										"sink": {
 											"name": "LISTED_ON",
@@ -3715,15 +4006,197 @@
 									},
 									{
 										"source": {
-											"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['COMMENTS1']"
+											"path": "[['COMMENTS1']"
 										},
 										"sink": {
 											"name": "COMMENTS1",
 											"type": "String"
 										}
+									},
+									{
+										"source": {
+											"path": "[['ENTITY_ALIAS']['ALIAS_NAME']"
+										},
+										"sink": {
+											"name": "ALIAS_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['ENTITY_ADDRESS']['COUNTRY']"
+										},
+										"sink": {
+											"name": "COUNTRY",
+											"type": "String"
+										}
 									}
 								],
-								"collectionReference": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']",
+								"collectionReference": "[['CONSOLIDATED_LIST']['ENTITIES']['ENTITY']",
+								"mapComplexValuesToString": true
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "XmlUN",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sanct",
+									"TableName": "vn_sanctions_list"
+								}
+							}
+						]
+					},
+					{
+						"name": "VN_Entities",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "VN_Individuals",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "XmlSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "XmlReadSettings",
+									"validationMode": "none",
+									"namespaces": true
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "[['DATAID']"
+										},
+										"sink": {
+											"name": "DATAID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['VERSIONNUM']"
+										},
+										"sink": {
+											"name": "VERSIONNUM",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['FIRST_NAME']"
+										},
+										"sink": {
+											"name": "FIRST_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['SECOND_NAME']"
+										},
+										"sink": {
+											"name": "SECOND_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['THIRD_NAME']"
+										},
+										"sink": {
+											"name": "THIRD_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['UN_LIST_TYPE']"
+										},
+										"sink": {
+											"name": "UN_LIST_TYPE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['REFERENCE_NUMBER']"
+										},
+										"sink": {
+											"name": "REFERENCE_NUMBER",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['LISTED_ON']"
+										},
+										"sink": {
+											"name": "LISTED_ON",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['COMMENTS1']"
+										},
+										"sink": {
+											"name": "COMMENTS1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['INDIVIDUAL_ALIAS']['ALIAS_NAME']"
+										},
+										"sink": {
+											"name": "ALIAS_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['INDIVIDUAL_ADDRESS']['COUNTRY']"
+										},
+										"sink": {
+											"name": "COUNTRY",
+											"type": "String"
+										}
+									}
+								],
+								"collectionReference": "[['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']",
 								"mapComplexValuesToString": true
 							}
 						},
