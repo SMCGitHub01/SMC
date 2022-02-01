@@ -116,33 +116,6 @@
 									"name": "COMMENTS1",
 									"type": "String"
 								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY'][0]['VERSIONNUM']"
-								},
-								"sink": {
-									"name": "VERSIONNUM",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY'][0]['FIRST_NAME']"
-								},
-								"sink": {
-									"name": "FIRST_NAME",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY'][0]['UN_LIST_TYPE']"
-								},
-								"sink": {
-									"name": "UN_LIST_TYPE",
-									"type": "String"
-								}
 							}
 						],
 						"collectionReference": "$['CONSOLIDATED_LIST']['INDIVIDUALS']",
