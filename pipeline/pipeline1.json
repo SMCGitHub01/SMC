@@ -119,42 +119,6 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['INDIVIDUAL_ALIAS']['ALIAS_NAME']"
-								},
-								"sink": {
-									"name": "ALIAS_NAME",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['INDIVIDUAL_ADDRESS']['COUNTRY']"
-								},
-								"sink": {
-									"name": "COUNTRY",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['INDIVIDUAL_PLACE_OF_BIRTH']"
-								},
-								"sink": {
-									"name": "INDIVIDUAL_PLACE_OF_BIRTH",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY'][0]['DATAID']"
-								},
-								"sink": {
-									"name": "DATAID",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
 									"path": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY'][0]['VERSIONNUM']"
 								},
 								"sink": {
@@ -177,51 +141,6 @@
 								},
 								"sink": {
 									"name": "UN_LIST_TYPE",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY'][0]['REFERENCE_NUMBER']"
-								},
-								"sink": {
-									"name": "REFERENCE_NUMBER",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY'][0]['LISTED_ON']"
-								},
-								"sink": {
-									"name": "LISTED_ON",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY'][0]['COMMENTS1']"
-								},
-								"sink": {
-									"name": "COMMENTS1",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY'][0]['ENTITY_ALIAS']['ALIAS_NAME']"
-								},
-								"sink": {
-									"name": "ALIAS_NAME",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY'][0]['ENTITY_ADDRESS']['COUNTRY']"
-								},
-								"sink": {
-									"name": "COUNTRY",
 									"type": "String"
 								}
 							}
