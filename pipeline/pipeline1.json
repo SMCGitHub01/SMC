@@ -38,7 +38,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['INDIVIDUALS']['INDIVIDUAL'][0]['DATAID']"
+									"path": "$['DATAID']"
 								},
 								"sink": {
 									"name": "DATAID",
@@ -47,7 +47,7 @@
 							},
 							{
 								"source": {
-									"path": "$['INDIVIDUALS']['INDIVIDUAL'][0]['VERSIONNUM']"
+									"path": "$['VERSIONNUM']"
 								},
 								"sink": {
 									"name": "VERSIONNUM",
@@ -56,7 +56,7 @@
 							},
 							{
 								"source": {
-									"path": "$['INDIVIDUALS']['INDIVIDUAL'][0]['FIRST_NAME']"
+									"path": "$['FIRST_NAME']"
 								},
 								"sink": {
 									"name": "FIRST_NAME",
@@ -64,7 +64,7 @@
 								}
 							}
 						],
-						"collectionReference": "['INDIVIDUALS']",
+						"collectionReference": "['INDIVIDUAL']",
 						"mapComplexValuesToString": true
 					}
 				},
