@@ -38,7 +38,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['DATAID']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['DATAID']"
 								},
 								"sink": {
 									"name": "DATAID",
@@ -47,7 +47,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['VERSIONNUM']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['VERSIONNUM']"
 								},
 								"sink": {
 									"name": "VERSIONNUM",
@@ -56,7 +56,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['FIRST_NAME']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['FIRST_NAME']"
 								},
 								"sink": {
 									"name": "FIRST_NAME",
@@ -65,7 +65,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['SECOND_NAME']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['SECOND_NAME']"
 								},
 								"sink": {
 									"name": "SECOND_NAME",
@@ -74,7 +74,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['THIRD_NAME']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['THIRD_NAME']"
 								},
 								"sink": {
 									"name": "THIRD_NAME",
@@ -83,7 +83,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['UN_LIST_TYPE']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['UN_LIST_TYPE']"
 								},
 								"sink": {
 									"name": "UN_LIST_TYPE",
@@ -92,7 +92,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['REFERENCE_NUMBER']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['REFERENCE_NUMBER']"
 								},
 								"sink": {
 									"name": "REFERENCE_NUMBER",
@@ -101,7 +101,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['LISTED_ON']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['LISTED_ON']"
 								},
 								"sink": {
 									"name": "LISTED_ON",
@@ -110,7 +110,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['COMMENTS1']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['COMMENTS1']"
 								},
 								"sink": {
 									"name": "COMMENTS1",
@@ -119,7 +119,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['DESIGNATION']['VALUE']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['DESIGNATION']['VALUE']"
 								},
 								"sink": {
 									"name": "DESIGNATION",
@@ -128,7 +128,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['INDIVIDUAL_ALIAS']['ALIAS_NAME']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['INDIVIDUAL_ALIAS']['ALIAS_NAME']"
 								},
 								"sink": {
 									"name": "ALIAS_NAME",
@@ -137,7 +137,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['INDIVIDUAL_ADDRESS']['COUNTRY']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['INDIVIDUAL_ADDRESS']['COUNTRY']"
 								},
 								"sink": {
 									"name": "COUNTRY",
@@ -146,7 +146,7 @@
 							},
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['INDIVIDUAL_PLACE_OF_BIRTH']"
+									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']['INDIVIDUAL_PLACE_OF_BIRTH']"
 								},
 								"sink": {
 									"name": "INDIVIDUAL_PLACE_OF_BIRTH",
@@ -154,7 +154,8 @@
 								}
 							}
 						],
-						"collectionReference": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']"
+						"collectionReference": "$['CONSOLIDATED_LIST']['ENTITIES']['ENTITY']",
+						"mapComplexValuesToString": true
 					}
 				},
 				"inputs": [
