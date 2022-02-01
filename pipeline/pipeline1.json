@@ -118,7 +118,7 @@
 								}
 							}
 						],
-						"collectionReference": "['CONSOLIDATED_LIST']['INDIVIDUALS']",
+						"collectionReference": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']",
 						"mapComplexValuesToString": true
 					}
 				},
