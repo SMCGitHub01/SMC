@@ -43,6 +43,10 @@
 			"type": "string",
 			"defaultValue": "vader@smcpneumatics.nl"
 		},
+		"HttpServer1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://scsanctions.un.org/resources/xml/en/"
+		},
 		"Invent_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
@@ -119,6 +123,9 @@
 					"Dynamics1_properties_typeProperties_username": {
 						"value": "[parameters('Dynamics1_properties_typeProperties_username')]"
 					},
+					"HttpServer1_properties_typeProperties_url": {
+						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
+					},
 					"KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
 					},
@@ -139,12 +146,6 @@
 					},
 					"ZendeskDownload_properties_typeProperties_userId": {
 						"value": "[parameters('ZendeskDownload_properties_typeProperties_userId')]"
-					},
-					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
-					},
-					"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -163,6 +164,12 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
+					},
+					"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
