@@ -153,7 +153,8 @@
 									"type": "String"
 								}
 							}
-						]
+						],
+						"collectionReference": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']"
 					}
 				},
 				"inputs": [
