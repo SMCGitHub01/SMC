@@ -38,87 +38,15 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['DATAID']"
+									"path": "$['INDIVIDUAL']['DATAID']"
 								},
 								"sink": {
 									"name": "DATAID",
 									"type": "String"
 								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['VERSIONNUM']"
-								},
-								"sink": {
-									"name": "VERSIONNUM",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['FIRST_NAME']"
-								},
-								"sink": {
-									"name": "FIRST_NAME",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['SECOND_NAME']"
-								},
-								"sink": {
-									"name": "SECOND_NAME",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['THIRD_NAME']"
-								},
-								"sink": {
-									"name": "THIRD_NAME",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['UN_LIST_TYPE']"
-								},
-								"sink": {
-									"name": "UN_LIST_TYPE",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['REFERENCE_NUMBER']"
-								},
-								"sink": {
-									"name": "REFERENCE_NUMBER",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['LISTED_ON']"
-								},
-								"sink": {
-									"name": "LISTED_ON",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"path": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL'][0]['COMMENTS1']"
-								},
-								"sink": {
-									"name": "COMMENTS1",
-									"type": "String"
-								}
 							}
 						],
-						"collectionReference": "$['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']",
+						"collectionReference": "$['CONSOLIDATED_LIST']['INDIVIDUALS'][0]['INDIVIDUAL']",
 						"mapComplexValuesToString": true
 					}
 				},
