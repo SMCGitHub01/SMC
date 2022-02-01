@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "test",
+				"name": "VN_Individuals",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -140,9 +140,16 @@
 				]
 			},
 			{
-				"name": "test_copy1",
+				"name": "VN_Entities",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "VN_Individuals",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -170,6 +177,7 @@
 						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
+					"enableSkipIncompatibleRow": false,
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
