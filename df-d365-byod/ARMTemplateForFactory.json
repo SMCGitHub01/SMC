@@ -11986,6 +11986,326 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "VN_Individuals",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "XmlSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "XmlReadSettings",
+									"validationMode": "none",
+									"namespaces": true
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "[['DATAID']"
+										},
+										"sink": {
+											"name": "DATAID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['VERSIONNUM']"
+										},
+										"sink": {
+											"name": "VERSIONNUM",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['FIRST_NAME']"
+										},
+										"sink": {
+											"name": "FIRST_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['UN_LIST_TYPE']"
+										},
+										"sink": {
+											"name": "UN_LIST_TYPE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['REFERENCE_NUMBER']"
+										},
+										"sink": {
+											"name": "REFERENCE_NUMBER",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['LISTED_ON']"
+										},
+										"sink": {
+											"name": "LISTED_ON",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['COMMENTS1']"
+										},
+										"sink": {
+											"name": "COMMENTS1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['ENTITY_ALIAS']['ALIAS_NAME']"
+										},
+										"sink": {
+											"name": "ALIAS_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['ENTITY_ADDRESS']['COUNTRY']"
+										},
+										"sink": {
+											"name": "COUNTRY",
+											"type": "String"
+										}
+									}
+								],
+								"collectionReference": "[['CONSOLIDATED_LIST']['ENTITIES']['ENTITY']",
+								"mapComplexValuesToString": true
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "XmlUN",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sanct",
+									"TableName": "vn_sanctions_list"
+								}
+							}
+						]
+					},
+					{
+						"name": "VN_Entities",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "VN_Individuals",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "XmlSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "XmlReadSettings",
+									"validationMode": "none",
+									"namespaces": true
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "[['DATAID']"
+										},
+										"sink": {
+											"name": "DATAID",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['VERSIONNUM']"
+										},
+										"sink": {
+											"name": "VERSIONNUM",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['FIRST_NAME']"
+										},
+										"sink": {
+											"name": "FIRST_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['SECOND_NAME']"
+										},
+										"sink": {
+											"name": "SECOND_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['THIRD_NAME']"
+										},
+										"sink": {
+											"name": "THIRD_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['UN_LIST_TYPE']"
+										},
+										"sink": {
+											"name": "UN_LIST_TYPE",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['REFERENCE_NUMBER']"
+										},
+										"sink": {
+											"name": "REFERENCE_NUMBER",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['LISTED_ON']"
+										},
+										"sink": {
+											"name": "LISTED_ON",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['COMMENTS1']"
+										},
+										"sink": {
+											"name": "COMMENTS1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['INDIVIDUAL_ALIAS']['ALIAS_NAME']"
+										},
+										"sink": {
+											"name": "ALIAS_NAME",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "[['INDIVIDUAL_ADDRESS']['COUNTRY']"
+										},
+										"sink": {
+											"name": "COUNTRY",
+											"type": "String"
+										}
+									}
+								],
+								"collectionReference": "[['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']",
+								"mapComplexValuesToString": true
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "XmlUN",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sanct",
+									"TableName": "vn_sanctions_list"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/XmlUN')]",
+				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACCPRD_SugarCRM')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -14234,45 +14554,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Daily_DownScale_ACC')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "To make sure the database is at level S3 (in case an error occured during the night)",
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "ACC_DownScale",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2022-01-26T10:47:00Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								9
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ACC_DownScale')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Daily_PRD')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -14332,324 +14613,50 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/DownScaleProd')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"activities": [
+				"description": "DownScale prod, safety procedure",
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
 					{
-						"name": "VN_Individuals",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
+						"pipelineReference": {
+							"referenceName": "PRD_DownScale",
+							"type": "PipelineReference"
 						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "XmlSource",
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET"
-								},
-								"formatSettings": {
-									"type": "XmlReadSettings",
-									"validationMode": "none",
-									"namespaces": true
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"path": "[['DATAID']"
-										},
-										"sink": {
-											"name": "DATAID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['VERSIONNUM']"
-										},
-										"sink": {
-											"name": "VERSIONNUM",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['FIRST_NAME']"
-										},
-										"sink": {
-											"name": "FIRST_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['UN_LIST_TYPE']"
-										},
-										"sink": {
-											"name": "UN_LIST_TYPE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['REFERENCE_NUMBER']"
-										},
-										"sink": {
-											"name": "REFERENCE_NUMBER",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['LISTED_ON']"
-										},
-										"sink": {
-											"name": "LISTED_ON",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['COMMENTS1']"
-										},
-										"sink": {
-											"name": "COMMENTS1",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['ENTITY_ALIAS']['ALIAS_NAME']"
-										},
-										"sink": {
-											"name": "ALIAS_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['ENTITY_ADDRESS']['COUNTRY']"
-										},
-										"sink": {
-											"name": "COUNTRY",
-											"type": "String"
-										}
-									}
-								],
-								"collectionReference": "[['CONSOLIDATED_LIST']['ENTITIES']['ENTITY']",
-								"mapComplexValuesToString": true
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "XmlUN",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sanct",
-									"TableName": "vn_sanctions_list"
-								}
-							}
-						]
+						"parameters": {}
 					},
 					{
-						"name": "VN_Entities",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "VN_Individuals",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
+						"pipelineReference": {
+							"referenceName": "PRD_UpScale",
+							"type": "PipelineReference"
 						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "XmlSource",
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET"
-								},
-								"formatSettings": {
-									"type": "XmlReadSettings",
-									"validationMode": "none",
-									"namespaces": true
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"path": "[['DATAID']"
-										},
-										"sink": {
-											"name": "DATAID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['VERSIONNUM']"
-										},
-										"sink": {
-											"name": "VERSIONNUM",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['FIRST_NAME']"
-										},
-										"sink": {
-											"name": "FIRST_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['SECOND_NAME']"
-										},
-										"sink": {
-											"name": "SECOND_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['THIRD_NAME']"
-										},
-										"sink": {
-											"name": "THIRD_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['UN_LIST_TYPE']"
-										},
-										"sink": {
-											"name": "UN_LIST_TYPE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['REFERENCE_NUMBER']"
-										},
-										"sink": {
-											"name": "REFERENCE_NUMBER",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['LISTED_ON']"
-										},
-										"sink": {
-											"name": "LISTED_ON",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['COMMENTS1']"
-										},
-										"sink": {
-											"name": "COMMENTS1",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['INDIVIDUAL_ALIAS']['ALIAS_NAME']"
-										},
-										"sink": {
-											"name": "ALIAS_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['INDIVIDUAL_ADDRESS']['COUNTRY']"
-										},
-										"sink": {
-											"name": "COUNTRY",
-											"type": "String"
-										}
-									}
-								],
-								"collectionReference": "[['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']",
-								"mapComplexValuesToString": true
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "XmlUN",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sanct",
-									"TableName": "vn_sanctions_list"
-								}
-							}
-						]
+						"parameters": {}
 					}
 				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2022-02-07T07:19:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								7
+							]
+						}
+					}
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/XmlUN')]",
-				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+				"[concat(variables('factoryId'), '/pipelines/PRD_DownScale')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_UpScale')]"
 			]
 		}
 	]

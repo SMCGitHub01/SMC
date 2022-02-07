@@ -61,17 +61,24 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Daily_DownScale_ACC')]",
+			"name": "[concat(parameters('factoryName'), '/DownScaleProd')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "To make sure the database is at level S3 (in case an error occured during the night)",
+				"description": "DownScale prod, safety procedure",
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "ACC_DownScale",
+							"referenceName": "PRD_DownScale",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "PRD_UpScale",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -82,14 +89,14 @@
 					"recurrence": {
 						"frequency": "Day",
 						"interval": 1,
-						"startTime": "2022-01-26T10:47:00Z",
+						"startTime": "2022-02-07T07:19:00Z",
 						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
-								0
+								30
 							],
 							"hours": [
-								9
+								7
 							]
 						}
 					}
