@@ -1,0 +1,33 @@
+{
+	"name": "DownScaleProd",
+	"properties": {
+		"description": "DownScale prod, safety procedure",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PRD_DownScale",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2022-02-07T07:19:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"minutes": [
+						30
+					],
+					"hours": [
+						7
+					]
+				}
+			}
+		}
+	}
+}
