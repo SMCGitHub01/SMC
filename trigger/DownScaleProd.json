@@ -10,6 +10,12 @@
 					"referenceName": "PRD_DownScale",
 					"type": "PipelineReference"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "PRD_UpScale",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
