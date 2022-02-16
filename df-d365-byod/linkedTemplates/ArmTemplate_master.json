@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-d365-byod"
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
+		},
 		"AzureSqlMI1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
@@ -30,6 +34,10 @@
 		"staggingadfsmc_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
 		},
 		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
@@ -102,6 +110,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureDataLakeStorage1_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
+					},
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
@@ -117,8 +128,8 @@
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
 					},
-					"ZendeskDownload_password": {
-						"value": "[parameters('ZendeskDownload_password')]"
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
 					"Dynamics1_properties_typeProperties_username": {
 						"value": "[parameters('Dynamics1_properties_typeProperties_username')]"
@@ -140,12 +151,6 @@
 					},
 					"Invent_properties_typeProperties_userId": {
 						"value": "[parameters('Invent_properties_typeProperties_userId')]"
-					},
-					"ZendeskDownload_properties_typeProperties_host": {
-						"value": "[parameters('ZendeskDownload_properties_typeProperties_host')]"
-					},
-					"ZendeskDownload_properties_typeProperties_userId": {
-						"value": "[parameters('ZendeskDownload_properties_typeProperties_userId')]"
 					}
 				}
 			},
@@ -164,6 +169,15 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"ZendeskDownload_password": {
+						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"ZendeskDownload_properties_typeProperties_host": {
+						"value": "[parameters('ZendeskDownload_properties_typeProperties_host')]"
+					},
+					"ZendeskDownload_properties_typeProperties_userId": {
+						"value": "[parameters('ZendeskDownload_properties_typeProperties_userId')]"
 					},
 					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"

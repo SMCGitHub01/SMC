@@ -5,6 +5,9 @@
 		"factoryName": {
 			"value": "df-d365-byod"
 		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
 		"AzureSqlMI1_connectionString": {
 			"value": ""
 		},
@@ -22,6 +25,9 @@
 		},
 		"staggingadfsmc_connectionString": {
 			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://blobstoragescm.dfs.core.windows.net"
 		},
 		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 			"value": "DWHConnectionStringDEV"
