@@ -14631,13 +14631,6 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "PRD_UpScale",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -14659,8 +14652,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PRD_DownScale')]",
-				"[concat(variables('factoryId'), '/pipelines/PRD_UpScale')]"
+				"[concat(variables('factoryId'), '/pipelines/PRD_DownScale')]"
 			]
 		},
 		{

@@ -109,13 +109,6 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "PRD_UpScale",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
