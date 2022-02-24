@@ -166,7 +166,7 @@
 					"storedProcedureName": "[process].[FactZendeskTickets_INCR]"
 				},
 				"linkedServiceName": {
-					"referenceName": "Azure_D365_PROD",
+					"referenceName": "Azure_D365_DEV",
 					"type": "LinkedServiceReference"
 				}
 			}
