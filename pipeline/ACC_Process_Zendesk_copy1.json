@@ -5,7 +5,14 @@
 			{
 				"name": "Lookup_Current_Sync_And_Date",
 				"type": "Lookup",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "ACC_ZendDesk_ToBlob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -124,30 +131,16 @@
 				}
 			},
 			{
-				"name": "fill_dwhZendesk",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "ForEach zendesk",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
+				"name": "ACC_ZendDesk_ToBlob",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[process].[FactZendeskTickets_INCR]"
-				},
-				"linkedServiceName": {
-					"referenceName": "Azure_D365_DEV",
-					"type": "LinkedServiceReference"
+					"pipeline": {
+						"referenceName": "ACC_ZendDesk_ToBlob",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
