@@ -9998,7 +9998,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Sanctielijsten')]",
+			"name": "[concat(parameters('factoryName'), '/Sanctielijsten_import_fromBlob')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -11972,6 +11972,9 @@
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
 				},
+				"folder": {
+					"name": "Sanctions"
+				},
 				"annotations": []
 			},
 			"dependsOn": [
@@ -12303,6 +12306,46 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/XmlUN')]",
 				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sanctieLijsten_process')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "process lists",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[sanct].[SanctionCheck]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_DEV",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Sanctions"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
 			]
 		},
 		{
