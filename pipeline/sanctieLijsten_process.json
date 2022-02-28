@@ -1,0 +1,31 @@
+{
+	"name": "sanctieLijsten_process",
+	"properties": {
+		"activities": [
+			{
+				"name": "process lists",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[sanct].[SanctionCheck]"
+				},
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_DEV",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "Sanctions"
+		},
+		"annotations": []
+	}
+}

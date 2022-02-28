@@ -1,5 +1,5 @@
 {
-	"name": "Sanctielijsten",
+	"name": "Sanctielijsten_import_fromBlob",
 	"properties": {
 		"activities": [
 			{
@@ -1962,6 +1962,9 @@
 				]
 			}
 		],
+		"folder": {
+			"name": "Sanctions"
+		},
 		"annotations": []
 	}
 }
