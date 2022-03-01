@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "process lists",
+				"name": "create sanction list",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[sanct].[SanctionCheck]"
+					"storedProcedureName": "[sanct].[CreateSanctionList]"
 				},
 				"linkedServiceName": {
 					"referenceName": "Azure_D365_DEV",
@@ -23,11 +23,11 @@
 				}
 			},
 			{
-				"name": "crate checkedlist",
+				"name": "Check Sanctions",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "process lists",
+						"activity": "create sanction list",
 						"dependencyConditions": [
 							"Succeeded"
 						]
