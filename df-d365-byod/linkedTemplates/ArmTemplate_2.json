@@ -50,7 +50,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "invent.csv"
+						"fileName": "exporttoJPN.csv"
 					},
 					"columnDelimiter": ";",
 					"escapeChar": "\\",
