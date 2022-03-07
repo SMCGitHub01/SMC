@@ -12,7 +12,7 @@
 				"type": "FileServerLocation",
 				"fileName": "exporttoJPN.csv"
 			},
-			"columnDelimiter": ";",
+			"columnDelimiter": ",",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
