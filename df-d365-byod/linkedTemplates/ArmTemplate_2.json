@@ -53,7 +53,7 @@
 						"fileName": "exporttoJPN.csv"
 					},
 					"columnDelimiter": ",",
-					"escapeChar": "\\",
+					"escapeChar": "",
 					"firstRowAsHeader": true,
 					"quoteChar": ""
 				},
