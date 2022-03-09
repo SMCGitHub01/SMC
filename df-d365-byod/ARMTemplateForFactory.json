@@ -13087,7 +13087,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "exporttoJPN.csv"
+						"fileName": "GISBE71.csv"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "",
