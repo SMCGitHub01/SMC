@@ -1538,7 +1538,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "FromDWHtoCSV",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -1577,7 +1577,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "DelimitedText2",
+								"referenceName": "ToJPN",
 								"type": "DatasetReference",
 								"parameters": {}
 							}

@@ -14,10 +14,10 @@
 		"Dynamics1_password": {
 			"value": ""
 		},
-		"Invent_password": {
+		"SugarCRM_Production_connectionString": {
 			"value": ""
 		},
-		"SugarCRM_Production_connectionString": {
+		"ToJPN_password": {
 			"value": ""
 		},
 		"ZendeskDownload_password": {
@@ -41,14 +41,14 @@
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://scsanctions.un.org/resources/xml/en/"
 		},
-		"Invent_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
-		},
-		"Invent_properties_typeProperties_userId": {
-			"value": "AMSSRV011\\DWHZendesk"
-		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"ToJPN_properties_typeProperties_host": {
+			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+		},
+		"ToJPN_properties_typeProperties_userId": {
+			"value": "AMSSRV011\\DWHZendesk"
 		},
 		"ZendeskDownload_properties_typeProperties_host": {
 			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"

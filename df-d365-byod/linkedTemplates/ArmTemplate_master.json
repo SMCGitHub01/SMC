@@ -19,13 +19,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Dynamics1'"
 		},
-		"Invent_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Invent'"
-		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
+		},
+		"ToJPN_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ToJPN'"
 		},
 		"ZendeskDownload_password": {
 			"type": "secureString",
@@ -55,17 +55,17 @@
 			"type": "string",
 			"defaultValue": "https://scsanctions.un.org/resources/xml/en/"
 		},
-		"Invent_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
-		},
-		"Invent_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "AMSSRV011\\DWHZendesk"
-		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"ToJPN_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+		},
+		"ToJPN_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"ZendeskDownload_properties_typeProperties_host": {
 			"type": "string",
@@ -122,11 +122,11 @@
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
 					},
-					"Invent_password": {
-						"value": "[parameters('Invent_password')]"
-					},
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
+					},
+					"ToJPN_password": {
+						"value": "[parameters('ToJPN_password')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
@@ -146,11 +146,11 @@
 					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
 					},
-					"Invent_properties_typeProperties_host": {
-						"value": "[parameters('Invent_properties_typeProperties_host')]"
+					"ToJPN_properties_typeProperties_host": {
+						"value": "[parameters('ToJPN_properties_typeProperties_host')]"
 					},
-					"Invent_properties_typeProperties_userId": {
-						"value": "[parameters('Invent_properties_typeProperties_userId')]"
+					"ToJPN_properties_typeProperties_userId": {
+						"value": "[parameters('ToJPN_properties_typeProperties_userId')]"
 					}
 				}
 			},

@@ -23,13 +23,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
 		},
-		"Invent_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Invent'"
-		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
+		},
+		"ToJPN_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ToJPN'"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
@@ -55,11 +55,11 @@
 			"type": "string",
 			"defaultValue": "DWHConnectionStringPRD"
 		},
-		"Invent_properties_typeProperties_host": {
+		"ToJPN_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
 		},
-		"Invent_properties_typeProperties_userId": {
+		"ToJPN_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "AMSSRV011\\DWHZendesk"
 		}
@@ -953,30 +953,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Invent')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "FileServer",
-				"typeProperties": {
-					"host": "[parameters('Invent_properties_typeProperties_host')]",
-					"userId": "[parameters('Invent_properties_typeProperties_userId')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('Invent_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "ZenDesk",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/ZenDesk')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/SugarCRM_Production')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -994,6 +970,30 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/SugarCRM')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ToJPN')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('ToJPN_properties_typeProperties_host')]",
+					"userId": "[parameters('ToJPN_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ToJPN_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ZenDesk",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ZenDesk')]"
 			]
 		}
 	]

@@ -19,13 +19,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Dynamics1'"
 		},
-		"Invent_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Invent'"
-		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
+		},
+		"ToJPN_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ToJPN'"
 		},
 		"ZendeskDownload_password": {
 			"type": "secureString",
@@ -55,17 +55,17 @@
 			"type": "string",
 			"defaultValue": "https://scsanctions.un.org/resources/xml/en/"
 		},
-		"Invent_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\INVENT"
-		},
-		"Invent_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "AMSSRV011\\DWHZendesk"
-		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"ToJPN_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+		},
+		"ToJPN_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"ZendeskDownload_properties_typeProperties_host": {
 			"type": "string",
@@ -8993,7 +8993,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "FromDWHtoCSV",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -9032,7 +9032,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "DelimitedText2",
+								"referenceName": "ToJPN",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -9050,7 +9050,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/AzureSqlMITable1')]",
-				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]"
+				"[concat(variables('factoryId'), '/datasets/ToJPN')]"
 			]
 		},
 		{
@@ -13032,19 +13032,20 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "Invent",
+					"referenceName": "ToJPN",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
 				"type": "Binary",
 				"typeProperties": {
 					"location": {
-						"type": "FileServerLocation"
+						"type": "FileServerLocation",
+						"fileName": "GISBE71.csv"
 					}
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Invent')]"
+				"[concat(variables('factoryId'), '/linkedServices/ToJPN')]"
 			]
 		},
 		{
@@ -13071,33 +13072,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Invent",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation",
-						"fileName": "GISBE71.csv"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "",
-					"firstRowAsHeader": true,
-					"quoteChar": ""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Invent')]"
 			]
 		},
 		{
@@ -13548,6 +13522,33 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/blobstoragesmcprd')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ToJPN')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ToJPN",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "GISBE71.csv"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "",
+					"firstRowAsHeader": true,
+					"quoteChar": ""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ToJPN')]"
 			]
 		},
 		{
@@ -14465,30 +14466,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Invent')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "FileServer",
-				"typeProperties": {
-					"host": "[parameters('Invent_properties_typeProperties_host')]",
-					"userId": "[parameters('Invent_properties_typeProperties_userId')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('Invent_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "ZenDesk",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/ZenDesk')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/KeyVault')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -14519,6 +14496,30 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/SugarCRM')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ToJPN')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('ToJPN_properties_typeProperties_host')]",
+					"userId": "[parameters('ToJPN_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ToJPN_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ZenDesk",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ZenDesk')]"
 			]
 		},
 		{
@@ -14715,6 +14716,44 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PRD_DownScale')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/InventoryToJPN')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "QueryOut",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2022-03-09T14:33:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								8
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/QueryOut')]"
 			]
 		},
 		{
