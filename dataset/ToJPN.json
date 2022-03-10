@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText2",
+	"name": "ToJPN",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ToJPN",
