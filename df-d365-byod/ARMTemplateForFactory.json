@@ -8558,7 +8558,7 @@
 						"type": "Lookup",
 						"dependsOn": [
 							{
-								"activity": "ACC_ZendDesk_ToBlob",
+								"activity": "PRD_ZendDesk_ToBlob",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -8682,13 +8682,13 @@
 						}
 					},
 					{
-						"name": "ACC_ZendDesk_ToBlob",
+						"name": "PRD_ZendDesk_ToBlob",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "ACC_ZendDesk_ToBlob",
+								"referenceName": "PRD_ZendDesk_ToBlob",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -8736,7 +8736,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
-				"[concat(variables('factoryId'), '/pipelines/ACC_ZendDesk_ToBlob')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_ZendDesk_ToBlob')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_ZenDesk_Tickets')]"
 			]

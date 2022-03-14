@@ -6181,7 +6181,7 @@
 						"type": "Lookup",
 						"dependsOn": [
 							{
-								"activity": "ACC_ZendDesk_ToBlob",
+								"activity": "PRD_ZendDesk_ToBlob",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -6305,13 +6305,13 @@
 						}
 					},
 					{
-						"name": "ACC_ZendDesk_ToBlob",
+						"name": "PRD_ZendDesk_ToBlob",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "ACC_ZendDesk_ToBlob",
+								"referenceName": "PRD_ZendDesk_ToBlob",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -6357,6 +6357,7 @@
 				"lastPublishTime": "2020-12-10T13:46:15Z"
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PRD_ZendDesk_ToBlob')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_ZenDesk_Tickets')]"
 			]
 		},
