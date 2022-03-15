@@ -1,10 +1,6 @@
 {
 	"name": "ToJPN",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "ToJPN",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
