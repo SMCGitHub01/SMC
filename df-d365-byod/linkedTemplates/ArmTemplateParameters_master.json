@@ -45,7 +45,7 @@
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"
 		},
 		"ToJPN_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+			"value": "\\\\amssrv011\\Public\\General\\ict\\jpnvrd"
 		},
 		"ToJPN_properties_typeProperties_userId": {
 			"value": "AMSSRV011\\DWHZendesk"

@@ -61,7 +61,7 @@
 		},
 		"ToJPN_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+			"defaultValue": "\\\\amssrv011\\Public\\General\\ict\\jpnvrd"
 		},
 		"ToJPN_properties_typeProperties_userId": {
 			"type": "string",
