@@ -13,7 +13,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "uk-sanctions-list.csv",
+				"fileName": "UK_Sanctions_List.csv",
 				"container": "sanctielijsten"
 			},
 			"columnDelimiter": ";",
