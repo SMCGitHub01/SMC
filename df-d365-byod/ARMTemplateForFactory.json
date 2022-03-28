@@ -2958,27 +2958,6 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
-					},
-					{
-						"name": "RefreshPowerBI",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "spLoadDataAfterFullLoad",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "RefreshPowerBI_ACC_copy1",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
 					}
 				],
 				"policy": {
@@ -2997,7 +2976,6 @@
 				"[concat(variables('factoryId'), '/pipelines/ACC_Process_SugarCRM_DataBase')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_Process_Zendesk')]",
-				"[concat(variables('factoryId'), '/pipelines/RefreshPowerBI_ACC_copy1')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_Materialize_Views')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_DistributionList')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_BudgetDirectSales')]",
