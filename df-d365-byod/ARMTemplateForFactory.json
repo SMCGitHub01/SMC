@@ -9305,7 +9305,7 @@
 					}
 				},
 				"folder": {
-					"name": "50-powerbi"
+					"name": "RefreshPowerBI"
 				},
 				"annotations": []
 			},
@@ -9571,7 +9571,7 @@
 					}
 				},
 				"folder": {
-					"name": "50-powerbi"
+					"name": "RefreshPowerBI"
 				},
 				"annotations": []
 			},
@@ -9838,7 +9838,7 @@
 					}
 				},
 				"folder": {
-					"name": "50-powerbi"
+					"name": "RefreshPowerBI"
 				},
 				"annotations": []
 			},
@@ -9969,7 +9969,7 @@
 					}
 				},
 				"folder": {
-					"name": "50-powerbi"
+					"name": "RefreshPowerBI"
 				},
 				"annotations": []
 			},
