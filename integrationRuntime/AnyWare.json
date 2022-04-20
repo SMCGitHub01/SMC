@@ -1,0 +1,7 @@
+{
+	"name": "AnyWare",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "connection to anywere on amssrv180\\backend"
+	}
+}
