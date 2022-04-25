@@ -1,0 +1,16 @@
+{
+	"name": "AnyWhereSQL",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=\\\\amssrv180\\pipe\\MSSQL$backend\\sql\\query;initial catalog=UCC;user id=DWHRemote",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0ZWE3MmU3NC04MTA2LTRmZmEtYTg1Zi0wODA3MzEyNDVlNjgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "AnyWare",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
