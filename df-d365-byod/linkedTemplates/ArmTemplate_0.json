@@ -27,10 +27,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
 		},
-		"ToJPN_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'ToJPN'"
-		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
@@ -54,14 +50,6 @@
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringPRD"
-		},
-		"ToJPN_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\ict\\jpnvrd"
-		},
-		"ToJPN_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "AMSSRV011\\DWHZendesk"
 		}
 	},
 	"variables": {
@@ -848,6 +836,17 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AnyWare')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"description": "connection to anywere on amssrv180\\backend",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SugarCRM')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -970,30 +969,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/SugarCRM')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ToJPN')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "FileServer",
-				"typeProperties": {
-					"host": "[parameters('ToJPN_properties_typeProperties_host')]",
-					"userId": "[parameters('ToJPN_properties_typeProperties_userId')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('ToJPN_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "ZenDesk",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/ZenDesk')]"
 			]
 		}
 	]
