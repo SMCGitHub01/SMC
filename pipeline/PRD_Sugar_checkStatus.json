@@ -1,9 +1,0 @@
-{
-	"name": "PRD_Sugar_checkStatus",
-	"properties": {
-		"folder": {
-			"name": "PRD-SugarCRM"
-		},
-		"annotations": []
-	}
-}
