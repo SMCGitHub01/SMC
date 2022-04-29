@@ -23,9 +23,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
 		},
-		"SugarCRM_Production_connectionString": {
+		"AnyWhereSQL_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
+			"metadata": "Secure string for 'connectionString' of 'AnyWhereSQL'"
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
@@ -908,6 +908,25 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AnyWhereSQL')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('AnyWhereSQL_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AnyWare",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/AnyWare')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Azure_D365_DEV')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -949,26 +968,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SugarCRM_Production')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "This connection is setup on 2020/09/25 together with Mohammed A Hassan (SMC US IT Department), Kirk Becnel and Stefan Jaenicke (creator of the views)\nFor support@1smc.com",
-				"annotations": [],
-				"type": "MySql",
-				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Production_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "SugarCRM",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/SugarCRM')]"
 			]
 		}
 	]
