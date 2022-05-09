@@ -7580,7 +7580,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Process_DWH_zonder_sugar')]",
+			"name": "[concat(parameters('factoryName'), '/PRD_Process_DWH_zonder_Blob')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
