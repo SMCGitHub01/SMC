@@ -13,7 +13,7 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Process_IFS_Stage_copy1')]",
+			"name": "[concat(parameters('factoryName'), '/PRD_Process_IFS_customer_only')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
