@@ -6,11 +6,11 @@
 		"type": "Dynamics",
 		"typeProperties": {
 			"deploymentType": "Online",
-			"serviceUri": "https://aquapro.operations.dynamics.com",
+			"serviceUri": "https://aquapro.operations.dynamics.com/",
 			"authenticationType": "AADServicePrincipal",
 			"servicePrincipalCredentialType": "ServicePrincipalKey",
 			"servicePrincipalId": "5f7c4083-bf1d-423f-93d6-790477f0667a",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDYwN0JEMkZBLTY5NjgtNDRBRS1BRDUzLTJDNjMyNkNCRUIzRV82YmNlZWNjMS0wNjU1LTQ2YjAtYjVhMi0xNThlMWY5MTljNzYiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDYwN0JEMkZBLTY5NjgtNDRBRS1BRDUzLTJDNjMyNkNCRUIzRV8xYzVhNjM4Yy1mOTEwLTQ2MzItYWIyYi1lZWE0YTkwMGQ1YTkiDQp9"
 		}
 	}
 }
