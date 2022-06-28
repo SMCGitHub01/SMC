@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ImportToBlob",
+				"name": "ImportMatrix",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
