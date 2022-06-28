@@ -1,5 +1,5 @@
 {
-	"name": "PRD_Matrix_ToBlob",
+	"name": "PRD_Matrix_Import",
 	"properties": {
 		"activities": [
 			{
@@ -27,15 +27,9 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false
 				},
@@ -47,8 +41,11 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "Unzip",
-						"type": "DatasetReference"
+						"referenceName": "PRD_DWH_Dynamic_DataSet",
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "SupChainMatrix"
+						}
 					}
 				]
 			}
