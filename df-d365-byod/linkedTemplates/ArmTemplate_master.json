@@ -19,10 +19,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
-		"Dynamics1_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Dynamics1'"
-		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
@@ -50,10 +46,6 @@
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringPRD"
-		},
-		"Dynamics1_properties_typeProperties_username": {
-			"type": "string",
-			"defaultValue": "vader@smcpneumatics.nl"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
@@ -120,20 +112,17 @@
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
-					"Dynamics1_password": {
-						"value": "[parameters('Dynamics1_password')]"
-					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
 					},
 					"AnyWhereSQL_connectionString": {
 						"value": "[parameters('AnyWhereSQL_connectionString')]"
 					},
+					"SugarCRM_Production_connectionString": {
+						"value": "[parameters('SugarCRM_Production_connectionString')]"
+					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
-					},
-					"Dynamics1_properties_typeProperties_username": {
-						"value": "[parameters('Dynamics1_properties_typeProperties_username')]"
 					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
@@ -164,9 +153,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"SugarCRM_Production_connectionString": {
-						"value": "[parameters('SugarCRM_Production_connectionString')]"
 					},
 					"ToJPN_password": {
 						"value": "[parameters('ToJPN_password')]"

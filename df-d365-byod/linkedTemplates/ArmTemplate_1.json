@@ -7,10 +7,6 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-d365-byod"
 		},
-		"SugarCRM_Production_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
-		},
 		"ToJPN_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ToJPN'"
@@ -48,24 +44,6 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/SugarCRM_Production')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "This connection is setup on 2020/09/25 together with Mohammed A Hassan (SMC US IT Department), Kirk Becnel and Stefan Jaenicke (creator of the views)\nFor support@1smc.com",
-				"annotations": [],
-				"type": "MySql",
-				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Production_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "SugarCRM",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ToJPN')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -269,9 +247,7 @@
 				"schema": [],
 				"typeProperties": {}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SugarCRM_Production')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_BYOD_DEV_DS')]",
@@ -794,6 +770,90 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_DEV",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "HSO_DnA_SourceConnectionID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "HSO_DnA_TargetMappingID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "HSO_DnA_InsertDateTime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "HSO_DnA_UpdateDateTime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "HSO_DnA_DeleteDateTime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "ConsignmentWarehouse_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DataAreaID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LocationBK",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LocationID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LocationName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LocationType",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Site",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Source",
+						"type": "nvarchar"
+					},
+					{
+						"name": "WMSLocationId",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "View_Test"
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }

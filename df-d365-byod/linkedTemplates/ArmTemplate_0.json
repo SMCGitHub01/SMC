@@ -15,10 +15,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
-		"Dynamics1_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Dynamics1'"
-		},
 		"staggingadfsmc_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
@@ -27,13 +23,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AnyWhereSQL'"
 		},
+		"SugarCRM_Production_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
-		},
-		"Dynamics1_properties_typeProperties_username": {
-			"type": "string",
-			"defaultValue": "vader@smcpneumatics.nl"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
@@ -775,26 +771,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Dynamics1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "Dynamics",
-				"typeProperties": {
-					"deploymentType": "Online",
-					"serviceUri": "https://aquapro.operations.dynamics.com/",
-					"authenticationType": "Office365",
-					"username": "[parameters('Dynamics1_properties_typeProperties_username')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('Dynamics1_password')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/HttpServer1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -968,6 +944,26 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SugarCRM_Production')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "This connection is setup on 2020/09/25 together with Mohammed A Hassan (SMC US IT Department), Kirk Becnel and Stefan Jaenicke (creator of the views)\nFor support@1smc.com",
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"connectionString": "[parameters('SugarCRM_Production_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "SugarCRM",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/SugarCRM')]"
 			]
 		}
 	]

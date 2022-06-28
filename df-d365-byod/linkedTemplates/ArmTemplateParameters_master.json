@@ -14,9 +14,6 @@
 		"AzureSqlMI1_connectionString": {
 			"value": ""
 		},
-		"Dynamics1_password": {
-			"value": ""
-		},
 		"SugarCRM_Production_connectionString": {
 			"value": ""
 		},
@@ -37,9 +34,6 @@
 		},
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"value": "DWHConnectionStringPRD"
-		},
-		"Dynamics1_properties_typeProperties_username": {
-			"value": "vader@smcpneumatics.nl"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://scsanctions.un.org/resources/xml/en/"

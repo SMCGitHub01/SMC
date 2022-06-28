@@ -13,6 +13,636 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_Process_IFS_Stage')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_Current_Sync_And_Date",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							}
+						}
+					},
+					{
+						"name": "Lookup_Full_ExcelFiles_IFS_Products",
+						"description": "Lookup the tables from the source database which are used in the full copy.",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 6 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dum,my",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach IFS_Products",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Full_ExcelFiles_IFS_Products",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Full_ExcelFiles_IFS_Products').output.value",
+								"type": "Expression"
+							},
+							"isSequential": false,
+							"activities": [
+								{
+									"name": "IFS_Products",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PRD_IFS_Products",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"Worksheet": {
+												"value": "@{Item().SourceSchemaName}",
+												"type": "Expression"
+											},
+											"Excelfile": {
+												"value": "@{Item().SourceTableName}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											},
+											"TargetTableName": {
+												"value": "@{Item().TargetTableName}",
+												"type": "Expression"
+											},
+											"TargetSchemaName": {
+												"value": "@{Item().TargetSchemaName}",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "ForEach IFS_GLAccounts",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Full_ExcelFiles_IFS_Products",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Lookup_Full_ExcelFiles_IFS_GLAccounts",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Full_ExcelFiles_IFS_GLAccounts').output.value",
+								"type": "Expression"
+							},
+							"isSequential": false,
+							"activities": [
+								{
+									"name": "IFS_GLAccounts",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PRD_IFS_GLAccounts",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"Worksheet": {
+												"value": "@{Item().SourceSchemaName}",
+												"type": "Expression"
+											},
+											"Excelfile": {
+												"value": "@{Item().SourceTableName}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											},
+											"TargetTableName": {
+												"value": "@{Item().TargetTableName}",
+												"type": "Expression"
+											},
+											"TargetSchemaName": {
+												"value": "@{Item().TargetSchemaName}",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "ForEach IFS_Customer",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Full_ExcelFiles_IFS_Products",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Lookup_Full_ExcelFiles_IFS_Customer",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Full_ExcelFiles_IFS_Customer').output.value",
+								"type": "Expression"
+							},
+							"isSequential": false,
+							"activities": [
+								{
+									"name": "IFS_Customer",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PRD_IFS_Customer",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"Worksheet": {
+												"value": "@{Item().SourceSchemaName}",
+												"type": "Expression"
+											},
+											"Excelfile": {
+												"value": "@{Item().SourceTableName}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											},
+											"TargetTableName": {
+												"value": "@{Item().TargetTableName}",
+												"type": "Expression"
+											},
+											"TargetSchemaName": {
+												"value": "@{Item().TargetSchemaName}",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_Full_ExcelFiles_IFS_Customer",
+						"description": "Lookup the tables from the source database which are used in the full copy.",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 5 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "Lookup_Full_ExcelFiles_IFS_GLAccounts",
+						"description": "Lookup the tables from the source database which are used in the full copy.",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 7 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "Lookup_Full_CSVFiles_IFS_SalesInvoice",
+						"description": "Lookup the tables from the source database which are used in the full copy.",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 8 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach IFS_SalesInvoice",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Full_CSVFiles_IFS_SalesInvoice",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Full_CSVFiles_IFS_SalesInvoice').output.value",
+								"type": "Expression"
+							},
+							"isSequential": false,
+							"activities": [
+								{
+									"name": "IFS_SalesInvoice",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PRD_IFS_SalesInvoice",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"CSVFile": {
+												"value": "@{Item().SourceTableName}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											},
+											"TargetTableName": {
+												"value": "@{Item().TargetTableName}",
+												"type": "Expression"
+											},
+											"TargetSchemaName": {
+												"value": "@{Item().TargetSchemaName}",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_Full_CSVFiles_IFS_GLTransActions",
+						"description": "Lookup the tables from the source database which are used in the full copy.",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 9 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach IFS_GLTransActions",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Full_CSVFiles_IFS_GLTransActions",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Full_CSVFiles_IFS_GLTransActions').output.value",
+								"type": "Expression"
+							},
+							"isSequential": false,
+							"activities": [
+								{
+									"name": "IFS_GLTransActions",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PRD_IFS_GLTransActions",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"CSVFile": {
+												"value": "@{Item().SourceTableName}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											},
+											"TargetTableName": {
+												"value": "@{Item().TargetTableName}",
+												"type": "Expression"
+											},
+											"TargetSchemaName": {
+												"value": "@{Item().TargetSchemaName}",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_Full_CSVFiles_IFS_InventoryTransactions",
+						"description": "Lookup the tables from the source database which are used in the full copy.",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 17 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach IFS_InventoryTransactions",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Full_CSVFiles_IFS_InventoryTransactions",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Full_CSVFiles_IFS_InventoryTransactions').output.value",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "IFS_InventoryTransactions",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PRD_IFS_InventoryTransactions",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"CSVFile": {
+												"value": "@{Item().SourceTableName}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											},
+											"TargetTableName": {
+												"value": "@{Item().TargetTableName}",
+												"type": "Expression"
+											},
+											"TargetSchemaName": {
+												"value": "@{Item().TargetSchemaName}",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "PRD-IFS"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-03-27T13:45:56Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_Process_IFS_customer_only')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1577,6 +2207,7 @@
 				"lastPublishTime": "2021-03-27T14:26:15Z"
 			},
 			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PRD_Process_IFS_Stage')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_Zendesk')]"
 			]
 		},
@@ -2073,7 +2704,9 @@
 				"annotations": [],
 				"lastPublishTime": "2021-03-27T14:28:15Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PRD_Process_IFS_Stage')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Daily_ACC')]",
