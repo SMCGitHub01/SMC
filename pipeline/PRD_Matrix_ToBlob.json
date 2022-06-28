@@ -23,11 +23,7 @@
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSettings",
-							"compressionProperties": {
-								"type": "ZipDeflateReadSettings",
-								"preserveZipFileNameAsFolder": false
-							}
+							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -45,7 +41,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "Zendesk",
+						"referenceName": "Matrix",
 						"type": "DatasetReference"
 					}
 				],
