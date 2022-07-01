@@ -1,0 +1,29 @@
+{
+	"name": "Sunday",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PRD_Matrix_Import",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Week",
+				"interval": 1,
+				"startTime": "2022-07-01T20:00:00Z",
+				"timeZone": "UTC",
+				"schedule": {
+					"weekDays": [
+						"Sunday"
+					]
+				}
+			}
+		}
+	}
+}
