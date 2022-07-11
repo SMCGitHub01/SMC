@@ -15233,7 +15233,14 @@
 						"interval": 1,
 						"startTime": "2022-07-11T11:48:00Z",
 						"timeZone": "UTC",
-						"schedule": {}
+						"schedule": {
+							"minutes": [
+								58
+							],
+							"hours": [
+								11
+							]
+						}
 					}
 				}
 			},
