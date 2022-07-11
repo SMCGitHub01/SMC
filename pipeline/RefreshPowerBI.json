@@ -250,11 +250,11 @@
 			},
 			"workspaceGuid": {
 				"type": "string",
-				"defaultValue": "2cfcf959-ab5e-402e-bf14-dac9670cd8f2"
+				"defaultValue": "738d5e4a-0d78-445f-b9bd-7b291cbe07c0"
 			},
 			"datasetGuid": {
 				"type": "string",
-				"defaultValue": "ef2a19e0-cd98-461d-8c9a-55618e8af556"
+				"defaultValue": "8ecf4094-efd1-4640-a86f-ff31d79d9c6d"
 			}
 		},
 		"variables": {
