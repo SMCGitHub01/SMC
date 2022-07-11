@@ -78,6 +78,30 @@
 		"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "BlobStorageProduction"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_TenantId": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPClientId": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPSecret": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_KeyVaultDNSName": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_workspaceGuid": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_datasetGuid": {
+			"type": "string",
+			"defaultValue": "1"
 		}
 	},
 	"variables": {
@@ -14757,7 +14781,7 @@
 								0
 							],
 							"hours": [
-								5
+								4
 							]
 						}
 					}
@@ -15177,6 +15201,44 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
 				"[concat(variables('factoryId'), '/pipelines/RefreshPowerBI_Refresh')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1test')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "RefreshPowerBI_PRD",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"SecretName_TenantId": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_TenantId')]",
+							"SecretName_SPClientId": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPClientId')]",
+							"SecretName_SPSecret": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPSecret')]",
+							"KeyVaultDNSName": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_KeyVaultDNSName')]",
+							"workspaceGuid": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_workspaceGuid')]",
+							"datasetGuid": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_datasetGuid')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2022-07-11T11:48:00Z",
+						"timeZone": "UTC",
+						"schedule": {}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/RefreshPowerBI_PRD')]"
 			]
 		}
 	]

@@ -79,6 +79,30 @@
 			"type": "string",
 			"defaultValue": "BlobStorageProduction"
 		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_TenantId": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPClientId": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPSecret": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_KeyVaultDNSName": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_workspaceGuid": {
+			"type": "string",
+			"defaultValue": "1"
+		},
+		"trigger1test_properties_RefreshPowerBI_PRD_parameters_datasetGuid": {
+			"type": "string",
+			"defaultValue": "1"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -257,6 +281,24 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_TenantId": {
+						"value": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_TenantId')]"
+					},
+					"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPClientId": {
+						"value": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPClientId')]"
+					},
+					"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPSecret": {
+						"value": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPSecret')]"
+					},
+					"trigger1test_properties_RefreshPowerBI_PRD_parameters_KeyVaultDNSName": {
+						"value": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_KeyVaultDNSName')]"
+					},
+					"trigger1test_properties_RefreshPowerBI_PRD_parameters_workspaceGuid": {
+						"value": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_workspaceGuid')]"
+					},
+					"trigger1test_properties_RefreshPowerBI_PRD_parameters_datasetGuid": {
+						"value": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_datasetGuid')]"
 					}
 				}
 			},
