@@ -10286,7 +10286,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"url": {
-								"value": "@concat('https://api.powerbi.com/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')",
+								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')\n",
 								"type": "Expression"
 							},
 							"method": "POST",
