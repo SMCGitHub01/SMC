@@ -81,7 +81,7 @@
 		},
 		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_TenantId": {
 			"type": "string",
-			"defaultValue": "1"
+			"defaultValue": "fe754037-10dc-495e-90da-045b680fb646"
 		},
 		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPClientId": {
 			"type": "string",
