@@ -8,6 +8,14 @@
 				"pipelineReference": {
 					"referenceName": "RefreshPowerBI_PRD",
 					"type": "PipelineReference"
+				},
+				"parameters": {
+					"SecretName_TenantId": "1",
+					"SecretName_SPClientId": "1",
+					"SecretName_SPSecret": "1",
+					"KeyVaultDNSName": "1",
+					"workspaceGuid": "1",
+					"datasetGuid": "1"
 				}
 			}
 		],
