@@ -151,7 +151,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT \n      [workspaceGuid]\n      ,[datasetGuid]\n  FROM [audit].[RefreshBIModels] WHERE dwh='ACC'  and active=1",
+						"sqlReaderQuery": "SELECT \n      [workspaceGuid]\n      ,[datasetGuid]\n  FROM [audit].[RefreshBIModels] WHERE dwh='prd'  and active=1",
 						"partitionOption": "None"
 					},
 					"dataset": {
