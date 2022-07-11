@@ -1294,11 +1294,11 @@
 					"recurrence": {
 						"frequency": "Day",
 						"interval": 1,
-						"startTime": "2022-07-11T11:48:00Z",
+						"startTime": "2022-07-04T00:48:00Z",
 						"timeZone": "UTC",
 						"schedule": {
 							"minutes": [
-								2
+								10
 							],
 							"hours": [
 								12
