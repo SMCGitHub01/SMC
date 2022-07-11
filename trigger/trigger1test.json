@@ -10,7 +10,7 @@
 					"type": "PipelineReference"
 				},
 				"parameters": {
-					"SecretName_TenantId": "1",
+					"SecretName_TenantId": "fe754037-10dc-495e-90da-045b680fb646",
 					"SecretName_SPClientId": "1",
 					"SecretName_SPSecret": "1",
 					"KeyVaultDNSName": "1",
