@@ -20,7 +20,7 @@
 					"headers": {
 						"Content-Type": "application/x-www-form-urlencoded"
 					},
-					"body": "grant_type=client_credentials&client_id=3c9c0d42-fbe6-4add-a30a-92d328806209@fe754037-10dc-495e-90da-045b680fb646&client_secret=88a0a202-1b20-4c14-883a-3a9c23b0f1c8&resource=00000003-0000-0ff1-ce00-000000000000/aquapro.sharepoint.com@fe754037-10dc-495e-90da-045b680fb646"
+					"body": "grant_type=client_credentials&client_id=3c9c0d42-fbe6-4add-a30a-92d328806209@fe754037-10dc-495e-90da-045b680fb646&client_secret= Cvc8Q~DY2riwT4v3GvN8hsxHuQVXLoohrcfFOaVs&resource=00000003-0000-0ff1-ce00-000000000000/aquapro.sharepoint.com@fe754037-10dc-495e-90da-045b680fb646"
 				}
 			}
 		],
