@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_vti_bin/owssvr.dll?XMLDATA=1&List={C377346D-2FF3-49CE-A50F-8098BDF93ECE}&View={4215D90E-2D9A-43B0-83B6-1EA71F160104}&RowLimit=0&RootFolder=%2fsites%2fEngineering64%2fPGMT%2fLists%2fTrackingNumber",
+			"url": "https://aquapro.sharepoint.com/sites/Engineering64/_api/web/GetFileByServerRelativeUrl('/sites/Engineering64/PGMT/Lists/TrackingNumber')/$value",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
