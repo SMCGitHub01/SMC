@@ -1,0 +1,12 @@
+{
+	"name": "HttpServer3rss",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_layouts/15/listfeed.aspx?List=%7BC377346D%2D2FF3%2D49CE%2DA50F%2D8098BDF93ECE%7D&Source=https%3A%2F%2Faquapro%2Esharepoint%2Ecom%2Fsites%2FEngineering64%2FPGMT%2FLists%2FTrackingNumber",
+			"enableServerCertificateValidation": false,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
