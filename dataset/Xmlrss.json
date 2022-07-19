@@ -1,0 +1,16 @@
+{
+	"name": "Xmlrss",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HttpServer3rss",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Xml",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			}
+		}
+	}
+}
