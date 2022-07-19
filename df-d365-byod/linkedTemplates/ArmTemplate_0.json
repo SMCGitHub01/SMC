@@ -19,10 +19,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
 		},
-		"AnyWhereSQL_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AnyWhereSQL'"
-		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
@@ -35,13 +31,13 @@
 			"type": "string",
 			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/_api/web/GetFileByServerRelativeUrl('sites/Engineering64/PGMT/Lists/TrackingNumber')/$value"
 		},
+		"HttpServer3rss_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_layouts/15/listfeed.aspx?List=%7BC377346D%2D2FF3%2D49CE%2DA50F%2D8098BDF93ECE%7D&Source=https%3A%2F%2Faquapro%2Esharepoint%2Ecom%2Fsites%2FEngineering64%2FPGMT%2FLists%2FTrackingNumber"
+		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
-		},
-		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
-			"type": "string",
-			"defaultValue": "DWHConnectionStringDEV"
 		}
 	},
 	"variables": {
@@ -797,6 +793,21 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/HttpServer3rss')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('HttpServer3rss_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": false,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/KeyVault')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -920,44 +931,24 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AnyWhereSQL')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"name": "[concat(parameters('factoryName'), '/Xmlrss')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('AnyWhereSQL_connectionString')]"
+				"linkedServiceName": {
+					"referenceName": "HttpServer3rss",
+					"type": "LinkedServiceReference"
 				},
-				"connectVia": {
-					"referenceName": "AnyWare",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/AnyWare')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Azure_D365_DEV')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
 				"annotations": [],
-				"type": "AzureSqlDatabase",
+				"type": "Xml",
 				"typeProperties": {
-					"connectionString": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "KeyVault",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
+					"location": {
+						"type": "HttpServerLocation"
 					}
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer3rss')]"
 			]
 		}
 	]

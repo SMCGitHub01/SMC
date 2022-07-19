@@ -55,6 +55,10 @@
 			"type": "string",
 			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/_api/web/GetFileByServerRelativeUrl('sites/Engineering64/PGMT/Lists/TrackingNumber')/$value"
 		},
+		"HttpServer3rss_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_layouts/15/listfeed.aspx?List=%7BC377346D%2D2FF3%2D49CE%2DA50F%2D8098BDF93ECE%7D&Source=https%3A%2F%2Faquapro%2Esharepoint%2Ecom%2Fsites%2FEngineering64%2FPGMT%2FLists%2FTrackingNumber"
+		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
@@ -143,9 +147,6 @@
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
 					},
-					"AnyWhereSQL_connectionString": {
-						"value": "[parameters('AnyWhereSQL_connectionString')]"
-					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
@@ -155,11 +156,11 @@
 					"HttpServer2_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer2_properties_typeProperties_url')]"
 					},
+					"HttpServer3rss_properties_typeProperties_url": {
+						"value": "[parameters('HttpServer3rss_properties_typeProperties_url')]"
+					},
 					"KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
-					},
-					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -179,6 +180,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AnyWhereSQL_connectionString": {
+						"value": "[parameters('AnyWhereSQL_connectionString')]"
+					},
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
 					},
@@ -187,6 +191,9 @@
 					},
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
 					},
 					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
