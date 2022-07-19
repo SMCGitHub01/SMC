@@ -84,7 +84,11 @@
 				"outputs": [
 					{
 						"referenceName": "PRD_BYOD_DS",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "test"
+						}
 					}
 				]
 			}
