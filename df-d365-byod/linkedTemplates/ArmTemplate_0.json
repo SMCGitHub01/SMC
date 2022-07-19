@@ -23,10 +23,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AnyWhereSQL'"
 		},
-		"SugarCRM_Production_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
-		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
@@ -35,6 +31,10 @@
 			"type": "string",
 			"defaultValue": "https://scsanctions.un.org/resources/xml/en/"
 		},
+		"HttpServer2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/_api/web/GetFileByServerRelativeUrl('sites/Engineering64/PGMT/Lists/TrackingNumber')/$value"
+		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
@@ -42,10 +42,6 @@
 		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringDEV"
-		},
-		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
-			"type": "string",
-			"defaultValue": "DWHConnectionStringPRD"
 		}
 	},
 	"variables": {
@@ -593,11 +589,11 @@
 					},
 					"workspaceGuid": {
 						"type": "string",
-						"defaultValue": "2cfcf959-ab5e-402e-bf14-dac9670cd8f2"
+						"defaultValue": "738d5e4a-0d78-445f-b9bd-7b291cbe07c0"
 					},
 					"datasetGuid": {
 						"type": "string",
-						"defaultValue": "ef2a19e0-cd98-461d-8c9a-55618e8af556"
+						"defaultValue": "8ecf4094-efd1-4640-a86f-ff31d79d9c6d"
 					}
 				},
 				"variables": {
@@ -786,6 +782,21 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/HttpServer2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('HttpServer2_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/KeyVault')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -862,6 +873,31 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HttpServer2",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HttpServer2')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/XmlUN')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -922,48 +958,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Azure_D365_PROD')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "KeyVault",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SugarCRM_Production')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "This connection is setup on 2020/09/25 together with Mohammed A Hassan (SMC US IT Department), Kirk Becnel and Stefan Jaenicke (creator of the views)\nFor support@1smc.com",
-				"annotations": [],
-				"type": "MySql",
-				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Production_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "SugarCRM",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/SugarCRM')]"
 			]
 		}
 	]

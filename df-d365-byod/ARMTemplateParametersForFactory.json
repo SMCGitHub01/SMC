@@ -38,6 +38,9 @@
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://scsanctions.un.org/resources/xml/en/"
 		},
+		"HttpServer2_properties_typeProperties_url": {
+			"value": "https://aquapro.sharepoint.com/sites/Engineering64/_api/web/GetFileByServerRelativeUrl('sites/Engineering64/PGMT/Lists/TrackingNumber')/$value"
+		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"
 		},

@@ -51,6 +51,10 @@
 			"type": "string",
 			"defaultValue": "https://scsanctions.un.org/resources/xml/en/"
 		},
+		"HttpServer2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/_api/web/GetFileByServerRelativeUrl('sites/Engineering64/PGMT/Lists/TrackingNumber')/$value"
+		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
@@ -142,23 +146,20 @@
 					"AnyWhereSQL_connectionString": {
 						"value": "[parameters('AnyWhereSQL_connectionString')]"
 					},
-					"SugarCRM_Production_connectionString": {
-						"value": "[parameters('SugarCRM_Production_connectionString')]"
-					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
 					},
+					"HttpServer2_properties_typeProperties_url": {
+						"value": "[parameters('HttpServer2_properties_typeProperties_url')]"
+					},
 					"KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
 					},
 					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
-					},
-					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -178,11 +179,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"SugarCRM_Production_connectionString": {
+						"value": "[parameters('SugarCRM_Production_connectionString')]"
+					},
 					"ToJPN_password": {
 						"value": "[parameters('ToJPN_password')]"
 					},
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
 					},
 					"ToJPN_properties_typeProperties_host": {
 						"value": "[parameters('ToJPN_properties_typeProperties_host')]"
