@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
+		"HttpServer3rss_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'HttpServer3rss'"
+		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
@@ -58,6 +62,10 @@
 		"HttpServer3rss_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_layouts/15/listfeed.aspx?List=%7BC377346D%2D2FF3%2D49CE%2DA50F%2D8098BDF93ECE%7D&Source=https%3A%2F%2Faquapro%2Esharepoint%2Ecom%2Fsites%2FEngineering64%2FPGMT%2FLists%2FTrackingNumber"
+		},
+		"HttpServer3rss_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "vader@smcpneumatics.nl"
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -144,6 +152,9 @@
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
+					"HttpServer3rss_password": {
+						"value": "[parameters('HttpServer3rss_password')]"
+					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
 					},
@@ -158,6 +169,9 @@
 					},
 					"HttpServer3rss_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer3rss_properties_typeProperties_url')]"
+					},
+					"HttpServer3rss_properties_typeProperties_userName": {
+						"value": "[parameters('HttpServer3rss_properties_typeProperties_userName')]"
 					},
 					"KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
