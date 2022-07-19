@@ -810,7 +810,7 @@
 				"typeProperties": {
 					"url": "[parameters('HttpServer3rss_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": false,
-					"authenticationType": "Windows",
+					"authenticationType": "Basic",
 					"userName": "[parameters('HttpServer3rss_properties_typeProperties_userName')]",
 					"password": {
 						"type": "SecureString",
