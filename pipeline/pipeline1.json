@@ -1,0 +1,32 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "gettoken",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://accounts.accesscontrol.windows.net/fe754037-10dc-495e-90da-045b680fb646/tokens/OAuth/2",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					"body": "grant_type=client_credentials&client_id=3c9c0d42-fbe6-4add-a30a-92d328806209@fe754037-10dc-495e-90da-045b680fb646&client_secret=88a0a202-1b20-4c14-883a-3a9c23b0f1c8&resource=00000003-0000-0ff1-ce00-000000000000/aquapro.sharepoint.com@fe754037-10dc-495e-90da-045b680fb646"
+				}
+			}
+		],
+		"folder": {
+			"name": "PRD_Matrix"
+		},
+		"annotations": []
+	}
+}
