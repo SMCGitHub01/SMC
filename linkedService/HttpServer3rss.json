@@ -7,9 +7,9 @@
 		"typeProperties": {
 			"url": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_layouts/15/listfeed.aspx?List=%7BC377346D%2D2FF3%2D49CE%2DA50F%2D8098BDF93ECE%7D&Source=https%3A%2F%2Faquapro%2Esharepoint%2Ecom%2Fsites%2FEngineering64%2FPGMT%2FLists%2FTrackingNumber",
 			"enableServerCertificateValidation": false,
-			"authenticationType": "Windows",
+			"authenticationType": "Basic",
 			"userName": "vader@smcpneumatics.nl",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDYwN0JEMkZBLTY5NjgtNDRBRS1BRDUzLTJDNjMyNkNCRUIzRV8yNDc3MDc3Zi03ZGVkLTQ1NzEtYTYxNy0yNjBhOTM0MjNjYzYiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDYwN0JEMkZBLTY5NjgtNDRBRS1BRDUzLTJDNjMyNkNCRUIzRV84ZmYwOGM4My1jYTE4LTQyMmMtYWNiMi02MmZjODU2NjQ1ZmIiDQp9"
 		}
 	}
 }
