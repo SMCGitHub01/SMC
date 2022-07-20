@@ -5140,15 +5140,6 @@
 								"mappings": [
 									{
 										"source": {
-											"path": "$['feed']['entry'][0]['category']['@term']"
-										},
-										"sink": {
-											"name": "ProductcategorieId",
-											"type": "Byte"
-										}
-									},
-									{
-										"source": {
 											"path": "$['feed']['entry'][0]['content']['m:properties']['d:Id']['_value_']"
 										},
 										"sink": {
