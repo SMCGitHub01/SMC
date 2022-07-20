@@ -39,7 +39,7 @@
 			"value": "https://scsanctions.un.org/resources/xml/en/"
 		},
 		"HttpServer2_properties_typeProperties_url": {
-			"value": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_vti_bin/owssvr.dll?XMLDATA=1&List={C377346D-2FF3-49CE-A50F-8098BDF93ECE}&View={4215D90E-2D9A-43B0-83B6-1EA71F160104}&RowLimit=0&RootFolder=%2fsites%2fEngineering64%2fPGMT%2fLists%2fTrackingNumber"
+			"value": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_api/web/lists/GetByTitle('Tracking%20Number')/items"
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"
