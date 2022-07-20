@@ -53,7 +53,7 @@
 		},
 		"HttpServer2_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_api/web/lists/GetByTitle('Tracking%20Number')/items/"
+			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_api/web/lists/GetByTitle('Tracking%20Number')/items"
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
@@ -12732,7 +12732,12 @@
 								"type": "XmlSource",
 								"storeSettings": {
 									"type": "HttpReadSettings",
-									"requestMethod": "GET"
+									"requestMethod": "GET",
+									"additionalHeaders": {
+										"value": "grant_type=client_credentials&client_id=3c9c0d42-fbe6-4add-a30a-92d328806209@fe754037-10dc-495e-90da-045b680fb646&client_secret= Cvc8Q~DY2riwT4v3GvN8hsxHuQVXLoohrcfFOaVs&resource=00000003-0000-0ff1-ce00-000000000000/aquapro.sharepoint.com@fe754037-10dc-495e-90da-045b680fb646\n\n",
+										"type": "Expression"
+									},
+									"requestTimeout": ""
 								},
 								"formatSettings": {
 									"type": "XmlReadSettings",
