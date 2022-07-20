@@ -5140,33 +5140,6 @@
 								"mappings": [
 									{
 										"source": {
-											"path": "$['feed']['entry'][0]['content']['m:properties']['d:ContentTypeId']"
-										},
-										"sink": {
-											"name": "ContentTypeId",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['feed']['entry'][0]['content']['m:properties']['d:Title']['m:@null']"
-										},
-										"sink": {
-											"name": "Title",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['feed']['entry'][0]['content']['m:properties']['d:ComplianceAssetId']['m:@null']"
-										},
-										"sink": {
-											"name": "ComplianceAssetId",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
 											"path": "$['feed']['entry'][0]['content']['m:properties']['d:KlantId']['_value_']"
 										},
 										"sink": {
@@ -5181,6 +5154,15 @@
 										"sink": {
 											"name": "SerieId",
 											"type": "Byte"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:Artikelcode']['_value_']"
+										},
+										"sink": {
+											"name": "Artikelcode",
+											"type": "String"
 										}
 									}
 								]
