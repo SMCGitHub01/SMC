@@ -46,17 +46,14 @@
 					"source": {
 						"type": "XmlSource",
 						"storeSettings": {
-							"type": "HttpReadSettings",
-							"requestMethod": "GET",
-							"additionalHeaders": {
-								"value": "@{concat('Authorization: Bearer ', activity('gettoken').output.access_token)}",
-								"type": "Expression"
-							},
-							"requestTimeout": ""
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
 							"type": "XmlReadSettings",
-							"validationMode": "none",
+							"validationMode": "dtd",
+							"detectDataType": true,
 							"namespaces": true
 						}
 					},
@@ -144,6 +141,126 @@
 						"parameters": {
 							"SchemaName": "dbo",
 							"TableName": "test"
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data1_copy2",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "XmlSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "XmlReadSettings",
+							"validationMode": "none",
+							"detectDataType": true,
+							"namespaces": true
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "truncate table dbo.properties",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['feed']['entry'][0]['category']['@term']"
+								},
+								"sink": {
+									"name": "ProductcategorieId",
+									"type": "Byte"
+								}
+							},
+							{
+								"source": {
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:Id']['_value_']"
+								},
+								"sink": {
+									"name": "id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:ContentTypeId']"
+								},
+								"sink": {
+									"name": "ContentTypeId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:Title']['m:@null']"
+								},
+								"sink": {
+									"name": "Title",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:ComplianceAssetId']['m:@null']"
+								},
+								"sink": {
+									"name": "ComplianceAssetId",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:KlantId']['_value_']"
+								},
+								"sink": {
+									"name": "KlantId",
+									"type": "Int16"
+								}
+							},
+							{
+								"source": {
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:SerieId']['_value_']"
+								},
+								"sink": {
+									"name": "SerieId",
+									"type": "Byte"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Xml1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "properties"
 						}
 					}
 				]
