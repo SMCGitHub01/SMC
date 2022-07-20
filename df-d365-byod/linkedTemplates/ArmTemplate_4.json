@@ -4860,17 +4860,14 @@
 							"source": {
 								"type": "XmlSource",
 								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET",
-									"additionalHeaders": {
-										"value": "@{concat('Authorization: Bearer ', activity('gettoken').output.access_token)}",
-										"type": "Expression"
-									},
-									"requestTimeout": ""
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
 									"type": "XmlReadSettings",
-									"validationMode": "none",
+									"validationMode": "dtd",
+									"detectDataType": true,
 									"namespaces": true
 								}
 							},
@@ -4963,6 +4960,127 @@
 								}
 							}
 						]
+					},
+					{
+						"name": "Copy data1_copy2",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "XmlSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "XmlReadSettings",
+									"validationMode": "none",
+									"detectDataType": true,
+									"namespaces": true
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table dbo.properties",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['category']['@term']"
+										},
+										"sink": {
+											"name": "ProductcategorieId",
+											"type": "Byte"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:Id']['_value_']"
+										},
+										"sink": {
+											"name": "id"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:ContentTypeId']"
+										},
+										"sink": {
+											"name": "ContentTypeId",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:Title']['m:@null']"
+										},
+										"sink": {
+											"name": "Title",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:ComplianceAssetId']['m:@null']"
+										},
+										"sink": {
+											"name": "ComplianceAssetId",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:KlantId']['_value_']"
+										},
+										"sink": {
+											"name": "KlantId",
+											"type": "Int16"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:SerieId']['_value_']"
+										},
+										"sink": {
+											"name": "SerieId",
+											"type": "Byte"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "Xml1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dbo",
+									"TableName": "properties"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -4977,14 +5095,14 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ACC_Process_DWH_Only_DWH')]",
+			"name": "[concat(parameters('factoryName'), '/pipeline1_copy1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Lookup_Current_Sync_And_Date",
-						"type": "Lookup",
+						"name": "Copy data1_copy2",
+						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
@@ -4996,101 +5114,112 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							}
-						}
-					},
-					{
-						"name": "Lookup_Load_Group",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT DISTINCT LoadgroupID, LoadOrder FROM process.ProcessView WHERE SourceConnectionID = 1 ORDER BY LoadOrder",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
+								"type": "XmlSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "XmlReadSettings",
+									"validationMode": "none",
+									"detectDataType": true,
+									"namespaces": true
 								}
 							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "For_Each_Load_Group",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Load_Group",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Load_Group').output.value",
-								"type": "Expression"
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table dbo.properties",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
 							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Execute_Pipeline",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "ACC_Materialize_Views_copy1",
-											"type": "PipelineReference"
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['category']['@term']"
 										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"LoadGroupID": {
-												"value": "@{Item().LoadGroupID}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											}
+										"sink": {
+											"name": "ProductcategorieId",
+											"type": "Byte"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:Id']['_value_']"
+										},
+										"sink": {
+											"name": "id"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:ContentTypeId']"
+										},
+										"sink": {
+											"name": "ContentTypeId",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:Title']['m:@null']"
+										},
+										"sink": {
+											"name": "Title",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:ComplianceAssetId']['m:@null']"
+										},
+										"sink": {
+											"name": "ComplianceAssetId",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:KlantId']['_value_']"
+										},
+										"sink": {
+											"name": "KlantId",
+											"type": "Int16"
+										}
+									},
+									{
+										"source": {
+											"path": "$['feed']['entry'][0]['content']['m:properties']['d:SerieId']['_value_']"
+										},
+										"sink": {
+											"name": "SerieId",
+											"type": "Byte"
 										}
 									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "Xml1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dbo",
+									"TableName": "properties"
 								}
-							]
-						}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -5098,10 +5227,9 @@
 					"cancelAfter": {}
 				},
 				"folder": {
-					"name": "ACC-Process_DWH"
+					"name": "PRD_Matrix"
 				},
-				"annotations": [],
-				"lastPublishTime": "2020-12-10T13:46:06Z"
+				"annotations": []
 			},
 			"dependsOn": []
 		}
