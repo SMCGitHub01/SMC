@@ -42,7 +42,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['feed']['entry'][0]['content']['m:properties']['d:KlantId']['_value_']"
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:KlantId']"
 								},
 								"sink": {
 									"name": "KlantId",
@@ -51,7 +51,7 @@
 							},
 							{
 								"source": {
-									"path": "$['feed']['entry'][0]['content']['m:properties']['d:SerieId']['_value_']"
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:SerieId']"
 								},
 								"sink": {
 									"name": "SerieId",
@@ -60,14 +60,15 @@
 							},
 							{
 								"source": {
-									"path": "$['feed']['entry'][0]['content']['m:properties']['d:Artikelcode']['_value_']"
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:Artikelcode']"
 								},
 								"sink": {
 									"name": "Artikelcode",
 									"type": "String"
 								}
 							}
-						]
+						],
+						"mapComplexValuesToString": true
 					}
 				},
 				"inputs": [
