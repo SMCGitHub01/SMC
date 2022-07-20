@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_api/web/lists/GetByTitle('Tracking%20Number')/items",
+			"url": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_api/web/lists/GetByTitle('Tracking%20Number')/items/",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
