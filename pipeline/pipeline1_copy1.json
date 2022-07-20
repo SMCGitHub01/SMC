@@ -42,7 +42,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['feed']['entry'][0]['content']['m:properties']['d:KlantId']"
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:KlantId']['_value_']"
 								},
 								"sink": {
 									"name": "KlantId",
@@ -51,7 +51,7 @@
 							},
 							{
 								"source": {
-									"path": "$['feed']['entry'][0]['content']['m:properties']['d:SerieId']"
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:SerieId']['_value_']"
 								},
 								"sink": {
 									"name": "SerieId",
@@ -60,7 +60,7 @@
 							},
 							{
 								"source": {
-									"path": "$['feed']['entry'][0]['content']['m:properties']['d:Artikelcode']"
+									"path": "$['feed']['entry'][0]['content']['m:properties']['d:Artikelcode']['_value_']"
 								},
 								"sink": {
 									"name": "Artikelcode",
