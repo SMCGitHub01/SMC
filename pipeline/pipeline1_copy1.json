@@ -42,14 +42,6 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['feed']['entry'][0]['content']['m:properties']['d:Id']['_value_']"
-								},
-								"sink": {
-									"name": "id"
-								}
-							},
-							{
-								"source": {
 									"path": "$['feed']['entry'][0]['content']['m:properties']['d:ContentTypeId']"
 								},
 								"sink": {
