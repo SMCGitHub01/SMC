@@ -33,7 +33,7 @@
 		},
 		"HttpServer2_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_api/web/lists/GetByTitle('Tracking%20Number')/items"
+			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_api/web/lists/GetByTitle('Tracking%20Number')/items/"
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
