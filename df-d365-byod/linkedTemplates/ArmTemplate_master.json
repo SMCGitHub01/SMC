@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
+		"SharePoint_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
+		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
@@ -58,6 +62,10 @@
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"SharePoint_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
 		"ToJPN_properties_typeProperties_host": {
 			"type": "string",
@@ -140,11 +148,11 @@
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
+					"SharePoint_servicePrincipalKey": {
+						"value": "[parameters('SharePoint_servicePrincipalKey')]"
+					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
-					},
-					"AnyWhereSQL_connectionString": {
-						"value": "[parameters('AnyWhereSQL_connectionString')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
@@ -158,8 +166,8 @@
 					"KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
 					},
-					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
+					"SharePoint_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('SharePoint_properties_typeProperties_servicePrincipalId')]"
 					}
 				}
 			},
@@ -179,6 +187,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AnyWhereSQL_connectionString": {
+						"value": "[parameters('AnyWhereSQL_connectionString')]"
+					},
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
 					},
@@ -187,6 +198,9 @@
 					},
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
 					},
 					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"

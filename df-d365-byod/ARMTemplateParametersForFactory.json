@@ -14,6 +14,9 @@
 		"AzureSqlMI1_connectionString": {
 			"value": ""
 		},
+		"SharePoint_servicePrincipalKey": {
+			"value": ""
+		},
 		"SugarCRM_Production_connectionString": {
 			"value": ""
 		},
@@ -43,6 +46,9 @@
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"SharePoint_properties_typeProperties_servicePrincipalId": {
+			"value": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
 		"ToJPN_properties_typeProperties_host": {
 			"value": "\\\\amssrv011\\Public\\General\\ict\\jpnvrd"
