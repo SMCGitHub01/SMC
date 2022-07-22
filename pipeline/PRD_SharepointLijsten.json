@@ -1,9 +1,9 @@
 {
-	"name": "pipeline1_copy1",
+	"name": "PRD_SharepointLijsten",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "GetTrackinNumberList",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -447,7 +447,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SharePointOnlineListResource1",
+						"referenceName": "SharePointTrackingNumber",
 						"type": "DatasetReference"
 					}
 				],

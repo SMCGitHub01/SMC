@@ -1,5 +1,5 @@
 {
-	"name": "SharePointOnlineListResource1",
+	"name": "SharePointTrackingNumber",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SharePoint",
