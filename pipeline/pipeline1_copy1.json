@@ -30,17 +30,6 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "InhoudstypeId",
-									"type": "String"
-								},
-								"sink": {
-									"name": "FileSystemObjectType",
-									"type": "Byte",
-									"physicalType": "tinyint"
-								}
-							},
-							{
-								"source": {
 									"name": "Id",
 									"type": "Int32"
 								},
