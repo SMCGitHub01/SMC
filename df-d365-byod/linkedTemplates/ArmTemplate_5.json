@@ -225,7 +225,9 @@
 							"sink": {
 								"type": "AzureSqlSink",
 								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
@@ -552,17 +554,6 @@
 									},
 									{
 										"source": {
-											"name": "PhoneNumber",
-											"type": "String"
-										},
-										"sink": {
-											"name": "PhoneNumber",
-											"type": "Int64",
-											"physicalType": "bigint"
-										}
-									},
-									{
-										"source": {
 											"name": "CommodityId",
 											"type": "String"
 										},
@@ -670,7 +661,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dbo",
-									"TableName": "properties"
+									"TableName": "EngineeringList"
 								}
 							}
 						]
