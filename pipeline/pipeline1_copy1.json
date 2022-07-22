@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1_copy2",
+				"name": "Copy data1",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -16,75 +16,40 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "XmlSource",
-						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "XmlReadSettings",
-							"validationMode": "none",
-							"detectDataType": true,
-							"namespaces": true
-						}
+						"type": "SharePointOnlineListSource",
+						"additionalColumns": [
+							{
+								"value": "$$COLUMN:"
+							}
+						],
+						"query": "select=Title",
+						"httpRequestTimeout": "00:05:00"
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table dbo.properties",
 						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false,
-						"disableMetricsCollection": false
+						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"path": "$['feed']['entry'][0]['content']['m:properties']['d:KlantId']['_value_']"
-								},
-								"sink": {
-									"name": "KlantId",
-									"type": "Int16"
-								}
-							},
-							{
-								"source": {
-									"path": "$['feed']['entry'][0]['content']['m:properties']['d:SerieId']['_value_']"
-								},
-								"sink": {
-									"name": "SerieId",
-									"type": "Byte"
-								}
-							},
-							{
-								"source": {
-									"path": "$['feed']['entry'][0]['content']['m:properties']['d:Artikelcode']['_value_']"
-								},
-								"sink": {
-									"name": "Artikelcode",
-									"type": "String"
-								}
-							}
-						],
-						"mapComplexValuesToString": true
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
 					}
 				},
 				"inputs": [
 					{
-						"referenceName": "Xml1",
+						"referenceName": "SharePointOnlineListResource1",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "PRD_BYOD_DS",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "properties"
-						}
+						"type": "DatasetReference"
 					}
 				]
 			}
