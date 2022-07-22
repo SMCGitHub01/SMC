@@ -457,7 +457,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
-							"TableName": "properties"
+							"TableName": "EngineeringList"
 						}
 					}
 				]
