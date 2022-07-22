@@ -195,17 +195,6 @@
 							},
 							{
 								"source": {
-									"name": "OmschrijvingENG",
-									"type": "String"
-								},
-								"sink": {
-									"name": "OmschrijvingENG",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
 									"name": "OmschrijvingFR",
 									"type": "String"
 								},
