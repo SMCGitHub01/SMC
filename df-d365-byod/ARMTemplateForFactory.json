@@ -9175,6 +9175,953 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_SharepointLijsten')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "GetTrackinNumberList",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int16",
+											"physicalType": "smallint"
+										}
+									},
+									{
+										"source": {
+											"name": "InhoudstypeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContentTypeId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "KlantId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "KlantId",
+											"type": "Int16",
+											"physicalType": "smallint"
+										}
+									},
+									{
+										"source": {
+											"name": "SerieId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "SerieId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "StrokeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "StrokeId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductcategorieId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "ProductcategorieId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "Artikelcode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Artikelcode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingENG",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Omschrijving",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusValue",
+											"type": "String"
+										},
+										"sink": {
+											"name": "GtnStatus",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusOpmerking",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Status_Opmerking",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZ",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZ",
+											"type": "Boolean",
+											"physicalType": "bit"
+										}
+									},
+									{
+										"source": {
+											"name": "Approved",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Approved",
+											"type": "Boolean",
+											"physicalType": "bit"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusD365Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Status_D365Id",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "MeldingD365",
+											"type": "String"
+										},
+										"sink": {
+											"name": "MeldingD365",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CustomerPartNr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CustomerPartNr",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingFR",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingFR",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingDE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingDE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "RoutesId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "RoutesId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "SalesEngineerId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Sales_EngineerId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "ContactPerson",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContactPerson",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Aantal",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Aantal",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingClaim",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingClaim",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ReturnedPartNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ReturnedPartnumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ClaimStatusId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Claim_StatusId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "SerialNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SerialNumber",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "Warranty",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Warranty",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ZendeskNr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ZendeskNr",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "FOBCZ",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "FOBCZ",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "Email",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Email",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CommodityId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CommodityId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductRetour",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Productretour",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZFastTrack",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZFasttrack",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "RepairTypeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Repair_typeId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZSales",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZSales",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ShipDate",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ShipDate",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "PriceCalculationReport",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "PricecalculationReport",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SalesCheck",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SalesCheck",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "TrackingNumber"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "TrackingNumber"
+								}
+							}
+						]
+					},
+					{
+						"name": "GetCustomers",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int16",
+											"physicalType": "smallint"
+										}
+									},
+									{
+										"source": {
+											"name": "InhoudstypeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContentTypeId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "KlantId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "KlantId",
+											"type": "Int16",
+											"physicalType": "smallint"
+										}
+									},
+									{
+										"source": {
+											"name": "SerieId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "SerieId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "StrokeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "StrokeId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductcategorieId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "ProductcategorieId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "Artikelcode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Artikelcode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingENG",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Omschrijving",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusValue",
+											"type": "String"
+										},
+										"sink": {
+											"name": "GtnStatus",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusOpmerking",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Status_Opmerking",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZ",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZ",
+											"type": "Boolean",
+											"physicalType": "bit"
+										}
+									},
+									{
+										"source": {
+											"name": "Approved",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Approved",
+											"type": "Boolean",
+											"physicalType": "bit"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusD365Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Status_D365Id",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "MeldingD365",
+											"type": "String"
+										},
+										"sink": {
+											"name": "MeldingD365",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CustomerPartNr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CustomerPartNr",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingFR",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingFR",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingDE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingDE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "RoutesId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "RoutesId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "SalesEngineerId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Sales_EngineerId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "ContactPerson",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContactPerson",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Aantal",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Aantal",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingClaim",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingClaim",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ReturnedPartNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ReturnedPartnumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ClaimStatusId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Claim_StatusId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "SerialNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SerialNumber",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "Warranty",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Warranty",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ZendeskNr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ZendeskNr",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "FOBCZ",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "FOBCZ",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "Email",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Email",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CommodityId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CommodityId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductRetour",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Productretour",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZFastTrack",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZFasttrack",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "RepairTypeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Repair_typeId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZSales",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZSales",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ShipDate",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ShipDate",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "PriceCalculationReport",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "PricecalculationReport",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SalesCheck",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SalesCheck",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "Customers"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "Customers"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "PRD_SharePoint"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SharePointLists')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_UpScale')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -12690,655 +13637,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "gettoken",
-						"type": "WebActivity",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://accounts.accesscontrol.windows.net/fe754037-10dc-495e-90da-045b680fb646/tokens/OAuth/2",
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/x-www-form-urlencoded"
-							},
-							"body": "grant_type=client_credentials&client_id=3c9c0d42-fbe6-4add-a30a-92d328806209@fe754037-10dc-495e-90da-045b680fb646&client_secret= Cvc8Q~DY2riwT4v3GvN8hsxHuQVXLoohrcfFOaVs&resource=00000003-0000-0ff1-ce00-000000000000/aquapro.sharepoint.com@fe754037-10dc-495e-90da-045b680fb646"
-						}
-					},
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "gettoken",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "XmlSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "XmlReadSettings",
-									"validationMode": "dtd",
-									"detectDataType": true,
-									"namespaces": true
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table dbo.properties",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "Xml1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dbo",
-									"TableName": "properties"
-								}
-							}
-						]
-					},
-					{
-						"name": "Copy data1_copy1",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "gettoken",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET",
-									"additionalHeaders": {
-										"value": "@{concat('Authorization: Bearer ', activity('gettoken').output.access_token)}",
-										"type": "Expression"
-									},
-									"requestTimeout": ""
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table dbo.test",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "DelimitedText2",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dbo",
-									"TableName": "test"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "PRD_Matrix"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Xml1')]",
-				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
-				"[concat(variables('factoryId'), '/datasets/DelimitedText2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_SharepointLijsten')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "GetTrackinNumberList",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Id",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "Id",
-											"type": "Int16",
-											"physicalType": "smallint"
-										}
-									},
-									{
-										"source": {
-											"name": "InhoudstypeId",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ContentTypeId",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "KlantId",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "KlantId",
-											"type": "Int16",
-											"physicalType": "smallint"
-										}
-									},
-									{
-										"source": {
-											"name": "SerieId",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "SerieId",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										}
-									},
-									{
-										"source": {
-											"name": "StrokeId",
-											"type": "String"
-										},
-										"sink": {
-											"name": "StrokeId",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										}
-									},
-									{
-										"source": {
-											"name": "ProductcategorieId",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "ProductcategorieId",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										}
-									},
-									{
-										"source": {
-											"name": "Artikelcode",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Artikelcode",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "OmschrijvingENG",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Omschrijving",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "StatusValue",
-											"type": "String"
-										},
-										"sink": {
-											"name": "GtnStatus",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "StatusOpmerking",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Status_Opmerking",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "CZ",
-											"type": "Boolean"
-										},
-										"sink": {
-											"name": "CZ",
-											"type": "Boolean",
-											"physicalType": "bit"
-										}
-									},
-									{
-										"source": {
-											"name": "Approved",
-											"type": "Boolean"
-										},
-										"sink": {
-											"name": "Approved",
-											"type": "Boolean",
-											"physicalType": "bit"
-										}
-									},
-									{
-										"source": {
-											"name": "StatusD365Id",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "Status_D365Id",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										}
-									},
-									{
-										"source": {
-											"name": "MeldingD365",
-											"type": "String"
-										},
-										"sink": {
-											"name": "MeldingD365",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "CustomerPartNr",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CustomerPartNr",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "OmschrijvingFR",
-											"type": "String"
-										},
-										"sink": {
-											"name": "OmschrijvingFR",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "OmschrijvingDE",
-											"type": "String"
-										},
-										"sink": {
-											"name": "OmschrijvingDE",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "RoutesId",
-											"type": "String"
-										},
-										"sink": {
-											"name": "RoutesId",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										}
-									},
-									{
-										"source": {
-											"name": "SalesEngineerId",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "Sales_EngineerId",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										}
-									},
-									{
-										"source": {
-											"name": "ContactPerson",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ContactPerson",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Aantal",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Aantal",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "OmschrijvingClaim",
-											"type": "String"
-										},
-										"sink": {
-											"name": "OmschrijvingClaim",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ReturnedPartNumber",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ReturnedPartnumber",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ClaimStatusId",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Claim_StatusId",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										}
-									},
-									{
-										"source": {
-											"name": "SerialNumber",
-											"type": "String"
-										},
-										"sink": {
-											"name": "SerialNumber",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									},
-									{
-										"source": {
-											"name": "Warranty",
-											"type": "Boolean"
-										},
-										"sink": {
-											"name": "Warranty",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ZendeskNr",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ZendeskNr",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "FOBCZ",
-											"type": "Double"
-										},
-										"sink": {
-											"name": "FOBCZ",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									},
-									{
-										"source": {
-											"name": "Email",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Email",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "CommodityId",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CommodityId",
-											"type": "Byte",
-											"physicalType": "tinyint"
-										}
-									},
-									{
-										"source": {
-											"name": "ProductRetour",
-											"type": "Boolean"
-										},
-										"sink": {
-											"name": "Productretour",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "CZFastTrack",
-											"type": "Boolean"
-										},
-										"sink": {
-											"name": "CZFasttrack",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "RepairTypeId",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Repair_typeId",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "CZSales",
-											"type": "Boolean"
-										},
-										"sink": {
-											"name": "CZSales",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ShipDate",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ShipDate",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "PriceCalculationReport",
-											"type": "Boolean"
-										},
-										"sink": {
-											"name": "PricecalculationReport",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "SalesCheck",
-											"type": "String"
-										},
-										"sink": {
-											"name": "SalesCheck",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SharePointTrackingNumber",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "TrackingNumber"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "PRD_Matrix"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SharePointTrackingNumber')]",
-				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/sanctieLijsten_process')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -14592,7 +14890,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SharePointTrackingNumber')]",
+			"name": "[concat(parameters('factoryName'), '/SharePointLists')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -14600,11 +14898,19 @@
 					"referenceName": "SharePoint",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"list": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "SharePointOnlineListResource",
 				"schema": [],
 				"typeProperties": {
-					"listName": "TrackingNumber"
+					"listName": {
+						"value": "@dataset().list",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
