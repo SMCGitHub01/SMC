@@ -456,8 +456,8 @@
 						"referenceName": "PRD_BYOD_DS",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "EngineeringList"
+							"SchemaName": "sharepoint",
+							"TableName": "TrackingNumber"
 						}
 					}
 				]
