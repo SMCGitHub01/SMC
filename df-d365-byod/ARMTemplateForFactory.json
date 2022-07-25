@@ -9752,7 +9752,7 @@
 						]
 					},
 					{
-						"name": "GetProductcategorie",
+						"name": "GetRoutes",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -9790,7 +9790,7 @@
 								"referenceName": "SharePointLists",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "Productcategorie"
+									"list": "Routes"
 								}
 							}
 						],
@@ -9800,7 +9800,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "sharepoint",
-									"TableName": "Productcategorie"
+									"TableName": "Routes"
 								}
 							}
 						]
