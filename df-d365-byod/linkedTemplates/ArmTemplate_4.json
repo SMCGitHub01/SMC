@@ -2723,9 +2723,9 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table powerpoint.SalesEngenieer",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -2740,11 +2740,9 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists",
+								"referenceName": "SharePointLists_SalesEngenieer",
 								"type": "DatasetReference",
-								"parameters": {
-									"list": "SalesEngenieer"
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [

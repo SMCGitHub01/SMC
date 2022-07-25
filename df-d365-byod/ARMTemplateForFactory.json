@@ -9824,9 +9824,9 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table powerpoint.SalesEngenieer",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -9841,11 +9841,9 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists",
+								"referenceName": "SharePointLists_SalesEngenieer",
 								"type": "DatasetReference",
-								"parameters": {
-									"list": "SalesEngenieer"
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
@@ -9871,7 +9869,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SharePointLists')]",
-				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
+				"[concat(variables('factoryId'), '/datasets/SharePointLists_SalesEngenieer')]"
 			]
 		},
 		{
@@ -13431,7 +13430,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists_copy1",
+								"referenceName": "SharePointLists_SalesEngenieer",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -13458,7 +13457,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SharePointLists_copy1')]",
+				"[concat(variables('factoryId'), '/datasets/SharePointLists_SalesEngenieer')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},
@@ -14744,7 +14743,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SharePointLists_copy1')]",
+			"name": "[concat(parameters('factoryName'), '/SharePointLists_SalesEngenieer')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
