@@ -732,6 +732,19 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "PRD_SharpointSalesEngenieer",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PRD_SharpointSalesEngenieer",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"folder": {
