@@ -646,7 +646,6 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.routes",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate",
