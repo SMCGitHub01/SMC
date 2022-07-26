@@ -90,30 +90,6 @@
 		"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "BlobStorageProduction"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_TenantId": {
-			"type": "string",
-			"defaultValue": "fe754037-10dc-495e-90da-045b680fb646"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPClientId": {
-			"type": "string",
-			"defaultValue": "1"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPSecret": {
-			"type": "string",
-			"defaultValue": "1"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_KeyVaultDNSName": {
-			"type": "string",
-			"defaultValue": "1"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_workspaceGuid": {
-			"type": "string",
-			"defaultValue": "1"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_datasetGuid": {
-			"type": "string",
-			"defaultValue": "1"
 		}
 	},
 	"variables": {
@@ -9873,6 +9849,61 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
+					},
+					{
+						"name": "GetrepairType",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "--truncate table sharepoint.repairtype",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "Repairtype"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "repairType"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -16101,51 +16132,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PRD_Matrix_Import')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/trigger1test')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "RefreshPowerBI_PRD",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"SecretName_TenantId": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_TenantId')]",
-							"SecretName_SPClientId": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPClientId')]",
-							"SecretName_SPSecret": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPSecret')]",
-							"KeyVaultDNSName": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_KeyVaultDNSName')]",
-							"workspaceGuid": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_workspaceGuid')]",
-							"datasetGuid": "[parameters('trigger1test_properties_RefreshPowerBI_PRD_parameters_datasetGuid')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2022-07-04T00:48:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								15
-							],
-							"hours": [
-								12
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/RefreshPowerBI_PRD')]"
 			]
 		},
 		{

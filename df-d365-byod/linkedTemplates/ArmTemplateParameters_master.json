@@ -68,24 +68,6 @@
 		"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 			"value": "BlobStorageProduction"
 		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_TenantId": {
-			"value": "fe754037-10dc-495e-90da-045b680fb646"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPClientId": {
-			"value": "1"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_SecretName_SPSecret": {
-			"value": "1"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_KeyVaultDNSName": {
-			"value": "1"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_workspaceGuid": {
-			"value": "1"
-		},
-		"trigger1test_properties_RefreshPowerBI_PRD_parameters_datasetGuid": {
-			"value": "1"
-		},
 		"containerUri": {
 			"value": ""
 		},
