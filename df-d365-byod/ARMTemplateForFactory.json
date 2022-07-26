@@ -9890,7 +9890,7 @@
 								"referenceName": "SharePointLists",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "Repairtype"
+									"list": "RepairType"
 								}
 							}
 						],
@@ -14805,6 +14805,26 @@
 				"schema": [],
 				"typeProperties": {
 					"listName": "SalesEngineer"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SharePoint')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SharePointLists_repairtype')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SharePoint",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SharePointOnlineListResource",
+				"schema": [],
+				"typeProperties": {
+					"listName": "RepairType"
 				}
 			},
 			"dependsOn": [
