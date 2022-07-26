@@ -1,0 +1,15 @@
+{
+	"name": "SharePointLists_repairtype",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SharePoint",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SharePointOnlineListResource",
+		"schema": [],
+		"typeProperties": {
+			"listName": "RepairType"
+		}
+	}
+}

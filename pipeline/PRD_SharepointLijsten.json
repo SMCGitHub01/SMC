@@ -735,7 +735,7 @@
 						"referenceName": "SharePointLists",
 						"type": "DatasetReference",
 						"parameters": {
-							"list": "Repairtype"
+							"list": "RepairType"
 						}
 					}
 				],
