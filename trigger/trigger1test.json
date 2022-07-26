@@ -3,22 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "RefreshPowerBI_PRD",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"SecretName_TenantId": "fe754037-10dc-495e-90da-045b680fb646",
-					"SecretName_SPClientId": "1",
-					"SecretName_SPSecret": "1",
-					"KeyVaultDNSName": "1",
-					"workspaceGuid": "1",
-					"datasetGuid": "1"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
