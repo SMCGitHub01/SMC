@@ -6183,6 +6183,12 @@
 								"dependencyConditions": [
 									"Succeeded"
 								]
+							},
+							{
+								"activity": "PRD_SharepointLijsten",
+								"dependencyConditions": [
+									"Succeeded"
+								]
 							}
 						],
 						"policy": {
@@ -6679,6 +6685,27 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
+					},
+					{
+						"name": "PRD_SharepointLijsten",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_SharepointLijsten",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
@@ -6693,7 +6720,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_IFS_Stage')]",
-				"[concat(variables('factoryId'), '/pipelines/PRD_Process_Zendesk')]"
+				"[concat(variables('factoryId'), '/pipelines/PRD_Process_Zendesk')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_SharepointLijsten')]"
 			]
 		},
 		{

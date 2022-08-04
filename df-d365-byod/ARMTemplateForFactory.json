@@ -6525,6 +6525,12 @@
 								"dependencyConditions": [
 									"Succeeded"
 								]
+							},
+							{
+								"activity": "PRD_SharepointLijsten",
+								"dependencyConditions": [
+									"Succeeded"
+								]
 							}
 						],
 						"policy": {
@@ -7021,6 +7027,27 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
+					},
+					{
+						"name": "PRD_SharepointLijsten",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_SharepointLijsten",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
@@ -7041,6 +7068,7 @@
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_Zendesk')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_UpScale')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_DownScale')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_SharepointLijsten')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_Materialize_Views')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_DistributionList')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_BudgetDirectSales')]",
