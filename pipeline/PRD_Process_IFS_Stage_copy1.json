@@ -1,5 +1,5 @@
 {
-	"name": "PRD_Process_IFS_Stage",
+	"name": "PRD_Process_IFS_Stage_copy1",
 	"properties": {
 		"activities": [
 			{
@@ -587,6 +587,92 @@
 							"typeProperties": {
 								"pipeline": {
 									"referenceName": "PRD_IFS_InventoryTransactions",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"CSVFile": {
+										"value": "@{Item().SourceTableName}",
+										"type": "Expression"
+									},
+									"StartDateTime": {
+										"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+										"type": "Expression"
+									},
+									"TargetTableName": {
+										"value": "@{Item().TargetTableName}",
+										"type": "Expression"
+									},
+									"TargetSchemaName": {
+										"value": "@{Item().TargetSchemaName}",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			},
+			{
+				"name": "Lookup_Full_CSVFiles_Invoice_Corrections",
+				"description": "Lookup the tables from the source database which are used in the full copy.",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 18 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+							"type": "Expression"
+						},
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dummy",
+							"TableName": "dummy"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach SalesInvoice_corection",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup_Full_CSVFiles_Invoice_Corrections",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup_Full_CSVFiles_Invoice_Corrections').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "SalesInvoice_correction",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "PRD_IFS_SalesInvoice",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
