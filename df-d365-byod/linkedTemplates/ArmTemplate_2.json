@@ -759,7 +759,7 @@
 							"value": "@dataset().CSVFile",
 							"type": "Expression"
 						},
-						"container": "dwh-ifs-salesinvoice"
+						"container": "dwh-invoice-corrections"
 					},
 					"columnDelimiter": ";",
 					"escapeChar": "\\",
