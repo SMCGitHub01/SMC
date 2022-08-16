@@ -51,7 +51,10 @@
 				"inputs": [
 					{
 						"referenceName": "PRD_Invoice_Corrections",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"CSVFile": "@{pipeline().parameters.CSVFile}"
+						}
 					}
 				],
 				"outputs": [
