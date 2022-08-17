@@ -771,7 +771,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Invoice_Corrections')]",
+			"name": "[concat(parameters('factoryName'), '/PRD_InvoiceCorrections')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -808,25 +808,37 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ToJPN')]",
+			"name": "[concat(parameters('factoryName'), '/PRD_Invoice_Corrections')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "ToJPN",
+					"referenceName": "blobstoragesmcprd",
 					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"CSVFile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
-						"type": "FileServerLocation",
-						"fileName": "GISBE71.csv"
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().CSVFile",
+							"type": "Expression"
+						},
+						"container": "dwh-invoice-corrections"
 					},
-					"columnDelimiter": ",",
-					"escapeChar": "",
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
 					"firstRowAsHeader": true,
-					"quoteChar": ""
+					"quoteChar": "\""
 				},
 				"schema": []
 			},

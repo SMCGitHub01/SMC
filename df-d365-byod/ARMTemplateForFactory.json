@@ -5765,7 +5765,17 @@
 									},
 									{
 										"name": "HSO_DnA_SourceConnectionID",
-										"value": "18"
+										"value": {
+											"value": "@pipeline().parameters.SourceConnectionID",
+											"type": "Expression"
+										}
+									},
+									{
+										"name": "HSO_DnA_TargetMappingID",
+										"value": {
+											"value": "@pipeline().parameters.TargetMapping",
+											"type": "Expression"
+										}
 									}
 								],
 								"storeSettings": {
@@ -5835,6 +5845,12 @@
 						"type": "string"
 					},
 					"TargetSchemaName": {
+						"type": "string"
+					},
+					"TargetMapping": {
+						"type": "string"
+					},
+					"SourceConnectionID": {
 						"type": "string"
 					}
 				},
@@ -8935,6 +8951,53 @@
 											},
 											"TargetSchemaName": {
 												"value": "@{Item().TargetSchemaName}",
+												"type": "Expression"
+											},
+											"TargetMapping": {
+												"value": "@{Item().TargetSMappingID}",
+												"type": "Expression"
+											},
+											"SourceConnectionID": {
+												"value": "@{Item().SourceConnectionID}",
+												"type": "Expression"
+											}
+										}
+									}
+								},
+								{
+									"name": "SalesInvoice_correction_copy1",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PRD_Invoice_Corrections",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"CSVFile": {
+												"value": "@{Item().SourceTableName}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											},
+											"TargetTableName": {
+												"value": "@{Item().TargetTableName}",
+												"type": "Expression"
+											},
+											"TargetSchemaName": {
+												"value": "@{Item().TargetSchemaName}",
+												"type": "Expression"
+											},
+											"TargetMapping": {
+												"value": "@{Item().TargetSMappingID}",
+												"type": "Expression"
+											},
+											"SourceConnectionID": {
+												"value": "@{Item().SourceConnectionID}",
 												"type": "Expression"
 											}
 										}
@@ -15079,6 +15142,45 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_InvoiceCorrections')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragesmcprd",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"CSVFile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().CSVFile",
+							"type": "Expression"
+						},
+						"container": "dwh-invoice-corrections"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragesmcprd')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_Invoice_Corrections')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -16519,45 +16621,6 @@
 				"typeProperties": {}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_InvoiceCorrections')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragesmcprd",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"CSVFile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "PRD"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().CSVFile",
-							"type": "Expression"
-						},
-						"container": "dwh-invoice-corrections"
-					},
-					"columnDelimiter": ";",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragesmcprd')]"
-			]
 		}
 	]
 }
