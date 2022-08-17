@@ -97,6 +97,9 @@
 			},
 			"TargetMapping": {
 				"type": "string"
+			},
+			"SourceConnectionID": {
+				"type": "string"
 			}
 		},
 		"folder": {
