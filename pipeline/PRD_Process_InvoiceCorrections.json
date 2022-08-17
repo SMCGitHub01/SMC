@@ -97,38 +97,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "PRD_IFS_SalesInvoice",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"CSVFile": {
-										"value": "@{Item().SourceTableName}",
-										"type": "Expression"
-									},
-									"StartDateTime": {
-										"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-										"type": "Expression"
-									},
-									"TargetTableName": {
-										"value": "@{Item().TargetTableName}",
-										"type": "Expression"
-									},
-									"TargetSchemaName": {
-										"value": "@{Item().TargetSchemaName}",
-										"type": "Expression"
-									}
-								}
-							}
-						},
-						{
-							"name": "SalesInvoice_correction_copy1",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "PRD_IFS_SalesInvoice",
+									"referenceName": "PRD_Invoice_Corrections",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
