@@ -5163,7 +5163,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "PRD_IFS_SalesInvoice",
+											"referenceName": "PRD_Invoice_Corrections",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,

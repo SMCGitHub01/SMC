@@ -5686,7 +5686,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "PRD_IFS_SalesInvoices",
+								"referenceName": "PRD_Invoice_Corrections",
 								"type": "DatasetReference",
 								"parameters": {
 									"CSVFile": "@{pipeline().parameters.CSVFile}"
@@ -5730,7 +5730,7 @@
 				"lastPublishTime": "2021-03-27T13:45:56Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/PRD_IFS_SalesInvoices')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_Invoice_Corrections')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},
@@ -8903,7 +8903,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "PRD_IFS_SalesInvoice",
+											"referenceName": "PRD_Invoice_Corrections",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
@@ -8943,7 +8943,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
-				"[concat(variables('factoryId'), '/pipelines/PRD_IFS_SalesInvoice')]"
+				"[concat(variables('factoryId'), '/pipelines/PRD_Invoice_Corrections')]"
 			]
 		},
 		{
