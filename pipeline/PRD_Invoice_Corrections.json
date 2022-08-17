@@ -27,7 +27,17 @@
 							},
 							{
 								"name": "HSO_DnA_SourceConnectionID",
-								"value": "18"
+								"value": {
+									"value": "@pipeline().parameters.SourceConnectionID",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "HSO_DnA_TargetMappingID",
+								"value": {
+									"value": "@pipeline().parameters.TargetMapping",
+									"type": "Expression"
+								}
 							}
 						],
 						"storeSettings": {

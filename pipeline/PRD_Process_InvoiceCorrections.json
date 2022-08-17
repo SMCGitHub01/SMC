@@ -102,22 +102,33 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"CSVFile": {
-										"value": "@{Item().SourceTableName}",
-										"type": "Expression"
-									},
-									"StartDateTime": {
-										"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-										"type": "Expression"
-									},
-									"TargetTableName": {
-										"value": "@{Item().TargetTableName}",
-										"type": "Expression"
-									},
-									"TargetSchemaName": {
-										"value": "@{Item().TargetSchemaName}",
-										"type": "Expression"
-									}
+									"CSVFile": "@{Item().SourceTableName}",
+									"StartDateTime": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+									"TargetTableName": "@{Item().TargetTableName}",
+									"TargetSchemaName": "@{Item().TargetSchemaName}",
+									"TargetMapping": "@{Item().TargetSMappingID}",
+									"SourceConnectionID": "@{Item().SourceConnectionID}"
+								}
+							}
+						},
+						{
+							"name": "SalesInvoice_correction_copy1",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "PRD_Invoice_Corrections",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"CSVFile": "@{Item().SourceTableName}",
+									"StartDateTime": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+									"TargetTableName": "@{Item().TargetTableName}",
+									"TargetSchemaName": "@{Item().TargetSchemaName}",
+									"TargetMapping": "@{Item().TargetSMappingID}",
+									"SourceConnectionID": "@{Item().SourceConnectionID}"
 								}
 							}
 						}
