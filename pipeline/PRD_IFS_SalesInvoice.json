@@ -50,11 +50,8 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "PRD_IFS_SalesInvoices",
-						"type": "DatasetReference",
-						"parameters": {
-							"CSVFile": "@{pipeline().parameters.CSVFile}"
-						}
+						"referenceName": "PRD_Invoice_Corrections",
+						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
