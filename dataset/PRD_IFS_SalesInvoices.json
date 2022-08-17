@@ -22,7 +22,7 @@
 					"value": "@dataset().CSVFile",
 					"type": "Expression"
 				},
-				"container": "dwh-invoice-corrections"
+				"container": "dwh-ifs-salesinvoice"
 			},
 			"columnDelimiter": ";",
 			"escapeChar": "\\",
