@@ -94,6 +94,9 @@
 			},
 			"TargetSchemaName": {
 				"type": "string"
+			},
+			"TargetMapping": {
+				"type": "string"
 			}
 		},
 		"folder": {
