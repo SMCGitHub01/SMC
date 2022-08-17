@@ -5686,7 +5686,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "PRD_Invoice_Corrections",
+								"referenceName": "PRD_IFS_SalesInvoices",
 								"type": "DatasetReference",
 								"parameters": {
 									"CSVFile": "@{pipeline().parameters.CSVFile}"
@@ -5730,7 +5730,7 @@
 				"lastPublishTime": "2021-03-27T13:45:56Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/PRD_Invoice_Corrections')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_IFS_SalesInvoices')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},
