@@ -1473,6 +1473,19 @@
 						"typeProperties": {
 							"source": {
 								"type": "DelimitedTextSource",
+								"additionalColumns": [
+									{
+										"name": "HSO_DnA_InsertDateTime",
+										"value": {
+											"value": "@pipeline().parameters.StartDateTime",
+											"type": "Expression"
+										}
+									},
+									{
+										"name": "HSO_DnA_SourceConnectionID",
+										"value": "18"
+									}
+								],
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
