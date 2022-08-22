@@ -19,9 +19,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
+		"RestService1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'RestService1'"
+		},
 		"SharePoint_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
+		},
+		"SharePoint_powerbi_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint_powerbi'"
 		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
@@ -63,7 +71,19 @@
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
 		},
+		"RestService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.powerbi.com/v1.0/myorg/groups"
+		},
+		"RestService1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "vader@smcpneumatics.nl"
+		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
+		},
+		"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
 			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
@@ -124,8 +144,14 @@
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
+					"RestService1_password": {
+						"value": "[parameters('RestService1_password')]"
+					},
 					"SharePoint_servicePrincipalKey": {
 						"value": "[parameters('SharePoint_servicePrincipalKey')]"
+					},
+					"SharePoint_powerbi_servicePrincipalKey": {
+						"value": "[parameters('SharePoint_powerbi_servicePrincipalKey')]"
 					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
@@ -142,8 +168,17 @@
 					"KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
 					},
+					"RestService1_properties_typeProperties_url": {
+						"value": "[parameters('RestService1_properties_typeProperties_url')]"
+					},
+					"RestService1_properties_typeProperties_userName": {
+						"value": "[parameters('RestService1_properties_typeProperties_userName')]"
+					},
 					"SharePoint_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePoint_properties_typeProperties_servicePrincipalId')]"
+					},
+					"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('SharePoint_powerbi_properties_typeProperties_servicePrincipalId')]"
 					}
 				}
 			},

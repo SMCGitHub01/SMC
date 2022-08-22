@@ -19,9 +19,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
+		"RestService1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'RestService1'"
+		},
 		"SharePoint_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
+		},
+		"SharePoint_powerbi_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint_powerbi'"
 		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
@@ -63,7 +71,19 @@
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
 		},
+		"RestService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.powerbi.com/v1.0/myorg/groups"
+		},
+		"RestService1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "vader@smcpneumatics.nl"
+		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
+		},
+		"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
 			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
@@ -15209,6 +15229,34 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SharePointLists_PowerBI')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SharePoint_powerbi",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"list": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SharePointOnlineListResource",
+				"schema": [],
+				"typeProperties": {
+					"listName": {
+						"value": "@dataset().list",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SharePoint_powerbi')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SharePointLists_SalesEngenieer')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -16220,6 +16268,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/RestService1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('RestService1_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Basic",
+					"userName": "[parameters('RestService1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('RestService1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SharePoint')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -16233,6 +16301,25 @@
 					"servicePrincipalKey": {
 						"type": "SecureString",
 						"value": "[parameters('SharePoint_servicePrincipalKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SharePoint_powerbi')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SharePointOnlineList",
+				"typeProperties": {
+					"siteUrl": "https://aquapro.sharepoint.com/sites/PowerBI/",
+					"tenantId": "fe754037-10dc-495e-90da-045b680fb646",
+					"servicePrincipalId": "[parameters('SharePoint_powerbi_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('SharePoint_powerbi_servicePrincipalKey')]"
 					}
 				}
 			},

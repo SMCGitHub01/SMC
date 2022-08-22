@@ -13,6 +13,246 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_SharpointSalesEngenieer')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "GetSalesEngenieer",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "--truncate table powerpoint.SalesEngenieer",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_SalesEngenieer",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "SalesEngenieer"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "PRD_SharePoint"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_ZenDesk_Tickets')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Zendesk_Tickets",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFileName": {
+										"value": "@{pipeline().parameters.CSVFile}",
+										"type": "Expression"
+									}
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false,
+									"culture": "nl-nl"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ACC_Zendesk_Blob",
+								"type": "DatasetReference",
+								"parameters": {
+									"CSVFile": "@{pipeline().parameters.CSVFile}"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
+									"TableName": "@{pipeline().parameters.TargetTableName}"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"CSVFile": {
+						"type": "string"
+					},
+					"StartDateTime": {
+						"type": "string"
+					},
+					"TargetTableName": {
+						"type": "string"
+					},
+					"TargetSchemaName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD_Zendesk"
+				},
+				"annotations": [],
+				"lastPublishTime": "2020-12-10T13:46:14Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_ZendDesk_ToBlob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ImportToBlob",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "FileServerReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings",
+									"compressionProperties": {
+										"type": "ZipDeflateReadSettings",
+										"preserveZipFileNameAsFolder": false
+									}
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "Zendesk",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Unzip",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "PRD_Zendesk"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/QueryOut')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -5397,7 +5637,10 @@
 				"annotations": [],
 				"lastPublishTime": "2020-12-10T13:46:15Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PRD_ZendDesk_ToBlob')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_ZenDesk_Tickets')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/PRD_SharepointLijsten')]",
@@ -6164,7 +6407,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PRD_SharpointSalesEngenieer')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/InventoryToJPN')]",
@@ -6202,656 +6447,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/QueryOut')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Sunday')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PRD_Matrix_Import",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Week",
-						"interval": 1,
-						"startTime": "2022-07-01T20:00:00Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"weekDays": [
-								"Sunday"
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_Process_Customers_IFS')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_Current_Sync_And_Date",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							}
-						}
-					},
-					{
-						"name": "Process_IFS_Stage",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "ACC_Process_IFS_Stage",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "ACC-Process_DWH"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-04-06T13:11:09Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ACC_Process_IFS_Stage')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_Process_DWH')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_Current_Sync_And_Date",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							}
-						}
-					},
-					{
-						"name": "Lookup_Load_Group",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "ForEach DistributeurLijst",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "ForEach BudgetDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "ForEach BudgetInDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Process_IFS_Stage",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Stage SugarCRM",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT DISTINCT LoadgroupID, LoadOrder FROM process.ProcessView WHERE SourceConnectionID = 1 ORDER BY LoadOrder",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "For_Each_Load_Group",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Load_Group",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Load_Group').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Execute_Pipeline",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "ACC_Materialize_Views",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"LoadGroupID": {
-												"value": "@{Item().LoadGroupID}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_Full_ExcelFiles_Distributeur",
-						"description": "Lookup the tables from the source database which are used in the full copy.",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 2 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach DistributeurLijst",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Full_ExcelFiles_Distributeur",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Full_ExcelFiles_Distributeur').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "DistributionList",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "ACC_DistributionList",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"Worksheet": {
-												"value": "@{Item().SourceSchemaName}",
-												"type": "Expression"
-											},
-											"Excelfile": {
-												"value": "@{Item().SourceTableName}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											},
-											"TargetTableName": {
-												"value": "@{Item().TargetTableName}",
-												"type": "Expression"
-											},
-											"TargetSchemaName": {
-												"value": "@{Item().TargetSchemaName}",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "ForEach BudgetDirectSales",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Full_ExcelFiles_Distributeur",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Lookup_Full_ExcelFiles_BudgetDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Full_ExcelFiles_BudgetDirectSales').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "BudgetDirectSales",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "ACC_BudgetDirectSales",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"Worksheet": {
-												"value": "@{Item().SourceSchemaName}",
-												"type": "Expression"
-											},
-											"Excelfile": {
-												"value": "@{Item().SourceTableName}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											},
-											"TargetTableName": {
-												"value": "@{Item().TargetTableName}",
-												"type": "Expression"
-											},
-											"TargetSchemaName": {
-												"value": "@{Item().TargetSchemaName}",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "ForEach BudgetInDirectSales",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Full_ExcelFiles_Distributeur",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Lookup_Full_ExcelFiles_BudgetInDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Full_ExcelFiles_BudgetInDirectSales').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "BudgetInDirectSales",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "ACC_BudgetInDirectSales",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"Worksheet": {
-												"value": "@{Item().SourceSchemaName}",
-												"type": "Expression"
-											},
-											"Excelfile": {
-												"value": "@{Item().SourceTableName}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											},
-											"TargetTableName": {
-												"value": "@{Item().TargetTableName}",
-												"type": "Expression"
-											},
-											"TargetSchemaName": {
-												"value": "@{Item().TargetSchemaName}",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_Full_ExcelFiles_BudgetInDirectSales",
-						"description": "Lookup the tables from the source database which are used in the full copy.",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 3 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "Lookup_Full_ExcelFiles_BudgetDirectSales",
-						"description": "Lookup the tables from the source database which are used in the full copy.",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 4 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "Process_IFS_Stage",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "ACC_Process_IFS_Stage",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "Stage SugarCRM",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "ACC_Process_SugarCRM_DataBase",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "spLoadDataAfterFullLoad",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "For_Each_Load_Group",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[process].[spLoadDataAfterFullLoad]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_DEV",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "ACC_Process_Zendesk",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "ACC_Process_Zendesk",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "ACC-Process_DWH"
-				},
-				"annotations": [],
-				"lastPublishTime": "2020-12-10T13:46:15Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ACC_Process_IFS_Stage')]",
-				"[concat(variables('factoryId'), '/pipelines/ACC_Process_Zendesk')]"
 			]
 		}
 	]

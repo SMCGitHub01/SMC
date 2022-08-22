@@ -14,7 +14,13 @@
 		"AzureSqlMI1_connectionString": {
 			"value": ""
 		},
+		"RestService1_password": {
+			"value": ""
+		},
 		"SharePoint_servicePrincipalKey": {
+			"value": ""
+		},
+		"SharePoint_powerbi_servicePrincipalKey": {
 			"value": ""
 		},
 		"SugarCRM_Production_connectionString": {
@@ -47,7 +53,16 @@
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"
 		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://api.powerbi.com/v1.0/myorg/groups"
+		},
+		"RestService1_properties_typeProperties_userName": {
+			"value": "vader@smcpneumatics.nl"
+		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
+			"value": "3c9c0d42-fbe6-4add-a30a-92d328806209"
+		},
+		"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
 			"value": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
 		"ToJPN_properties_typeProperties_host": {
