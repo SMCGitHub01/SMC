@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "GetDitributeur",
+				"name": "GetDistributeur",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -42,7 +42,7 @@
 						"referenceName": "SharePointLists_PowerBI",
 						"type": "DatasetReference",
 						"parameters": {
-							"list": "Distributeur"
+							"list": "Distributer"
 						}
 					}
 				],
