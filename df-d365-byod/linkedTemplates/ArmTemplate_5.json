@@ -3119,7 +3119,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.repairtype",
+								"preCopyScript": "truncate table sharepoint.Distributeurs",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -3140,7 +3140,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "Distributeur"
+									"list": "Distributeurs"
 								}
 							}
 						],
@@ -3150,7 +3150,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "sharepoint",
-									"TableName": "Distributeur"
+									"TableName": "Distributeurs"
 								}
 							}
 						]
