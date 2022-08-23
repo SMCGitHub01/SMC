@@ -21,7 +21,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.Distributeurs",
+						"preCopyScript": "--truncate table sharepoint.Distributeurs",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate",
