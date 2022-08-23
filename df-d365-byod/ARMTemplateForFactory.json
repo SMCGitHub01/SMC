@@ -13876,7 +13876,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetDitributeur",
+						"name": "GetDistributeur",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
