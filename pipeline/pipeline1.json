@@ -42,7 +42,7 @@
 						"referenceName": "SharePointLists_PowerBI",
 						"type": "DatasetReference",
 						"parameters": {
-							"list": "Distributer"
+							"list": "Distributeur"
 						}
 					}
 				],
