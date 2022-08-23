@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
 		},
+		"SharePointBE_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePointBE'"
+		},
 		"SharePoint_powerbi_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint_powerbi'"
@@ -56,6 +60,10 @@
 			"defaultValue": "vader@smcpneumatics.nl"
 		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
+		},
+		"SharePointBE_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
 			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
@@ -869,6 +877,25 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SharePointBE')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SharePointOnlineList",
+				"typeProperties": {
+					"siteUrl": "https://aquapro.sharepoint.com/sites/SMCBE/EEB",
+					"tenantId": "fe754037-10dc-495e-90da-045b680fb646",
+					"servicePrincipalId": "[parameters('SharePointBE_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('SharePointBE_servicePrincipalKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SharePoint_powerbi')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -948,31 +975,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureSqlMI1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "HttpServer2",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "HttpServerLocation"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/HttpServer2')]"
 			]
 		}
 	]

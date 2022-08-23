@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
 		},
+		"SharePointBE_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePointBE'"
+		},
 		"SharePoint_powerbi_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint_powerbi'"
@@ -80,6 +84,10 @@
 			"defaultValue": "vader@smcpneumatics.nl"
 		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
+		},
+		"SharePointBE_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
 			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
@@ -150,6 +158,9 @@
 					"SharePoint_servicePrincipalKey": {
 						"value": "[parameters('SharePoint_servicePrincipalKey')]"
 					},
+					"SharePointBE_servicePrincipalKey": {
+						"value": "[parameters('SharePointBE_servicePrincipalKey')]"
+					},
 					"SharePoint_powerbi_servicePrincipalKey": {
 						"value": "[parameters('SharePoint_powerbi_servicePrincipalKey')]"
 					},
@@ -176,6 +187,9 @@
 					},
 					"SharePoint_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePoint_properties_typeProperties_servicePrincipalId')]"
+					},
+					"SharePointBE_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('SharePointBE_properties_typeProperties_servicePrincipalId')]"
 					},
 					"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePoint_powerbi_properties_typeProperties_servicePrincipalId')]"

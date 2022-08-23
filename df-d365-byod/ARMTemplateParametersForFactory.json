@@ -20,6 +20,9 @@
 		"SharePoint_servicePrincipalKey": {
 			"value": ""
 		},
+		"SharePointBE_servicePrincipalKey": {
+			"value": ""
+		},
 		"SharePoint_powerbi_servicePrincipalKey": {
 			"value": ""
 		},
@@ -60,6 +63,9 @@
 			"value": "vader@smcpneumatics.nl"
 		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
+			"value": "3c9c0d42-fbe6-4add-a30a-92d328806209"
+		},
+		"SharePointBE_properties_typeProperties_servicePrincipalId": {
 			"value": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
 		"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
