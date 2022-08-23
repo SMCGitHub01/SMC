@@ -40,7 +40,10 @@
 				"inputs": [
 					{
 						"referenceName": "SharePointLists_BE",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"list": "Dashboard"
+						}
 					}
 				],
 				"outputs": [
