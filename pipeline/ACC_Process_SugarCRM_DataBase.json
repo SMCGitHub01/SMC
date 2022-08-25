@@ -7,7 +7,7 @@
 				"type": "Lookup",
 				"dependsOn": [
 					{
-						"activity": "ForEach_LoadGroup_SugarCRM_FULL",
+						"activity": "Lookup_Current_Sync_And_Date",
 						"dependencyConditions": [
 							"Succeeded"
 						]
