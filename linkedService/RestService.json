@@ -1,0 +1,13 @@
+{
+	"name": "RestService",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://api.powerbi.com/v1.0/myorg/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "ManagedServiceIdentity",
+			"aadResourceId": "https://analysis.windows.net/powerbi/api"
+		}
+	}
+}
