@@ -250,12 +250,6 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Lookup_Full_ExcelFiles_Distributeur",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
 						"activity": "Lookup_Full_ExcelFiles_BudgetDirectSales",
 						"dependencyConditions": [
 							"Succeeded"
@@ -311,12 +305,6 @@
 				"name": "ForEach BudgetInDirectSales",
 				"type": "ForEach",
 				"dependsOn": [
-					{
-						"activity": "Lookup_Full_ExcelFiles_Distributeur",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
 					{
 						"activity": "Lookup_Full_ExcelFiles_BudgetInDirectSales",
 						"dependencyConditions": [
