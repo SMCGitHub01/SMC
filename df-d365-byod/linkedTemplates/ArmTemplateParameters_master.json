@@ -14,9 +14,6 @@
 		"AzureSqlMI1_connectionString": {
 			"value": ""
 		},
-		"RestService1_password": {
-			"value": ""
-		},
 		"SharePoint_servicePrincipalKey": {
 			"value": ""
 		},
@@ -56,11 +53,11 @@
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"
 		},
-		"RestService1_properties_typeProperties_url": {
-			"value": "https://api.powerbi.com/v1.0/myorg/groups"
+		"RestService_properties_typeProperties_url": {
+			"value": "https://api.powerbi.com/v1.0/myorg/"
 		},
-		"RestService1_properties_typeProperties_userName": {
-			"value": "vader@smcpneumatics.nl"
+		"RestService_properties_typeProperties_aadResourceId": {
+			"value": "https://analysis.windows.net/powerbi/api"
 		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
 			"value": "3c9c0d42-fbe6-4add-a30a-92d328806209"

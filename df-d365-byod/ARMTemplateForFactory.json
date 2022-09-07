@@ -19,10 +19,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
-		"RestService1_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'RestService1'"
-		},
 		"SharePoint_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
@@ -75,13 +71,13 @@
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
 		},
-		"RestService1_properties_typeProperties_url": {
+		"RestService_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://api.powerbi.com/v1.0/myorg/groups"
+			"defaultValue": "https://api.powerbi.com/v1.0/myorg/"
 		},
-		"RestService1_properties_typeProperties_userName": {
+		"RestService_properties_typeProperties_aadResourceId": {
 			"type": "string",
-			"defaultValue": "vader@smcpneumatics.nl"
+			"defaultValue": "https://analysis.windows.net/powerbi/api"
 		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
@@ -3962,7 +3958,7 @@
 						"type": "Lookup",
 						"dependsOn": [
 							{
-								"activity": "ForEach_LoadGroup_SugarCRM_FULL",
+								"activity": "Lookup_Current_Sync_And_Date",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -6863,12 +6859,6 @@
 						"type": "ForEach",
 						"dependsOn": [
 							{
-								"activity": "Lookup_Full_ExcelFiles_Distributeur",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
 								"activity": "Lookup_Full_ExcelFiles_BudgetDirectSales",
 								"dependencyConditions": [
 									"Succeeded"
@@ -6924,12 +6914,6 @@
 						"name": "ForEach BudgetInDirectSales",
 						"type": "ForEach",
 						"dependsOn": [
-							{
-								"activity": "Lookup_Full_ExcelFiles_Distributeur",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
 							{
 								"activity": "Lookup_Full_ExcelFiles_BudgetInDirectSales",
 								"dependencyConditions": [
@@ -15337,6 +15321,29 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/RestResource1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "RestService",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"AdminAPI": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/RestService')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SharePointLists')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -16432,21 +16439,17 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/RestService1')]",
+			"name": "[concat(parameters('factoryName'), '/RestService')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
 				"type": "RestService",
 				"typeProperties": {
-					"url": "[parameters('RestService1_properties_typeProperties_url')]",
+					"url": "[parameters('RestService_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": true,
-					"authenticationType": "Basic",
-					"userName": "[parameters('RestService1_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('RestService1_password')]"
-					}
+					"authenticationType": "ManagedServiceIdentity",
+					"aadResourceId": "[parameters('RestService_properties_typeProperties_aadResourceId')]"
 				}
 			},
 			"dependsOn": []

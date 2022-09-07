@@ -19,10 +19,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
-		"RestService1_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'RestService1'"
-		},
 		"SharePoint_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
@@ -75,13 +71,13 @@
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
 		},
-		"RestService1_properties_typeProperties_url": {
+		"RestService_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://api.powerbi.com/v1.0/myorg/groups"
+			"defaultValue": "https://api.powerbi.com/v1.0/myorg/"
 		},
-		"RestService1_properties_typeProperties_userName": {
+		"RestService_properties_typeProperties_aadResourceId": {
 			"type": "string",
-			"defaultValue": "vader@smcpneumatics.nl"
+			"defaultValue": "https://analysis.windows.net/powerbi/api"
 		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
@@ -152,9 +148,6 @@
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
-					"RestService1_password": {
-						"value": "[parameters('RestService1_password')]"
-					},
 					"SharePoint_servicePrincipalKey": {
 						"value": "[parameters('SharePoint_servicePrincipalKey')]"
 					},
@@ -179,11 +172,11 @@
 					"KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
 					},
-					"RestService1_properties_typeProperties_url": {
-						"value": "[parameters('RestService1_properties_typeProperties_url')]"
+					"RestService_properties_typeProperties_url": {
+						"value": "[parameters('RestService_properties_typeProperties_url')]"
 					},
-					"RestService1_properties_typeProperties_userName": {
-						"value": "[parameters('RestService1_properties_typeProperties_userName')]"
+					"RestService_properties_typeProperties_aadResourceId": {
+						"value": "[parameters('RestService_properties_typeProperties_aadResourceId')]"
 					},
 					"SharePoint_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePoint_properties_typeProperties_servicePrincipalId')]"
