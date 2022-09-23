@@ -65,7 +65,7 @@
 		},
 		"DWHloads_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\DWHLoads"
+			"defaultValue": "\\\\amssrv011\\d$\\DWHLoads"
 		},
 		"DWHloads_properties_typeProperties_userId": {
 			"type": "string",

@@ -48,7 +48,7 @@
 			"value": "DWHConnectionStringPRD"
 		},
 		"DWHloads_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\Public\\DWHLoads"
+			"value": "\\\\amssrv011\\d$\\DWHLoads"
 		},
 		"DWHloads_properties_typeProperties_userId": {
 			"value": "AMSSRV011\\DWHZendesk"
