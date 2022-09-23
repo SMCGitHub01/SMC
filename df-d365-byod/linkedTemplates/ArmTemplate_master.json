@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
 		},
+		"DWHloads_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'DWHloads'"
+		},
 		"SharePoint_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
@@ -47,10 +51,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
 		},
-		"DWHloads_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'DWHloads'"
-		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
@@ -62,6 +62,14 @@
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringPRD"
+		},
+		"DWHloads_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\amssrv011\\Public\\DWHLoads"
+		},
+		"DWHloads_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
@@ -118,14 +126,6 @@
 		"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "BlobStorageProduction"
-		},
-		"DWHloads_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\DWHLoads"
-		},
-		"DWHloads_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"containerUri": {
 			"type": "string",
@@ -220,6 +220,9 @@
 					"AnyWhereSQL_connectionString": {
 						"value": "[parameters('AnyWhereSQL_connectionString')]"
 					},
+					"DWHloads_password": {
+						"value": "[parameters('DWHloads_password')]"
+					},
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
 					},
@@ -229,14 +232,17 @@
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
 					},
-					"DWHloads_password": {
-						"value": "[parameters('DWHloads_password')]"
-					},
 					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
 					},
 					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
+					},
+					"DWHloads_properties_typeProperties_host": {
+						"value": "[parameters('DWHloads_properties_typeProperties_host')]"
+					},
+					"DWHloads_properties_typeProperties_userId": {
+						"value": "[parameters('DWHloads_properties_typeProperties_userId')]"
 					},
 					"ToJPN_properties_typeProperties_host": {
 						"value": "[parameters('ToJPN_properties_typeProperties_host')]"
@@ -255,12 +261,6 @@
 					},
 					"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"
-					},
-					"DWHloads_properties_typeProperties_host": {
-						"value": "[parameters('DWHloads_properties_typeProperties_host')]"
-					},
-					"DWHloads_properties_typeProperties_userId": {
-						"value": "[parameters('DWHloads_properties_typeProperties_userId')]"
 					}
 				}
 			},

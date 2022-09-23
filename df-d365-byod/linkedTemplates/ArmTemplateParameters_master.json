@@ -14,6 +14,9 @@
 		"AzureSqlMI1_connectionString": {
 			"value": ""
 		},
+		"DWHloads_password": {
+			"value": ""
+		},
 		"SharePoint_servicePrincipalKey": {
 			"value": ""
 		},
@@ -35,9 +38,6 @@
 		"staggingadfsmc_connectionString": {
 			"value": ""
 		},
-		"DWHloads_password": {
-			"value": ""
-		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://blobstoragescm.dfs.core.windows.net"
 		},
@@ -46,6 +46,12 @@
 		},
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"value": "DWHConnectionStringPRD"
+		},
+		"DWHloads_properties_typeProperties_host": {
+			"value": "\\\\amssrv011\\Public\\DWHLoads"
+		},
+		"DWHloads_properties_typeProperties_userId": {
+			"value": "AMSSRV011\\DWHZendesk"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://scsanctions.un.org/resources/xml/en/"
@@ -88,12 +94,6 @@
 		},
 		"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 			"value": "BlobStorageProduction"
-		},
-		"DWHloads_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\Public\\DWHLoads"
-		},
-		"DWHloads_properties_typeProperties_userId": {
-			"value": "AMSSRV011\\DWHZendesk"
 		},
 		"containerUri": {
 			"value": ""
