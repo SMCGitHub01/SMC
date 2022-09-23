@@ -35,6 +35,9 @@
 		"staggingadfsmc_connectionString": {
 			"value": ""
 		},
+		"DWHloads_password": {
+			"value": ""
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://blobstoragescm.dfs.core.windows.net"
 		},
@@ -85,6 +88,12 @@
 		},
 		"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 			"value": "BlobStorageProduction"
+		},
+		"DWHloads_properties_typeProperties_host": {
+			"value": "\\\\amssrv011\\Public\\DWHLoads"
+		},
+		"DWHloads_properties_typeProperties_userId": {
+			"value": "AMSSRV011\\DWHZendesk"
 		}
 	}
 }

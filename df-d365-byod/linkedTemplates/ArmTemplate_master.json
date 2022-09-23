@@ -47,6 +47,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
 		},
+		"DWHloads_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'DWHloads'"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
@@ -114,6 +118,14 @@
 		"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "BlobStorageProduction"
+		},
+		"DWHloads_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\amssrv011\\Public\\DWHLoads"
+		},
+		"DWHloads_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"containerUri": {
 			"type": "string",
@@ -217,6 +229,9 @@
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
 					},
+					"DWHloads_password": {
+						"value": "[parameters('DWHloads_password')]"
+					},
 					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
 					},
@@ -240,6 +255,12 @@
 					},
 					"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"
+					},
+					"DWHloads_properties_typeProperties_host": {
+						"value": "[parameters('DWHloads_properties_typeProperties_host')]"
+					},
+					"DWHloads_properties_typeProperties_userId": {
+						"value": "[parameters('DWHloads_properties_typeProperties_userId')]"
 					}
 				}
 			},
