@@ -1,0 +1,13 @@
+{
+	"name": "Afas",
+	"properties": {
+		"description": "Afas rest",
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://86941.rest.afas.online/profitrestservices/connectors/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
