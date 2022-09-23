@@ -9,7 +9,8 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "FileServerLocation"
+				"type": "FileServerLocation",
+				"fileName": "GISBE71.csv"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "",
