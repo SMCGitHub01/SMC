@@ -41,7 +41,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ToJPN",
+						"referenceName": "ToJPN_copy1",
 						"type": "DatasetReference"
 					}
 				]
