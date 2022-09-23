@@ -69,7 +69,7 @@
 		},
 		"DWHloads_properties_typeProperties_userId": {
 			"type": "string",
-			"defaultValue": "AMSSRV011\\DWHZendesk"
+			"defaultValue": "vader@smcpneumatics.nl"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",

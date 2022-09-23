@@ -41,7 +41,7 @@
 		},
 		"DWHloads_properties_typeProperties_userId": {
 			"type": "string",
-			"defaultValue": "AMSSRV011\\DWHZendesk"
+			"defaultValue": "vader@smcpneumatics.nl"
 		},
 		"ToJPN_properties_typeProperties_host": {
 			"type": "string",

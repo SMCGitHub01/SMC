@@ -51,7 +51,7 @@
 			"value": "\\\\amssrv011\\d$\\DWHLoads"
 		},
 		"DWHloads_properties_typeProperties_userId": {
-			"value": "AMSSRV011\\DWHZendesk"
+			"value": "vader@smcpneumatics.nl"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://scsanctions.un.org/resources/xml/en/"
