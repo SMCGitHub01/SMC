@@ -7,7 +7,7 @@
 		"typeProperties": {
 			"host": "\\\\amssrv011\\d$\\DWHLoads",
 			"userId": "vader@smcpneumatics.nl",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkYzk0MjViNC05NDE2LTQ5ODktYmFhNS1lOWVhZGJjYTA1ZTgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlYmIwZjVmMy1lNjFiLTRlZjEtOWRjYy04OTczNTE1MTFlMjQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ZenDesk",
