@@ -1,0 +1,119 @@
+{
+	"name": "ACC_Invoice_Corrections",
+	"properties": {
+		"activities": [
+			{
+				"name": "ACC_Invoice_Corrections",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "HSO_DnA_InsertDateTime",
+								"value": {
+									"value": "@pipeline().parameters.StartDateTime",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "HSO_DnA_SourceConnectionID",
+								"value": {
+									"value": "@pipeline().parameters.SourceConnectionID",
+									"type": "Expression"
+								}
+							},
+							{
+								"name": "HSO_DnA_TargetMappingID",
+								"value": {
+									"value": "@pipeline().parameters.TargetMapping",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"wildcardFileName": {
+								"value": "@{pipeline().parameters.CSVFile}",
+								"type": "Expression"
+							}
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": {
+							"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
+							"type": "Expression"
+						},
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false,
+							"culture": "nl-nl"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ACC_Invoice_Corrections",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
+							"TableName": "@{pipeline().parameters.TargetTableName}"
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"CSVFile": {
+				"type": "string"
+			},
+			"StartDateTime": {
+				"type": "string"
+			},
+			"TargetTableName": {
+				"type": "string"
+			},
+			"TargetSchemaName": {
+				"type": "string"
+			},
+			"TargetMapping": {
+				"type": "string"
+			},
+			"SourceConnectionID": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ACC-IFS"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-03-27T13:45:56Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
