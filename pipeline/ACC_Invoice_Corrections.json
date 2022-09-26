@@ -82,12 +82,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "PRD_BYOD_DS",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
-							"TableName": "@{pipeline().parameters.TargetTableName}"
-						}
+						"referenceName": "ACC_BYOD_DEV_DS",
+						"type": "DatasetReference"
 					}
 				]
 			}
