@@ -4195,7 +4195,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "PRD_Invoice_Corrections",
+											"referenceName": "ACC_Invoice_Corrections",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
@@ -4243,7 +4243,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
-				"[concat(variables('factoryId'), '/pipelines/PRD_Invoice_Corrections')]"
+				"[concat(variables('factoryId'), '/pipelines/ACC_Invoice_Corrections')]"
 			]
 		},
 		{

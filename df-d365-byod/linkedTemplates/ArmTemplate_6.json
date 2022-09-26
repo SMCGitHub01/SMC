@@ -1031,7 +1031,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "PRD_Invoice_Corrections",
+											"referenceName": "ACC_Invoice_Corrections",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
