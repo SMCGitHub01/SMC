@@ -4165,7 +4165,7 @@
 								"partitionOption": "None"
 							},
 							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
+								"referenceName": "ACC_BYOD_DEV_DS",
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dummy",
@@ -4249,6 +4249,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
+				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_Invoice_Corrections')]"
 			]
 		},
