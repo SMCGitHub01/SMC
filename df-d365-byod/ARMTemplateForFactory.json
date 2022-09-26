@@ -1289,11 +1289,17 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "PRD_BYOD_DS",
+								"referenceName": "ACC_BYOD_DEV_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
-									"TableName": "@{pipeline().parameters.TargetTableName}"
+									"SchemaName": {
+										"value": "@pipeline().parameters.TargetSchemaName",
+										"type": "Expression"
+									},
+									"TableName": {
+										"value": "@pipeline().parameters.TargetTableName",
+										"type": "Expression"
+									}
 								}
 							}
 						]
@@ -1331,7 +1337,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ACC_Invoice_Corrections')]",
-				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
+				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]"
 			]
 		},
 		{
