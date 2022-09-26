@@ -5,9 +5,9 @@
 		"annotations": [],
 		"type": "FileServer",
 		"typeProperties": {
-			"host": "\\\\amssrv011\\d$\\DWHLoads",
+			"host": "D:\\DWHLoads",
 			"userId": "AMSSRV011\\DWHZendesk",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0OTk0ODNiYi0xYmM1LTRlOWYtOWE3OC0yZTJiNjlmNjdmZTUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkMjk2NGYxOC1hYzMzLTRkZjItYmNhYy03NDAzZmM3MjI2ZGUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ZenDesk",
