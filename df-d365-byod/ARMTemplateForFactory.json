@@ -51,6 +51,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
 		},
+		"Afas_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://86941.rest.afas.online/profitrestservices/connectors/"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
@@ -65,11 +69,11 @@
 		},
 		"DWHloads_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\d$\\DWHLoads"
+			"defaultValue": "\\\\amssrv011\\Public\\General\\ICT\\jpnvrd"
 		},
 		"DWHloads_properties_typeProperties_userId": {
 			"type": "string",
-			"defaultValue": "vader@smcpneumatics.nl"
+			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
@@ -14866,6 +14870,34 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Afas_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Afas",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"getconnector": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": {
+						"value": "@dataset().getconnector",
+						"type": "Expression"
+					}
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Afas')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlMITable1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -16590,6 +16622,22 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Afas')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Afas rest",
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('Afas_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AnyWhereSQL')]",

@@ -38,6 +38,9 @@
 		"staggingadfsmc_connectionString": {
 			"value": ""
 		},
+		"Afas_properties_typeProperties_url": {
+			"value": "https://86941.rest.afas.online/profitrestservices/connectors/"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://blobstoragescm.dfs.core.windows.net"
 		},
@@ -48,10 +51,10 @@
 			"value": "DWHConnectionStringPRD"
 		},
 		"DWHloads_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\d$\\DWHLoads"
+			"value": "\\\\amssrv011\\Public\\General\\ICT\\jpnvrd"
 		},
 		"DWHloads_properties_typeProperties_userId": {
-			"value": "vader@smcpneumatics.nl"
+			"value": "AMSSRV011\\DWHZendesk"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"value": "https://scsanctions.un.org/resources/xml/en/"

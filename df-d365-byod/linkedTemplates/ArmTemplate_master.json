@@ -51,6 +51,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
 		},
+		"Afas_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://86941.rest.afas.online/profitrestservices/connectors/"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
@@ -65,11 +69,11 @@
 		},
 		"DWHloads_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\d$\\DWHLoads"
+			"defaultValue": "\\\\amssrv011\\Public\\General\\ICT\\jpnvrd"
 		},
 		"DWHloads_properties_typeProperties_userId": {
 			"type": "string",
-			"defaultValue": "vader@smcpneumatics.nl"
+			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
@@ -171,6 +175,9 @@
 					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
+					},
+					"Afas_properties_typeProperties_url": {
+						"value": "[parameters('Afas_properties_typeProperties_url')]"
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
