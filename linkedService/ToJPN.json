@@ -5,9 +5,9 @@
 		"annotations": [],
 		"type": "FileServer",
 		"typeProperties": {
-			"host": "\\\\amssrv011\\d$\\General\\ict\\",
+			"host": "\\\\amssrv011\\public\\General\\ict\\",
 			"userId": "aquapro-dmn\\seeburger_edi",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyYWJiY2VmYi1lNGYwLTRkOWUtYjJmMi0zZGUzN2M3ODk3ZTciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3MWUxZmI1Yi1hNGVhLTQ1NTAtODNkMi00YzdmYWVkMWJlZmIiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ZenDesk",
