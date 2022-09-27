@@ -49,7 +49,7 @@
 		},
 		"ToJPN_properties_typeProperties_userId": {
 			"type": "string",
-			"defaultValue": "vader@smcpneumatics.nl"
+			"defaultValue": "aquapro-dmn\\seeburger_edi"
 		},
 		"ZendeskDownload_properties_typeProperties_host": {
 			"type": "string",
