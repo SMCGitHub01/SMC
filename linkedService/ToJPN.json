@@ -6,8 +6,8 @@
 		"type": "FileServer",
 		"typeProperties": {
 			"host": "\\\\amssrv011\\d$\\General\\ict\\",
-			"userId": "vader@smcpneumatics.nl",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3ODNlNjJjZS0yOTYzLTQxZjAtYTcyMy1mYTdiMDE0MDQwZTciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"userId": "aquapro-dmn\\seeburger_edi",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyYWJiY2VmYi1lNGYwLTRkOWUtYjJmMi0zZGUzN2M3ODk3ZTciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ZenDesk",
