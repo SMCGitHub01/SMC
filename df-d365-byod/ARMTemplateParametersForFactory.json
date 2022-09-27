@@ -84,7 +84,7 @@
 			"value": "\\\\amssrv011\\d$\\General\\ict\\"
 		},
 		"ToJPN_properties_typeProperties_userId": {
-			"value": "AMSSRV011\\DWHZendesk"
+			"value": "vader@smcpneumatics.nl"
 		},
 		"ZendeskDownload_properties_typeProperties_host": {
 			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
