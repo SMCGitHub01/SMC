@@ -81,7 +81,7 @@
 			"value": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
 		"ToJPN_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\d$\\General\\ict\\"
+			"value": "\\\\amssrv011\\public\\General\\ict\\"
 		},
 		"ToJPN_properties_typeProperties_userId": {
 			"value": "aquapro-dmn\\seeburger_edi"
