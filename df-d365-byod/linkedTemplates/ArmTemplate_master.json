@@ -69,7 +69,7 @@
 		},
 		"DWHloads_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\ICT\\jpnvrd"
+			"defaultValue": "\\\\amssrv011\\d$\\General\\ICT\\"
 		},
 		"DWHloads_properties_typeProperties_userId": {
 			"type": "string",
@@ -109,7 +109,7 @@
 		},
 		"ToJPN_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\ict\\jpnvrd"
+			"defaultValue": "\\\\amssrv011\\d$\\General\\ict\\"
 		},
 		"ToJPN_properties_typeProperties_userId": {
 			"type": "string",
