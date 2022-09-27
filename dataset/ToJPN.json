@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "GISBE71.csv"
+				"fileName": "GISBE71.csv",
+				"folderPath": "jpnvrd"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "",
