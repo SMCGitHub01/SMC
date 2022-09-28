@@ -14522,7 +14522,7 @@
 								"mappings": [
 									{
 										"source": {
-											"path": "$['Medewerker']"
+											"path": "[['Medewerker']"
 										},
 										"sink": {
 											"name": "Medewerker",
@@ -14531,7 +14531,7 @@
 									},
 									{
 										"source": {
-											"path": "$['Begindatum_functie']"
+											"path": "[['Begindatum_functie']"
 										},
 										"sink": {
 											"name": "BeginDatum",
@@ -14540,7 +14540,7 @@
 									},
 									{
 										"source": {
-											"path": "$['Einddatum_functie']"
+											"path": "[['Einddatum_functie']"
 										},
 										"sink": {
 											"name": "Einddatum",
@@ -14549,7 +14549,7 @@
 									},
 									{
 										"source": {
-											"path": "$['Organisatorische_eenheid']"
+											"path": "[['Organisatorische_eenheid']"
 										},
 										"sink": {
 											"name": "Organisatorische_eenheid",
@@ -14558,7 +14558,7 @@
 									},
 									{
 										"source": {
-											"path": "$['Kostenplaats']"
+											"path": "[['Kostenplaats']"
 										},
 										"sink": {
 											"name": "Kostenplaats",
@@ -14567,7 +14567,7 @@
 									},
 									{
 										"source": {
-											"path": "$['Omschrijving_kpl']"
+											"path": "[['Omschrijving_kpl']"
 										},
 										"sink": {
 											"name": "Omschrijving_kpl",
@@ -14576,7 +14576,7 @@
 									},
 									{
 										"source": {
-											"path": "$['Kostendrager']"
+											"path": "[['Kostendrager']"
 										},
 										"sink": {
 											"name": "Kostendrager",
@@ -14585,7 +14585,7 @@
 									},
 									{
 										"source": {
-											"path": "$['Omschrijving_kdr']"
+											"path": "[['Omschrijving_kdr']"
 										},
 										"sink": {
 											"name": "Omschrijving_kdr",
@@ -14594,7 +14594,7 @@
 									},
 									{
 										"source": {
-											"path": "$['Percentage']"
+											"path": "[['Percentage']"
 										},
 										"sink": {
 											"name": "Percentage",
@@ -14603,7 +14603,7 @@
 									},
 									{
 										"source": {
-											"path": "$['Aantal_FTE']"
+											"path": "[['Aantal_FTE']"
 										},
 										"sink": {
 											"name": "Aantal_FTE",
@@ -14612,7 +14612,7 @@
 									},
 									{
 										"source": {
-											"path": "$['Werkgever']"
+											"path": "[['Werkgever']"
 										},
 										"sink": {
 											"name": "Werkgever",
