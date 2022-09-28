@@ -13,6 +13,184 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/sanctielijst_USconsolidated')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "sanctielijsten"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "consolidated.csv",
+						"container": "sanctielijsten"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "_id",
+						"type": "String"
+					},
+					{
+						"name": "source",
+						"type": "String"
+					},
+					{
+						"name": "entity_number",
+						"type": "String"
+					},
+					{
+						"name": "type",
+						"type": "String"
+					},
+					{
+						"name": "programs",
+						"type": "String"
+					},
+					{
+						"name": "name",
+						"type": "String"
+					},
+					{
+						"name": "title",
+						"type": "String"
+					},
+					{
+						"name": "addresses",
+						"type": "String"
+					},
+					{
+						"name": "federal_register_notice",
+						"type": "String"
+					},
+					{
+						"name": "start_date",
+						"type": "String"
+					},
+					{
+						"name": "end_date",
+						"type": "String"
+					},
+					{
+						"name": "standard_order",
+						"type": "String"
+					},
+					{
+						"name": "license_requirement",
+						"type": "String"
+					},
+					{
+						"name": "license_policy",
+						"type": "String"
+					},
+					{
+						"name": "call_sign",
+						"type": "String"
+					},
+					{
+						"name": "vessel_type",
+						"type": "String"
+					},
+					{
+						"name": "gross_tonnage",
+						"type": "String"
+					},
+					{
+						"name": "gross_registered_tonnage",
+						"type": "String"
+					},
+					{
+						"name": "vessel_flag",
+						"type": "String"
+					},
+					{
+						"name": "vessel_owner",
+						"type": "String"
+					},
+					{
+						"name": "remarks",
+						"type": "String"
+					},
+					{
+						"name": "source_list_url",
+						"type": "String"
+					},
+					{
+						"name": "alt_names",
+						"type": "String"
+					},
+					{
+						"name": "citizenships",
+						"type": "String"
+					},
+					{
+						"name": "dates_of_birth",
+						"type": "String"
+					},
+					{
+						"name": "nationalities",
+						"type": "String"
+					},
+					{
+						"name": "places_of_birth",
+						"type": "String"
+					},
+					{
+						"name": "source_information_url",
+						"type": "String"
+					},
+					{
+						"name": "ids",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/testUpload')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ZendeskDownload",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "ACC&PRD"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "dbo.View_Test.csv"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACC_BudgetDirectSales')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2979,173 +3157,6 @@
 				},
 				"annotations": [],
 				"lastPublishTime": "2021-03-27T14:05:42Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_DistributionList')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "DistributeurLijsten",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "ExcelSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": false,
-									"wildcardFileName": {
-										"value": "@{pipeline().parameters.Excelfile}",
-										"type": "Expression"
-									},
-									"enablePartitionDiscovery": false
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": {
-									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
-									"type": "Expression"
-								},
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "PRD_Distributeur",
-								"type": "DatasetReference",
-								"parameters": {
-									"WorkSheet": "@{pipeline().parameters.Worksheet}",
-									"Excelfile": "@{pipeline().parameters.Excelfile}"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
-									"TableName": "@{pipeline().parameters.TargetTableName}"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"Worksheet": {
-						"type": "string"
-					},
-					"Excelfile": {
-						"type": "string"
-					},
-					"StartDateTime": {
-						"type": "string"
-					},
-					"TargetTableName": {
-						"type": "string"
-					},
-					"TargetSchemaName": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "PRD-Process_DWH"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-03-27T14:05:41Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_FillMetadata_DWH')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy DWH view metadata",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT c.TABLE_CATALOG AS TableCatalog, \nc.TABLE_SCHEMA AS TableSchema, \nc.TABLE_NAME AS TableName, \nc.COLUMN_NAME AS ColumnName,\nCASE WHEN x.TABLE_NAME IS NULL THEN 0 WHEN x.TABLE_NAME IS NOT NULL THEN 1 END AS PrimaryKey,\nc.ORDINAL_POSITION AS OrdinalPosition, \nCASE\n\t\t\t\tWHEN c.DATA_TYPE IN ('real','money','decimal','numeric') THEN 'numeric(28,12)'\n\t\t\t\tWHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH < 1 THEN 'nvarchar(max)'\n\t\t\t\tWHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH > 1024 THEN 'nvarchar(max)'\n\t\t\t\tWHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH BETWEEN 1 AND 1024 THEN 'nvarchar(' + convert(varchar,CHARACTER_MAXIMUM_LENGTH) + ')'\n\t\t\t\t--WHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH BETWEEN 8 AND 32 THEN 'nvarchar(32)'\n\t\t\t\t--WHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH BETWEEN 32 AND 128 THEN 'nvarchar(128)'\n\t\t\t\t--WHEN c.DATA_TYPE IN ('char','nvarchar','varchar','nchar') AND CHARACTER_MAXIMUM_LENGTH BETWEEN 128 AND 1024 THEN 'nvarchar(1024)'\n\t\t\t\tELSE c.DATA_TYPE\n\t\t\t END as DataType \nFROM information_schema.columns c\nLEFT OUTER JOIN (SELECT TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME \n\t\t         FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE\n                 WHERE OBJECTPROPERTY(OBJECT_ID(CONSTRAINT_SCHEMA + '.' + QUOTENAME(CONSTRAINT_NAME)), 'ISPRIMARYKEY') = 1\n                ) x ON x.TABLE_SCHEMA = c.TABLE_SCHEMA\n                   AND x.TABLE_NAME   = c.TABLE_NAME\n                   AND x.COLUMN_NAME  = c.COLUMN_NAME\nWHERE\t(c.TABLE_NAME LIKE '%fact%' OR c.TABLE_NAME LIKE '%dim%'  OR c.TABLE_NAME LIKE '%help%' OR c.TABLE_NAME LIKE '%tbl%') \nAND\t\t c.TABLE_NAME NOT IN ('DimensionAttributeStaging','DerivedDimensionAttributeStaging','DerivedDimensionAttributeValuesStaging','DimensionAttributeTranslationStaging')\nORDER BY c.TABLE_SCHEMA, c.TABLE_NAME, c.ORDINAL_POSITION",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBatchSize": 10000,
-								"preCopyScript": "DELETE a\n\tFROM metadata.SourceInformationSchema a\nWHERE TableCatalog = 'd365-byod-prod'",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "PRD_DWH_Dynamic_DataSet",
-								"type": "DatasetReference",
-								"parameters": {
-									"TableName": "dummy"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_DWH_Dynamic_DataSet",
-								"type": "DatasetReference",
-								"parameters": {
-									"TableName": "metadata.SourceInformationSchema"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "PRD-MetaData"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-03-27T14:05:43Z"
 			},
 			"dependsOn": []
 		}

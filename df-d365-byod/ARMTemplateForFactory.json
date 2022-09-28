@@ -55,6 +55,10 @@
 			"type": "string",
 			"defaultValue": "https://86941.rest.afas.online/profitrestservices/connectors/"
 		},
+		"AfasHttp_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://86941.rest.afas.online/profitrestservices/connectors/"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
@@ -14479,8 +14483,8 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "WebGettoken",
-						"type": "WebActivity",
+						"name": "Copy data1",
+						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -14491,13 +14495,47 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "https://86941.rest.afas.online/ProfitRestServices/connectors/Medewerker_formatieverdeling_tbv_J-form",
-								"type": "Expression"
+							"source": {
+								"type": "JsonSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET",
+									"additionalHeaders": {
+										"value": "@concat('Authorization: AfasToken ',base64('<token><version>1</version><data>FEEC49DD1D954D23852AD8C0FA5C165614A2736C4317161AA9ABA796E20F4379</data></token>'))",
+										"type": "Expression"
+									},
+									"requestTimeout": ""
+								},
+								"formatSettings": {
+									"type": "JsonReadSettings"
+								}
 							},
-							"method": "GET",
-							"headers": {}
-						}
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "AfasJson2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -14506,7 +14544,10 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/AfasJson2')]",
+				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/sanctieLijsten_process')]",
@@ -15162,6 +15203,154 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AfasJson')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AfasHttp",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "Medewerker_formatieverdeling_tbv_J-form"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"skip": {
+							"type": "integer"
+						},
+						"take": {
+							"type": "integer"
+						},
+						"rows": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Medewerker": {
+										"type": "string"
+									},
+									"Begindatum_functie": {
+										"type": "string"
+									},
+									"Einddatum_functie": {
+										"type": "null"
+									},
+									"Organisatorische_eenheid": {
+										"type": "string"
+									},
+									"Kostenplaats": {
+										"type": "string"
+									},
+									"Omschrijving_kpl": {
+										"type": "string"
+									},
+									"Kostendrager": {
+										"type": "string"
+									},
+									"Omschrijving_kdr": {
+										"type": "string"
+									},
+									"Percentage": {
+										"type": "number"
+									},
+									"Aantal_FTE": {
+										"type": "number"
+									},
+									"Werkgever": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AfasHttp')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AfasJson2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AfasHttp",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "Medewerker_formatieverdeling_tbv_J-form?skip=-1&take=-1"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"skip": {
+							"type": "integer"
+						},
+						"take": {
+							"type": "integer"
+						},
+						"rows": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Medewerker": {
+										"type": "string"
+									},
+									"Begindatum_functie": {
+										"type": "string"
+									},
+									"Einddatum_functie": {
+										"type": "null"
+									},
+									"Organisatorische_eenheid": {
+										"type": "string"
+									},
+									"Kostenplaats": {
+										"type": "string"
+									},
+									"Omschrijving_kpl": {
+										"type": "string"
+									},
+									"Kostendrager": {
+										"type": "string"
+									},
+									"Omschrijving_kdr": {
+										"type": "string"
+									},
+									"Percentage": {
+										"type": "number"
+									},
+									"Aantal_FTE": {
+										"type": "number"
+									},
+									"Werkgever": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AfasHttp')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Afas_dataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -15170,16 +15359,11 @@
 					"referenceName": "Afas",
 					"type": "LinkedServiceReference"
 				},
-				"parameters": {
-					"getconnector": {
-						"type": "string"
-					}
-				},
 				"annotations": [],
 				"type": "RestResource",
 				"typeProperties": {
 					"relativeUrl": {
-						"value": "@dataset().getconnector",
+						"value": "Medewerker_formatieverdeling_tbv_J-form?skip=-1&take=-1",
 						"type": "Expression"
 					}
 				},
@@ -16926,6 +17110,21 @@
 				"type": "RestService",
 				"typeProperties": {
 					"url": "[parameters('Afas_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AfasHttp')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('AfasHttp_properties_typeProperties_url')]",
 					"enableServerCertificateValidation": true,
 					"authenticationType": "Anonymous"
 				}

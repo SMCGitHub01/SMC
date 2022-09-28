@@ -55,6 +55,10 @@
 			"type": "string",
 			"defaultValue": "https://86941.rest.afas.online/profitrestservices/connectors/"
 		},
+		"AfasHttp_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://86941.rest.afas.online/profitrestservices/connectors/"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
@@ -179,6 +183,9 @@
 					"Afas_properties_typeProperties_url": {
 						"value": "[parameters('Afas_properties_typeProperties_url')]"
 					},
+					"AfasHttp_properties_typeProperties_url": {
+						"value": "[parameters('AfasHttp_properties_typeProperties_url')]"
+					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
 					},
@@ -265,9 +272,6 @@
 					},
 					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
-					},
-					"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -288,6 +292,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -373,6 +380,26 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'df-d365-byod_ArmTemplate_5')]"
+			]
+		},
+		{
+			"name": "df-d365-byod_ArmTemplate_7",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_7.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'df-d365-byod_ArmTemplate_6')]"
 			]
 		}
 	]

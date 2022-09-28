@@ -41,6 +41,9 @@
 		"Afas_properties_typeProperties_url": {
 			"value": "https://86941.rest.afas.online/profitrestservices/connectors/"
 		},
+		"AfasHttp_properties_typeProperties_url": {
+			"value": "https://86941.rest.afas.online/profitrestservices/connectors/"
+		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://blobstoragescm.dfs.core.windows.net"
 		},

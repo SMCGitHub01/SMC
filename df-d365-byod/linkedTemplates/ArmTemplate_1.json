@@ -62,10 +62,6 @@
 		"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "BlobStorageDevelopment"
-		},
-		"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
-			"type": "string",
-			"defaultValue": "BlobStorageProduction"
 		}
 	},
 	"variables": {
@@ -83,6 +79,150 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AfasJson')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AfasHttp",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "Medewerker_formatieverdeling_tbv_J-form"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"skip": {
+							"type": "integer"
+						},
+						"take": {
+							"type": "integer"
+						},
+						"rows": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Medewerker": {
+										"type": "string"
+									},
+									"Begindatum_functie": {
+										"type": "string"
+									},
+									"Einddatum_functie": {
+										"type": "null"
+									},
+									"Organisatorische_eenheid": {
+										"type": "string"
+									},
+									"Kostenplaats": {
+										"type": "string"
+									},
+									"Omschrijving_kpl": {
+										"type": "string"
+									},
+									"Kostendrager": {
+										"type": "string"
+									},
+									"Omschrijving_kdr": {
+										"type": "string"
+									},
+									"Percentage": {
+										"type": "number"
+									},
+									"Aantal_FTE": {
+										"type": "number"
+									},
+									"Werkgever": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AfasJson2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AfasHttp",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "Medewerker_formatieverdeling_tbv_J-form?skip=-1&take=-1"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"skip": {
+							"type": "integer"
+						},
+						"take": {
+							"type": "integer"
+						},
+						"rows": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Medewerker": {
+										"type": "string"
+									},
+									"Begindatum_functie": {
+										"type": "string"
+									},
+									"Einddatum_functie": {
+										"type": "null"
+									},
+									"Organisatorische_eenheid": {
+										"type": "string"
+									},
+									"Kostenplaats": {
+										"type": "string"
+									},
+									"Omschrijving_kpl": {
+										"type": "string"
+									},
+									"Kostendrager": {
+										"type": "string"
+									},
+									"Omschrijving_kdr": {
+										"type": "string"
+									},
+									"Percentage": {
+										"type": "number"
+									},
+									"Aantal_FTE": {
+										"type": "number"
+									},
+									"Werkgever": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Afas_dataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -91,16 +231,11 @@
 					"referenceName": "Afas",
 					"type": "LinkedServiceReference"
 				},
-				"parameters": {
-					"getconnector": {
-						"type": "string"
-					}
-				},
 				"annotations": [],
 				"type": "RestResource",
 				"typeProperties": {
 					"relativeUrl": {
-						"value": "@dataset().getconnector",
+						"value": "Medewerker_formatieverdeling_tbv_J-form?skip=-1&take=-1",
 						"type": "Expression"
 					}
 				},
@@ -446,63 +581,6 @@
 							"type": "LinkedServiceReference"
 						},
 						"secretName": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/blobstoragesmcprd')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "KeyVault",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DownScaleProd')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "DownScale prod, safety procedure",
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PRD_DownScale",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2022-02-07T07:19:00Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"minutes": [
-								30
-							],
-							"hours": [
-								7
-							]
-						}
 					}
 				}
 			},
