@@ -14514,10 +14514,98 @@
 								"type": "AzureSqlSink",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
-							"enableStaging": false
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"path": "$['skip']"
+										},
+										"sink": {
+											"name": "skip",
+											"type": "Int64"
+										}
+									},
+									{
+										"source": {
+											"path": "$['take']"
+										},
+										"sink": {
+											"name": "take",
+											"type": "Int64"
+										}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Medewerker']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Begindatum_functie']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Einddatum_functie']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Organisatorische_eenheid']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Kostenplaats']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Omschrijving_kpl']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Kostendrager']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Omschrijving_kdr']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Percentage']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Aantal_FTE']"
+										},
+										"sink": {}
+									},
+									{
+										"source": {
+											"path": "$['rows'][0]['Werkgever']"
+										},
+										"sink": {}
+									}
+								]
+							}
 						},
 						"inputs": [
 							{
@@ -14531,8 +14619,8 @@
 								"referenceName": "ACC_BYOD_DEV_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
+									"SchemaName": "dbo",
+									"TableName": "AfasJformMedewerkers"
 								}
 							}
 						]
