@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "GetGLBudget",
-				"type": "Copy",
+				"name": "WebGettoken",
+				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
-					"timeout": "7.00:00:00",
+					"timeout": "0.12:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -15,47 +15,9 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "SharePointOnlineListSource",
-						"httpRequestTimeout": "00:05:00"
-					},
-					"sink": {
-						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.GLBudget",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
-						"disableMetricsCollection": false
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "SharePointLists_PowerBI",
-						"type": "DatasetReference",
-						"parameters": {
-							"list": "GLBudget"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "PRD_BYOD_DS",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "sharepoint",
-							"TableName": "GLBudget"
-						}
-					}
-				]
+					"url": "https://86941.rest.afas.online/ProfitRestServices/connectors/Medewerker_formatieverdeling_tbv_J-form",
+					"method": "GET"
+				}
 			}
 		],
 		"annotations": []
