@@ -15,7 +15,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": "https://86941.rest.afas.online/ProfitRestServices/connectors/Medewerker_formatieverdeling_tbv_J-form",
+					"url": {
+						"value": "https://86941.rest.afas.online/ProfitRestServices/connectors/Medewerker_formatieverdeling_tbv_J-form",
+						"type": "Expression"
+					},
 					"method": "GET"
 				}
 			}
