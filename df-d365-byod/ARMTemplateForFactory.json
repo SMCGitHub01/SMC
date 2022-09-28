@@ -14522,89 +14522,105 @@
 								"mappings": [
 									{
 										"source": {
-											"path": "$['skip']"
-										},
-										"sink": {
-											"name": "skip",
-											"type": "Int64"
-										}
-									},
-									{
-										"source": {
-											"path": "$['take']"
-										},
-										"sink": {
-											"name": "take",
-											"type": "Int64"
-										}
-									},
-									{
-										"source": {
 											"path": "$['rows'][0]['Medewerker']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "Medewerker",
+											"type": "String"
+										}
 									},
 									{
 										"source": {
 											"path": "$['rows'][0]['Begindatum_functie']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "BeginDatum",
+											"type": "DateTime"
+										}
 									},
 									{
 										"source": {
 											"path": "$['rows'][0]['Einddatum_functie']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "Einddatum",
+											"type": "DateTime"
+										}
 									},
 									{
 										"source": {
 											"path": "$['rows'][0]['Organisatorische_eenheid']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "Organisatorische_eenheid",
+											"type": "String"
+										}
 									},
 									{
 										"source": {
 											"path": "$['rows'][0]['Kostenplaats']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "Kostenplaats",
+											"type": "String"
+										}
 									},
 									{
 										"source": {
 											"path": "$['rows'][0]['Omschrijving_kpl']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "Omschrijving_kpl",
+											"type": "String"
+										}
 									},
 									{
 										"source": {
 											"path": "$['rows'][0]['Kostendrager']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "Kostendrager",
+											"type": "String"
+										}
 									},
 									{
 										"source": {
 											"path": "$['rows'][0]['Omschrijving_kdr']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "Omschrijving_kdr",
+											"type": "String"
+										}
 									},
 									{
 										"source": {
 											"path": "$['rows'][0]['Percentage']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "Percentage",
+											"type": "String"
+										}
 									},
 									{
 										"source": {
 											"path": "$['rows'][0]['Aantal_FTE']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "Aantal_FTE",
+											"type": "String"
+										}
 									},
 									{
 										"source": {
 											"path": "$['rows'][0]['Werkgever']"
 										},
-										"sink": {}
+										"sink": {
+											"name": "Werkgever",
+											"type": "String"
+										}
 									}
-								]
+								],
+								"collectionReference": ""
 							}
 						},
 						"inputs": [
