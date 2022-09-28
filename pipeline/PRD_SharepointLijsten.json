@@ -876,7 +876,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.GLBudget",
+						"preCopyScript": "--truncate table sharepoint.GLBudget",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate",
@@ -907,7 +907,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "sharepoint",
-							"TableName": "GLAccountsGrouping"
+							"TableName": "GLBudget"
 						}
 					}
 				]
