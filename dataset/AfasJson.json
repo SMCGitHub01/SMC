@@ -1,0 +1,69 @@
+{
+	"name": "AfasJson",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AfasHttp",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "Medewerker_formatieverdeling_tbv_J-form"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"skip": {
+					"type": "integer"
+				},
+				"take": {
+					"type": "integer"
+				},
+				"rows": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"Medewerker": {
+								"type": "string"
+							},
+							"Begindatum_functie": {
+								"type": "string"
+							},
+							"Einddatum_functie": {
+								"type": "null"
+							},
+							"Organisatorische_eenheid": {
+								"type": "string"
+							},
+							"Kostenplaats": {
+								"type": "string"
+							},
+							"Omschrijving_kpl": {
+								"type": "string"
+							},
+							"Kostendrager": {
+								"type": "string"
+							},
+							"Omschrijving_kdr": {
+								"type": "string"
+							},
+							"Percentage": {
+								"type": "number"
+							},
+							"Aantal_FTE": {
+								"type": "number"
+							},
+							"Werkgever": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
