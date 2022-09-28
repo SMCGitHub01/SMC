@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "Afas dingus",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -42,7 +42,7 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "$['rows'][0]['Medewerker']"
+									"path": "['Medewerker']"
 								},
 								"sink": {
 									"name": "Medewerker",
@@ -51,7 +51,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rows'][0]['Begindatum_functie']"
+									"path": "['Begindatum_functie']"
 								},
 								"sink": {
 									"name": "BeginDatum",
@@ -60,7 +60,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rows'][0]['Einddatum_functie']"
+									"path": "['Einddatum_functie']"
 								},
 								"sink": {
 									"name": "Einddatum",
@@ -69,7 +69,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rows'][0]['Organisatorische_eenheid']"
+									"path": "['Organisatorische_eenheid']"
 								},
 								"sink": {
 									"name": "Organisatorische_eenheid",
@@ -78,7 +78,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rows'][0]['Kostenplaats']"
+									"path": "['Kostenplaats']"
 								},
 								"sink": {
 									"name": "Kostenplaats",
@@ -87,7 +87,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rows'][0]['Omschrijving_kpl']"
+									"path": "['Omschrijving_kpl']"
 								},
 								"sink": {
 									"name": "Omschrijving_kpl",
@@ -96,7 +96,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rows'][0]['Kostendrager']"
+									"path": "['Kostendrager']"
 								},
 								"sink": {
 									"name": "Kostendrager",
@@ -105,7 +105,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rows'][0]['Omschrijving_kdr']"
+									"path": "['Omschrijving_kdr']"
 								},
 								"sink": {
 									"name": "Omschrijving_kdr",
@@ -114,7 +114,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rows'][0]['Percentage']"
+									"path": "['Percentage']"
 								},
 								"sink": {
 									"name": "Percentage",
@@ -123,7 +123,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rows'][0]['Aantal_FTE']"
+									"path": "['Aantal_FTE']"
 								},
 								"sink": {
 									"name": "Aantal_FTE",
@@ -132,7 +132,7 @@
 							},
 							{
 								"source": {
-									"path": "$['rows'][0]['Werkgever']"
+									"path": "['Werkgever']"
 								},
 								"sink": {
 									"name": "Werkgever",
