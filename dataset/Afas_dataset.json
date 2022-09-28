@@ -5,16 +5,11 @@
 			"referenceName": "Afas",
 			"type": "LinkedServiceReference"
 		},
-		"parameters": {
-			"getconnector": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"type": "RestResource",
 		"typeProperties": {
 			"relativeUrl": {
-				"value": "@dataset().getconnector",
+				"value": "Medewerker_formatieverdeling_tbv_J-form?skip=-1&take=-1",
 				"type": "Expression"
 			}
 		},
