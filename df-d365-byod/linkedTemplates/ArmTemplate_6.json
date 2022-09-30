@@ -3378,10 +3378,10 @@
 								"partitionOption": "None"
 							},
 							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
+								"referenceName": "ACC_BYOD_DEV_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "dummy",
+									"SchemaName": "dummu",
 									"TableName": "dummy"
 								}
 							}
