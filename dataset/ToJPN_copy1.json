@@ -10,9 +10,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "GISBE71.csv"
+				"fileName": "test.csv",
+				"folderPath": "FenOnewDates"
 			},
-			"columnDelimiter": ",",
+			"columnDelimiter": ";",
 			"escapeChar": "",
 			"firstRowAsHeader": true,
 			"quoteChar": ""
