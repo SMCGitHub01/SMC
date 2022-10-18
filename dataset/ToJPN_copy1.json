@@ -2,7 +2,7 @@
 	"name": "ToJPN_copy1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "DWHloads",
+			"referenceName": "ToJPN",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
