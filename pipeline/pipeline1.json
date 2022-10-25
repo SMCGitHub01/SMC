@@ -3,11 +3,11 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Afas dingus",
+				"name": "Incr_Copy_SugarCRM",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
-					"timeout": "0.12:00:00",
+					"timeout": "7.00:00:00",
 					"retry": 0,
 					"retryIntervalInSeconds": 30,
 					"secureOutput": false,
@@ -16,23 +16,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "JsonSource",
-						"storeSettings": {
-							"type": "HttpReadSettings",
-							"requestMethod": "GET",
-							"additionalHeaders": {
-								"value": "@concat('Authorization: AfasToken ',base64('<token><version>1</version><data>FEEC49DD1D954D23852AD8C0FA5C165614A2736C4317161AA9ABA796E20F4379</data></token>'))",
-								"type": "Expression"
-							},
-							"requestTimeout": ""
-						},
-						"formatSettings": {
-							"type": "JsonReadSettings"
+						"type": "MySqlSource",
+						"query": {
+							"value": "SELECT *\nFROM \n\t\tNL_BYOD_Meetings",
+							"type": "Expression"
 						}
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table dbo.AfasJformMedewerkers",
+						"writeBatchSize": 1000000,
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"disableMetricsCollection": false
@@ -43,110 +35,290 @@
 						"mappings": [
 							{
 								"source": {
-									"path": "['Medewerker']"
+									"name": "ACCOOUNT_ID",
+									"type": "String"
 								},
 								"sink": {
-									"name": "Medewerker",
-									"type": "String"
+									"name": "ACCOOUNT_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"path": "['Begindatum_functie']"
+									"name": "ACCOUNT_NUMBER",
+									"type": "String"
 								},
 								"sink": {
-									"name": "BeginDatum",
+									"name": "ACCOUNT_NUMBER",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSIGNED_USER_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSIGNED_USER_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSIGNED_USER_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSIGNED_USER_NAME",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DATE_CREATED",
 									"type": "DateTime"
+								},
+								"sink": {
+									"name": "DATE_CREATED",
+									"type": "DateTime",
+									"physicalType": "datetime"
 								}
 							},
 							{
 								"source": {
-									"path": "['Einddatum_functie']"
-								},
-								"sink": {
-									"name": "Einddatum",
+									"name": "DATE_MODIFIED",
 									"type": "DateTime"
+								},
+								"sink": {
+									"name": "DATE_MODIFIED",
+									"type": "DateTime",
+									"physicalType": "datetime"
 								}
 							},
 							{
 								"source": {
-									"path": "['Organisatorische_eenheid']"
+									"name": "DISTRIBUTOR_ID",
+									"type": "String"
 								},
 								"sink": {
-									"name": "Organisatorische_eenheid",
-									"type": "String"
+									"name": "DISTRIBUTOR_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"path": "['Kostenplaats']"
+									"name": "DISTRIBUTOR_NAME",
+									"type": "String"
 								},
 								"sink": {
-									"name": "Kostenplaats",
-									"type": "String"
+									"name": "DISTRIBUTOR_NAME",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"path": "['Omschrijving_kpl']"
+									"name": "DURATION_HOURS",
+									"type": "Int32"
 								},
 								"sink": {
-									"name": "Omschrijving_kpl",
-									"type": "String"
+									"name": "DURATION_HOURS",
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
 								"source": {
-									"path": "['Kostendrager']"
+									"name": "DURATION_MINUTES",
+									"type": "String"
 								},
 								"sink": {
-									"name": "Kostendrager",
-									"type": "String"
+									"name": "DURATION_MINUTES",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"path": "['Omschrijving_kdr']"
+									"name": "END_DATE",
+									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Omschrijving_kdr",
-									"type": "String"
+									"name": "END_DATE",
+									"type": "DateTime",
+									"physicalType": "datetime"
 								}
 							},
 							{
 								"source": {
-									"path": "['Percentage']"
+									"name": "LOCATION",
+									"type": "String"
 								},
 								"sink": {
-									"name": "Percentage",
-									"type": "String"
+									"name": "LOCATION",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"path": "['Aantal_FTE']"
+									"name": "MEETING_CREATOR",
+									"type": "String"
 								},
 								"sink": {
-									"name": "Aantal_FTE",
-									"type": "String"
+									"name": "MEETING_CREATOR",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"path": "['Werkgever']"
+									"name": "MEETING_DETAILS",
+									"type": "String"
 								},
 								"sink": {
-									"name": "Werkgever",
+									"name": "MEETING_DETAILS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MEETING_HOLON",
 									"type": "String"
+								},
+								"sink": {
+									"name": "MEETING_HOLON",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MEETING_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MEETING_ID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MEETING_METHOD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MEETING_METHOD",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "MEETING_REGION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MEETING_REGION",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFY_MANAGEMENT",
+									"type": "Int16"
+								},
+								"sink": {
+									"name": "NOTIFY_MANAGEMENT",
+									"type": "Int16",
+									"physicalType": "smallint"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFY_MGMT_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "NOTIFY_MGMT_DATE",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "NUMBER_OF_ATTENDEES",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "NUMBER_OF_ATTENDEES",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "START_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "START_DATE",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SUBJECT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SUBJECT",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "TOTAL_MEETING_DURATION",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "TOTAL_MEETING_DURATION",
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							}
 						],
-						"collectionReference": "$['rows']"
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
 					}
 				},
 				"inputs": [
 					{
-						"referenceName": "AfasJson2",
+						"referenceName": "ACCPRD_SugarCRM",
 						"type": "DatasetReference"
 					}
 				],
@@ -155,8 +327,8 @@
 						"referenceName": "ACC_BYOD_DEV_DS",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "AfasJformMedewerkers"
+							"SchemaName": "stage",
+							"TableName": "Meetings_SugarCRM"
 						}
 					}
 				]
