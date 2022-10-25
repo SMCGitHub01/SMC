@@ -2266,7 +2266,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Incr_Copy_SugarCRM",
+						"name": "SugarCRM",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -2281,7 +2281,7 @@
 							"source": {
 								"type": "MySqlSource",
 								"query": {
-									"value": "SELECT *\nFROM \n\t\tNL_BYOD_Meetings",
+									"value": "SELECT *\nFROM \n\t\tNL_BYOD_Account_V2",
 									"type": "Expression"
 								}
 							},
@@ -2592,7 +2592,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "stage",
-									"TableName": "Meetings_SugarCRM"
+									"TableName": "Accounts_SugarCRM"
 								}
 							}
 						]
