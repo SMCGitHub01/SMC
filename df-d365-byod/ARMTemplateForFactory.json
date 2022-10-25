@@ -14964,7 +14964,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "ACC_BYOD_DEV_DS",
+								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "stage",
@@ -14982,7 +14982,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ACCPRD_SugarCRM')]",
-				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]"
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},
 		{
