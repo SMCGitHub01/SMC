@@ -2266,7 +2266,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "SugarCRM",
+						"name": "GetHoloRegion",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -2279,299 +2279,20 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "MySqlSource",
-								"query": {
-									"value": "SELECT *\nFROM \n\t\tNL_BYOD_Account_V2",
-									"type": "Expression"
-								}
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"writeBatchSize": 1000000,
+								"preCopyScript": "--truncate table sharepoint.GLBudget",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "ACCOOUNT_ID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ACCOOUNT_ID",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ACCOUNT_NUMBER",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ACCOUNT_NUMBER",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ASSIGNED_USER_ID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ASSIGNED_USER_ID",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ASSIGNED_USER_NAME",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ASSIGNED_USER_NAME",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "DATE_CREATED",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "DATE_CREATED",
-											"type": "DateTime",
-											"physicalType": "datetime"
-										}
-									},
-									{
-										"source": {
-											"name": "DATE_MODIFIED",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "DATE_MODIFIED",
-											"type": "DateTime",
-											"physicalType": "datetime"
-										}
-									},
-									{
-										"source": {
-											"name": "DISTRIBUTOR_ID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "DISTRIBUTOR_ID",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "DISTRIBUTOR_NAME",
-											"type": "String"
-										},
-										"sink": {
-											"name": "DISTRIBUTOR_NAME",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "DURATION_HOURS",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "DURATION_HOURS",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "DURATION_MINUTES",
-											"type": "String"
-										},
-										"sink": {
-											"name": "DURATION_MINUTES",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "END_DATE",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "END_DATE",
-											"type": "DateTime",
-											"physicalType": "datetime"
-										}
-									},
-									{
-										"source": {
-											"name": "LOCATION",
-											"type": "String"
-										},
-										"sink": {
-											"name": "LOCATION",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "MEETING_CREATOR",
-											"type": "String"
-										},
-										"sink": {
-											"name": "MEETING_CREATOR",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "MEETING_DETAILS",
-											"type": "String"
-										},
-										"sink": {
-											"name": "MEETING_DETAILS",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "MEETING_HOLON",
-											"type": "String"
-										},
-										"sink": {
-											"name": "MEETING_HOLON",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "MEETING_ID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "MEETING_ID",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "MEETING_METHOD",
-											"type": "String"
-										},
-										"sink": {
-											"name": "MEETING_METHOD",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "MEETING_REGION",
-											"type": "String"
-										},
-										"sink": {
-											"name": "MEETING_REGION",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "NOTIFY_MANAGEMENT",
-											"type": "Int16"
-										},
-										"sink": {
-											"name": "NOTIFY_MANAGEMENT",
-											"type": "Int16",
-											"physicalType": "smallint"
-										}
-									},
-									{
-										"source": {
-											"name": "NOTIFY_MGMT_DATE",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "NOTIFY_MGMT_DATE",
-											"type": "DateTime",
-											"physicalType": "datetime"
-										}
-									},
-									{
-										"source": {
-											"name": "NUMBER_OF_ATTENDEES",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "NUMBER_OF_ATTENDEES",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "START_DATE",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "START_DATE",
-											"type": "DateTime",
-											"physicalType": "datetime"
-										}
-									},
-									{
-										"source": {
-											"name": "STATUS",
-											"type": "String"
-										},
-										"sink": {
-											"name": "STATUS",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "SUBJECT",
-											"type": "String"
-										},
-										"sink": {
-											"name": "SUBJECT",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "TOTAL_MEETING_DURATION",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "TOTAL_MEETING_DURATION",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									}
-								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -2581,9 +2302,11 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "ACCPRD_SugarCRM",
+								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"list": "HolonRegio"
+								}
 							}
 						],
 						"outputs": [
@@ -2591,8 +2314,8 @@
 								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "stage",
-									"TableName": "Accounts_SugarCRM"
+									"SchemaName": "sharepoint",
+									"TableName": "HolonRegio"
 								}
 							}
 						]
