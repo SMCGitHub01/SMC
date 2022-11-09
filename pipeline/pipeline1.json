@@ -21,7 +21,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "--truncate table sharepoint.GLBudget",
+						"preCopyScript": "truncate table sharepoint.HolonRegio",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate",
