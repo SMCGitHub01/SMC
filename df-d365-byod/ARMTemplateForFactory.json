@@ -14657,7 +14657,7 @@
 							"source": {
 								"type": "MySqlSource",
 								"query": {
-									"value": "SELECT\t*\nFROM \tNL_BYOD_OPP\n\t\t",
+									"value": "select * from NL_BYOD_ACCOUNT_V2",
 									"type": "Expression"
 								}
 							},
@@ -14694,7 +14694,7 @@
 										"type": "Expression"
 									},
 									"TableName": {
-										"value": "Opportunities_SugarCRM",
+										"value": "Accounts_V2_SugarCRM",
 										"type": "Expression"
 									}
 								}
