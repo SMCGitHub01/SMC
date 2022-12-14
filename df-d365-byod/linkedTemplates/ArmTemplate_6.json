@@ -2281,7 +2281,7 @@
 							"source": {
 								"type": "MySqlSource",
 								"query": {
-									"value": "select * from NL_BYOD_ACCOUNT_V2",
+									"value": "select * from NL_BYOD_InvOpp",
 									"type": "Expression"
 								}
 							},
@@ -2289,6 +2289,7 @@
 								"type": "AzureSqlSink",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -2319,7 +2320,7 @@
 										"type": "Expression"
 									},
 									"TableName": {
-										"value": "Accounts_V2_SugarCRM",
+										"value": "InvOpp_SugarCRM",
 										"type": "Expression"
 									}
 								}
