@@ -14642,7 +14642,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetDistributeur",
+						"name": "Sugar",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -14655,18 +14655,19 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
+								"type": "MySqlSource",
+								"query": {
+									"value": "SELECT\t*\nFROM \tNL_BYOD_OPP\n\t\t",
+									"type": "Expression"
+								}
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.Distributeurs",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
+							"parallelCopies": 1,
 							"translator": {
 								"type": "TabularTranslator",
 								"typeConversion": true,
@@ -14678,11 +14679,9 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists_PowerBI",
+								"referenceName": "ACCPRD_SugarCRM",
 								"type": "DatasetReference",
-								"parameters": {
-									"list": "Distributeurs"
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
@@ -14690,8 +14689,14 @@
 								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "Distributeurs"
+									"SchemaName": {
+										"value": "stage",
+										"type": "Expression"
+									},
+									"TableName": {
+										"value": "Opportunities_SugarCRM",
+										"type": "Expression"
+									}
 								}
 							}
 						]
@@ -14704,7 +14709,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SharePointLists_PowerBI')]",
+				"[concat(variables('factoryId'), '/datasets/ACCPRD_SugarCRM')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},
