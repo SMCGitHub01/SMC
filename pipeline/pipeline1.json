@@ -18,7 +18,7 @@
 					"source": {
 						"type": "MySqlSource",
 						"query": {
-							"value": "SELECT \n       *\nFROM NL_BYOD_RLI;",
+							"value": "SELECT \n  *\nFROM NL_BYOD_RLI;",
 							"type": "Expression"
 						}
 					},
@@ -26,7 +26,6 @@
 						"type": "AzureSqlSink",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
