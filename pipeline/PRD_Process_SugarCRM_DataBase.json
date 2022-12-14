@@ -191,7 +191,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 14 AND\n\t (IncrementalLoad = 0  OR TemplateName = 'FULL')",
+						"sqlReaderQuery": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 14 AND\n\t (IncrementalLoad = 0  OR TemplateName = 'FULL') AND SourceTableID=104",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
