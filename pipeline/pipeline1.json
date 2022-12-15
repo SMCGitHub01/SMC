@@ -18,15 +18,15 @@
 					"source": {
 						"type": "MySqlSource",
 						"query": {
-							"value": "SELECT \naccount_id, account_name, assigned_user_id, branch, branch_id, competitor_1_id, competitor_1_name, competitor_2_id, competitor_2_name, country, date_created, date_modified, expected_close_date, holon, likely, likely_percent, next_step, next_step_due_date, npdp_number_and_name, npdp_url, opportunity_id, opportunity_name, probablility_percent, product_category, product_category_id, product_type, product_type_id, quantity, region, rfs_number, rfs_url, rli_id, rli_name, sales_stage, spr_number, spr_url, statement, statement_details, user_name\nFROM [NL_BYOD_RLI]",
+							"value": "SELECT #_of_closed_revenue_line_items,\n       #_of_total_revenue_line_items,\n       account_id,\n       account_name,\n       actual_closed_date,\n       branch,\n       branch_id_field,\n       campaign_id,\n       campaign_name,\n       competitor_1_id,\n       competitor_1_name,\n       competitor_2_id,\n       competitor_2_name,\n       date_created,\n       date_modified,\n       gratitude_points,\n       holon,\n       id,\n       invest_opp_id,\n       invest_opp_name,\n       likely,\n       next_step,\n       next_step_due_date,\n       opp_country,\n       opp_name,\n       opp_probability,\n       opp_status,\n       opp_total_potential,\n       opp_type,\n       other_industry,\n       primary_distributor,\n       primary_industry,\n       region,\n       reportable_comment_log,\n       rli_expected_close_date,\n       sum_of_rlis,\n       sum_of_rlis_won,\n       user_id,\n       user_name\nFROM NL_BYOD_OPP",
 							"type": "Expression"
 						}
 					},
 					"sink": {
 						"type": "AzureSqlSink",
+						"preCopyScript": "truncate table stage.Opportunities_SugarCRM",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -56,7 +56,7 @@
 								"type": "Expression"
 							},
 							"TableName": {
-								"value": "RLI_SugarCRM",
+								"value": "Opportunities_SugarCRM",
 								"type": "Expression"
 							}
 						}
