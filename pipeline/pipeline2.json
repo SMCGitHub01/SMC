@@ -1,0 +1,70 @@
+{
+	"name": "pipeline2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Full_Copy_SugarCRM_copy1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource",
+						"query": {
+							"value": "SELECT\t14 as HSO_DnA_SourceConnectionID,\n\t\t12.TargetMappingID} as HSO_DnA_TargetMappingID, \n\t\tCURDATE() as HSO_DnA_InsertDateTime, \n\t\tCURDATE() as HSO_DnA_UpdateDateTime, \n\t\tSELECT #_of_closed_revenue_line_items,\n       #_of_total_revenue_line_items,\n       account_id,\n       account_name,\n       actual_closed_date,\n       branch,\n       branch_id_field,\n       campaign_id,\n       campaign_name,\n       competitor_1_id,\n       competitor_1_name,\n       competitor_2_id,\n       competitor_2_name,\n       date_created,\n       date_modified,\n       gratitude_points,\n       holon,\n       id,\n       invest_opp_id,\n       invest_opp_name,\n       likely,\n       next_step,\n       next_step_due_date,\n       opp_country,\n       opp_name,\n       opp_probability,\n       opp_status,\n       opp_total_potential,\n       opp_type,\n       other_industry,\n       primary_distributor,\n       primary_industry,\n       region,\n       reportable_comment_log,\n       rli_expected_close_date,\n       sum_of_rlis,\n       sum_of_rlis_won,\n       user_id,\n       user_name\nFROM NL_BYOD_OPP\n",
+							"type": "Expression"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": {
+							"value": "TRUNCATE TABLE stage.Opportunities_SugarCRM",
+							"type": "Expression"
+						},
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"parallelCopies": 1,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ACCPRD_SugarCRM",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": {
+								"value": "stage",
+								"type": "Expression"
+							},
+							"TableName": {
+								"value": "Opportunities_SugarCRM",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
