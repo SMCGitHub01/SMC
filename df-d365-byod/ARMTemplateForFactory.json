@@ -14657,13 +14657,13 @@
 							"source": {
 								"type": "MySqlSource",
 								"query": {
-									"value": "SELECT #_of_closed_revenue_line_items,\n       #_of_total_revenue_line_items,\n       account_id,\n       account_name,\n       actual_closed_date,\n       branch,\n       branch_id_field,\n       campaign_id,\n       campaign_name,\n       competitor_1_id,\n       competitor_1_name,\n       competitor_2_id,\n       competitor_2_name,\n       date_created,\n       date_modified,\n       gratitude_points,\n       holon,\n       id,\n       invest_opp_id,\n       invest_opp_name,\n       likely,\n       next_step,\n       next_step_due_date,\n       opp_country,\n       opp_name,\n       opp_probability,\n       opp_status,\n       opp_total_potential,\n       opp_type,\n       other_industry,\n       primary_distributor,\n       primary_industry,\n       region,\n       reportable_comment_log,\n       rli_expected_close_date,\n       sum_of_rlis,\n       sum_of_rlis_won,\n       user_id,\n       user_name\nFROM NL_BYOD_OPP",
+									"value": "SELECT *\nFROM NL_BYOD_Meetings",
 									"type": "Expression"
 								}
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table stage.Opportunities_SugarCRM",
+								"preCopyScript": "truncate table stage.Meetings_SugarCRM",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"disableMetricsCollection": false
@@ -14696,7 +14696,7 @@
 										"type": "Expression"
 									},
 									"TableName": {
-										"value": "Opportunities_SugarCRM",
+										"value": "Meetings_SugarCRM",
 										"type": "Expression"
 									}
 								}
