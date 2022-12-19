@@ -24,9 +24,10 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table stage.Meetings_SugarCRM",
+						"preCopyScript": "--truncate table stage.Meetings_SugarCRM",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -56,7 +57,7 @@
 								"type": "Expression"
 							},
 							"TableName": {
-								"value": "Meetings_SugarCRM",
+								"value": "Meetings_V2_SugarCRM",
 								"type": "Expression"
 							}
 						}
