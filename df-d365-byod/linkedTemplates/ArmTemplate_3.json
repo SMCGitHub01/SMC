@@ -13,6 +13,38 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Matrix')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ZendeskDownload",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "ACC&PRD"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "SupChain.csv"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_BYOD_DS')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -666,272 +698,6 @@
 					"location": {
 						"type": "AzureBlobStorageLocation",
 						"fileName": "FULL-1_0.csv",
-						"container": "sanctielijsten"
-					},
-					"columnDelimiter": ";",
-					"escapeChar": "\\",
-					"firstRowAsHeader": false,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Date_file",
-						"type": "String"
-					},
-					{
-						"name": "Entity_logical_id1",
-						"type": "String"
-					},
-					{
-						"name": "Subject_type",
-						"type": "String"
-					},
-					{
-						"name": "Leba_numtitle",
-						"type": "String"
-					},
-					{
-						"name": "Leba_publication_date",
-						"type": "String"
-					},
-					{
-						"name": "Leba_url",
-						"type": "String"
-					},
-					{
-						"name": "Programme",
-						"type": "String"
-					},
-					{
-						"name": "Entity_remark",
-						"type": "String"
-					},
-					{
-						"name": "Naal_logical_id",
-						"type": "String"
-					},
-					{
-						"name": "Entity_logical_id9",
-						"type": "String"
-					},
-					{
-						"name": "Naal_leba_numtitle",
-						"type": "String"
-					},
-					{
-						"name": "Naal_leba_publication_date",
-						"type": "String"
-					},
-					{
-						"name": "Naal_leba_url",
-						"type": "String"
-					},
-					{
-						"name": "Naal_programme",
-						"type": "String"
-					},
-					{
-						"name": "Naal_lastname",
-						"type": "String"
-					},
-					{
-						"name": "Naal_firstname",
-						"type": "String"
-					},
-					{
-						"name": "Naal_middlename",
-						"type": "String"
-					},
-					{
-						"name": "Naal_wholename",
-						"type": "String"
-					},
-					{
-						"name": "Naal_gender",
-						"type": "String"
-					},
-					{
-						"name": "Naal_title",
-						"type": "String"
-					},
-					{
-						"name": "Naal_function",
-						"type": "String"
-					},
-					{
-						"name": "Naal_language",
-						"type": "String"
-					},
-					{
-						"name": "Addr_logical_id",
-						"type": "String"
-					},
-					{
-						"name": "Entity_logical_id23",
-						"type": "String"
-					},
-					{
-						"name": "Addr_leba_numtitle",
-						"type": "String"
-					},
-					{
-						"name": "Addr_leba_publication_date",
-						"type": "String"
-					},
-					{
-						"name": "Addr_leba_url",
-						"type": "String"
-					},
-					{
-						"name": "Addr_programme",
-						"type": "String"
-					},
-					{
-						"name": "Addr_number",
-						"type": "String"
-					},
-					{
-						"name": "Addr_street",
-						"type": "String"
-					},
-					{
-						"name": "Addr_zipcode",
-						"type": "String"
-					},
-					{
-						"name": "Addr_city",
-						"type": "String"
-					},
-					{
-						"name": "Addr_country",
-						"type": "String"
-					},
-					{
-						"name": "Addr_other",
-						"type": "String"
-					},
-					{
-						"name": "Birt_logical_id",
-						"type": "String"
-					},
-					{
-						"name": "Entity_logical_id35",
-						"type": "String"
-					},
-					{
-						"name": "Birt_leba_numtitle",
-						"type": "String"
-					},
-					{
-						"name": "Birt_leba_publication_date",
-						"type": "String"
-					},
-					{
-						"name": "Birt_leba_url",
-						"type": "String"
-					},
-					{
-						"name": "Birt_programme",
-						"type": "String"
-					},
-					{
-						"name": "Birt_date",
-						"type": "String"
-					},
-					{
-						"name": "Birt_place",
-						"type": "String"
-					},
-					{
-						"name": "Birt_country",
-						"type": "String"
-					},
-					{
-						"name": "Iden_logical_id",
-						"type": "String"
-					},
-					{
-						"name": "Entity_logical_id44",
-						"type": "String"
-					},
-					{
-						"name": "Iden_leba_numtitle",
-						"type": "String"
-					},
-					{
-						"name": "Iden_leba_publication_date",
-						"type": "String"
-					},
-					{
-						"name": "Iden_leba_url",
-						"type": "String"
-					},
-					{
-						"name": "Iden_programme",
-						"type": "String"
-					},
-					{
-						"name": "Iden_number",
-						"type": "String"
-					},
-					{
-						"name": "Iden_country",
-						"type": "String"
-					},
-					{
-						"name": "Citi_logical_id",
-						"type": "String"
-					},
-					{
-						"name": "Entity_logical_id52",
-						"type": "String"
-					},
-					{
-						"name": "Citi_leba_numtitle",
-						"type": "String"
-					},
-					{
-						"name": "Citi_leba_publication_date",
-						"type": "String"
-					},
-					{
-						"name": "Citi_leba_url",
-						"type": "String"
-					},
-					{
-						"name": "Citi_programme",
-						"type": "String"
-					},
-					{
-						"name": "Citi_country",
-						"type": "String"
-					},
-					{
-						"name": "EU_ref_num",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/sanctielijst_UK_list')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "sanctielijsten"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "UK_Sanctions_List.csv",
 						"container": "sanctielijsten"
 					},
 					"columnDelimiter": ";",
