@@ -92,7 +92,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[[stage].[Post_FactIssueMonthBuckets_v2]"
+							"storedProcedureName": "[[stage].[test]"
 						},
 						"linkedServiceName": {
 							"referenceName": "Azure_D365_PROD",
