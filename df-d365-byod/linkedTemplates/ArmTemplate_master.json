@@ -43,6 +43,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ToJPN'"
 		},
+		"Zendesk_apiToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'apiToken' of 'Zendesk'"
+		},
 		"ZendeskDownload_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ZendeskDownload'"
@@ -119,6 +123,10 @@
 			"type": "string",
 			"defaultValue": "aquapro-dmn\\seeburger_edi"
 		},
+		"Zendesk_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://smcnederland.zendesk.com"
+		},
 		"ZendeskDownload_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
@@ -177,6 +185,9 @@
 					"SharePoint_powerbi_servicePrincipalKey": {
 						"value": "[parameters('SharePoint_powerbi_servicePrincipalKey')]"
 					},
+					"Zendesk_apiToken": {
+						"value": "[parameters('Zendesk_apiToken')]"
+					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
 					},
@@ -212,6 +223,9 @@
 					},
 					"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePoint_powerbi_properties_typeProperties_servicePrincipalId')]"
+					},
+					"Zendesk_properties_typeProperties_url": {
+						"value": "[parameters('Zendesk_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -269,9 +283,6 @@
 					},
 					"ZendeskDownload_properties_typeProperties_userId": {
 						"value": "[parameters('ZendeskDownload_properties_typeProperties_userId')]"
-					},
-					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -292,6 +303,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
 					},
 					"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"

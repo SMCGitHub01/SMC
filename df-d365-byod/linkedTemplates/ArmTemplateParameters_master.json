@@ -32,6 +32,9 @@
 		"ToJPN_password": {
 			"value": ""
 		},
+		"Zendesk_apiToken": {
+			"value": ""
+		},
 		"ZendeskDownload_password": {
 			"value": ""
 		},
@@ -88,6 +91,9 @@
 		},
 		"ToJPN_properties_typeProperties_userId": {
 			"value": "aquapro-dmn\\seeburger_edi"
+		},
+		"Zendesk_properties_typeProperties_url": {
+			"value": "https://smcnederland.zendesk.com"
 		},
 		"ZendeskDownload_properties_typeProperties_host": {
 			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
