@@ -2893,7 +2893,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table sharepoint.feestdagen-NL",
+								"preCopyScript": "--truncate table sharepoint.FeestdagenNL",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -2914,7 +2914,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "feestdagen-NL"
+									"list": "FeestdagenNL"
 								}
 							}
 						],
@@ -2924,7 +2924,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "sharepoint",
-									"TableName": "feestdagen-NL"
+									"TableName": "FeestdagenNL"
 								}
 							}
 						]
