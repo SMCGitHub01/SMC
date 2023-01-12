@@ -2893,10 +2893,9 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table sharepoint.FeestdagenNL",
+								"preCopyScript": "truncate table sharepoint.FeestdagenNL",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
