@@ -55,7 +55,11 @@
 				"outputs": [
 					{
 						"referenceName": "ACC_BYOD_DEV_DS",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dbo",
+							"TableName": "testZendesk"
+						}
 					}
 				]
 			}
