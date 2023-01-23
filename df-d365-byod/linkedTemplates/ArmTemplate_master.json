@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage1'"
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage2'"
+		},
 		"AzureSqlMI1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
@@ -66,6 +70,10 @@
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://blobstoragescm.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalakesmc.dfs.core.windows.net/"
 		},
 		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
@@ -173,6 +181,9 @@
 					"AzureDataLakeStorage1_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage1_accountKey')]"
 					},
+					"AzureDataLakeStorage2_accountKey": {
+						"value": "[parameters('AzureDataLakeStorage2_accountKey')]"
+					},
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
@@ -199,6 +210,9 @@
 					},
 					"AzureDataLakeStorage1_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage2_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage2_properties_typeProperties_url')]"
 					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
@@ -257,9 +271,6 @@
 					"ToJPN_password": {
 						"value": "[parameters('ToJPN_password')]"
 					},
-					"ZendeskDownload_password": {
-						"value": "[parameters('ZendeskDownload_password')]"
-					},
 					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
 					},
@@ -277,12 +288,6 @@
 					},
 					"ToJPN_properties_typeProperties_userId": {
 						"value": "[parameters('ToJPN_properties_typeProperties_userId')]"
-					},
-					"ZendeskDownload_properties_typeProperties_host": {
-						"value": "[parameters('ZendeskDownload_properties_typeProperties_host')]"
-					},
-					"ZendeskDownload_properties_typeProperties_userId": {
-						"value": "[parameters('ZendeskDownload_properties_typeProperties_userId')]"
 					}
 				}
 			},
@@ -303,6 +308,15 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"ZendeskDownload_password": {
+						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"ZendeskDownload_properties_typeProperties_host": {
+						"value": "[parameters('ZendeskDownload_properties_typeProperties_host')]"
+					},
+					"ZendeskDownload_properties_typeProperties_userId": {
+						"value": "[parameters('ZendeskDownload_properties_typeProperties_userId')]"
 					},
 					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"

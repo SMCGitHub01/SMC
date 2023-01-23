@@ -11,6 +11,9 @@
 		"AzureDataLakeStorage1_accountKey": {
 			"value": ""
 		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
 		"AzureSqlMI1_connectionString": {
 			"value": ""
 		},
@@ -49,6 +52,9 @@
 		},
 		"AzureDataLakeStorage1_properties_typeProperties_url": {
 			"value": "https://blobstoragescm.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://datalakesmc.dfs.core.windows.net/"
 		},
 		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 			"value": "DWHConnectionStringDEV"
