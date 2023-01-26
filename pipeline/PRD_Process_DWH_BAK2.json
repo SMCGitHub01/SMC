@@ -1,5 +1,5 @@
 {
-	"name": "PRD_Process_DWH_BAK",
+	"name": "PRD_Process_DWH",
 	"properties": {
 		"activities": [
 			{
@@ -68,12 +68,6 @@
 					},
 					{
 						"activity": "Stage SugarCRM",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "PRD_SharepointLijsten",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -552,26 +546,6 @@
 				"typeProperties": {
 					"pipeline": {
 						"referenceName": "PRD_DownScale",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
-				}
-			},
-			{
-				"name": "PRD_SharepointLijsten",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "Lookup_Current_Sync_And_Date",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "PRD_SharepointLijsten",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
