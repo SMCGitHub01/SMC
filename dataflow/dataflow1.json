@@ -9,7 +9,7 @@
 						"referenceName": "AzureDataLakeStorage2",
 						"type": "LinkedServiceReference"
 					},
-					"name": "source1"
+					"name": "DataverseCustomers"
 				}
 			],
 			"sinks": [],
@@ -23,7 +23,7 @@
 				"     format: 'cdm',",
 				"     manifestType: 'model',",
 				"     folderPath: '',",
-				"     fileSystem: 'dataverse-dev-org06386f8f') ~> source1"
+				"     fileSystem: 'dataverse-dev-org06386f8f') ~> DataverseCustomers"
 			]
 		}
 	}
