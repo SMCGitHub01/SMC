@@ -6,12 +6,6 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "PRD_Process_DWH_BAK2",
-					"type": "PipelineReference"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "PRD_Process_DWH",
 					"type": "PipelineReference"
 				}
