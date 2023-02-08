@@ -1317,7 +1317,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ToJPN_copy1')]",
+			"name": "[concat(parameters('factoryName'), '/ToUncBOM')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1330,8 +1330,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "test.csv",
-						"folderPath": "FenOnewDates"
+						"fileName": "UncBOM.csv",
+						"folderPath": "jpnvrd/UncBom"
 					},
 					"columnDelimiter": ";",
 					"escapeChar": "",
