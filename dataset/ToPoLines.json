@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "poLines",
-				"folderPath": "POLINES"
+				"fileName": "PoLines",
+				"folderPath": "jpnvrd/PoLines"
 			},
 			"columnDelimiter": ";",
 			"escapeChar": "",
