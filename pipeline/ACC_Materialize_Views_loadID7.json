@@ -87,11 +87,9 @@
 			}
 		],
 		"parameters": {
-			"LoadGroupID": {
-				"type": "int"
-			},
 			"StartDateTime": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "08/02/2023"
 			}
 		},
 		"folder": {
