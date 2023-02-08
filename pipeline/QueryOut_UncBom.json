@@ -1,5 +1,5 @@
 {
-	"name": "QueryOut",
+	"name": "QueryOut_UncBom",
 	"properties": {
 		"activities": [
 			{
@@ -42,6 +42,50 @@
 				"outputs": [
 					{
 						"referenceName": "ToJPN",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "FromDWHtoCSV_UncBOM",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlMISource",
+						"sqlReaderQuery": "SELECT [OrderNumber],\n       [OrderLineNo],\n       IIF(unconfirmedBOM = 1, 'YES', 'NO') UncBOM\nFROM [dwh].[vw_te_vervroegen_ordersV2]\nWHERE unconfirmedBOM <> UnconfirmedBOMlines\n      AND [unconfirmedBOM] IN ( 1, 0 );",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "AzureSqlMITable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ToUncBOM",
 						"type": "DatasetReference"
 					}
 				]

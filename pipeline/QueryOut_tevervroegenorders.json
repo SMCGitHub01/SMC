@@ -1,5 +1,5 @@
 {
-	"name": "QueryOut_copy1",
+	"name": "QueryOut_tevervroegenorders",
 	"properties": {
 		"activities": [
 			{
@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlMISource",
-						"sqlReaderQuery": "SELECT *\n  FROM [dwh].[vw_te_vervroegen_orders]",
+						"sqlReaderQuery": "SELECT *\n  FROM [dwh].[vw_te_vervroegen_ordersV2]",
 						"partitionOption": "None"
 					},
 					"sink": {
@@ -41,7 +41,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ToJPN_copy1",
+						"referenceName": "ToUncBOM",
 						"type": "DatasetReference"
 					}
 				]

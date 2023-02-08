@@ -1,5 +1,5 @@
 {
-	"name": "ToJPN_copy1",
+	"name": "ToUncBOM",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ToJPN",
