@@ -1,0 +1,23 @@
+{
+	"name": "ToPoLines",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ToJPN",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "poLines",
+				"folderPath": "POLINES"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": []
+	}
+}
