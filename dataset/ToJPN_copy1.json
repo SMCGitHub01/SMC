@@ -10,8 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "test.csv",
-				"folderPath": "FenOnewDates"
+				"fileName": "UncBOM.csv",
+				"folderPath": "jpnvrd/UncBom"
 			},
 			"columnDelimiter": ";",
 			"escapeChar": "",
