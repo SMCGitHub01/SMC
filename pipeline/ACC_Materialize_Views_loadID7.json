@@ -18,7 +18,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * FROM Process.ProcessView WHERE  SourceTableName=\"FactTransactions\" ORDER BY LoadPriority",
+							"value": "SELECT * FROM Process.ProcessView WHERE  SourceTableName='FactTransactions' ORDER BY LoadPriority",
 							"type": "Expression"
 						},
 						"partitionOption": "None"
