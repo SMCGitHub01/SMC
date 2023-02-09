@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "FromDWHtoCSV",
+				"name": "Tevervroegenorders",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
