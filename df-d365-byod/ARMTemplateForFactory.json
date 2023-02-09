@@ -10868,7 +10868,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "FromDWHtoCSV_UncBOM",
+						"name": "UnconfirmedBOMlines",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
