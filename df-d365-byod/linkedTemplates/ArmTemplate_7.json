@@ -1592,7 +1592,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/WeekDayat7')]",
+			"name": "[concat(parameters('factoryName'), '/EveryDayat7')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
