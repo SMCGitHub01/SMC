@@ -1330,7 +1330,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "PoLines",
+						"fileName": "PoLines.csv",
 						"folderPath": "jpnvrd/PoLines"
 					},
 					"columnDelimiter": ";",
