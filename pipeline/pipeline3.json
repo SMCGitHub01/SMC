@@ -21,7 +21,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "--truncate table sharepoint.RaYoSalesGroups",
+						"preCopyScript": "truncate table sharepoint.RaYoSalesGroups",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate",
