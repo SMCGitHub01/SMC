@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "GetFeestdagen",
+				"name": "GetRaYoSalesGroups",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -21,9 +21,10 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.FeestdagenNL",
+						"preCopyScript": "truncate table sharepoint.RaYoSalesGroups",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -41,7 +42,7 @@
 						"referenceName": "SharePointLists_PowerBI",
 						"type": "DatasetReference",
 						"parameters": {
-							"list": "FeestdagenNL"
+							"list": "RaYoSalesGroups"
 						}
 					}
 				],
@@ -51,7 +52,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "sharepoint",
-							"TableName": "FeestdagenNL"
+							"TableName": "RaYoSalesGroups"
 						}
 					}
 				]
