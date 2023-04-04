@@ -14370,7 +14370,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "KortingsGroups"
+									"list": "KortingGroups"
 								}
 							}
 						],
