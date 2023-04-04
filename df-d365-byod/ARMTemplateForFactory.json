@@ -14331,7 +14331,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetRaYoSalesGroups",
+						"name": "GetKotingsGroups",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -14349,7 +14349,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.RaYoSalesGroups",
+								"preCopyScript": "--truncate table sharepoint.KortingsGroups",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -14370,7 +14370,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "RaYoSalesGroups"
+									"list": "KortingsGroups"
 								}
 							}
 						],
@@ -14380,7 +14380,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "sharepoint",
-									"TableName": "RaYoSalesGroups"
+									"TableName": "KortingsGroups"
 								}
 							}
 						]
@@ -18156,7 +18156,7 @@
 								0
 							],
 							"hours": [
-								4
+								3
 							]
 						}
 					}
