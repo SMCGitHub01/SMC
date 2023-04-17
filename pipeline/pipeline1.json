@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Sugar",
+				"name": "GetFeestdagen",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -16,22 +16,17 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource",
-						"query": {
-							"value": "SELECT *\nFROM NL_BYOD_Meetings",
-							"type": "Expression"
-						}
+						"type": "SharePointOnlineListSource",
+						"httpRequestTimeout": "00:05:00"
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "--truncate table stage.Meetings_SugarCRM",
+						"preCopyScript": "truncate table sharepoint.FeestdagenNL",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
-					"parallelCopies": 1,
 					"translator": {
 						"type": "TabularTranslator",
 						"typeConversion": true,
@@ -43,8 +38,11 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ACCPRD_SugarCRM",
-						"type": "DatasetReference"
+						"referenceName": "SharePointLists_PowerBI",
+						"type": "DatasetReference",
+						"parameters": {
+							"list": "FeestdagenNL"
+						}
 					}
 				],
 				"outputs": [
@@ -52,14 +50,8 @@
 						"referenceName": "PRD_BYOD_DS",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": {
-								"value": "stage",
-								"type": "Expression"
-							},
-							"TableName": {
-								"value": "Meetings_V2_SugarCRM",
-								"type": "Expression"
-							}
+							"SchemaName": "sharepoint",
+							"TableName": "FeestdagenNL"
 						}
 					}
 				]
