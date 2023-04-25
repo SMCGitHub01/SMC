@@ -6,7 +6,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "QueryOut_tevervroegenorders",
+					"referenceName": "PRD_tevervroegenorders",
 					"type": "PipelineReference"
 				}
 			}
