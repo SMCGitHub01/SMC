@@ -3756,7 +3756,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetrepairType",
+						"name": "Tevervroegenorders",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -3769,16 +3769,20 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
+								"type": "SqlMISource",
+								"sqlReaderQuery": "select * from  [dwh].[vw_te_vervroegen_ordersV4_export]",
+								"partitionOption": "None"
 							},
 							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate \n--drop table sharepoint.repairtype",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
 							},
 							"enableStaging": false,
 							"translator": {
@@ -3792,21 +3796,16 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists",
+								"referenceName": "ACCrunView",
 								"type": "DatasetReference",
-								"parameters": {
-									"list": "RepairType"
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "PRD_BYOD_DS",
+								"referenceName": "tevervroegenACC",
 								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "repairType"
-								}
+								"parameters": {}
 							}
 						]
 					}
