@@ -390,7 +390,7 @@
 					"cancelAfter": {}
 				},
 				"folder": {
-					"name": "OUT-PRD"
+					"name": "OUT-PRD-ACC"
 				},
 				"annotations": []
 			},
@@ -454,7 +454,7 @@
 					"cancelAfter": {}
 				},
 				"folder": {
-					"name": "OUT-PRD"
+					"name": "OUT-PRD-ACC"
 				},
 				"annotations": []
 			},
@@ -518,7 +518,7 @@
 					"cancelAfter": {}
 				},
 				"folder": {
-					"name": "OUT-PRD"
+					"name": "OUT-PRD-ACC"
 				},
 				"annotations": []
 			},
