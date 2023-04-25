@@ -23,8 +23,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
-						"queryTimeout": "02:00:00",
+						"type": "SqlMISource",
+						"sqlReaderQuery": "select * from  [dwh].[vw_te_vervroegen_ordersV4_export]",
 						"partitionOption": "None"
 					},
 					"sink": {
@@ -50,7 +50,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "ACCrunView",
 						"type": "DatasetReference"
 					}
 				],
