@@ -23,8 +23,8 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlMISource",
-						"sqlReaderQuery": "SELECT *\n  FROM [dwh].vw_te_vervroegen_ordersV4_export",
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"sink": {
@@ -50,7 +50,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "AzureSqlMITable1",
+						"referenceName": "AzureSqlTable1",
 						"type": "DatasetReference"
 					}
 				],
