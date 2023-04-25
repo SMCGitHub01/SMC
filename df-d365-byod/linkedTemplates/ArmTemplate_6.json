@@ -3769,8 +3769,8 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "SqlMISource",
-								"sqlReaderQuery": "select * from  [dwh].[vw_te_vervroegen_ordersV4_export]",
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
 							"sink": {
@@ -3796,9 +3796,12 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "ACCrunView",
+								"referenceName": "ACC_BYOD_DEV_DS",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export"
+								}
 							}
 						],
 						"outputs": [
