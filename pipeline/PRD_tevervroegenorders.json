@@ -1,5 +1,5 @@
 {
-	"name": "QueryOut_tevervroegenorders",
+	"name": "PRD_tevervroegenorders",
 	"properties": {
 		"activities": [
 			{
@@ -49,7 +49,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ToPoLines",
+						"referenceName": "tevervroegenPRD",
 						"type": "DatasetReference"
 					}
 				]
