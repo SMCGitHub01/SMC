@@ -10133,7 +10133,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.repairtype",
+								"preCopyScript": "--truncate \ndrop table sharepoint.repairtype",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"disableMetricsCollection": false
@@ -10503,7 +10503,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table powerpoint.SalesEngenieer",
+								"preCopyScript": "--truncate\ndrop  table powerpoint.SalesEngenieer",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",

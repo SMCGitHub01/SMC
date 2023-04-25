@@ -1215,7 +1215,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.repairtype",
+								"preCopyScript": "--truncate \ndrop table sharepoint.repairtype",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"disableMetricsCollection": false
