@@ -18478,10 +18478,10 @@
 						"timeZone": "W. Europe Standard Time",
 						"schedule": {
 							"minutes": [
-								30
+								0
 							],
 							"hours": [
-								5
+								4
 							]
 						}
 					}
