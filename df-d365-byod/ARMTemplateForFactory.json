@@ -4659,7 +4659,27 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Tevervroegenorders",
+						"name": "sptevervroegen",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "process.spProductionReferences"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_DEV",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Tevervroegenorders_copy1",
 						"type": "Copy",
 						"dependsOn": [
 							{
@@ -4679,8 +4699,8 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "SqlMISource",
-								"sqlReaderQuery": "select * from  [dwh].[vw_te_vervroegen_ordersV4_export]",
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
 							"sink": {
@@ -4706,9 +4726,12 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "ACCrunView",
+								"referenceName": "ACC_BYOD_DEV_DS",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export"
+								}
 							}
 						],
 						"outputs": [
@@ -4718,26 +4741,6 @@
 								"parameters": {}
 							}
 						]
-					},
-					{
-						"name": "sptevervroegen",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "process.spProductionReferences"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_DEV",
-							"type": "LinkedServiceReference"
-						}
 					}
 				],
 				"policy": {
@@ -4750,9 +4753,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ACCrunView')]",
-				"[concat(variables('factoryId'), '/datasets/tevervroegenACC')]",
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]",
+				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
+				"[concat(variables('factoryId'), '/datasets/tevervroegenACC')]"
 			]
 		},
 		{
