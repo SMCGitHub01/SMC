@@ -132,41 +132,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Post_FactIssueMonthBuckets_v2",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[stage].[test]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/sanctieLijsten_process')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -810,6 +775,90 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_DEV",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "HSO_DnA_SourceConnectionID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "HSO_DnA_TargetMappingID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "HSO_DnA_InsertDateTime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "HSO_DnA_UpdateDateTime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "HSO_DnA_DeleteDateTime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "ConsignmentWarehouse_YN",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DataAreaID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LocationBK",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LocationID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LocationName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LocationType",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Site",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Source",
+						"type": "nvarchar"
+					},
+					{
+						"name": "WMSLocationId",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "View_Test"
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }

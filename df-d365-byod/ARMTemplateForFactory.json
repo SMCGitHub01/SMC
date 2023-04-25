@@ -10133,7 +10133,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate \ndrop table sharepoint.repairtype",
+								"preCopyScript": "--truncate \n--drop table sharepoint.repairtype",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -14290,8 +14290,8 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Post_FactIssueMonthBuckets_v2",
-						"type": "SqlServerStoredProcedure",
+						"name": "GetrepairType",
+						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
@@ -14302,12 +14302,47 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[[stage].[test]"
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "--truncate \n--drop table sharepoint.repairtype",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
 						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
+						"inputs": [
+							{
+								"referenceName": "SharePointLists",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "RepairType"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "repairType"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -14317,7 +14352,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
+				"[concat(variables('factoryId'), '/datasets/SharePointLists')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},
 		{
