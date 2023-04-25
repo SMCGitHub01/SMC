@@ -265,9 +265,6 @@
 					"DWHloads_password": {
 						"value": "[parameters('DWHloads_password')]"
 					},
-					"SugarCRM_Production_connectionString": {
-						"value": "[parameters('SugarCRM_Production_connectionString')]"
-					},
 					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
 					},
@@ -299,6 +296,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"SugarCRM_Production_connectionString": {
+						"value": "[parameters('SugarCRM_Production_connectionString')]"
 					},
 					"ToJPN_password": {
 						"value": "[parameters('ToJPN_password')]"

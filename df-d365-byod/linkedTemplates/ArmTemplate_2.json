@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-d365-byod"
 		},
+		"SugarCRM_Production_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
+		},
 		"ToJPN_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ToJPN'"
@@ -44,6 +48,24 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SugarCRM_Production')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "This connection is setup on 2020/09/25 together with Mohammed A Hassan (SMC US IT Department), Kirk Becnel and Stefan Jaenicke (creator of the views)\nFor support@1smc.com",
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"connectionString": "[parameters('SugarCRM_Production_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "SugarCRM",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ToJPN')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -247,7 +269,9 @@
 				"schema": [],
 				"typeProperties": {}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SugarCRM_Production')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_BYOD_DEV_DS')]",
@@ -729,82 +753,6 @@
 					"quoteChar": "\""
 				},
 				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_Zendesk_Blob')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"CSVFile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC&PRD"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().CSVfile",
-							"type": "Expression"
-						},
-						"container": "dwh-zendesk"
-					},
-					"columnDelimiter": ";",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Naam van ticketorganisatie",
-						"type": "String"
-					},
-					{
-						"name": "Ticket-id",
-						"type": "String"
-					},
-					{
-						"name": "Ticketgroep",
-						"type": "String"
-					},
-					{
-						"name": "Ticket gemaakt - Datum",
-						"type": "String"
-					},
-					{
-						"name": "Ticket opgelost - Datum",
-						"type": "String"
-					},
-					{
-						"name": "Naam van medewerker",
-						"type": "String"
-					},
-					{
-						"name": "Id van medewerker",
-						"type": "String"
-					},
-					{
-						"name": "Debiteurnummer",
-						"type": "String"
-					},
-					{
-						"name": "Tickets",
-						"type": "String"
-					}
-				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"

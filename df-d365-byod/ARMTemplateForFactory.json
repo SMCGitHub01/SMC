@@ -4680,7 +4680,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "SqlMISource",
-								"sqlReaderQuery": "SELECT *\n  FROM [dwh].vw_te_vervroegen_ordersV4_export",
+								"sqlReaderQuery": "select * from  [dwh].[vw_te_vervroegen_ordersV4_export]",
 								"partitionOption": "None"
 							},
 							"sink": {
@@ -4706,7 +4706,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "AzureSqlMITable1",
+								"referenceName": "ACCrunView",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -4750,7 +4750,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/AzureSqlMITable1')]",
+				"[concat(variables('factoryId'), '/datasets/ACCrunView')]",
 				"[concat(variables('factoryId'), '/datasets/tevervroegenACC')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
 			]
@@ -15564,6 +15564,24 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ACCrunView')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlMI1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlMITable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlMI1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AfasJson')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -18700,6 +18718,44 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/EveryDayat0430')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "ACC_tevervroegenorders",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2023-04-25T13:09:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								4
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/ACC_tevervroegenorders')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/EveryDayat7')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -18968,44 +19024,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable3')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/EveryDayat0430')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "ACC_tevervroegenorders",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2023-04-25T13:09:00Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"minutes": [
-								30
-							],
-							"hours": [
-								4
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ACC_tevervroegenorders')]"
 			]
 		}
 	]

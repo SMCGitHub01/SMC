@@ -13,6 +13,32 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ToUncBOM')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ToJPN",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "UncBOM.csv",
+						"folderPath": "jpnvrd/UncBom"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "",
+					"firstRowAsHeader": true,
+					"quoteChar": ""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Unzip')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1821,140 +1847,6 @@
 				},
 				"annotations": [],
 				"lastPublishTime": "2020-12-10T13:46:14Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_Invoice_Corrections')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ACC_Invoice_Corrections",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"additionalColumns": [
-									{
-										"name": "HSO_DnA_InsertDateTime",
-										"value": {
-											"value": "@pipeline().parameters.StartDateTime",
-											"type": "Expression"
-										}
-									},
-									{
-										"name": "HSO_DnA_SourceConnectionID",
-										"value": {
-											"value": "@pipeline().parameters.SourceConnectionID",
-											"type": "Expression"
-										}
-									},
-									{
-										"name": "HSO_DnA_TargetMappingID",
-										"value": {
-											"value": "@pipeline().parameters.TargetMapping",
-											"type": "Expression"
-										}
-									}
-								],
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"wildcardFileName": {
-										"value": "@{pipeline().parameters.CSVFile}",
-										"type": "Expression"
-									}
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": {
-									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
-									"type": "Expression"
-								},
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false,
-									"culture": "nl-nl"
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "ACC_Invoice_Corrections",
-								"type": "DatasetReference",
-								"parameters": {
-									"CSVFile": "@{pipeline().parameters.CSVFile}"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": {
-										"value": "@pipeline().parameters.TargetSchemaName",
-										"type": "Expression"
-									},
-									"TableName": {
-										"value": "@pipeline().parameters.TargetTableName",
-										"type": "Expression"
-									}
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"CSVFile": {
-						"type": "string"
-					},
-					"StartDateTime": {
-						"type": "string"
-					},
-					"TargetTableName": {
-						"type": "string"
-					},
-					"TargetSchemaName": {
-						"type": "string"
-					},
-					"TargetMapping": {
-						"type": "string"
-					},
-					"SourceConnectionID": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC-IFS"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-03-27T13:45:56Z"
 			},
 			"dependsOn": []
 		}
