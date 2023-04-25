@@ -19,10 +19,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
 		},
-		"ToJPN_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'ToJPN'"
-		},
 		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringDEV"
@@ -38,20 +34,40 @@
 		"DWHloads_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "AMSSRV011\\DWHZendesk"
-		},
-		"ToJPN_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "\\\\amssrv011\\public\\General\\ict\\"
-		},
-		"ToJPN_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "aquapro-dmn\\seeburger_edi"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/EveryDayat7')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2023-02-16T08:22:00Z",
+						"timeZone": "UTC",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								7
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AnyWare')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
@@ -526,30 +542,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/SugarCRM')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ToJPN')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "FileServer",
-				"typeProperties": {
-					"host": "[parameters('ToJPN_properties_typeProperties_host')]",
-					"userId": "[parameters('ToJPN_properties_typeProperties_userId')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('ToJPN_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "ZenDesk",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/ZenDesk')]"
 			]
 		}
 	]

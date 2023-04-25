@@ -13,6 +13,642 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ACC_Materialize_Views')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_Full_Views",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName NOT IN ('INCR', 'DWHINCR', 'DWHPART') OR IncrementalLoad = 0) ORDER BY LoadPriority",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "For_Each_Full_View",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Full_Views",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Full_Views').output.value",
+								"type": "Expression"
+							},
+							"batchCount": 4,
+							"activities": [
+								{
+									"name": "Materialize_Full_Views",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [
+										{
+											"name": "Source",
+											"value": "@{concat(item().SourceSchemaName, '.', item().SourceTableName)}"
+										},
+										{
+											"name": "Destination",
+											"value": "@{concat(item().TargetSchemaName, '.', item().TargetTableName)}"
+										}
+									],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "SELECT @{item().SourceConnectionID} as HSO_DnA_SourceConnectionID, @{item().TargetMappingID} as HSO_DnA_TargetMappingID, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_InsertDateTime, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_UpdateDateTime, null as HSO_DnA_DeleteDateTime, @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}",
+												"type": "Expression"
+											},
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBatchSize": 1000000,
+											"preCopyScript": {
+												"value": "TRUNCATE TABLE @{item().TargetSchemaName}.@{item().TargetTableName}",
+												"type": "Expression"
+											},
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ACC_BYOD_DEV_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().SourceSchemaName}",
+												"TableName": "@{item().SourceTableName}"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ACC_BYOD_DEV_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().TargetSchemaName}",
+												"TableName": "@{item().TargetTableName}"
+											}
+										}
+									]
+								},
+								{
+									"name": "Update_Target_Mapping",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "Materialize_Full_Views",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[process].[UpdateTargetMapping]",
+										"storedProcedureParameters": {
+											"GetStartDate": {
+												"value": {
+													"value": "@pipeline().parameters.StartDateTime",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"TargetMappingID": {
+												"value": {
+													"value": "@{item().TargetMappingID}",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "Azure_D365_DEV",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_Incr_Views",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName = 'INCR' OR TemplateName = 'DWHINCR') AND IncrementalLoad = 1 ORDER BY LoadPriority",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "For_Each_Incr_View",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Incr_Views",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Incr_Views').output.value",
+								"type": "Expression"
+							},
+							"batchCount": 4,
+							"activities": [
+								{
+									"name": "Materialize_Incr_Views",
+									"description": "Copy data from the on-premises source database to the matching cloud sink database",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [
+										{
+											"name": "Destination",
+											"value": "@{concat(item().TargetSchemaName, '_', item().TargetTableName)}"
+										}
+									],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "SELECT  @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName} \n WHERE ModifiedDateTime >= DATEADD(DAY, -5, GETDATE())",
+												"type": "Expression"
+											},
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBatchSize": 1000000,
+											"sqlWriterStoredProcedureName": {
+												"value": "@{item().TargetSchemaName}.@{item().StoredProcedureName} ",
+												"type": "Expression"
+											},
+											"sqlWriterTableType": {
+												"value": "@{item().TargetSchemaName}.@{item().TargetTableName}_TYPE ",
+												"type": "Expression"
+											},
+											"storedProcedureParameters": {
+												"GetStartDateTime": {
+													"type": "datetime",
+													"value": {
+														"value": "@pipeline().parameters.StartDateTime",
+														"type": "Expression"
+													}
+												}
+											},
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ACC_BYOD_DEV_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": {
+													"value": "@{item().SourceSchemaName}",
+													"type": "Expression"
+												},
+												"TableName": {
+													"value": "@{item().SourceTableName}",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ACC_BYOD_DEV_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().TargetSchemaName}",
+												"TableName": "@{item().TargetTableName}"
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_FULLADD_Views",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName = 'FULL_ADD') AND IncrementalLoad = 0 ORDER BY LoadPriority",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "For_Each_FullAdd_View",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_FULLADD_Views",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_FULLADD_Views').output.value",
+								"type": "Expression"
+							},
+							"batchCount": 4,
+							"activities": [
+								{
+									"name": "Materialize_FullAdd_Views",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [
+										{
+											"name": "Source",
+											"value": "@{concat(item().SourceSchemaName, '.', item().SourceTableName)}"
+										},
+										{
+											"name": "Destination",
+											"value": "@{concat(item().TargetSchemaName, '.', item().TargetTableName)}"
+										}
+									],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "SELECT @{item().SourceConnectionID} as HSO_DnA_SourceConnectionID, @{item().TargetMappingID} as HSO_DnA_TargetMappingID, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_InsertDateTime, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_UpdateDateTime, null as HSO_DnA_DeleteDateTime, @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}",
+												"type": "Expression"
+											},
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBatchSize": 1000000,
+											"preCopyScript": {
+												"value": "DELETE FROM @{item().TargetSchemaName}.@{item().TargetTableName}\nWHERE [DateExecutionBK] = (SELECT MAX(DateExecutionBK) FROM @{item().SourceSchemaName}.@{item().SourceTableName})",
+												"type": "Expression"
+											},
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ACC_BYOD_DEV_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().SourceSchemaName}",
+												"TableName": "@{item().SourceTableName}"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ACC_BYOD_DEV_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().TargetSchemaName}",
+												"TableName": "@{item().TargetTableName}"
+											}
+										}
+									]
+								},
+								{
+									"name": "Update_Target_Mapping_FullAdd",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "Materialize_FullAdd_Views",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[process].[UpdateTargetMapping]",
+										"storedProcedureParameters": {
+											"GetStartDate": {
+												"value": {
+													"value": "@pipeline().parameters.StartDateTime",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"TargetMappingID": {
+												"value": {
+													"value": "@{item().TargetMappingID}",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "Azure_D365_DEV",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_FULLADDCurrent-EndMonth_Views",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName = 'FULL_ADD_EOMonth_Cur') AND IncrementalLoad = 0 ORDER BY LoadPriority",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "For_Each_FULLADDCurrent-EndMonth_View",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_FULLADDCurrent-EndMonth_Views",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_FULLADDCurrent-EndMonth_Views').output.value",
+								"type": "Expression"
+							},
+							"batchCount": 4,
+							"activities": [
+								{
+									"name": "Materialize_FULLADDCurrent-EndMonth_Views",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [
+										{
+											"name": "Source",
+											"value": "@{concat(item().SourceSchemaName, '.', item().SourceTableName)}"
+										},
+										{
+											"name": "Destination",
+											"value": "@{concat(item().TargetSchemaName, '.', item().TargetTableName)}"
+										}
+									],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "SELECT @{item().SourceConnectionID} as HSO_DnA_SourceConnectionID, @{item().TargetMappingID} as HSO_DnA_TargetMappingID, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_InsertDateTime, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_UpdateDateTime, null as HSO_DnA_DeleteDateTime, @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}",
+												"type": "Expression"
+											},
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBatchSize": 1000000,
+											"preCopyScript": {
+												"value": "DELETE FROM @{item().TargetSchemaName}.@{item().TargetTableName}\nWHERE CONVERT(INT,CONVERT(VARCHAR,[HSO_DnA_InsertDateTime],112)) = CONVERT(INT,CONVERT(VARCHAR,GETUTCDATE(),112)) \n  AND\tCONVERT(INT,CONVERT(VARCHAR,[HSO_DnA_InsertDateTime],112))   NOT IN (SELECT [DateBK] FROM [dwh].[DimDate] where [IsLastDayOfMonth]=1)",
+												"type": "Expression"
+											},
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "ACC_BYOD_DEV_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().SourceSchemaName}",
+												"TableName": "@{item().SourceTableName}"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ACC_BYOD_DEV_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().TargetSchemaName}",
+												"TableName": "@{item().TargetTableName}"
+											}
+										}
+									]
+								},
+								{
+									"name": "Update_Target_Mapping_FULLADDCurrent-EndMonth",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "Materialize_FULLADDCurrent-EndMonth_Views",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[process].[UpdateTargetMapping]",
+										"storedProcedureParameters": {
+											"GetStartDate": {
+												"value": {
+													"value": "@pipeline().parameters.StartDateTime",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"TargetMappingID": {
+												"value": {
+													"value": "@{item().TargetMappingID}",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "Azure_D365_DEV",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"LoadGroupID": {
+						"type": "int"
+					},
+					"StartDateTime": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC-Process_DWH"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-09-01T06:06:41Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACC_Materialize_Views_loadID7')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2566,315 +3202,6 @@
 					"name": "PRD_Matrix"
 				},
 				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Process_SugarCRM_DataBase')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_LoadGroup_SugarCRM",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "ForEach_LoadGroup_SugarCRM_FULL",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT  * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 14 AND\n\t (TemplateName = 'INCR')",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach_LoadGroup_SugarCRM",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_LoadGroup_SugarCRM",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_LoadGroup_SugarCRM').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Incr_Copy_SugarCRM",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "MySqlSource",
-											"query": {
-												"value": "SELECT\t@{item().SourceConnectionID} as HSO_DnA_SourceConnectionID,\n\t\t@{item().FieldList}\nFROM \n\t\t@{item().SourceTableName}",
-												"type": "Expression"
-											}
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"writeBatchSize": 1000000,
-											"sqlWriterStoredProcedureName": {
-												"value": "@{item().TargetSchemaName}.@{item().StoredProcedureName} ",
-												"type": "Expression"
-											},
-											"sqlWriterTableType": {
-												"value": "@{item().TargetSchemaName}.@{item().TargetTableName}_TYPE",
-												"type": "Expression"
-											},
-											"storedProcedureTableTypeParameterName": {
-												"value": "@{item().varType}",
-												"type": "Expression"
-											},
-											"storedProcedureParameters": {
-												"GetStartDateTime": {
-													"type": "Datetime",
-													"value": {
-														"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-														"type": "Expression"
-													}
-												}
-											},
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "ACCPRD_SugarCRM",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": {
-													"value": "@{item().TargetSchemaName}",
-													"type": "Expression"
-												},
-												"TableName": {
-													"value": "@{item().TargetTableName}",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_Current_Sync_And_Date",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							}
-						}
-					},
-					{
-						"name": "Lookup_LoadGroup_SugarCRM_FULL",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 14 AND\n\t (IncrementalLoad = 0  OR TemplateName = 'FULL') ",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach_LoadGroup_SugarCRM_FULL",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_LoadGroup_SugarCRM_FULL",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_LoadGroup_SugarCRM_FULL').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Full_Copy_SugarCRM_copy1",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "MySqlSource",
-											"query": {
-												"value": "SELECT\t@{item().SourceConnectionID} as HSO_DnA_SourceConnectionID,\n\t\t@{item().TargetMappingID} as HSO_DnA_TargetMappingID, \n\t\tCURDATE() as HSO_DnA_InsertDateTime, \n\t\tCURDATE() as HSO_DnA_UpdateDateTime, \n\t\t@{item().FieldList}\nFROM \n\t\t@{item().SourceTableName}",
-												"type": "Expression"
-											}
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"preCopyScript": {
-												"value": "TRUNCATE TABLE @{item().TargetSchemaName}.@{item().TargetTableName}",
-												"type": "Expression"
-											},
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false,
-										"parallelCopies": 1,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "ACCPRD_SugarCRM",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": {
-													"value": "@{item().TargetSchemaName}",
-													"type": "Expression"
-												},
-												"TableName": {
-													"value": "@{item().TargetTableName}",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "PRD-SugarCRM"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-03-27T14:26:15Z"
 			},
 			"dependsOn": []
 		}
