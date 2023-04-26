@@ -57,7 +57,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": " @concat('log_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"value": "@concat('log_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
 								"type": "Expression"
 							}
 						}
