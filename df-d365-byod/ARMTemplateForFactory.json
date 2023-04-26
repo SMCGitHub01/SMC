@@ -4741,6 +4741,75 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Tevervroegenorders_log",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders_copy1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenACC_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "log@utcnow()",
+										"type": "Expression"
+									}
+								}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -4755,7 +4824,8 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]",
 				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
-				"[concat(variables('factoryId'), '/datasets/tevervroegenACC')]"
+				"[concat(variables('factoryId'), '/datasets/tevervroegenACC')]",
+				"[concat(variables('factoryId'), '/datasets/tevervroegenACC_log')]"
 			]
 		},
 		{
@@ -14971,7 +15041,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Tevervroegenorders",
+						"name": "Tevervroegenorders_log",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -15015,15 +15085,20 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dwh",
-									"TableName": "vw_te_vervroegen_ordersV4_export"
+									"TableName": "vw_te_vervroegen_ordersV4"
 								}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "tevervroegenACC",
+								"referenceName": "tevervroegenACC_log",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"logfile": {
+										"value": "log@utcnow()",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -15036,7 +15111,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
-				"[concat(variables('factoryId'), '/datasets/tevervroegenACC')]"
+				"[concat(variables('factoryId'), '/datasets/tevervroegenACC_log')]"
 			]
 		},
 		{
@@ -18385,6 +18460,43 @@
 						"type": "FileServerLocation",
 						"fileName": "ACCtevervroegens.csv",
 						"folderPath": "jpnvrd/PoLines"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "",
+					"firstRowAsHeader": true,
+					"quoteChar": ""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ToJPN')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tevervroegenACC_log')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ToJPN",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"logfile": {
+						"type": "string",
+						"defaultValue": "log"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": {
+							"value": "@dataset().logfile",
+							"type": "Expression"
+						},
+						"folderPath": "jpnvrd/PoLines/log"
 					},
 					"columnDelimiter": ";",
 					"escapeChar": "",
