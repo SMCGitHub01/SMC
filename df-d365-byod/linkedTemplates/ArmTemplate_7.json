@@ -3043,8 +3043,8 @@
 					"recurrence": {
 						"frequency": "Day",
 						"interval": 1,
-						"startTime": "2023-04-25T13:09:00Z",
-						"timeZone": "UTC",
+						"startTime": "2023-04-25T13:09:00",
+						"timeZone": "W. Europe Standard Time",
 						"schedule": {
 							"minutes": [
 								30
