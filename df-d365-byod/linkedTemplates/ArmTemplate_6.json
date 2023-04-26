@@ -486,7 +486,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate  table powerpoint.SalesEngenieer",
+								"preCopyScript": "truncate  table powerpoint.SalesEngenieer",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -495,6 +495,250 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "InhoudstypeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "InhoudstypeId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Title",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Title",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ActivumIdVoorCompliance",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ActivumIdVoorCompliance",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedById",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "CreatedById",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedById",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "ModifiedById",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Name",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Name",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Email",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Email",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "InVariable",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "InVariable",
+											"type": "Boolean",
+											"physicalType": "bit"
+										}
+									},
+									{
+										"source": {
+											"name": "CommissionSalesGroupFO",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CommissionSalesGroupFO",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Waarneming1",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Waarneming1",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Waarneming2",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Waarneming2",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Country",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Country",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Waarneming3",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Waarneming3",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Waarneming4",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Waarneming4",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Waarneming5",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Waarneming5",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Inhoudstype",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Inhoudstype",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Gewijzigd",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Gewijzigd",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									},
+									{
+										"source": {
+											"name": "Gemaakt",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Gemaakt",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									},
+									{
+										"source": {
+											"name": "Owshiddenversion",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Owshiddenversion",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Versie",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Versie",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Pad",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Pad",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
