@@ -1,0 +1,32 @@
+{
+	"name": "tevervroegenACC_log",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ToJPN",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"logfile": {
+				"type": "string",
+				"defaultValue": "log"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": {
+					"value": "@dataset().logfile",
+					"type": "Expression"
+				},
+				"folderPath": "jpnvrd/PoLines/log"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": []
+	}
+}

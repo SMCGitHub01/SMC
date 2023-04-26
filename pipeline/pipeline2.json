@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Tevervroegenorders",
+				"name": "Tevervroegenorders_log",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -47,14 +47,20 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dwh",
-							"TableName": "vw_te_vervroegen_ordersV4_export"
+							"TableName": "vw_te_vervroegen_ordersV4"
 						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "tevervroegenACC",
-						"type": "DatasetReference"
+						"referenceName": "tevervroegenACC_log",
+						"type": "DatasetReference",
+						"parameters": {
+							"logfile": {
+								"value": "log@utcnow()",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
