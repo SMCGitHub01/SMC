@@ -57,7 +57,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "log@utcnow()",
+								"value": "\"log\" + @utcnow() + \".csv\"",
 								"type": "Expression"
 							}
 						}
