@@ -10941,10 +10941,9 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate  table powerpoint.SalesEngenieer",
+								"preCopyScript": "truncate  table powerpoint.SalesEngenieer",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
