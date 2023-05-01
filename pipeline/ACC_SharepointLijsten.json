@@ -488,6 +488,7 @@
 						"preCopyScript": "--truncate table sharepoint.customers",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -728,10 +729,9 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "--truncate  table sharepoint.serie",
+						"preCopyScript": "truncate  table sharepoint.serie",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -928,15 +928,192 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "--truncate  table sharepoint.routes",
+						"preCopyScript": "truncate  table sharepoint.routes",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "InhoudstypeId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "InhoudstypeId",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Title",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Title",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ActivumIdVoorCompliance",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ActivumIdVoorCompliance",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Name",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedById",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "CreatedById",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ModifiedById",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "ModifiedById",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Group",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Group",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Text",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Text",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Categorie",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Categorie",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Id",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Id",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Inhoudstype",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Inhoudstype",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Gewijzigd",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Gewijzigd",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "Gemaakt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Gemaakt",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "Owshiddenversion",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Owshiddenversion",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Versie",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Versie",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Pad",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Pad",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -983,15 +1160,192 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "--truncate table sharepoint.Distributeurs",
+						"preCopyScript": "truncate table sharepoint.Distributeurs",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Id",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Id",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ContentTypeID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ContentTypeID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ContentType",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ContentType",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Distributeur",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Distributeur",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Modified",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Modified",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "Created",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Created",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedById",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "CreatedById",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ModifiedById",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "ModifiedById",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Owshiddenversion",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Owshiddenversion",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Version",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Version",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Path",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Path",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ComplianceAssetId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ComplianceAssetId",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "FOID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FOID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SugarID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SugarID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DistributeurGroup",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DistributeurGroup",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "DataAreaID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DataAreaID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -1046,6 +1400,151 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Id",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Id",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ContentTypeID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ContentTypeID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ContentType",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ContentType",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Feestdag",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Feestdag",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Modified",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Modified",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "Created",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Created",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedById",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "CreatedById",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ModifiedById",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "ModifiedById",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Owshiddenversion",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Owshiddenversion",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Version",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Version",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Path",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Path",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ComplianceAssetId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ComplianceAssetId",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Datum",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Datum",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
