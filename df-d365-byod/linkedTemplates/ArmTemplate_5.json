@@ -3202,7 +3202,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dwh",
-									"TableName": "vw_te_vervroegen_ordersV4_logProductie"
+									"TableName": "vw_te_vervroegen_ordersV4 logProductie"
 								}
 							}
 						],
