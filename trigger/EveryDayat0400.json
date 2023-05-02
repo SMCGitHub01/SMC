@@ -1,5 +1,5 @@
 {
-	"name": "EveryDayat0430",
+	"name": "EveryDayat0400",
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
@@ -20,7 +20,7 @@
 				"timeZone": "W. Europe Standard Time",
 				"schedule": {
 					"minutes": [
-						30
+						0
 					],
 					"hours": [
 						4
