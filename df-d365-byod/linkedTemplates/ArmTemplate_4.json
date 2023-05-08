@@ -906,7 +906,7 @@
 					"location": {
 						"type": "FileServerLocation",
 						"fileName": "PRDtevervroegens.csv",
-						"folderPath": "jpnvrd/PoLines"
+						"folderPath": "jpnvrd/ProdPoLines"
 					},
 					"columnDelimiter": ";",
 					"escapeChar": "",
