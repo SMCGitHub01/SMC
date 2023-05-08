@@ -13137,7 +13137,14 @@
 					{
 						"name": "Tevervroegenorders",
 						"type": "Copy",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "sptevervroegen",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -13190,6 +13197,26 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "sptevervroegen",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "process.spProductionReferences"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -13205,7 +13232,8 @@
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
 				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD_log')]",
 				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
-				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD')]"
+				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD')]",
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
 			]
 		},
 		{
@@ -16806,26 +16834,6 @@
 							},
 							"traceLevel": "Fine"
 						}
-					},
-					{
-						"name": "sptevervroegen",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "process.spProductionReferences"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
 					}
 				],
 				"policy": {
@@ -16835,8 +16843,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/dataflow2')]",
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
+				"[concat(variables('factoryId'), '/dataflows/dataflow2')]"
 			]
 		},
 		{
