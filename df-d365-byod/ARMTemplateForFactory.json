@@ -13212,7 +13212,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "tevervroegenACC",
+								"referenceName": "tevervroegenPRD",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -13233,7 +13233,7 @@
 				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD_log')]",
 				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]",
-				"[concat(variables('factoryId'), '/datasets/tevervroegenACC')]"
+				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD')]"
 			]
 		},
 		{
