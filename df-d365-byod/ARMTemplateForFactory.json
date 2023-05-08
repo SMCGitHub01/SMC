@@ -20741,6 +20741,13 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "PRD_tevervroegenorders",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -20762,7 +20769,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ACC_tevervroegenorders')]"
+				"[concat(variables('factoryId'), '/pipelines/ACC_tevervroegenorders')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_tevervroegenorders')]"
 			]
 		},
 		{
