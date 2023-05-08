@@ -60,11 +60,11 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "tevervroegenACC_log",
+						"referenceName": "tevervroegenPRD_log",
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('log_ACC_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
 								"type": "Expression"
 							}
 						}
@@ -129,11 +129,11 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "tevervroegenACC_log",
+						"referenceName": "tevervroegenPRD_log",
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('ACCtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
 								"type": "Expression"
 							}
 						}
@@ -188,7 +188,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ACC_BYOD_DEV_DS",
+						"referenceName": "PRD_BYOD_DS",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dwh",
@@ -198,11 +198,11 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "tevervroegenACC_log",
+						"referenceName": "tevervroegenPRD_log",
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('log_ACC_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
 								"type": "Expression"
 							}
 						}
