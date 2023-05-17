@@ -165,6 +165,13 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "ACC_DownScale",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -179,7 +186,7 @@
 								30
 							],
 							"hours": [
-								7
+								8
 							]
 						}
 					}
