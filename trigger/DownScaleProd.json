@@ -10,6 +10,12 @@
 					"referenceName": "PRD_DownScale",
 					"type": "PipelineReference"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "ACC_DownScale",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
@@ -24,7 +30,7 @@
 						30
 					],
 					"hours": [
-						7
+						8
 					]
 				}
 			}
