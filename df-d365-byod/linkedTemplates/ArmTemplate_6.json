@@ -5089,6 +5089,205 @@
 								}
 							}
 						]
+					},
+					{
+						"name": "GetFeestdagen_copy1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.FeestdagenNL",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "ContentTypeID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContentTypeID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ContentType",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContentType",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Feestdag",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Feestdag",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Modified",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Modified",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									},
+									{
+										"source": {
+											"name": "Created",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Created",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedById",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "CreatedById",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedById",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "ModifiedById",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Owshiddenversion",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Owshiddenversion",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Version",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Version",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Path",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Path",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ComplianceAssetId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ComplianceAssetId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Datum",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Datum",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "FeestdagenNL"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "FeestdagenNL"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
