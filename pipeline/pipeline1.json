@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "GetFeestdagen",
+				"name": "GetProductGroupsPMDashboard",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -21,10 +21,9 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "--drop table sharepoint.FeestdagenNL",
+						"preCopyScript": "drop table sharepoint.FeestdagenNL",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
