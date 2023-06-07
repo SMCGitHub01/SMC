@@ -3712,6 +3712,41 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Feestdag",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Feestdag",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Datum",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Datum",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -3758,7 +3793,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "drop table sharepoint.FeestdagenNL",
+								"preCopyScript": "drop table sharepoint.ProductGroupsPMDashboard",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"disableMetricsCollection": false
@@ -3769,17 +3804,6 @@
 								"mappings": [
 									{
 										"source": {
-											"name": "ContentTypeID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ContentTypeID",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
 											"name": "GroupNo",
 											"type": "String"
 										},
@@ -3818,50 +3842,6 @@
 										},
 										"sink": {
 											"name": "Id",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "Modified",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "Modified",
-											"type": "DateTime",
-											"physicalType": "datetime2"
-										}
-									},
-									{
-										"source": {
-											"name": "Created",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "Created",
-											"type": "DateTime",
-											"physicalType": "datetime2"
-										}
-									},
-									{
-										"source": {
-											"name": "CreatedById",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "CreatedById",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "ModifiedById",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "ModifiedById",
 											"type": "Int32",
 											"physicalType": "int"
 										}
