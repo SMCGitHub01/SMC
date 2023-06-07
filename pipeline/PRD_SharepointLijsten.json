@@ -1337,7 +1337,7 @@
 				]
 			},
 			{
-				"name": "GetProductGroupsPMDashboard",
+				"name": "GetSerieGroupsPMDashboard",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -1358,6 +1358,7 @@
 						"preCopyScript": "drop table sharepoint.ProductGroupsPMDashboard",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -1421,7 +1422,7 @@
 						"referenceName": "SharePointLists_PowerBI",
 						"type": "DatasetReference",
 						"parameters": {
-							"list": "ProductGroupsPMDashboard"
+							"list": "SerieGroupsPMDashboard"
 						}
 					}
 				],
@@ -1431,7 +1432,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "sharepoint",
-							"TableName": "ProductGroupsPMDashboard"
+							"TableName": "SerieGroupsPMDashboard"
 						}
 					}
 				]
