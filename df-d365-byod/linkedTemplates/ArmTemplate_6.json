@@ -5036,7 +5036,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetProductGroupsPMDashboard",
+						"name": "GetSerieGroupsPMDashboard",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -5054,9 +5054,10 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "drop table sharepoint.FeestdagenNL",
+								"preCopyScript": "drop table sharepoint.ProductGroupsPMDashboard",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -5065,17 +5066,6 @@
 								"mappings": [
 									{
 										"source": {
-											"name": "ContentTypeID",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ContentTypeID",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
 											"name": "GroupNo",
 											"type": "String"
 										},
@@ -5114,50 +5104,6 @@
 										},
 										"sink": {
 											"name": "Id",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "Modified",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "Modified",
-											"type": "DateTime",
-											"physicalType": "datetime2"
-										}
-									},
-									{
-										"source": {
-											"name": "Created",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "Created",
-											"type": "DateTime",
-											"physicalType": "datetime2"
-										}
-									},
-									{
-										"source": {
-											"name": "CreatedById",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "CreatedById",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "ModifiedById",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "ModifiedById",
 											"type": "Int32",
 											"physicalType": "int"
 										}
@@ -5175,7 +5121,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "ProductGroupsPMDashboard"
+									"list": "SerieGroupsPMDashboard"
 								}
 							}
 						],
@@ -5185,7 +5131,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "sharepoint",
-									"TableName": "ProductGroupsPMDashboard"
+									"TableName": "SerieGroupsPMDashboard"
 								}
 							}
 						]
