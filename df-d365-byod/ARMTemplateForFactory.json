@@ -16982,7 +16982,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetKotingsGroups",
+						"name": "GetFeestdagen",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -17000,10 +17000,9 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table sharepoint.KortingsGroups",
+								"preCopyScript": "truncate table sharepoint.FeestdagenNL",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -17021,7 +17020,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "KortingGroups"
+									"list": "FeestdagenNL"
 								}
 							}
 						],
@@ -17031,7 +17030,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "sharepoint",
-									"TableName": "KortingsGroups"
+									"TableName": "FeestdagenNL"
 								}
 							}
 						]
