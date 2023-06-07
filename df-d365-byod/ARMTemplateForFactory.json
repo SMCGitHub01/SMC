@@ -12069,6 +12069,74 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Distributeur",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Distributeur",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "FOID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "FOID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SugarID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SugarID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "DistributeurGroup",
+											"type": "String"
+										},
+										"sink": {
+											"name": "DistributeurGroup",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "DataAreaID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "DataAreaID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -12124,6 +12192,52 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "MainAccount",
+											"type": "String"
+										},
+										"sink": {
+											"name": "MainAccount",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Grouping",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Grouping",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "DisplayNr",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "DisplayNr",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -12173,12 +12287,68 @@
 								"preCopyScript": "truncate table sharepoint.GLBudget",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Company",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Company",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Year",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "Year",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "GLaccount",
+											"type": "String"
+										},
+										"sink": {
+											"name": "GLaccount",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Budget",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "Budget",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -12314,10 +12484,9 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "drop table sharepoint.ProductGroupsPMDashboard",
+								"preCopyScript": "truncate table sharepoint.SerieGroupsPMDashboard",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -12348,11 +12517,11 @@
 									},
 									{
 										"source": {
-											"name": "Product",
+											"name": "SerieCode",
 											"type": "String"
 										},
 										"sink": {
-											"name": "Product",
+											"name": "SerieCode",
 											"type": "String",
 											"physicalType": "nvarchar"
 										}
