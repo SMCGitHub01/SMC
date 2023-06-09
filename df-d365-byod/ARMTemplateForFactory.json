@@ -12528,6 +12528,17 @@
 									},
 									{
 										"source": {
+											"name": "GroupCode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "GroupCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
 											"name": "Id",
 											"type": "Int32"
 										},
@@ -16935,6 +16946,17 @@
 										},
 										"sink": {
 											"name": "SerieCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "GroupCode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "GroupCode",
 											"type": "String",
 											"physicalType": "nvarchar"
 										}

@@ -5098,6 +5098,17 @@
 									},
 									{
 										"source": {
+											"name": "GroupCode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "GroupCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
 											"name": "Id",
 											"type": "Int32"
 										},
