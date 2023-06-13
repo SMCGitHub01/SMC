@@ -13,6 +13,107 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_IFS_Products')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "IFS_Products",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": false,
+									"wildcardFileName": {
+										"value": "@{pipeline().parameters.Excelfile}",
+										"type": "Expression"
+									},
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": {
+									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
+									"type": "Expression"
+								},
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false,
+									"culture": "nl-nl"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_IFS_Products",
+								"type": "DatasetReference",
+								"parameters": {
+									"WorkSheet": "@{pipeline().parameters.Worksheet}",
+									"Excelfile": "@{pipeline().parameters.ExcelFile}"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
+									"TableName": "@{pipeline().parameters.TargetTableName}"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Worksheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					},
+					"StartDateTime": {
+						"type": "string"
+					},
+					"TargetTableName": {
+						"type": "string"
+					},
+					"TargetSchemaName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD-IFS"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-03-27T13:45:56Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_IFS_SalesInvoice')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -5299,141 +5400,6 @@
 					"cancelAfter": {}
 				},
 				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataflow2')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "AzureSqlTable3",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"linkedService": {
-								"referenceName": "AzureDataLakeStorage2",
-								"type": "LinkedServiceReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "rank1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          HSO_DnA_SourceConnectionID as integer,",
-						"          HSO_DnA_TargetMappingID as integer,",
-						"          HSO_DnA_InsertDateTime as timestamp,",
-						"          HSO_DnA_UpdateDateTime as timestamp,",
-						"          HSO_DnA_DeleteDateTime as timestamp,",
-						"          {_9FieldMatrix} as string,",
-						"          AccountSatus as string,",
-						"          AddressCity as string,",
-						"          AddressStreet as string,",
-						"          AddressZipCode as string,",
-						"          AutoSummaryInvoice as integer,",
-						"          Branch as string,",
-						"          CECustomerNumber as string,",
-						"          Channel as string,",
-						"          Classification as string,",
-						"          CompanyChain as string,",
-						"          CountryRegionISOCode as string,",
-						"          CreditLimitCCY as decimal(28,12),",
-						"          CustomerBK as string,",
-						"          CustomerGroup as string,",
-						"          CustomerID as string,",
-						"          CustomerType as string,",
-						"          DataAreaID as string,",
-						"          DaysSinceLastMet as integer,",
-						"          DeliveryTerms as string,",
-						"          DISCOUNTPRICEGROUPID as string,",
-						"          DistributerChannel as string,",
-						"          DistributerType as string,",
-						"          DistributorCustomerNo as string,",
-						"          EmployeeResponsible as string,",
-						"          EndUserType as string,",
-						"          FOCustomerNumber as string,",
-						"          GlobalIndustryCode as string,",
-						"          GlobalIndustryCodeFull as string,",
-						"          HolonNumber as string,",
-						"          Industry as string,",
-						"          IndustryClassification as string,",
-						"          LastVisitDate as date,",
-						"          LineDiscountCode as string,",
-						"          LineOfBusiness as string,",
-						"          LineOfBusinessDescription as string,",
-						"          MarketSharePercentage as integer,",
-						"          Multinational as string,",
-						"          Name as string,",
-						"          NumberOfEmployees as string,",
-						"          PaymentCondition as string,",
-						"          Potential as decimal(28,12),",
-						"          PrimaryDistributorID as string,",
-						"          PrimaryDistributorName as string,",
-						"          rank as integer,",
-						"          SalesGroup as string,",
-						"          SalesGroupDescription as string,",
-						"          Segment as string,",
-						"          SegmentDescription as string,",
-						"          SMCTargetKey as string,",
-						"          Source as string,",
-						"          SubBranch as string,",
-						"          Subsegment as string,",
-						"          SubsegmentDescription as string,",
-						"          SugarCustomerNumber as string,",
-						"          SugarERPAccountId as string,",
-						"          TransportationDays as integer,",
-						"          Type_Code as string,",
-						"          Type_level1 as string,",
-						"          Type_level2 as string,",
-						"          Type_level3 as string,",
-						"          Type1 as string,",
-						"          UserID as string,",
-						"          UserName as string,",
-						"          VisitFrequency as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> source1",
-						"source1 rank(asc(CustomerBK, true),",
-						"     output(customerbk as long)) ~> rank1",
-						"rank1 sink(allowSchemaDrift: false,",
-						"     validateSchema: false,",
-						"     entity: 'core/',",
-						"     format: 'cdm',",
-						"     manifestType: 'manifest',",
-						"     manifestName: 'model.json',",
-						"     folderPath: 'crc90_customers',",
-						"     fileSystem: 'dataverse-dev-org06386f8f',",
-						"     columnNamesAsHeader: false,",
-						"     columnDelimiter: ',',",
-						"     quoteChar: '\\\"',",
-						"     escapeChar: '\\\\',",
-						"     truncate: false,",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     mapColumn(",
-						"          Name",
-						"     )) ~> sink1"
-					]
-				}
 			},
 			"dependsOn": []
 		}
