@@ -5,9 +5,13 @@
 		"annotations": [],
 		"type": "FileServer",
 		"typeProperties": {
-			"host": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO",
+			"host": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\",
 			"userId": "AMSSRV011\\DWHZendesk",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDYwN0JEMkZBLTY5NjgtNDRBRS1BRDUzLTJDNjMyNkNCRUIzRV9jY2RmMzdkMi1lZmI1LTQ5ZTEtOTA1Yi0zNTFiNThjMTk3MDAiDQp9"
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzZDRmOWY4OC1kOGZjLTQ5NzQtYTRlMS0xOGQzMTk2ZTVkYzMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ZenDesk",
+			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
