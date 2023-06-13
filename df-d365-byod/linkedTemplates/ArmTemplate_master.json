@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DWHloads'"
 		},
+		"FO_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FO'"
+		},
 		"SharePoint_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
@@ -88,6 +92,14 @@
 			"defaultValue": "\\\\amssrv011\\d$\\General\\ICT\\"
 		},
 		"DWHloads_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "AMSSRV011\\DWHZendesk"
+		},
+		"FO_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\"
+		},
+		"FO_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
@@ -297,6 +309,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"FO_password": {
+						"value": "[parameters('FO_password')]"
+					},
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
 					},
@@ -305,6 +320,12 @@
 					},
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"FO_properties_typeProperties_host": {
+						"value": "[parameters('FO_properties_typeProperties_host')]"
+					},
+					"FO_properties_typeProperties_userId": {
+						"value": "[parameters('FO_properties_typeProperties_userId')]"
 					},
 					"ToJPN_properties_typeProperties_host": {
 						"value": "[parameters('ToJPN_properties_typeProperties_host')]"

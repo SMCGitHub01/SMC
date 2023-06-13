@@ -20,6 +20,9 @@
 		"DWHloads_password": {
 			"value": ""
 		},
+		"FO_password": {
+			"value": ""
+		},
 		"SharePoint_servicePrincipalKey": {
 			"value": ""
 		},
@@ -66,6 +69,12 @@
 			"value": "\\\\amssrv011\\d$\\General\\ICT\\"
 		},
 		"DWHloads_properties_typeProperties_userId": {
+			"value": "AMSSRV011\\DWHZendesk"
+		},
+		"FO_properties_typeProperties_host": {
+			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\"
+		},
+		"FO_properties_typeProperties_userId": {
 			"value": "AMSSRV011\\DWHZendesk"
 		},
 		"HttpServer1_properties_typeProperties_url": {
