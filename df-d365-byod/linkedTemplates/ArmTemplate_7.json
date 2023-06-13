@@ -13,6 +13,132 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "GetSerieGroupsPMDashboard",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.SerieGroupsPMDashboard",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "GroupNo",
+											"type": "String"
+										},
+										"sink": {
+											"name": "GroupNo",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductGroup",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ProductGroup",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SerieCode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SerieCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "GroupCode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "GroupCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "SerieGroupsPMDashboard"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "SerieGroupsPMDashboard"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -146,703 +272,6 @@
 								"parameters": {
 									"SchemaName": "sharepoint",
 									"TableName": "FeestdagenNL"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline4')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "ExcelSource",
-								"storeSettings": {
-									"type": "FileServerReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "ItemId",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ItemId",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "AltItemId",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "AltItemId",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ProdLifecyclestate",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ProdLifecyclestate",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Blockingreason",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Blockingreason",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ProductType",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ProductType",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ItemType",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ItemType",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "NetWeight",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "NetWeight",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "TaraWeight",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "TaraWeight",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CostgroupId",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "CostgroupId",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CountryOrigin",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "CountryOrigin",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Intrastatcode",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Intrastatcode",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "SalesPrice",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "SalesPrice",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "LinediscGrp",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "LinediscGrp",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Unit",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Unit",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "TaxItemgrp",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "TaxItemgrp",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Barcode",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Barcode",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Cost_price",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Cost_price",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "NameNL",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "NameNL",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "DescriptionNL",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "DescriptionNL",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "NameEN",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "NameEN",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "DescriptionEN",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "DescriptionEN",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "NameFR",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "NameFR",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "DescriptionFR",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "DescriptionFR",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "NameDE",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "NameDE",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "DescriptionDE",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "DescriptionDE",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "PurchLeadtime",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "PurchLeadtime",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "PurchMultiple",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "PurchMultiple",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "DefaultOrderType",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "DefaultOrderType",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "SalesHigestQty",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "SalesHigestQty",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "SalesMultipleQty",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "SalesMultipleQty",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ExternalSalesLeadtime",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ExternalSalesLeadtime",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "SalesLeadtime",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "SalesLeadtime",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Code3",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Code3",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Code4",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "Code4",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "TrackingDimensionGroup",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "TrackingDimensionGroup",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ItemCoverageGroup",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ItemCoverageGroup",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CoverageMin",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "CoverageMin",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "CoverageMax",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "CoverageMax",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "InventStatus",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "InventStatus",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ItemCoverageGroupPlan",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ItemCoverageGroupPlan",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "EcwStock",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "EcwStock",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "PrimaryVendor",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "PrimaryVendor",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "BuyerGroup",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "BuyerGroup",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "SourcingFromStock",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "SourcingFromStock",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "EcwItem",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "EcwItem",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "EcwMaxLeadTime",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "EcwMaxLeadTime",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "EcwSourcingTimeFence",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "EcwSourcingTimeFence",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "VendorExternalItem",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "VendorExternalItem",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "DualUseProduct",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "DualUseProduct",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "DualUseCode",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "DualUseCode",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "InventMultiple",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "InventMultiple",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ATPTimeFence",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "ATPTimeFence",
-											"type": "String",
-											"physicalType": "String"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "FO_ItemsF",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "stage",
-									"TableName": "FO_ItemsF"
 								}
 							}
 						]
