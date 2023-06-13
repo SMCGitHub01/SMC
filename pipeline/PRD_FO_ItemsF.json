@@ -684,6 +684,9 @@
 				]
 			}
 		],
+		"folder": {
+			"name": "PRD_Zendesk"
+		},
 		"annotations": []
 	}
 }
