@@ -1,9 +1,9 @@
 {
-	"name": "pipeline4",
+	"name": "PRD_FO_ItemsF",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "FO_itemsF",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -674,11 +674,11 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ACC_BYOD_DEV_DS",
+						"referenceName": "PRD_BYOD_DS",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "stage",
-							"TableName": "FO_ItemsF"
+							"TableName": "FO_itemsF"
 						}
 					}
 				]
