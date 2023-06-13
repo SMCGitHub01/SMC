@@ -22372,6 +22372,13 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "PRD_FO_ItemsF",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -22394,7 +22401,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/ACC_tevervroegenorders')]",
-				"[concat(variables('factoryId'), '/pipelines/PRD_tevervroegenorders')]"
+				"[concat(variables('factoryId'), '/pipelines/PRD_tevervroegenorders')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_FO_ItemsF')]"
 			]
 		},
 		{
