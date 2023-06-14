@@ -15,12 +15,6 @@
 					"referenceName": "PRD_tevervroegenorders",
 					"type": "PipelineReference"
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "PRD_FO_ItemsF",
-					"type": "PipelineReference"
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
