@@ -4195,9 +4195,9 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table stage.FO_itemsF",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
