@@ -119,7 +119,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ACC_BYOD_DEV_DS",
+						"referenceName": "PRD_BYOD_DS",
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dwh",
