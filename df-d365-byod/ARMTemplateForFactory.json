@@ -14203,7 +14203,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "ACC_BYOD_DEV_DS",
+								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dwh",
@@ -14523,7 +14523,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
 				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD_log')]",
-				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
 				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]",
 				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD_prod')]"
