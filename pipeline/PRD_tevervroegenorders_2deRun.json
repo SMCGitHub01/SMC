@@ -64,7 +64,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1.csv')",
+								"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
 								"type": "Expression"
 							}
 						}
@@ -133,7 +133,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1.csv')",
+								"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
 								"type": "Expression"
 							}
 						}
@@ -202,7 +202,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1.csv')",
+								"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
 								"type": "Expression"
 							}
 						}
@@ -291,7 +291,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('PRDtevervroegenProd_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1.csv')",
+								"value": "@concat('PRDtevervroegenProd_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
 								"type": "Expression"
 							}
 						}
