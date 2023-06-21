@@ -1,11 +1,18 @@
 {
-	"name": "PRD_tevervroegenorders_zonderSP",
+	"name": "PRD_tevervroegenorders_2deRun",
 	"properties": {
 		"activities": [
 			{
 				"name": "Tevervroegenorders_log",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "sptevervroegen",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -57,7 +64,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1.csv')",
 								"type": "Expression"
 							}
 						}
@@ -67,7 +74,14 @@
 			{
 				"name": "Tevervroegenorders_copy",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "sptevervroegen",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -119,7 +133,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1.csv')",
 								"type": "Expression"
 							}
 						}
@@ -188,7 +202,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1.csv')",
 								"type": "Expression"
 							}
 						}
@@ -196,9 +210,36 @@
 				]
 			},
 			{
+				"name": "sptevervroegen",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "process.spProductionReferences"
+				},
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_PROD",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
 				"name": "Tevervroegenorders_export_prod",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "sptevervroegen",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -250,7 +291,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"logfile": {
-								"value": "@concat('PRDtevervroegenProd_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"value": "@concat('PRDtevervroegenProd_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1.csv')",
 								"type": "Expression"
 							}
 						}
