@@ -2531,7 +2531,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetSerieGroupsPMDashboard",
+						"name": "Tevervroegenorders_copy",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -2544,76 +2544,24 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
 							},
 							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.SerieGroupsPMDashboard",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
 							},
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "GroupNo",
-											"type": "String"
-										},
-										"sink": {
-											"name": "GroupNo",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ProductGroup",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ProductGroup",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "SerieCode",
-											"type": "String"
-										},
-										"sink": {
-											"name": "SerieCode",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "GroupCode",
-											"type": "String"
-										},
-										"sink": {
-											"name": "GroupCode",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Id",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "Id",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									}
-								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -2623,20 +2571,23 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists_PowerBI",
+								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "SerieGroupsPMDashboard"
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export"
 								}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "PRD_BYOD_DS",
+								"referenceName": "tevervroegenPRD_log",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "SerieGroupsPMDashboard"
+									"logfile": {
+										"value": "@concat('PRDtevervroegensTEST_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
 								}
 							}
 						]
