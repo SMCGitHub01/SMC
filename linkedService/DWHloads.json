@@ -5,9 +5,9 @@
 		"annotations": [],
 		"type": "FileServer",
 		"typeProperties": {
-			"host": "\\\\amssrv011\\d$\\General\\ICT\\",
+			"host": "d:\\General\\ICT\\",
 			"userId": "AMSSRV011\\DWHZendesk",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzMjVhMTFjZC1jZTZhLTRjN2YtOTRjOC00YjE3OTk3YWVhMzYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4ZGNlNDhkMS01NjViLTRlNjYtYWZhMy01YmE1ZGNiNzc1MTEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ZenDesk",
