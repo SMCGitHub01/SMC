@@ -25,7 +25,7 @@
 		},
 		"FO_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\"
+			"defaultValue": "d:\\General\\File exchange folder (MAX7D)\\FO\\"
 		},
 		"FO_properties_typeProperties_userId": {
 			"type": "string",
@@ -41,7 +41,7 @@
 		},
 		"ZendeskDownload_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+			"defaultValue": "d:\\General\\File exchange folder (MAX7D)\\FO\\DWH"
 		},
 		"ZendeskDownload_properties_typeProperties_userId": {
 			"type": "string",

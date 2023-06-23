@@ -25,7 +25,7 @@
 		},
 		"DWHloads_properties_typeProperties_host": {
 			"type": "string",
-			"defaultValue": "\\\\amssrv011\\d$\\General\\ICT\\"
+			"defaultValue": "d:\\General\\ICT\\"
 		},
 		"DWHloads_properties_typeProperties_userId": {
 			"type": "string",

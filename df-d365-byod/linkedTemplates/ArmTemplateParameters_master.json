@@ -66,13 +66,13 @@
 			"value": "DWHConnectionStringPRD"
 		},
 		"DWHloads_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\d$\\General\\ICT\\"
+			"value": "d:\\General\\ICT\\"
 		},
 		"DWHloads_properties_typeProperties_userId": {
 			"value": "AMSSRV011\\DWHZendesk"
 		},
 		"FO_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\"
+			"value": "d:\\General\\File exchange folder (MAX7D)\\FO\\"
 		},
 		"FO_properties_typeProperties_userId": {
 			"value": "AMSSRV011\\DWHZendesk"
@@ -111,7 +111,7 @@
 			"value": "https://smcnederland.zendesk.com"
 		},
 		"ZendeskDownload_properties_typeProperties_host": {
-			"value": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+			"value": "d:\\General\\File exchange folder (MAX7D)\\FO\\DWH"
 		},
 		"ZendeskDownload_properties_typeProperties_userId": {
 			"value": "AMSSRV011\\DWHZendesk"
