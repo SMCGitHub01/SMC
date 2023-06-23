@@ -5,9 +5,9 @@
 		"annotations": [],
 		"type": "FileServer",
 		"typeProperties": {
-			"host": "\\\\amssrv011\\Public\\General\\File exchange folder (MAX7D)\\FO\\",
+			"host": "d:\\General\\File exchange folder (MAX7D)\\FO\\",
 			"userId": "AMSSRV011\\DWHZendesk",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzZDRmOWY4OC1kOGZjLTQ5NzQtYTRlMS0xOGQzMTk2ZTVkYzMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0MmQ2MmQ0MS01NmYyLTQ1NDEtODJmNy02ZWQyMzgyYmNlZjUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ZenDesk",
