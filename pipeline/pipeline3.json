@@ -42,7 +42,7 @@
 						"referenceName": "SharePointLists_PowerBI",
 						"type": "DatasetReference",
 						"parameters": {
-							"list": "FeestdagenNL"
+							"list": "ProductGroupCodes"
 						}
 					}
 				],
@@ -52,7 +52,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "sharepoint",
-							"TableName": "FeestdagenNL"
+							"TableName": "ProductGroupCodes"
 						}
 					}
 				]
