@@ -5667,17 +5667,6 @@
 								"mappings": [
 									{
 										"source": {
-											"name": "ProductGroupCode",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ProductGroupCode",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
 											"name": "GroupDescription",
 											"type": "String"
 										},
