@@ -1923,10 +1923,10 @@
 						"timeZone": "W. Europe Standard Time",
 						"schedule": {
 							"minutes": [
-								0
+								30
 							],
 							"hours": [
-								3
+								4
 							]
 						}
 					}
