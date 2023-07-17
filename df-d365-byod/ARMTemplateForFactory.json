@@ -21238,7 +21238,7 @@
 						"fileName": "cdr.log"
 					},
 					"columnDelimiter": ",",
-					"rowDelimiter": "\n",
+					"rowDelimiter": "\r",
 					"escapeChar": "",
 					"firstRowAsHeader": false,
 					"quoteChar": ""
