@@ -254,55 +254,6 @@
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
-							},
-							{
-								"sink": {
-									"name": "from_type",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "to_type",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "final_type",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "from_dispname",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "to_dispname",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "final_dispname",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "missed_queue_calls",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
 							}
 						],
 						"typeConversion": true,

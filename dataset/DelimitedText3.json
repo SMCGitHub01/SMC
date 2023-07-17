@@ -13,9 +13,10 @@
 				"fileName": "cdr.log"
 			},
 			"columnDelimiter": ",",
-			"escapeChar": "\\",
+			"rowDelimiter": "\n",
+			"escapeChar": "",
 			"firstRowAsHeader": false,
-			"quoteChar": "\""
+			"quoteChar": ""
 		},
 		"schema": []
 	}
