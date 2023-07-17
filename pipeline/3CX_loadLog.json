@@ -41,9 +41,9 @@
 									"ordinal": 1
 								},
 								"sink": {
-									"name": "Number",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "historyid",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -52,7 +52,7 @@
 									"ordinal": 2
 								},
 								"sink": {
-									"name": "FirstName",
+									"name": "callid",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -63,7 +63,7 @@
 									"ordinal": 3
 								},
 								"sink": {
-									"name": "LastName",
+									"name": "duration",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -74,7 +74,7 @@
 									"ordinal": 4
 								},
 								"sink": {
-									"name": "EmailAddress",
+									"name": "time_start",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -85,7 +85,7 @@
 									"ordinal": 5
 								},
 								"sink": {
-									"name": "MobileNumber",
+									"name": "time_answered",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -96,7 +96,7 @@
 									"ordinal": 6
 								},
 								"sink": {
-									"name": "AuthID",
+									"name": "time_end",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -107,7 +107,7 @@
 									"ordinal": 7
 								},
 								"sink": {
-									"name": "AuthPassword",
+									"name": "reason_terminated",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -118,7 +118,7 @@
 									"ordinal": 8
 								},
 								"sink": {
-									"name": "EnableVoicemail",
+									"name": "from_no",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -129,7 +129,7 @@
 									"ordinal": 9
 								},
 								"sink": {
-									"name": "VMNoPin",
+									"name": "to_no",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -140,9 +140,9 @@
 									"ordinal": 10
 								},
 								"sink": {
-									"name": "VMPlayCallerID",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "from_dn",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -151,9 +151,9 @@
 									"ordinal": 11
 								},
 								"sink": {
-									"name": "PIN",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "to_dn",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -162,9 +162,9 @@
 									"ordinal": 12
 								},
 								"sink": {
-									"name": "VMPlayMsgDateTime",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "dial_no",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -173,9 +173,9 @@
 									"ordinal": 13
 								},
 								"sink": {
-									"name": "VMEmailOptions",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "reason_changed",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -184,7 +184,7 @@
 									"ordinal": 14
 								},
 								"sink": {
-									"name": "QueueStatus",
+									"name": "final_number",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -195,9 +195,9 @@
 									"ordinal": 15
 								},
 								"sink": {
-									"name": "OutboundCallerID",
-									"type": "Int64",
-									"physicalType": "bigint"
+									"name": "final_dn",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -206,7 +206,7 @@
 									"ordinal": 16
 								},
 								"sink": {
-									"name": "SIPID",
+									"name": "bill_code",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -217,9 +217,9 @@
 									"ordinal": 17
 								},
 								"sink": {
-									"name": "DeliverAudio",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "bill_rate",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -228,9 +228,9 @@
 									"ordinal": 18
 								},
 								"sink": {
-									"name": "SupportReinvite",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "bill_cost",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -239,9 +239,9 @@
 									"ordinal": 19
 								},
 								"sink": {
-									"name": "SupportReplaces",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "bill_name",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -250,280 +250,56 @@
 									"ordinal": 20
 								},
 								"sink": {
-									"name": "EnableSRTP",
+									"name": "chain",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"sink": {
-									"name": "ManagementAccess",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "ReporterAccess",
+									"name": "from_type",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"sink": {
-									"name": "WallboardAccess",
+									"name": "to_type",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"sink": {
-									"name": "TurnOffMyPhone",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "HideFWrules",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "CanSeeRecordings",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "CanDeleteRecordings",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "RecordCalls",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "CallScreening",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "EmailMissedCalls",
+									"name": "final_type",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"sink": {
-									"name": "Disabled",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "DisableExternalCalls",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "AllowLanOnly",
+									"name": "from_dispname",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"sink": {
-									"name": "BlockRemoteTunnel",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "PinProtect",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "MAC_0",
+									"name": "to_dispname",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"sink": {
-									"name": "InterfaceIP_0",
+									"name": "final_dispname",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"sink": {
-									"name": "UseTunnel",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "DND",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "UseCTI",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "StartupScreen",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "HotelModuleAccess",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "DontShowExtInPHBK",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "DeskphoneWebPass",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "SrvcAccessPwd",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "VoipAdmin",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "SysAdmin",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "SecureSIP",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "PhoneModel14",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "PhoneTemplate14",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "CustomTemplate",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "PhoneSettings",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "AllowAllRecordings",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "PushExtension",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "Integration",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "AllowOwnRecordings",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "RecordExternalCallsOnly",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"sink": {
-									"name": "DID",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"sink": {
-									"name": "PhoneSysAdmin",
+									"name": "missed_queue_calls",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
