@@ -2774,22 +2774,19 @@
 							{
 								"activity": "Tevervroegenorders_log_productie",
 								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
+									"Succeeded"
 								]
 							},
 							{
 								"activity": "Tevervroegenorders_copy",
 								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
+									"Succeeded"
 								]
 							},
 							{
 								"activity": "Tevervroegenorders_export_prod",
 								"dependencyConditions": [
-									"Succeeded",
-									"Failed"
+									"Succeeded"
 								]
 							}
 						],
