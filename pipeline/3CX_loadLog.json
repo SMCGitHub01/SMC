@@ -44,7 +44,7 @@
 									"ordinal": 1
 								},
 								"sink": {
-									"name": "historyid",
+									"name": "Prop_0",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
