@@ -7,7 +7,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "sp3CX_truncate_log ",
+						"activity": "sp3CX_truncate_log",
 						"dependencyConditions": [
 							"Succeeded"
 						]
