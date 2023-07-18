@@ -1,9 +1,9 @@
 {
-	"name": "3CX_loadLog_copy1",
+	"name": "3CX_loadLog",
 	"properties": {
 		"activities": [
 			{
-				"name": "3CX_logfile",
+				"name": "3CX_logfileX",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -35,7 +35,6 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "--Truncate table dbo.3cxlog",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate",
@@ -63,8 +62,8 @@
 						"referenceName": "PRD_BYOD_DS",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "3cxlog"
+							"SchemaName": "stage",
+							"TableName": "3cxlogX"
 						}
 					}
 				]
@@ -94,7 +93,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "3CX_logfile",
+						"activity": "3CX_logfileX",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -378,8 +377,8 @@
 						"referenceName": "PRD_BYOD_DS",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "dbo",
-							"TableName": "3cxlog"
+							"SchemaName": "stage",
+							"TableName": "3cxlogX"
 						}
 					}
 				],
@@ -389,10 +388,37 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dbo",
-							"TableName": "3cxlogs"
+							"TableName": "3cxlog"
 						}
 					}
 				]
+			},
+			{
+				"name": "sp3CX_truncate_log_copy1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "3cx",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp3CX_truncate_log]"
+				},
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_PROD",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
