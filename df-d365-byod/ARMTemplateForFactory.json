@@ -23995,10 +23995,10 @@
 						"timeZone": "W. Europe Standard Time",
 						"schedule": {
 							"minutes": [
-								30
+								15
 							],
 							"hours": [
-								4
+								5
 							]
 						}
 					}
@@ -24125,7 +24125,7 @@
 						"timeZone": "W. Europe Standard Time",
 						"schedule": {
 							"minutes": [
-								0
+								45
 							],
 							"hours": [
 								4
