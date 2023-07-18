@@ -3,16 +3,9 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "3CX_logfileX",
+				"name": "3CX_logfile",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "sp3CX_truncate_log",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -50,7 +43,7 @@
 									"ordinal": 1
 								},
 								"sink": {
-									"name": "Prop_0",
+									"name": "historyid",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -61,7 +54,7 @@
 									"ordinal": 2
 								},
 								"sink": {
-									"name": "Prop_1",
+									"name": "callid",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -72,7 +65,7 @@
 									"ordinal": 3
 								},
 								"sink": {
-									"name": "Prop_2",
+									"name": "duration",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -83,7 +76,7 @@
 									"ordinal": 4
 								},
 								"sink": {
-									"name": "Prop_3",
+									"name": "time-start",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -94,7 +87,7 @@
 									"ordinal": 5
 								},
 								"sink": {
-									"name": "Prop_4",
+									"name": "time-answered",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -105,7 +98,7 @@
 									"ordinal": 6
 								},
 								"sink": {
-									"name": "Prop_5",
+									"name": "time-end",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -116,7 +109,7 @@
 									"ordinal": 7
 								},
 								"sink": {
-									"name": "Prop_6",
+									"name": "reason-terminated",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -127,7 +120,7 @@
 									"ordinal": 8
 								},
 								"sink": {
-									"name": "Prop_7",
+									"name": "from-no",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -138,7 +131,7 @@
 									"ordinal": 9
 								},
 								"sink": {
-									"name": "Prop_8",
+									"name": "to-no",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -149,7 +142,7 @@
 									"ordinal": 10
 								},
 								"sink": {
-									"name": "Prop_9",
+									"name": "from-dn",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -160,7 +153,7 @@
 									"ordinal": 11
 								},
 								"sink": {
-									"name": "Prop_10",
+									"name": "to-dn",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -171,7 +164,7 @@
 									"ordinal": 12
 								},
 								"sink": {
-									"name": "Prop_11",
+									"name": "dial-no",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -182,7 +175,7 @@
 									"ordinal": 13
 								},
 								"sink": {
-									"name": "Prop_12",
+									"name": "reason-changed",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -193,7 +186,7 @@
 									"ordinal": 14
 								},
 								"sink": {
-									"name": "Prop_13",
+									"name": "final-number",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -204,7 +197,7 @@
 									"ordinal": 15
 								},
 								"sink": {
-									"name": "Prop_14",
+									"name": "final-dn",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -215,7 +208,7 @@
 									"ordinal": 16
 								},
 								"sink": {
-									"name": "Prop_15",
+									"name": "bill-code",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -226,7 +219,7 @@
 									"ordinal": 17
 								},
 								"sink": {
-									"name": "Prop_16",
+									"name": "bill-rate ",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -237,7 +230,7 @@
 									"ordinal": 18
 								},
 								"sink": {
-									"name": "Prop_17",
+									"name": "bill-cost",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -248,7 +241,7 @@
 									"ordinal": 19
 								},
 								"sink": {
-									"name": "Prop_18",
+									"name": "bill-name",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -259,7 +252,7 @@
 									"ordinal": 20
 								},
 								"sink": {
-									"name": "Prop_19",
+									"name": "chain",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -270,7 +263,7 @@
 									"ordinal": 21
 								},
 								"sink": {
-									"name": "Prop_20",
+									"name": "from-type",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -281,7 +274,7 @@
 									"ordinal": 22
 								},
 								"sink": {
-									"name": "Prop_21",
+									"name": "to-type",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -292,7 +285,7 @@
 									"ordinal": 23
 								},
 								"sink": {
-									"name": "Prop_22",
+									"name": "final-type",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -303,7 +296,7 @@
 									"ordinal": 24
 								},
 								"sink": {
-									"name": "Prop_23",
+									"name": "from-dispname",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -314,7 +307,7 @@
 									"ordinal": 25
 								},
 								"sink": {
-									"name": "Prop_24",
+									"name": "to-dispname",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -325,7 +318,7 @@
 									"ordinal": 26
 								},
 								"sink": {
-									"name": "Prop_25",
+									"name": "final-dispname",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -336,7 +329,7 @@
 									"ordinal": 27
 								},
 								"sink": {
-									"name": "Prop_26",
+									"name": "missed-queue-calls",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -360,31 +353,11 @@
 						"referenceName": "PRD_BYOD_DS",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "stage",
-							"TableName": "3cxlogX"
+							"SchemaName": "dbo",
+							"TableName": "3cxlog"
 						}
 					}
 				]
-			},
-			{
-				"name": "sp3CX_truncate_log",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp3CX_truncate_log]"
-				},
-				"linkedServiceName": {
-					"referenceName": "Azure_D365_PROD",
-					"type": "LinkedServiceReference"
-				}
 			}
 		],
 		"folder": {
