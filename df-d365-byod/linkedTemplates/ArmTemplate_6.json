@@ -3633,39 +3633,6 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
-					},
-					{
-						"name": "PRD_DownScale",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Tevervroegenorders_log_productie",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Tevervroegenorders_copy",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Tevervroegenorders_export_prod",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_DownScale",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
 					}
 				],
 				"policy": {
