@@ -881,7 +881,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "cdr.log"
+						"fileName": "cdr2.log"
 					},
 					"columnDelimiter": ",",
 					"rowDelimiter": "\n",
