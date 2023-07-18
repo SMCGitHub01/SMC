@@ -1111,87 +1111,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "3CX_logfile",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "FileServerReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "Truncate table dbo.3cxlog",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": true,
-							"validateDataConsistency": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DelimitedText3",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dbo",
-									"TableName": "3cxlog"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "3CX"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/3CX_loadLog_copy1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "3CX_logfile",
+						"name": "3CX_logfileX",
 						"type": "Copy",
 						"dependsOn": [
 							{
@@ -1223,7 +1143,6 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--Truncate table dbo.3cxlog",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -1252,8 +1171,8 @@
 								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "dbo",
-									"TableName": "3cxlog"
+									"SchemaName": "stage",
+									"TableName": "3cxlogX"
 								}
 							}
 						]
@@ -1283,7 +1202,7 @@
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "3CX_logfile",
+								"activity": "3CX_logfileX",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -1567,8 +1486,8 @@
 								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "dbo",
-									"TableName": "3cxlog"
+									"SchemaName": "stage",
+									"TableName": "3cxlogX"
 								}
 							}
 						],
@@ -1578,10 +1497,37 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dbo",
-									"TableName": "3cxlogs"
+									"TableName": "3cxlog"
 								}
 							}
 						]
+					},
+					{
+						"name": "sp3CX_truncate_log_copy1",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "3cx",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[dbo].[sp3CX_truncate_log]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
@@ -1647,6 +1593,106 @@
 						"inputs": [
 							{
 								"referenceName": "ACC_BudgetDirectSales",
+								"type": "DatasetReference",
+								"parameters": {
+									"WorkSheet": "@{pipeline().parameters.Worksheet}",
+									"Excelfile": "@{pipeline().parameters.Excelfile}"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
+									"TableName": "@{pipeline().parameters.TargetTableName}"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Worksheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					},
+					"StartDateTime": {
+						"type": "string"
+					},
+					"TargetTableName": {
+						"type": "string"
+					},
+					"TargetSchemaName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC-Process_DWH"
+				},
+				"annotations": [],
+				"lastPublishTime": "2020-12-10T13:46:05Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_BudgetInDirectSales')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "BudgetInDirectSalesFiles",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": false,
+									"wildcardFileName": {
+										"value": "@{pipeline().parameters.Excelfile}",
+										"type": "Expression"
+									},
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": {
+									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
+									"type": "Expression"
+								},
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ACC_BudgetInDirectSales",
 								"type": "DatasetReference",
 								"parameters": {
 									"WorkSheet": "@{pipeline().parameters.Worksheet}",
