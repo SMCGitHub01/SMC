@@ -1564,14 +1564,7 @@
 					{
 						"name": "3CX_logfile_cdr2",
 						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "3CX_logfile_cdr1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
+						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
