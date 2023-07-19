@@ -1,9 +1,102 @@
 {
-	"name": "3CX_loadLog",
+	"name": "3CX_loadLog_copy1",
 	"properties": {
 		"activities": [
 			{
-				"name": "3CX_logfile_cdr2_copy1",
+				"name": "3CX_logfileX",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "3CX_logfile_cdr2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "FileServerReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "3CXcdr1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "stage",
+							"TableName": "3cxlogX"
+						}
+					}
+				]
+			},
+			{
+				"name": "sp3CX_create_3cxlog",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "3CX_logfileX",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "dbo.sp3CX_create_3cxlog"
+				},
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_PROD",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "3CX_logfile_cdr2",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -345,7 +438,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "3CXlog",
+						"referenceName": "3CXcdr2",
 						"type": "DatasetReference"
 					}
 				],
@@ -359,33 +452,6 @@
 						}
 					}
 				]
-			},
-			{
-				"name": "cleanup 3cxlog",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "3CX_logfile_cdr2_copy1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp3CX_cleanupLog]"
-				},
-				"linkedServiceName": {
-					"referenceName": "Azure_D365_PROD",
-					"type": "LinkedServiceReference"
-				}
 			}
 		],
 		"folder": {
