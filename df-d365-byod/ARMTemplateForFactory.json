@@ -175,7 +175,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "3CX_logfile_cdr2_copy1",
+						"name": "3CX_logfile_cdr",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -517,7 +517,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "3CXlog",
+								"referenceName": "3CXcdrlog",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -538,7 +538,7 @@
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "3CX_logfile_cdr2_copy1",
+								"activity": "3CX_logfile_cdr",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -571,7 +571,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/3CXlog')]",
+				"[concat(variables('factoryId'), '/datasets/3CXcdrlog')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
 			]
@@ -20146,7 +20146,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "3CXlog",
+								"referenceName": "3CXcdrlog",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -20197,7 +20197,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/3CXlog')]",
+				"[concat(variables('factoryId'), '/datasets/3CXcdrlog')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
 			]
@@ -20579,7 +20579,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/3CXlog')]",
+			"name": "[concat(parameters('factoryName'), '/3CXcdrlog')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
