@@ -1,0 +1,22 @@
+{
+	"name": "3CXcdr2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ZendeskDownload",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "cdr2.log"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
