@@ -225,7 +225,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DelimitedText3",
+								"referenceName": "3CXcdr1",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -299,7 +299,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DelimitedText3')]",
+				"[concat(variables('factoryId'), '/datasets/3CXcdr1')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
 			]
@@ -311,9 +311,298 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "3CX_logfile",
+						"name": "3CX_logfile_cdr1",
 						"type": "Copy",
 						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "FileServerReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table dbo.3CXlog",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 1
+										},
+										"sink": {
+											"name": "historyid",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 2
+										},
+										"sink": {
+											"name": "callid",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 3
+										},
+										"sink": {
+											"name": "duration",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 4
+										},
+										"sink": {
+											"name": "time-start",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 5
+										},
+										"sink": {
+											"name": "time-answered",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 6
+										},
+										"sink": {
+											"name": "time-end",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 7
+										},
+										"sink": {
+											"name": "reason-terminated",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 8
+										},
+										"sink": {
+											"name": "from-no",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 9
+										},
+										"sink": {
+											"name": "to-no",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 10
+										},
+										"sink": {
+											"name": "from-dn",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 11
+										},
+										"sink": {
+											"name": "to-dn",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 12
+										},
+										"sink": {
+											"name": "dial-no",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 13
+										},
+										"sink": {
+											"name": "reason-changed",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 14
+										},
+										"sink": {
+											"name": "final-number",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 15
+										},
+										"sink": {
+											"name": "final-dn",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 16
+										},
+										"sink": {
+											"name": "bill-code",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 17
+										},
+										"sink": {
+											"name": "bill-rate ",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 18
+										},
+										"sink": {
+											"name": "bill-cost",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 19
+										},
+										"sink": {
+											"name": "bill-name",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"type": "String",
+											"ordinal": 20
+										},
+										"sink": {
+											"name": "chain",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "3CXcdr1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dbo",
+									"TableName": "3cxlog"
+								}
+							}
+						]
+					},
+					{
+						"name": "3CX_logfile_cdr2",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "3CX_logfile_cdr1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -630,17 +919,6 @@
 											"type": "String",
 											"physicalType": "nvarchar"
 										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 27
-										},
-										"sink": {
-											"name": "missed-queue-calls",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
 									}
 								],
 								"typeConversion": true,
@@ -652,7 +930,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "DelimitedText3",
+								"referenceName": "3CXcdr2",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -679,8 +957,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DelimitedText3')]",
-				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
+				"[concat(variables('factoryId'), '/datasets/3CXcdr1')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
+				"[concat(variables('factoryId'), '/datasets/3CXcdr2')]"
 			]
 		},
 		{
@@ -19830,6 +20109,61 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/3CXcdr1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ZendeskDownload",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "cdr1.log"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"escapeChar": "",
+					"firstRowAsHeader": false,
+					"quoteChar": ""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/3CXcdr2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ZendeskDownload",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "cdr2.log"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACCPRD_SugarCRM')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -21397,34 +21731,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/HttpServer2')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText3')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ZendeskDownload",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation",
-						"fileName": "cdr2.log"
-					},
-					"columnDelimiter": ",",
-					"rowDelimiter": "\n",
-					"escapeChar": "",
-					"firstRowAsHeader": false,
-					"quoteChar": ""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
 			]
 		},
 		{
