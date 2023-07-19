@@ -24836,6 +24836,13 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "3CX_loadLog",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -24857,7 +24864,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PRD_FO_ItemsF')]"
+				"[concat(variables('factoryId'), '/pipelines/PRD_FO_ItemsF')]",
+				"[concat(variables('factoryId'), '/pipelines/3CX_loadLog')]"
 			]
 		},
 		{
@@ -24878,13 +24886,6 @@
 					{
 						"pipelineReference": {
 							"referenceName": "PRD_tevervroegenorders",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "3CX_loadLog",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -24910,8 +24911,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/ACC_tevervroegenorders')]",
-				"[concat(variables('factoryId'), '/pipelines/PRD_tevervroegenorders')]",
-				"[concat(variables('factoryId'), '/pipelines/3CX_loadLog')]"
+				"[concat(variables('factoryId'), '/pipelines/PRD_tevervroegenorders')]"
 			]
 		},
 		{
