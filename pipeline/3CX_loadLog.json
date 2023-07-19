@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "3CX_logfile_cdr2_copy1",
+				"name": "3CX_logfile_cdr",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -345,7 +345,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "3CXlog",
+						"referenceName": "3CXcdrlog",
 						"type": "DatasetReference"
 					}
 				],
@@ -365,7 +365,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "3CX_logfile_cdr2_copy1",
+						"activity": "3CX_logfile_cdr",
 						"dependencyConditions": [
 							"Succeeded"
 						]

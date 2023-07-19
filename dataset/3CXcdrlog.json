@@ -1,5 +1,5 @@
 {
-	"name": "3CXlog",
+	"name": "3CXcdrlog",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ZendeskDownload",

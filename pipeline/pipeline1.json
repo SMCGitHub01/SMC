@@ -345,7 +345,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "3CXlog",
+						"referenceName": "3CXcdrlog",
 						"type": "DatasetReference"
 					}
 				],
