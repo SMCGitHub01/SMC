@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText3",
+	"name": "3CXcdr1",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ZendeskDownload",

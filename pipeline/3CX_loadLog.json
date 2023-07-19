@@ -53,7 +53,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DelimitedText3",
+						"referenceName": "3CXcdr1",
 						"type": "DatasetReference"
 					}
 				],
