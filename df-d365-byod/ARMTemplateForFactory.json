@@ -179,7 +179,7 @@
 						"type": "Copy",
 						"dependsOn": [
 							{
-								"activity": "sp3CX_truncate_log",
+								"activity": "3CX_logfile_cdr2",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -242,33 +242,6 @@
 						]
 					},
 					{
-						"name": "sp3CX_truncate_log",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "3CX_logfile_cdr2",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[sp3CX_truncate_log]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
 						"name": "sp3CX_create_3cxlog",
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
@@ -321,7 +294,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "TRUNCATE  TABLE dbo.[3CXlog]",
+								"preCopyScript": "TRUNCATE  TABLE dbo.[3CXlog]\nTRUNCATE  TABLE stage.[3CXlogX]",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"disableMetricsCollection": false
