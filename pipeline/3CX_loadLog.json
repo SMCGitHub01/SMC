@@ -71,7 +71,14 @@
 			{
 				"name": "sp3CX_truncate_log",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "3CX_logfile_cdr2",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -118,14 +125,7 @@
 			{
 				"name": "3CX_logfile_cdr2",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "sp3CX_create_3cxlog",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -148,6 +148,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
+						"preCopyScript": "TRUNCATE  TABLE dbo.[3CXlog]",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"disableMetricsCollection": false
