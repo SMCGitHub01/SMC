@@ -15,12 +15,6 @@
 					"referenceName": "PRD_tevervroegenorders",
 					"type": "PipelineReference"
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "3CX_loadLog",
-					"type": "PipelineReference"
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
