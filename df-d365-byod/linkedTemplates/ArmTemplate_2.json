@@ -371,83 +371,84 @@
 				},
 				"schema": [
 					{
-						"name": "Call 1654",
 						"type": "String"
 					},
 					{
-						"name": "0000018852E9869A_1",
 						"type": "String"
 					},
 					{
-						"name": "00:00:07",
 						"type": "String"
 					},
 					{
-						"name": "2023/05/25 12:36:56",
 						"type": "String"
 					},
 					{
-						"name": "2023/05/25 12:37:16",
 						"type": "String"
 					},
 					{
-						"name": "2023/05/25 12:37:24",
 						"type": "String"
 					},
 					{
-						"name": "TerminatedBySrc",
 						"type": "String"
 					},
 					{
-						"name": "+32470174404",
 						"type": "String"
 					},
 					{
-						"name": "Ext.999",
 						"type": "String"
 					},
 					{
-						"name": "10000",
 						"type": "String"
 					},
 					{
-						"name": "82410",
 						"type": "String"
 					},
 					{
-						"name": "82411",
 						"type": "String"
 					},
 					{
-						"name": "Prop_12",
 						"type": "String"
 					},
 					{
-						"name": "Prop_13",
 						"type": "String"
 					},
 					{
-						"name": "Prop_14",
 						"type": "String"
 					},
 					{
-						"name": "Prop_15",
 						"type": "String"
 					},
 					{
-						"name": "Prop_16",
 						"type": "String"
 					},
 					{
-						"name": "Prop_17",
 						"type": "String"
 					},
 					{
-						"name": "Prop_18",
 						"type": "String"
 					},
 					{
-						"name": "Chain: +32470174404;Ext.824;",
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
 						"type": "String"
 					}
 				]
