@@ -28,7 +28,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "TRUNCATE  TABLE dbo.[3CXlog]\nTRUNCATE  TABLE stage.[3CXlogX]",
+						"preCopyScript": "TRUNCATE  TABLE dbo.[3CXlog]\n",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"disableMetricsCollection": false
