@@ -1073,7 +1073,8 @@
 						"type": "String"
 					},
 					"KeyVaultDNSName": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "KV-SMC-BYODACC"
 					},
 					"workspaceGuid": {
 						"type": "string"
