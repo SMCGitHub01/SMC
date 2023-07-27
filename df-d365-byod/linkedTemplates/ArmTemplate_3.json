@@ -13,6 +13,43 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ACC_IFS_GLTransActions')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"CSVFile": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "ACC"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().CSVFile",
+							"type": "Expression"
+						},
+						"container": "dwh-ifs-gltransactions"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACC_IFS_InventoryTransactions')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1549,43 +1586,6 @@
 							"type": "Expression"
 						},
 						"container": "dwh-ifs-gltransactions"
-					},
-					"columnDelimiter": ";",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_IFS_InventoryTransactions')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragesmcprd",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"CSVFile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "PRD"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().CSVFile",
-							"type": "Expression"
-						},
-						"container": "dwh-ifs-inventorytransactions"
 					},
 					"columnDelimiter": ";",
 					"escapeChar": "\\",

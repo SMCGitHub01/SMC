@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-d365-byod"
 		},
+		"DWHloads_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'DWHloads'"
+		},
 		"FO_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FO'"
@@ -22,6 +26,14 @@
 		"ZendeskDownload_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ZendeskDownload'"
+		},
+		"DWHloads_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "d:\\General\\ICT\\"
+		},
+		"DWHloads_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"FO_properties_typeProperties_host": {
 			"type": "string",
@@ -60,6 +72,28 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/DWHloads')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('DWHloads_properties_typeProperties_host')]",
+					"userId": "[parameters('DWHloads_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('DWHloads_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ZenDesk",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/FO')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -756,45 +790,6 @@
 					},
 					"range": "",
 					"firstRowAsHeader": true
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_IFS_GLTransActions')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"CSVFile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().CSVFile",
-							"type": "Expression"
-						},
-						"container": "dwh-ifs-gltransactions"
-					},
-					"columnDelimiter": ";",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
 				},
 				"schema": []
 			},

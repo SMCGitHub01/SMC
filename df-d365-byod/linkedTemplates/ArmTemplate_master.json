@@ -211,9 +211,6 @@
 					"Zendesk_apiToken": {
 						"value": "[parameters('Zendesk_apiToken')]"
 					},
-					"staggingadfsmc_connectionString": {
-						"value": "[parameters('staggingadfsmc_connectionString')]"
-					},
 					"Afas_properties_typeProperties_url": {
 						"value": "[parameters('Afas_properties_typeProperties_url')]"
 					},
@@ -271,23 +268,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"staggingadfsmc_connectionString": {
+						"value": "[parameters('staggingadfsmc_connectionString')]"
+					},
 					"AnyWhereSQL_connectionString": {
 						"value": "[parameters('AnyWhereSQL_connectionString')]"
-					},
-					"DWHloads_password": {
-						"value": "[parameters('DWHloads_password')]"
 					},
 					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
 					},
 					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
-					},
-					"DWHloads_properties_typeProperties_host": {
-						"value": "[parameters('DWHloads_properties_typeProperties_host')]"
-					},
-					"DWHloads_properties_typeProperties_userId": {
-						"value": "[parameters('DWHloads_properties_typeProperties_userId')]"
 					}
 				}
 			},
@@ -309,6 +300,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"DWHloads_password": {
+						"value": "[parameters('DWHloads_password')]"
+					},
 					"FO_password": {
 						"value": "[parameters('FO_password')]"
 					},
@@ -320,6 +314,12 @@
 					},
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"DWHloads_properties_typeProperties_host": {
+						"value": "[parameters('DWHloads_properties_typeProperties_host')]"
+					},
+					"DWHloads_properties_typeProperties_userId": {
+						"value": "[parameters('DWHloads_properties_typeProperties_userId')]"
 					},
 					"FO_properties_typeProperties_host": {
 						"value": "[parameters('FO_properties_typeProperties_host')]"
