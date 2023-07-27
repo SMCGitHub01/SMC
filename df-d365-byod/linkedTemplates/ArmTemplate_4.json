@@ -1600,6 +1600,39 @@
 							"referenceName": "Azure_D365_PROD",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "create dwh Fact3CXcalls",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "cleanup 3cxlog",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "deploy.3-FillDWHOnly",
+							"storedProcedureParameters": {
+								"tableName": {
+									"value": "Fact3CXcalls",
+									"type": "String"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"policy": {
