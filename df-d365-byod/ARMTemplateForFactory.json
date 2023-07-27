@@ -20139,7 +20139,8 @@
 				},
 				"parameters": {
 					"SecretName_TenantId": {
-						"type": "String"
+						"type": "String",
+						"defaultValue": "fe754037-10dc-495e-90da-045b680fb646"
 					},
 					"SecretName_SPClientId": {
 						"type": "String"
