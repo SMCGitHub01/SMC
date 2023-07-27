@@ -208,10 +208,6 @@
 					"method": "GET",
 					"body": {
 						"simple": "body"
-					},
-					"authentication": {
-						"type": "MSI",
-						"resource": "https://vault.azure.net"
 					}
 				}
 			},
