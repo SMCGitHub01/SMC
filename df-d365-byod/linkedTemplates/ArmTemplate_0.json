@@ -1064,13 +1064,15 @@
 				"parameters": {
 					"SecretName_TenantId": {
 						"type": "String",
-						"defaultValue": "fe754037-10dc-495e-90da-045b680fb646"
+						"defaultValue": "TenantID"
 					},
 					"SecretName_SPClientId": {
-						"type": "String"
+						"type": "String",
+						"defaultValue": "ClientID"
 					},
 					"SecretName_SPSecret": {
-						"type": "String"
+						"type": "String",
+						"defaultValue": "ClientSecret"
 					},
 					"KeyVaultDNSName": {
 						"type": "string",
