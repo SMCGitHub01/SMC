@@ -208,9 +208,6 @@
 					"SharePoint_powerbi_servicePrincipalKey": {
 						"value": "[parameters('SharePoint_powerbi_servicePrincipalKey')]"
 					},
-					"Zendesk_apiToken": {
-						"value": "[parameters('Zendesk_apiToken')]"
-					},
 					"Afas_properties_typeProperties_url": {
 						"value": "[parameters('Afas_properties_typeProperties_url')]"
 					},
@@ -246,9 +243,6 @@
 					},
 					"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePoint_powerbi_properties_typeProperties_servicePrincipalId')]"
-					},
-					"Zendesk_properties_typeProperties_url": {
-						"value": "[parameters('Zendesk_properties_typeProperties_url')]"
 					}
 				}
 			},
@@ -268,17 +262,20 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"Zendesk_apiToken": {
+						"value": "[parameters('Zendesk_apiToken')]"
+					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
 					},
 					"AnyWhereSQL_connectionString": {
 						"value": "[parameters('AnyWhereSQL_connectionString')]"
 					},
+					"Zendesk_properties_typeProperties_url": {
+						"value": "[parameters('Zendesk_properties_typeProperties_url')]"
+					},
 					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
-					},
-					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -314,6 +311,9 @@
 					},
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
 					},
 					"DWHloads_properties_typeProperties_host": {
 						"value": "[parameters('DWHloads_properties_typeProperties_host')]"
