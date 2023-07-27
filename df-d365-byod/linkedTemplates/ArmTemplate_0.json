@@ -931,18 +931,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/fe754037-10dc-495e-90da-045b680fb646\n/oauth2/token')",
-								"type": "Expression"
-							},
+							"url": "https://login.microsoftonline.com/fe754037-10dc-495e-90da-045b680fb646 /oauth2/token'",
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
 							},
-							"body": {
-								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=67aedea2-ddab-4439-960c-e9ff638628ca\n&client_secret=jcg8Q~vNqXo91m1xTr9RG3HUfw8alEPkDQWGbccG'\n)",
-								"type": "Expression"
-							}
+							"body": "grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=67aedea2-ddab-4439-960c-e9ff638628ca\n&client_secret=jcg8Q~vNqXo91m1xTr9RG3HUfw8alEPkDQWGbccG"
 						}
 					}
 				],
