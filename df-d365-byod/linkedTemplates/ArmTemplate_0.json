@@ -940,7 +940,7 @@
 								"Content-Type": "application/x-www-form-urlencoded"
 							},
 							"body": {
-								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=67aedea2-ddab-4439-960c-e9ff638628ca\n&client_secret=',encodeUriComponent('jcg8Q~vNqXo91m1xTr9RG3HUfw8alEPkDQWGbccG'\n))",
+								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=67aedea2-ddab-4439-960c-e9ff638628ca\n&client_secret=jcg8Q~vNqXo91m1xTr9RG3HUfw8alEPkDQWGbccG'\n)",
 								"type": "Expression"
 							}
 						}
