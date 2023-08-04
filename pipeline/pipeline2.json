@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Tevervroegenorders_log",
+				"name": "GetCustomers",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -16,24 +16,208 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"type": "SharePointOnlineListSource",
+						"httpRequestTimeout": "00:05:00"
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "FileServerWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
+						"type": "AzureSqlSink",
+						"preCopyScript": "truncate table sharepoint.customers",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "InhoudstypeId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "InhoudstypeId",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Title",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Title",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ActivumIdVoorCompliance",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ActivumIdVoorCompliance",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Klantnummer",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Klantnummer",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Klant",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Klant",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CreatedById",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "CreatedById",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "ModifiedById",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "ModifiedById",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "SE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Actief",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "Actief",
+									"type": "Boolean",
+									"physicalType": "bit"
+								}
+							},
+							{
+								"source": {
+									"name": "DataArea",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DataArea",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Id",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Id",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Inhoudstype",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Inhoudstype",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Gewijzigd",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Gewijzigd",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "Gemaakt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Gemaakt",
+									"type": "DateTime",
+									"physicalType": "datetime2"
+								}
+							},
+							{
+								"source": {
+									"name": "Owshiddenversion",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Owshiddenversion",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Versie",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Versie",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Pad",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Pad",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -43,23 +227,20 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ACC_BYOD_DEV_DS",
+						"referenceName": "SharePointLists",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "dwh",
-							"TableName": "vw_te_vervroegen_ordersV4"
+							"list": "Customers"
 						}
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "tevervroegenACC_log",
+						"referenceName": "PRD_BYOD_DS",
 						"type": "DatasetReference",
 						"parameters": {
-							"logfile": {
-								"value": "@concat('log_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
-								"type": "Expression"
-							}
+							"SchemaName": "sharepoint",
+							"TableName": "Customers"
 						}
 					}
 				]
