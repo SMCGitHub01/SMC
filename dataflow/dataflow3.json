@@ -12,8 +12,20 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AzureSqlTable4",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "rank1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          Id as string,",
@@ -141,7 +153,20 @@
 				"     format: 'cdm',",
 				"     manifestType: 'model',",
 				"     folderPath: '',",
-				"     fileSystem: 'dataverse-ramiyokotade-orgd3ad9c7e') ~> source1"
+				"     fileSystem: 'dataverse-ramiyokotade-orgd3ad9c7e') ~> source1",
+				"source1 rank(asc(Id, true),",
+				"     output(id as long)) ~> rank1",
+				"rank1 sink(allowSchemaDrift: true,",
+				"     validateSchema: true,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     recreate:true,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 			]
 		}
 	}
