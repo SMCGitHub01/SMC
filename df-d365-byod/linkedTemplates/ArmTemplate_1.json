@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-d365-byod"
 		},
+		"SharePoint_powerbi_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint_powerbi'"
+		},
 		"Zendesk_apiToken": {
 			"type": "secureString",
 			"metadata": "Secure string for 'apiToken' of 'Zendesk'"
@@ -19,19 +23,38 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AnyWhereSQL'"
 		},
+		"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
+		},
 		"Zendesk_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://smcnederland.zendesk.com"
-		},
-		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
-			"type": "string",
-			"defaultValue": "DWHConnectionStringDEV"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SharePoint_powerbi')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SharePointOnlineList",
+				"typeProperties": {
+					"siteUrl": "https://aquapro.sharepoint.com/sites/PowerBI/",
+					"tenantId": "fe754037-10dc-495e-90da-045b680fb646",
+					"servicePrincipalId": "[parameters('SharePoint_powerbi_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('SharePoint_powerbi_servicePrincipalKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Zendesk')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -442,7 +465,9 @@
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SharePoint_powerbi')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SharePointLists_SalesEngenieer')]",
@@ -500,26 +525,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/integrationRuntimes/AnyWare')]"
 			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Azure_D365_DEV')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "KeyVault",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
-					}
-				}
-			},
-			"dependsOn": []
 		}
 	]
 }
