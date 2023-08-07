@@ -77,7 +77,7 @@
 		},
 		"AzureDataLakeStorage2_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://datalakesmc.dfs.core.windows.net/"
+			"defaultValue": "https://blobstoragesmcprd.dfs.core.windows.net/"
 		},
 		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
