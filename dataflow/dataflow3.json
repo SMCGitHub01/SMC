@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"linkedService": {
-						"referenceName": "AzureDataLakeStorage2",
+						"referenceName": "AzureDataLakeStorage3",
 						"type": "LinkedServiceReference"
 					},
 					"name": "source1"
@@ -149,7 +149,7 @@
 				"     allowSchemaDrift: false,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     entity: 'appointment',",
+				"     entity: '',",
 				"     format: 'cdm',",
 				"     manifestType: 'model',",
 				"     folderPath: '',",
