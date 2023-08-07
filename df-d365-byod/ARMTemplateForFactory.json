@@ -23392,8 +23392,8 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "leadtimes.csv",
-						"folderPath": "jpnvrd/LeadTimes"
+						"fileName": "LeadTime_F",
+						"folderPath": "jpnvrd/ProdPoLines"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
