@@ -4828,11 +4828,7 @@
 							"name": "sink1"
 						}
 					],
-					"transformations": [
-						{
-							"name": "rank1"
-						}
-					],
+					"transformations": [],
 					"scriptLines": [
 						"source(output(",
 						"          Id as string,",
@@ -4961,9 +4957,7 @@
 						"     manifestType: 'model',",
 						"     folderPath: '',",
 						"     fileSystem: 'dataverse-ramiyokotade-orgd3ad9c7e') ~> source1",
-						"source1 rank(asc(Id, true),",
-						"     output(id as long)) ~> rank1",
-						"rank1 sink(allowSchemaDrift: true,",
+						"source1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     deletable:false,",
 						"     insertable:true,",
