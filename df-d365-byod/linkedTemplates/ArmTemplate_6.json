@@ -13,6 +13,381 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ACC_Process_SugarCRM_DataBase')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_LoadGroup_SugarCRM",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT  * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 14 AND\n\t (TemplateName = 'INCR')",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach_LoadGroup_SugarCRM",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_LoadGroup_SugarCRM",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_LoadGroup_SugarCRM').output.value",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Incr_Copy_SugarCRM",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "MySqlSource",
+											"query": {
+												"value": "SELECT\t@{item().SourceConnectionID} as HSO_DnA_SourceConnectionID,\n\t\t@{item().FieldList}\nFROM \n\t\t@{item().SourceTableName}",
+												"type": "Expression"
+											}
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBatchSize": 1000000,
+											"sqlWriterStoredProcedureName": {
+												"value": "@{item().TargetSchemaName}.@{item().StoredProcedureName} ",
+												"type": "Expression"
+											},
+											"sqlWriterTableType": {
+												"value": "@{item().TargetSchemaName}.@{item().TargetTableName}_TYPE",
+												"type": "Expression"
+											},
+											"storedProcedureTableTypeParameterName": {
+												"value": "@{item().varType}",
+												"type": "Expression"
+											},
+											"storedProcedureParameters": {
+												"GetStartDateTime": {
+													"type": "Datetime",
+													"value": {
+														"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+														"type": "Expression"
+													}
+												}
+											},
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ACCPRD_SugarCRM",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ACC_BYOD_DEV_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().TargetSchemaName}",
+												"TableName": "@{item().TargetTableName}"
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_Current_Sync_And_Date",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							}
+						}
+					},
+					{
+						"name": "Lookup_LoadGroup_SugarCRM_FULL",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 14 AND\n\t (IncrementalLoad = 0  OR TemplateName = 'FULL')",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach_LoadGroup_SugarCRM_FULL",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_LoadGroup_SugarCRM_FULL",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_LoadGroup_SugarCRM_FULL').output.value",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Full_Copy_SugarCRM_copy1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "MySqlSource",
+											"query": {
+												"value": "SELECT\t@{item().SourceConnectionID} as HSO_DnA_SourceConnectionID,\n\t\t@{item().TargetMappingID} as HSO_DnA_TargetMappingID, \n\t\tCURDATE() as HSO_DnA_InsertDateTime, \n\t\tCURDATE() as HSO_DnA_UpdateDateTime, \n\t\t@{item().FieldList}\nFROM \n\t\t@{item().SourceTableName}",
+												"type": "Expression"
+											}
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"preCopyScript": {
+												"value": "TRUNCATE TABLE @{item().TargetSchemaName}.@{item().TargetTableName}",
+												"type": "Expression"
+											},
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false,
+										"parallelCopies": 1,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "ACCPRD_SugarCRM",
+											"type": "DatasetReference",
+											"parameters": {}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "ACC_BYOD_DEV_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": {
+													"value": "@{item().TargetSchemaName}",
+													"type": "Expression"
+												},
+												"TableName": {
+													"value": "@{item().TargetTableName}",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "ACC-SugarCRM"
+				},
+				"annotations": [],
+				"lastPublishTime": "2020-12-10T13:46:04Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_SharePoint_Lijsten')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "GetFeestdagen",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.FeestdagenNL",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "FeestdagenNL"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "FeestdagenNL"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "ACC_SharePoint"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACC_SharepointLijsten')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -4669,387 +5044,6 @@
 				},
 				"folder": {
 					"name": "PRD_Matrix"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Process_SugarCRM_DataBase')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_LoadGroup_SugarCRM",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "ForEach_LoadGroup_SugarCRM_FULL",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT  * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 14 AND\n\t (TemplateName = 'INCR')",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach_LoadGroup_SugarCRM",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_LoadGroup_SugarCRM",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_LoadGroup_SugarCRM').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Incr_Copy_SugarCRM",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "MySqlSource",
-											"query": {
-												"value": "SELECT\t@{item().SourceConnectionID} as HSO_DnA_SourceConnectionID,\n\t\t@{item().FieldList}\nFROM \n\t\t@{item().SourceTableName}",
-												"type": "Expression"
-											}
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"writeBatchSize": 1000000,
-											"sqlWriterStoredProcedureName": {
-												"value": "@{item().TargetSchemaName}.@{item().StoredProcedureName} ",
-												"type": "Expression"
-											},
-											"sqlWriterTableType": {
-												"value": "@{item().TargetSchemaName}.@{item().TargetTableName}_TYPE",
-												"type": "Expression"
-											},
-											"storedProcedureTableTypeParameterName": {
-												"value": "@{item().varType}",
-												"type": "Expression"
-											},
-											"storedProcedureParameters": {
-												"GetStartDateTime": {
-													"type": "Datetime",
-													"value": {
-														"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-														"type": "Expression"
-													}
-												}
-											},
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "ACCPRD_SugarCRM",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": {
-													"value": "@{item().TargetSchemaName}",
-													"type": "Expression"
-												},
-												"TableName": {
-													"value": "@{item().TargetTableName}",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_Current_Sync_And_Date",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							}
-						}
-					},
-					{
-						"name": "Lookup_LoadGroup_SugarCRM_FULL",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 14 AND\n\t (IncrementalLoad = 0  OR TemplateName = 'FULL') ",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach_LoadGroup_SugarCRM_FULL",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_LoadGroup_SugarCRM_FULL",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_LoadGroup_SugarCRM_FULL').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Full_Copy_SugarCRM_copy1",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "MySqlSource",
-											"query": {
-												"value": "SELECT\t@{item().SourceConnectionID} as HSO_DnA_SourceConnectionID,\n\t\t@{item().TargetMappingID} as HSO_DnA_TargetMappingID, \n\t\tCURDATE() as HSO_DnA_InsertDateTime, \n\t\tCURDATE() as HSO_DnA_UpdateDateTime, \n\t\t@{item().FieldList}\nFROM \n\t\t@{item().SourceTableName}",
-												"type": "Expression"
-											}
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"preCopyScript": {
-												"value": "TRUNCATE TABLE @{item().TargetSchemaName}.@{item().TargetTableName}",
-												"type": "Expression"
-											},
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false,
-										"parallelCopies": 1,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "ACCPRD_SugarCRM",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": {
-													"value": "@{item().TargetSchemaName}",
-													"type": "Expression"
-												},
-												"TableName": {
-													"value": "@{item().TargetTableName}",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "PRD-SugarCRM"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-03-27T14:26:15Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Sharepoint_BE')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "GetBElijst",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.BE_Dashboard",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SharePointLists_BE",
-								"type": "DatasetReference",
-								"parameters": {
-									"list": "Dashboard"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "BE_Dashboard"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "PRD_SharePoint"
 				},
 				"annotations": []
 			},

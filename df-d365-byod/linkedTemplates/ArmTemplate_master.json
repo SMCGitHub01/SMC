@@ -23,6 +23,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage3'"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
 		"AzureSqlMI1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
@@ -207,14 +211,14 @@
 					"AzureDataLakeStorage3_accountKey": {
 						"value": "[parameters('AzureDataLakeStorage3_accountKey')]"
 					},
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
 					"SharePoint_servicePrincipalKey": {
 						"value": "[parameters('SharePoint_servicePrincipalKey')]"
-					},
-					"SharePointBE_servicePrincipalKey": {
-						"value": "[parameters('SharePointBE_servicePrincipalKey')]"
 					},
 					"Afas_properties_typeProperties_url": {
 						"value": "[parameters('Afas_properties_typeProperties_url')]"
@@ -248,9 +252,6 @@
 					},
 					"SharePoint_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePoint_properties_typeProperties_servicePrincipalId')]"
-					},
-					"SharePointBE_properties_typeProperties_servicePrincipalId": {
-						"value": "[parameters('SharePointBE_properties_typeProperties_servicePrincipalId')]"
 					}
 				}
 			},
@@ -270,6 +271,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"SharePointBE_servicePrincipalKey": {
+						"value": "[parameters('SharePointBE_servicePrincipalKey')]"
+					},
 					"SharePoint_powerbi_servicePrincipalKey": {
 						"value": "[parameters('SharePoint_powerbi_servicePrincipalKey')]"
 					},
@@ -279,8 +283,8 @@
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
 					},
-					"AnyWhereSQL_connectionString": {
-						"value": "[parameters('AnyWhereSQL_connectionString')]"
+					"SharePointBE_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('SharePointBE_properties_typeProperties_servicePrincipalId')]"
 					},
 					"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePoint_powerbi_properties_typeProperties_servicePrincipalId')]"
@@ -307,6 +311,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AnyWhereSQL_connectionString": {
+						"value": "[parameters('AnyWhereSQL_connectionString')]"
 					},
 					"DWHloads_password": {
 						"value": "[parameters('DWHloads_password')]"

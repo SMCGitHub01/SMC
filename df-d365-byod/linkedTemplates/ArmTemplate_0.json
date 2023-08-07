@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage3'"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
 		"AzureSqlMI1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlMI1'"
@@ -26,10 +30,6 @@
 		"SharePoint_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
-		},
-		"SharePointBE_servicePrincipalKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePointBE'"
 		},
 		"Afas_properties_typeProperties_url": {
 			"type": "string",
@@ -72,10 +72,6 @@
 			"defaultValue": "https://analysis.windows.net/powerbi/api"
 		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
-			"type": "string",
-			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
-		},
-		"SharePointBE_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
 			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		}
@@ -1376,6 +1372,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlMI1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1461,25 +1470,6 @@
 					"servicePrincipalKey": {
 						"type": "SecureString",
 						"value": "[parameters('SharePoint_servicePrincipalKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SharePointBE')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SharePointOnlineList",
-				"typeProperties": {
-					"siteUrl": "https://aquapro.sharepoint.com/sites/SMCBE/EEB",
-					"tenantId": "fe754037-10dc-495e-90da-045b680fb646",
-					"servicePrincipalId": "[parameters('SharePointBE_properties_typeProperties_servicePrincipalId')]",
-					"servicePrincipalKey": {
-						"type": "SecureString",
-						"value": "[parameters('SharePointBE_servicePrincipalKey')]"
 					}
 				}
 			},
