@@ -283,9 +283,6 @@
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
 					},
-					"AnyWhereSQL_connectionString": {
-						"value": "[parameters('AnyWhereSQL_connectionString')]"
-					},
 					"SharePointBE_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePointBE_properties_typeProperties_servicePrincipalId')]"
 					},
@@ -314,6 +311,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AnyWhereSQL_connectionString": {
+						"value": "[parameters('AnyWhereSQL_connectionString')]"
 					},
 					"DWHloads_password": {
 						"value": "[parameters('DWHloads_password')]"
