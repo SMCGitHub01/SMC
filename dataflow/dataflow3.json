@@ -149,7 +149,7 @@
 				"     allowSchemaDrift: false,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false,",
-				"     entity: '',",
+				"     entity: 'appointment',",
 				"     format: 'cdm',",
 				"     manifestType: 'model',",
 				"     folderPath: '',",
