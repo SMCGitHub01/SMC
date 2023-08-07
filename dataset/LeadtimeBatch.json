@@ -1,0 +1,23 @@
+{
+	"name": "LeadtimeBatch",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ToJPN",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "leadtimes.csv",
+				"folderPath": "jpnvrd/LeadTimes"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
