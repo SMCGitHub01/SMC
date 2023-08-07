@@ -157,7 +157,7 @@
 				"source1 rank(asc(Id, true),",
 				"     output(id as long)) ~> rank1",
 				"rank1 sink(allowSchemaDrift: true,",
-				"     validateSchema: true,",
+				"     validateSchema: false,",
 				"     deletable:false,",
 				"     insertable:true,",
 				"     updateable:false,",
