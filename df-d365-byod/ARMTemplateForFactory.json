@@ -22446,7 +22446,510 @@
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
-				"schema": [],
+				"schema": [
+					{
+						"name": "Id",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SinkCreatedOn",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "SinkModifiedOn",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "statecode",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "statuscode",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "hso_occasion",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "onlinemeetingtype",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "prioritycode",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "attachmenterrors",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "hso_reason",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "instancetypecode",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "isworkflowcreated",
+						"type": "bit"
+					},
+					{
+						"name": "isbilled",
+						"type": "bit"
+					},
+					{
+						"name": "ismapiprivate",
+						"type": "bit"
+					},
+					{
+						"name": "isdraft",
+						"type": "bit"
+					},
+					{
+						"name": "isonlinemeeting",
+						"type": "bit"
+					},
+					{
+						"name": "isalldayevent",
+						"type": "bit"
+					},
+					{
+						"name": "isregularactivity",
+						"type": "bit"
+					},
+					{
+						"name": "createdonbehalfby",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdonbehalfby_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_account",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_account_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owningteam",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owningteam_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "regardingobjectid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "regardingobjectid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedby",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedby_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdby",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdby_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "slainvokedid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "slainvokedid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "serviceid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "serviceid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owninguser",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owninguser_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedonbehalfby",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedonbehalfby_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "transactioncurrencyid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "transactioncurrencyid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "slaid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "slaid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_appointmentreportid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_appointmentreportid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owningbusinessunit",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owningbusinessunit_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ownerid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ownerid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "organizer",
+						"type": "nvarchar"
+					},
+					{
+						"name": "requiredattendees",
+						"type": "nvarchar"
+					},
+					{
+						"name": "optionalattendees",
+						"type": "nvarchar"
+					},
+					{
+						"name": "versionnumber",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "createdon",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedonbehalfbyyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owningbusinessunitname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "attachmentcount",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "seriesid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "isunsafe",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "traversedpath",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedbyyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_accountyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owneridtype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedbyname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "regardingobjectidyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owneridname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "overriddencreatedon",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "scheduledstart",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "createdonbehalfbyyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "subscriptionid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "slaname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "exchangerate",
+						"type": "decimal",
+						"precision": 38,
+						"scale": 10
+					},
+					{
+						"name": "subcategory",
+						"type": "nvarchar"
+					},
+					{
+						"name": "onlinemeetingjoinurl",
+						"type": "nvarchar"
+					},
+					{
+						"name": "timezoneruleversionnumber",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "formattedscheduledstart",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "regardingobjectidname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "onlinemeetingchatid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "activityadditionalparams",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdonbehalfbyname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "actualstart",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "activitytypecode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "utcconversiontimezonecode",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "scheduleddurationminutes",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "hso_accountname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedon",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "importsequencenumber",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "owneridyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "onholdtime",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "processid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "description",
+						"type": "nvarchar"
+					},
+					{
+						"name": "location",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdbyname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "globalobjectid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "regardingobjecttypecode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_appointmentreportidname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "sortdate",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "lastonholdtime",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "stageid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "safedescription",
+						"type": "nvarchar"
+					},
+					{
+						"name": "category",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdbyyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "transactioncurrencyidname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "actualend",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "activityid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedonbehalfbyname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "serviceidname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "slainvokedidname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "scheduledend",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "originalstartdate",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "formattedscheduledend",
+						"type": "datetime2",
+						"scale": 7
+					},
+					{
+						"name": "modifiedfieldsmask",
+						"type": "nvarchar"
+					},
+					{
+						"name": "outlookownerapptid",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "actualdurationminutes",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "onlinemeetingid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "subject",
+						"type": "nvarchar"
+					},
+					{
+						"name": "msft_datastate",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "hso_createappointmentreport",
+						"type": "bit"
+					}
+				],
 				"typeProperties": {
 					"schema": "dbo",
 					"table": "CEappointment"
@@ -25461,7 +25964,11 @@
 							"name": "sink1"
 						}
 					],
-					"transformations": [],
+					"transformations": [
+						{
+							"name": "rank1"
+						}
+					],
 					"scriptLines": [
 						"source(output(",
 						"          Id as string,",
@@ -25590,13 +26097,135 @@
 						"     manifestType: 'model',",
 						"     folderPath: '',",
 						"     fileSystem: 'dataverse-ramiyokotade-orgd3ad9c7e') ~> source1",
-						"source1 sink(allowSchemaDrift: true,",
+						"source1 rank(asc(Id, true),",
+						"     output(uniqueid as long),",
+						"     dense: true) ~> rank1",
+						"rank1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     input(",
+						"          Id as string,",
+						"          SinkCreatedOn as timestamp,",
+						"          SinkModifiedOn as timestamp,",
+						"          statecode as long,",
+						"          statuscode as long,",
+						"          hso_occasion as long,",
+						"          onlinemeetingtype as long,",
+						"          prioritycode as long,",
+						"          attachmenterrors as long,",
+						"          hso_reason as long,",
+						"          instancetypecode as long,",
+						"          isworkflowcreated as boolean,",
+						"          isbilled as boolean,",
+						"          ismapiprivate as boolean,",
+						"          isdraft as boolean,",
+						"          isonlinemeeting as boolean,",
+						"          isalldayevent as boolean,",
+						"          isregularactivity as boolean,",
+						"          createdonbehalfby as string,",
+						"          createdonbehalfby_entitytype as string,",
+						"          hso_account as string,",
+						"          hso_account_entitytype as string,",
+						"          owningteam as string,",
+						"          owningteam_entitytype as string,",
+						"          regardingobjectid as string,",
+						"          regardingobjectid_entitytype as string,",
+						"          modifiedby as string,",
+						"          modifiedby_entitytype as string,",
+						"          createdby as string,",
+						"          createdby_entitytype as string,",
+						"          slainvokedid as string,",
+						"          slainvokedid_entitytype as string,",
+						"          serviceid as string,",
+						"          serviceid_entitytype as string,",
+						"          owninguser as string,",
+						"          owninguser_entitytype as string,",
+						"          modifiedonbehalfby as string,",
+						"          modifiedonbehalfby_entitytype as string,",
+						"          transactioncurrencyid as string,",
+						"          transactioncurrencyid_entitytype as string,",
+						"          slaid as string,",
+						"          slaid_entitytype as string,",
+						"          hso_appointmentreportid as string,",
+						"          hso_appointmentreportid_entitytype as string,",
+						"          owningbusinessunit as string,",
+						"          owningbusinessunit_entitytype as string,",
+						"          ownerid as string,",
+						"          ownerid_entitytype as string,",
+						"          organizer as string,",
+						"          requiredattendees as string,",
+						"          optionalattendees as string,",
+						"          versionnumber as long,",
+						"          createdon as string,",
+						"          modifiedonbehalfbyyominame as string,",
+						"          owningbusinessunitname as string,",
+						"          attachmentcount as long,",
+						"          seriesid as string,",
+						"          isunsafe as long,",
+						"          traversedpath as string,",
+						"          modifiedbyyominame as string,",
+						"          hso_accountyominame as string,",
+						"          owneridtype as string,",
+						"          modifiedbyname as string,",
+						"          regardingobjectidyominame as string,",
+						"          owneridname as string,",
+						"          overriddencreatedon as timestamp,",
+						"          scheduledstart as timestamp,",
+						"          createdonbehalfbyyominame as string,",
+						"          subscriptionid as string,",
+						"          slaname as string,",
+						"          exchangerate as decimal(38,10),",
+						"          subcategory as string,",
+						"          onlinemeetingjoinurl as string,",
+						"          timezoneruleversionnumber as long,",
+						"          formattedscheduledstart as timestamp,",
+						"          regardingobjectidname as string,",
+						"          onlinemeetingchatid as string,",
+						"          activityadditionalparams as string,",
+						"          createdonbehalfbyname as string,",
+						"          actualstart as timestamp,",
+						"          activitytypecode as string,",
+						"          utcconversiontimezonecode as long,",
+						"          scheduleddurationminutes as long,",
+						"          hso_accountname as string,",
+						"          modifiedon as timestamp,",
+						"          importsequencenumber as long,",
+						"          owneridyominame as string,",
+						"          onholdtime as long,",
+						"          processid as string,",
+						"          description as string,",
+						"          location as string,",
+						"          createdbyname as string,",
+						"          globalobjectid as string,",
+						"          regardingobjecttypecode as string,",
+						"          hso_appointmentreportidname as string,",
+						"          sortdate as timestamp,",
+						"          lastonholdtime as timestamp,",
+						"          stageid as string,",
+						"          safedescription as string,",
+						"          category as string,",
+						"          createdbyyominame as string,",
+						"          transactioncurrencyidname as string,",
+						"          actualend as timestamp,",
+						"          activityid as string,",
+						"          modifiedonbehalfbyname as string,",
+						"          serviceidname as string,",
+						"          slainvokedidname as string,",
+						"          scheduledend as timestamp,",
+						"          originalstartdate as timestamp,",
+						"          formattedscheduledend as timestamp,",
+						"          modifiedfieldsmask as string,",
+						"          outlookownerapptid as long,",
+						"          actualdurationminutes as long,",
+						"          onlinemeetingid as string,",
+						"          subject as string,",
+						"          msft_datastate as long,",
+						"          hso_createappointmentreport as boolean",
+						"     ),",
 						"     deletable:false,",
 						"     insertable:true,",
 						"     updateable:false,",
 						"     upsertable:false,",
-						"     recreate:true,",
+						"     truncate:true,",
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
