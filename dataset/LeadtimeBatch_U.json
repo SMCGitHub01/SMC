@@ -1,5 +1,5 @@
 {
-	"name": "LeadtimeBatch_F",
+	"name": "LeadtimeBatch_U",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ToJPN",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "LeadTime_F.csv",
+				"fileName": "LeadTime_U.csv",
 				"folderPath": "jpnvrd/ProdPoLines"
 			},
 			"columnDelimiter": ",",

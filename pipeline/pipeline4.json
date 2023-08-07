@@ -53,13 +53,13 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "LeadtimeBatch",
+						"referenceName": "LeadtimeBatch_F",
 						"type": "DatasetReference"
 					}
 				]
 			},
 			{
-				"name": "PRD_LeadtimeOutput_copy1",
+				"name": "PRD_LeadtimeOutput_U",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -109,7 +109,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "LeadtimeBatch",
+						"referenceName": "LeadtimeBatch_U",
 						"type": "DatasetReference"
 					}
 				]
