@@ -20754,7 +20754,64 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "LeadtimeBatch",
+								"referenceName": "LeadtimeBatch_F",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "PRD_LeadtimeOutput_U",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vwLeadtimeassemblies"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "LeadtimeBatch_U",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -20769,7 +20826,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
-				"[concat(variables('factoryId'), '/datasets/LeadtimeBatch')]"
+				"[concat(variables('factoryId'), '/datasets/LeadtimeBatch_F')]",
+				"[concat(variables('factoryId'), '/datasets/LeadtimeBatch_U')]"
 			]
 		},
 		{
@@ -23379,7 +23437,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LeadtimeBatch')]",
+			"name": "[concat(parameters('factoryName'), '/LeadtimeBatch_F')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -23392,7 +23450,35 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "LeadTime_F",
+						"fileName": "LeadTime_F.csv",
+						"folderPath": "jpnvrd/ProdPoLines"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ToJPN')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LeadtimeBatch_U')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ToJPN",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "LeadTime_U.csv",
 						"folderPath": "jpnvrd/ProdPoLines"
 					},
 					"columnDelimiter": ",",

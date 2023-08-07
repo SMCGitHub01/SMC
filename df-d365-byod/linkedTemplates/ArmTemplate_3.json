@@ -1948,7 +1948,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LeadtimeBatch')]",
+			"name": "[concat(parameters('factoryName'), '/LeadtimeBatch_F')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1961,7 +1961,33 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "LeadTime_F",
+						"fileName": "LeadTime_F.csv",
+						"folderPath": "jpnvrd/ProdPoLines"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LeadtimeBatch_U')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ToJPN",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "LeadTime_U.csv",
 						"folderPath": "jpnvrd/ProdPoLines"
 					},
 					"columnDelimiter": ",",
@@ -2075,48 +2101,6 @@
 							"type": "Expression"
 						},
 						"container": "dwhbudgetdirectsales"
-					},
-					"range": "",
-					"firstRowAsHeader": true
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_BudgetInDirectSales')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragesmcprd",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"WorkSheet": {
-						"type": "string"
-					},
-					"Excelfile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "PRD"
-				},
-				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": {
-						"value": "@dataset().Worksheet",
-						"type": "Expression"
-					},
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().Excelfile",
-							"type": "Expression"
-						},
-						"container": "dwhbudgetindirectsales"
 					},
 					"range": "",
 					"firstRowAsHeader": true
