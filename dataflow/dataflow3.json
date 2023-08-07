@@ -21,7 +21,11 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "rank1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          Id as string,",
@@ -150,7 +154,10 @@
 				"     manifestType: 'model',",
 				"     folderPath: '',",
 				"     fileSystem: 'dataverse-ramiyokotade-orgd3ad9c7e') ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"source1 rank(asc(ERROR_FUNCTION(''), true),",
+				"     output(id as long),",
+				"     dense: true) ~> rank1",
+				"rank1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          Id as string,",
