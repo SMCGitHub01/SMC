@@ -20559,6 +20559,52 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Family",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Family",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Series",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Series",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Modified",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Modified",
+											"type": "DateTime",
+											"physicalType": "DateTime"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
