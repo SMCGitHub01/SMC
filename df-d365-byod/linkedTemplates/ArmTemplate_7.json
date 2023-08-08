@@ -5951,7 +5951,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetCustomers",
+						"name": "Get",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -6176,7 +6176,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists",
+								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
 									"list": "Energy Efficiency groups"
