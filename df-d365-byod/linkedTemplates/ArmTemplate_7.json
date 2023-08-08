@@ -13,6 +13,776 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_Invoice_Corrections')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "PRD_Invoice_Corrections",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"additionalColumns": [
+									{
+										"name": "HSO_DnA_InsertDateTime",
+										"value": {
+											"value": "@pipeline().parameters.StartDateTime",
+											"type": "Expression"
+										}
+									},
+									{
+										"name": "HSO_DnA_SourceConnectionID",
+										"value": {
+											"value": "@pipeline().parameters.SourceConnectionID",
+											"type": "Expression"
+										}
+									},
+									{
+										"name": "HSO_DnA_TargetMappingID",
+										"value": {
+											"value": "@pipeline().parameters.TargetMapping",
+											"type": "Expression"
+										}
+									}
+								],
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFileName": {
+										"value": "@{pipeline().parameters.CSVFile}",
+										"type": "Expression"
+									}
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": {
+									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
+									"type": "Expression"
+								},
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false,
+									"culture": "nl-nl"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_Invoice_Corrections",
+								"type": "DatasetReference",
+								"parameters": {
+									"CSVFile": "@{pipeline().parameters.CSVFile}"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
+									"TableName": "@{pipeline().parameters.TargetTableName}"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"CSVFile": {
+						"type": "string"
+					},
+					"StartDateTime": {
+						"type": "string"
+					},
+					"TargetTableName": {
+						"type": "string"
+					},
+					"TargetSchemaName": {
+						"type": "string"
+					},
+					"TargetMapping": {
+						"type": "string"
+					},
+					"SourceConnectionID": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD-IFS"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-03-27T13:45:56Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_Materialize_Views')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_Full_Views",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName NOT IN ('INCR', 'DWHINCR', 'DWHPART') OR IncrementalLoad = 0) ORDER BY LoadPriority",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "For_Each_Full_View",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Full_Views",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Full_Views').output.value",
+								"type": "Expression"
+							},
+							"batchCount": 4,
+							"activities": [
+								{
+									"name": "Materialize_Full_Views",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [
+										{
+											"name": "Source",
+											"value": "@{concat(item().SourceSchemaName, '.', item().SourceTableName)}"
+										},
+										{
+											"name": "Destination",
+											"value": "@{concat(item().TargetSchemaName, '.', item().TargetTableName)}"
+										}
+									],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "SELECT @{item().SourceConnectionID} as HSO_DnA_SourceConnectionID, @{item().TargetMappingID} as HSO_DnA_TargetMappingID, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_InsertDateTime, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_UpdateDateTime, null as HSO_DnA_DeleteDateTime, @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}",
+												"type": "Expression"
+											},
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBatchSize": 1000000,
+											"preCopyScript": {
+												"value": "TRUNCATE TABLE @{item().TargetSchemaName}.@{item().TargetTableName}",
+												"type": "Expression"
+											},
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "PRD_BYOD_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": " @{item().SourceSchemaName}",
+												"TableName": "@{item().SourceTableName}"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "PRD_BYOD_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().TargetSchemaName}",
+												"TableName": "@{item().TargetTableName}"
+											}
+										}
+									]
+								},
+								{
+									"name": "Update_Target_Mapping",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "Materialize_Full_Views",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[process].[UpdateTargetMapping]",
+										"storedProcedureParameters": {
+											"GetStartDate": {
+												"value": {
+													"value": "@pipeline().parameters.StartDateTime",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"TargetMappingID": {
+												"value": {
+													"value": "@{item().TargetMappingID}",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "Azure_D365_PROD",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_Incr_Views",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName = 'INCR' OR TemplateName = 'DWHINCR') AND IncrementalLoad = 1 ORDER BY LoadPriority",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "For_Each_Incr_View",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Incr_Views",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Incr_Views').output.value",
+								"type": "Expression"
+							},
+							"batchCount": 4,
+							"activities": [
+								{
+									"name": "Materialize_Incr_Views",
+									"description": "Copy data from the on-premises source database to the matching cloud sink database",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [
+										{
+											"name": "Destination",
+											"value": "@{concat(item().TargetSchemaName, '_', item().TargetTableName)}"
+										}
+									],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "SELECT @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}  WHERE ModifiedDateTime >= DATEADD(DAY, -5, GETDATE())",
+												"type": "Expression"
+											},
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBatchSize": 1000000,
+											"sqlWriterStoredProcedureName": {
+												"value": "@{item().TargetSchemaName}.@{item().StoredProcedureName} ",
+												"type": "Expression"
+											},
+											"sqlWriterTableType": {
+												"value": "@{item().TargetSchemaName}.@{item().TargetTableName}_TYPE ",
+												"type": "Expression"
+											},
+											"storedProcedureParameters": {
+												"GetStartDateTime": {
+													"type": "datetime",
+													"value": {
+														"value": "@pipeline().parameters.StartDateTime",
+														"type": "Expression"
+													}
+												}
+											},
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "PRD_BYOD_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": {
+													"value": "@{item().SourceSchemaName}",
+													"type": "Expression"
+												},
+												"TableName": {
+													"value": "@{item().SourceTableName}",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "PRD_BYOD_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": {
+													"value": "@{item().TargetSchemaName}",
+													"type": "Expression"
+												},
+												"TableName": {
+													"value": "@{item().TargetTableName}",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_FULLADD_Views",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName = 'FULL_ADD') AND IncrementalLoad = 0 ORDER BY LoadPriority",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "For_Each_FullAdd_View",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_FULLADD_Views",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_FULLADD_Views').output.value",
+								"type": "Expression"
+							},
+							"batchCount": 4,
+							"activities": [
+								{
+									"name": "Materialize_FullAdd_Views",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [
+										{
+											"name": "Source",
+											"value": "@{concat(item().SourceSchemaName, '.', item().SourceTableName)}"
+										},
+										{
+											"name": "Destination",
+											"value": "@{concat(item().TargetSchemaName, '.', item().TargetTableName)}"
+										}
+									],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "SELECT @{item().SourceConnectionID} as HSO_DnA_SourceConnectionID, @{item().TargetMappingID} as HSO_DnA_TargetMappingID, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_InsertDateTime, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_UpdateDateTime, null as HSO_DnA_DeleteDateTime, @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}",
+												"type": "Expression"
+											},
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBatchSize": 1000000,
+											"preCopyScript": {
+												"value": "DELETE FROM @{item().TargetSchemaName}.@{item().TargetTableName}\nWHERE [DateExecutionBK] = (SELECT MAX(DateExecutionBK) FROM @{item().SourceSchemaName}.@{item().SourceTableName})",
+												"type": "Expression"
+											},
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "PRD_BYOD_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().SourceSchemaName}",
+												"TableName": "@{item().SourceTableName}"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "PRD_BYOD_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().TargetSchemaName}",
+												"TableName": "@{item().TargetTableName}"
+											}
+										}
+									]
+								},
+								{
+									"name": "Update_Target_Mapping_FullAdd",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "Materialize_FullAdd_Views",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[process].[UpdateTargetMapping]",
+										"storedProcedureParameters": {
+											"GetStartDate": {
+												"value": {
+													"value": "@pipeline().parameters.StartDateTime",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"TargetMappingID": {
+												"value": {
+													"value": "@{item().TargetMappingID}",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "Azure_D365_PROD",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "For_Each_FULLADDCurrent-EndMonth_View",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_FULLADDCurrent-EndMonth_Views",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_FULLADDCurrent-EndMonth_Views').output.value",
+								"type": "Expression"
+							},
+							"batchCount": 4,
+							"activities": [
+								{
+									"name": "Materialize_FULLADDCurrent-EndMonth_Views",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [
+										{
+											"name": "Source",
+											"value": "@{concat(item().SourceSchemaName, '.', item().SourceTableName)}"
+										},
+										{
+											"name": "Destination",
+											"value": "@{concat(item().TargetSchemaName, '.', item().TargetTableName)}"
+										}
+									],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"sqlReaderQuery": {
+												"value": "SELECT @{item().SourceConnectionID} as HSO_DnA_SourceConnectionID, @{item().TargetMappingID} as HSO_DnA_TargetMappingID, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_InsertDateTime, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_UpdateDateTime, null as HSO_DnA_DeleteDateTime, @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}",
+												"type": "Expression"
+											},
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBatchSize": 1000000,
+											"preCopyScript": {
+												"value": "DELETE FROM @{item().TargetSchemaName}.@{item().TargetTableName}\nWHERE CONVERT(INT,CONVERT(VARCHAR,[HSO_DnA_InsertDateTime],112)) = CONVERT(INT,CONVERT(VARCHAR,GETUTCDATE(),112)) \n  AND\tCONVERT(INT,CONVERT(VARCHAR,[HSO_DnA_InsertDateTime],112))   NOT IN (SELECT [DateBK] FROM [dwh].[DimDate] where [IsLastDayOfMonth]=1)",
+												"type": "Expression"
+											},
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "PRD_BYOD_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().SourceSchemaName}",
+												"TableName": "@{item().SourceTableName}"
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "PRD_BYOD_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "@{item().TargetSchemaName}",
+												"TableName": "@{item().TargetTableName}"
+											}
+										}
+									]
+								},
+								{
+									"name": "Update_Target_Mapping_FULLADDCurrent-EndMonth",
+									"type": "SqlServerStoredProcedure",
+									"dependsOn": [
+										{
+											"activity": "Materialize_FULLADDCurrent-EndMonth_Views",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"policy": {
+										"timeout": "7.00:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"storedProcedureName": "[[process].[UpdateTargetMapping]",
+										"storedProcedureParameters": {
+											"GetStartDate": {
+												"value": {
+													"value": "@pipeline().parameters.StartDateTime",
+													"type": "Expression"
+												},
+												"type": "DateTime"
+											},
+											"TargetMappingID": {
+												"value": {
+													"value": "@{item().TargetMappingID}",
+													"type": "Expression"
+												},
+												"type": "Int32"
+											}
+										}
+									},
+									"linkedServiceName": {
+										"referenceName": "Azure_D365_PROD",
+										"type": "LinkedServiceReference"
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Lookup_FULLADDCurrent-EndMonth_Views",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName = 'FULL_ADD_EOMonth_Cur') AND IncrementalLoad = 0 ORDER BY LoadPriority",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"LoadGroupID": {
+						"type": "int"
+					},
+					"StartDateTime": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD-Process_DWH"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-09-01T06:06:41Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_Matrix_Import')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -5433,138 +6203,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LeadTimeBatch')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "PRD_LeadtimeOutput",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "FileServerWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dwh",
-									"TableName": "vwLeadtimeassemblies"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "LeadtimeBatch_F",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "PRD_LeadtimeOutput_U",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "FileServerWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dwh",
-									"TableName": "vwLeadtimeassemblies"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "LeadtimeBatch_U",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "OUT-PRD-ACC"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/dataflow2')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -5694,310 +6332,6 @@
 						"     mapColumn(",
 						"          Name",
 						"     )) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataflow3')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"linkedService": {
-								"referenceName": "AzureDataLakeStorage3",
-								"type": "LinkedServiceReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "AzureSqlTable4",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "rank1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          Id as string,",
-						"          SinkCreatedOn as timestamp,",
-						"          SinkModifiedOn as timestamp,",
-						"          statecode as long,",
-						"          statuscode as long,",
-						"          hso_occasion as long,",
-						"          onlinemeetingtype as long,",
-						"          prioritycode as long,",
-						"          attachmenterrors as long,",
-						"          hso_reason as long,",
-						"          instancetypecode as long,",
-						"          isworkflowcreated as boolean,",
-						"          isbilled as boolean,",
-						"          ismapiprivate as boolean,",
-						"          isdraft as boolean,",
-						"          isonlinemeeting as boolean,",
-						"          isalldayevent as boolean,",
-						"          isregularactivity as boolean,",
-						"          createdonbehalfby as string,",
-						"          createdonbehalfby_entitytype as string,",
-						"          hso_account as string,",
-						"          hso_account_entitytype as string,",
-						"          owningteam as string,",
-						"          owningteam_entitytype as string,",
-						"          regardingobjectid as string,",
-						"          regardingobjectid_entitytype as string,",
-						"          modifiedby as string,",
-						"          modifiedby_entitytype as string,",
-						"          createdby as string,",
-						"          createdby_entitytype as string,",
-						"          slainvokedid as string,",
-						"          slainvokedid_entitytype as string,",
-						"          serviceid as string,",
-						"          serviceid_entitytype as string,",
-						"          owninguser as string,",
-						"          owninguser_entitytype as string,",
-						"          modifiedonbehalfby as string,",
-						"          modifiedonbehalfby_entitytype as string,",
-						"          transactioncurrencyid as string,",
-						"          transactioncurrencyid_entitytype as string,",
-						"          slaid as string,",
-						"          slaid_entitytype as string,",
-						"          hso_appointmentreportid as string,",
-						"          hso_appointmentreportid_entitytype as string,",
-						"          owningbusinessunit as string,",
-						"          owningbusinessunit_entitytype as string,",
-						"          ownerid as string,",
-						"          ownerid_entitytype as string,",
-						"          organizer as string,",
-						"          requiredattendees as string,",
-						"          optionalattendees as string,",
-						"          versionnumber as long,",
-						"          createdon as string,",
-						"          modifiedonbehalfbyyominame as string,",
-						"          owningbusinessunitname as string,",
-						"          attachmentcount as long,",
-						"          seriesid as string,",
-						"          isunsafe as long,",
-						"          traversedpath as string,",
-						"          modifiedbyyominame as string,",
-						"          hso_accountyominame as string,",
-						"          owneridtype as string,",
-						"          modifiedbyname as string,",
-						"          regardingobjectidyominame as string,",
-						"          owneridname as string,",
-						"          overriddencreatedon as timestamp,",
-						"          scheduledstart as timestamp,",
-						"          createdonbehalfbyyominame as string,",
-						"          subscriptionid as string,",
-						"          slaname as string,",
-						"          exchangerate as decimal(38,10),",
-						"          subcategory as string,",
-						"          onlinemeetingjoinurl as string,",
-						"          timezoneruleversionnumber as long,",
-						"          formattedscheduledstart as timestamp,",
-						"          regardingobjectidname as string,",
-						"          onlinemeetingchatid as string,",
-						"          activityadditionalparams as string,",
-						"          createdonbehalfbyname as string,",
-						"          actualstart as timestamp,",
-						"          activitytypecode as string,",
-						"          utcconversiontimezonecode as long,",
-						"          scheduleddurationminutes as long,",
-						"          hso_accountname as string,",
-						"          modifiedon as timestamp,",
-						"          importsequencenumber as long,",
-						"          owneridyominame as string,",
-						"          onholdtime as long,",
-						"          processid as string,",
-						"          description as string,",
-						"          location as string,",
-						"          createdbyname as string,",
-						"          globalobjectid as string,",
-						"          regardingobjecttypecode as string,",
-						"          hso_appointmentreportidname as string,",
-						"          sortdate as timestamp,",
-						"          lastonholdtime as timestamp,",
-						"          stageid as string,",
-						"          safedescription as string,",
-						"          category as string,",
-						"          createdbyyominame as string,",
-						"          transactioncurrencyidname as string,",
-						"          actualend as timestamp,",
-						"          activityid as string,",
-						"          modifiedonbehalfbyname as string,",
-						"          serviceidname as string,",
-						"          slainvokedidname as string,",
-						"          scheduledend as timestamp,",
-						"          originalstartdate as timestamp,",
-						"          formattedscheduledend as timestamp,",
-						"          modifiedfieldsmask as string,",
-						"          outlookownerapptid as long,",
-						"          actualdurationminutes as long,",
-						"          onlinemeetingid as string,",
-						"          subject as string,",
-						"          msft_datastate as long,",
-						"          hso_createappointmentreport as boolean",
-						"     ),",
-						"     allowSchemaDrift: false,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     entity: 'appointment',",
-						"     format: 'cdm',",
-						"     manifestType: 'model',",
-						"     folderPath: '',",
-						"     fileSystem: 'dataverse-ramiyokotade-orgd3ad9c7e') ~> source1",
-						"source1 rank(asc(Id, true),",
-						"     output(uniqueid as long),",
-						"     dense: true) ~> rank1",
-						"rank1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          Id as string,",
-						"          SinkCreatedOn as timestamp,",
-						"          SinkModifiedOn as timestamp,",
-						"          statecode as integer,",
-						"          statuscode as integer,",
-						"          hso_reason as integer,",
-						"          hso_occasion as integer,",
-						"          prioritycode as integer,",
-						"          attachmenterrors as integer,",
-						"          instancetypecode as integer,",
-						"          isregularactivity as boolean,",
-						"          isalldayevent as boolean,",
-						"          isworkflowcreated as boolean,",
-						"          isbilled as boolean,",
-						"          isdraft as boolean,",
-						"          ismapiprivate as boolean,",
-						"          serviceid as string,",
-						"          serviceid_entitytype as string,",
-						"          owningteam as string,",
-						"          owningteam_entitytype as string,",
-						"          owningbusinessunit as string,",
-						"          owningbusinessunit_entitytype as string,",
-						"          transactioncurrencyid as string,",
-						"          transactioncurrencyid_entitytype as string,",
-						"          createdonbehalfby as string,",
-						"          createdonbehalfby_entitytype as string,",
-						"          owninguser as string,",
-						"          owninguser_entitytype as string,",
-						"          modifiedonbehalfby as string,",
-						"          modifiedonbehalfby_entitytype as string,",
-						"          modifiedby as string,",
-						"          modifiedby_entitytype as string,",
-						"          slainvokedid as string,",
-						"          slainvokedid_entitytype as string,",
-						"          createdby as string,",
-						"          createdby_entitytype as string,",
-						"          regardingobjectid as string,",
-						"          regardingobjectid_entitytype as string,",
-						"          slaid as string,",
-						"          slaid_entitytype as string,",
-						"          ownerid as string,",
-						"          ownerid_entitytype as string,",
-						"          organizer as string,",
-						"          requiredattendees as string,",
-						"          optionalattendees as string,",
-						"          regardingobjectidyominame as string,",
-						"          owneridyominame as string,",
-						"          activityid as string,",
-						"          modifiedonbehalfbyname as string,",
-						"          subscriptionid as string,",
-						"          stageid as string,",
-						"          actualstart as timestamp,",
-						"          slaname as string,",
-						"          traversedpath as string,",
-						"          createdbyname as string,",
-						"          scheduleddurationminutes as integer,",
-						"          regardingobjecttypecode as string,",
-						"          slainvokedidname as string,",
-						"          owneridtype as string,",
-						"          modifiedon as timestamp,",
-						"          modifiedbyname as string,",
-						"          attachmentcount as integer,",
-						"          onholdtime as integer,",
-						"          globalobjectid as string,",
-						"          regardingobjectidname as string,",
-						"          createdonbehalfbyyominame as string,",
-						"          processid as string,",
-						"          scheduledstart as timestamp,",
-						"          subject as string,",
-						"          safedescription as string,",
-						"          category as string,",
-						"          owneridname as string,",
-						"          importsequencenumber as integer,",
-						"          modifiedbyyominame as string,",
-						"          actualend as timestamp,",
-						"          lastonholdtime as timestamp,",
-						"          seriesid as string,",
-						"          actualdurationminutes as integer,",
-						"          utcconversiontimezonecode as integer,",
-						"          subcategory as string,",
-						"          activityadditionalparams as string,",
-						"          modifiedonbehalfbyyominame as string,",
-						"          sortdate as timestamp,",
-						"          serviceidname as string,",
-						"          modifiedfieldsmask as string,",
-						"          scheduledend as timestamp,",
-						"          timezoneruleversionnumber as integer,",
-						"          overriddencreatedon as timestamp,",
-						"          exchangerate as decimal(38,12),",
-						"          isunsafe as integer,",
-						"          createdbyyominame as string,",
-						"          createdon as timestamp,",
-						"          versionnumber as long,",
-						"          description as string,",
-						"          transactioncurrencyidname as string,",
-						"          outlookownerapptid as integer,",
-						"          activitytypecode as string,",
-						"          location as string,",
-						"          originalstartdate as timestamp,",
-						"          createdonbehalfbyname as string,",
-						"          owningbusinessunitname as string,",
-						"          onlinemeetingtype as integer,",
-						"          isonlinemeeting as boolean,",
-						"          onlinemeetingjoinurl as string,",
-						"          onlinemeetingchatid as string,",
-						"          onlinemeetingid as string,",
-						"          msdyn_ci_translated_transcript as string,",
-						"          msdyn_ci_keywords as string,",
-						"          msdyn_ci_transcript_json as string,",
-						"          msdyn_ci_media_reference_id as string,",
-						"          msdyn_ci_insights_json as string,",
-						"          msdyn_ci_translated_transcript_json as string,",
-						"          msdyn_ci_url as string,",
-						"          msdyn_ci_transcript as string,",
-						"          msdyn_ci_call_summary_control_field as integer,",
-						"          msdyn_ci_id as string,",
-						"          hso_account as string,",
-						"          hso_account_entitytype as string,",
-						"          hso_appointmentreportid as string,",
-						"          hso_appointmentreportid_entitytype as string,",
-						"          hso_accountyominame as string,",
-						"          hso_accountname as string,",
-						"          hso_appointmentreportidname as string,",
-						"          formattedscheduledstart as timestamp,",
-						"          formattedscheduledend as timestamp",
-						"     ),",
-						"     deletable:false,",
-						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
-						"     truncate:true,",
-						"     format: 'table',",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
 					]
 				}
 			},
