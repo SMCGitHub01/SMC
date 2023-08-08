@@ -20550,9 +20550,10 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.customers",
+								"preCopyScript": "--truncate table sharepoint.customers",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -20759,7 +20760,7 @@
 								"referenceName": "SharePointLists",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "Customers"
+									"list": "Energy Efficiency groups"
 								}
 							}
 						],
@@ -20769,7 +20770,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "sharepoint",
-									"TableName": "Customers"
+									"TableName": "EnergyEfficiencyGroups"
 								}
 							}
 						]
