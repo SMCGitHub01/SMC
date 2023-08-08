@@ -228,7 +228,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SharePointLists",
+						"referenceName": "SharePointLists_PowerBI",
 						"type": "DatasetReference",
 						"parameters": {
 							"list": "Energy Efficiency groups"
