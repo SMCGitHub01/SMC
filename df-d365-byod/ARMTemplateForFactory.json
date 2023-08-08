@@ -20532,7 +20532,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Get",
+						"name": "GetEnergyEfficiencyGroups",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -20760,7 +20760,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "Energy Efficiency groups"
+									"list": "EnergyEfficiencyGroups"
 								}
 							}
 						],
