@@ -20816,7 +20816,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "cdr.log"
+						"fileName": "cdr1.csv"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
