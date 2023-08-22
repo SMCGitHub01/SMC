@@ -9,12 +9,6 @@
 					"referenceName": "ACC_tevervroegenorders",
 					"type": "PipelineReference"
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "PRD_tevervroegenorders",
-					"type": "PipelineReference"
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
