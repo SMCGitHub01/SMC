@@ -14711,6 +14711,85 @@
 								}
 							}
 						]
+					},
+					{
+						"name": "GetKortingsGroups",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.KortingsGroups",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Kortingsgroep",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Kortingsgroep",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ItemGroup",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "ItemGroup",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "KortingGroups"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "KortingsGroups"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
