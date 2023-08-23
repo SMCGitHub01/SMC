@@ -689,7 +689,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "deploy.spFillFact3CXchain"
+							"storedProcedureName": "process.spFillFact3CXchain"
 						},
 						"linkedServiceName": {
 							"referenceName": "Azure_D365_PROD",
