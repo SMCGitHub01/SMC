@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "GetEnergyEfficiencyGroups",
+				"name": "GetRaYoSalesGroups",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -21,9 +21,10 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.EnergyEfficiencyGroups",
+						"preCopyScript": "truncate table sharepoint.RaYoSalesGroups",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -32,46 +33,24 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "Family",
+									"name": "SalesgroepNr",
 									"type": "String"
 								},
 								"sink": {
-									"name": "Family",
+									"name": "SalesgroepNr",
 									"type": "String",
-									"physicalType": "String"
+									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "Series",
+									"name": "SalesGroep",
 									"type": "String"
 								},
 								"sink": {
-									"name": "Series",
+									"name": "SalesGroep",
 									"type": "String",
-									"physicalType": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "Id",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "Id",
-									"type": "Int32",
-									"physicalType": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "Modified",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "Modified",
-									"type": "DateTime",
-									"physicalType": "DateTime"
+									"physicalType": "nvarchar"
 								}
 							}
 						],
@@ -87,7 +66,7 @@
 						"referenceName": "SharePointLists_PowerBI",
 						"type": "DatasetReference",
 						"parameters": {
-							"list": "EnergyEfficiencyGroups"
+							"list": "RaYoSalesGroups"
 						}
 					}
 				],
@@ -97,7 +76,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "sharepoint",
-							"TableName": "EnergyEfficiencyGroups"
+							"TableName": "RaYoSalesGroups"
 						}
 					}
 				]
