@@ -445,6 +445,33 @@
 					"referenceName": "Azure_D365_PROD",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "create dwh Fact3CXchain",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "create dwh Fact3CXcalls",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "deploy.spFillFact3CXchain"
+				},
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_PROD",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"folder": {
