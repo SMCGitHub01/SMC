@@ -5951,7 +5951,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetRaYoSalesGroups",
+						"name": "GetKortingsGroups",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -5969,7 +5969,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.RaYoSalesGroups",
+								"preCopyScript": "truncate table sharepoint.KortingsGroups",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -5981,24 +5981,24 @@
 								"mappings": [
 									{
 										"source": {
-											"name": "SalesgroepNr",
+											"name": "Kortingsgroep",
 											"type": "String"
 										},
 										"sink": {
-											"name": "SalesgroepNr",
+											"name": "Kortingsgroep",
 											"type": "String",
 											"physicalType": "nvarchar"
 										}
 									},
 									{
 										"source": {
-											"name": "SalesGroep",
-											"type": "String"
+											"name": "ItemGroup",
+											"type": "Double"
 										},
 										"sink": {
-											"name": "SalesGroep",
-											"type": "String",
-											"physicalType": "nvarchar"
+											"name": "ItemGroup",
+											"type": "Double",
+											"physicalType": "float"
 										}
 									}
 								],
@@ -6014,7 +6014,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "RaYoSalesGroups"
+									"list": "KortingGroups"
 								}
 							}
 						],
@@ -6024,7 +6024,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "sharepoint",
-									"TableName": "RaYoSalesGroups"
+									"TableName": "KortingsGroups"
 								}
 							}
 						]
