@@ -123,7 +123,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dwh",
-							"TableName": "vw_te_vervroegen_ordersV4_export"
+							"TableName": "vw_te_vervroegen_ordersV4_C_export"
 						}
 					}
 				],
@@ -192,7 +192,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dwh",
-							"TableName": "vw_te_vervroegen_ordersV4 logProductie"
+							"TableName": "vw_te_vervroegen_ordersV4_C_logProductie"
 						}
 					}
 				],
@@ -351,7 +351,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "dwh",
-							"TableName": "vw_te_vervroegen_ordersV4_export_prod"
+							"TableName": "vw_te_vervroegen_ordersV4_C_export_prod"
 						}
 					}
 				],
