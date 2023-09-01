@@ -3023,7 +3023,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dwh",
-									"TableName": "vw_te_vervroegen_C_ordersV4"
+									"TableName": "vw_te_vervroegen_ordersV4_C"
 								}
 							}
 						],
