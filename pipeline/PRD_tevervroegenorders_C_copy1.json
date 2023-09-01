@@ -1,0 +1,399 @@
+{
+	"name": "PRD_tevervroegenorders_C_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Tevervroegenorders_log",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Tevervroegenorders",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dwh",
+							"TableName": "vw_te_vervroegen_ordersV4_C"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "tevervroegenPRD_log",
+						"type": "DatasetReference",
+						"parameters": {
+							"logfile": {
+								"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Tevervroegenorders_copy",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Tevervroegenorders",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dwh",
+							"TableName": "vw_te_vervroegen_ordersV4_C_export"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "tevervroegenPRD_log",
+						"type": "DatasetReference",
+						"parameters": {
+							"logfile": {
+								"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Tevervroegenorders_log_productie",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Tevervroegenorders_log",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dwh",
+							"TableName": "vw_te_vervroegen_ordersV4_C_logProductie"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "tevervroegenPRD_log",
+						"type": "DatasetReference",
+						"parameters": {
+							"logfile": {
+								"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Tevervroegenorders",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dwh",
+							"TableName": "vw_te_vervroegen_ordersV4_C_export"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "tevervroegenPRD_C",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Tevervroegenorders_export_prod",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Tevervroegenorders_prod",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dwh",
+							"TableName": "vw_te_vervroegen_ordersV4_C_export_prod"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "tevervroegenPRD_log",
+						"type": "DatasetReference",
+						"parameters": {
+							"logfile": {
+								"value": "@concat('PRDtevervroegenProd_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Tevervroegenorders_prod",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "FileServerWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dwh",
+							"TableName": "vw_te_vervroegen_ordersV4_C_export_prod"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "tevervroegenPRD_prod_C",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "PRD-TevervroegenOrders"
+		},
+		"annotations": []
+	}
+}
