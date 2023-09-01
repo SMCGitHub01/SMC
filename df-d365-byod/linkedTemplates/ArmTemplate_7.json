@@ -13,6 +13,206 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_IFS_Products')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "IFS_Products",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ExcelSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": false,
+									"wildcardFileName": {
+										"value": "@{pipeline().parameters.Excelfile}",
+										"type": "Expression"
+									},
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": {
+									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
+									"type": "Expression"
+								},
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false,
+									"culture": "nl-nl"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_IFS_Products",
+								"type": "DatasetReference",
+								"parameters": {
+									"WorkSheet": "@{pipeline().parameters.Worksheet}",
+									"Excelfile": "@{pipeline().parameters.ExcelFile}"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
+									"TableName": "@{pipeline().parameters.TargetTableName}"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"Worksheet": {
+						"type": "string"
+					},
+					"Excelfile": {
+						"type": "string"
+					},
+					"StartDateTime": {
+						"type": "string"
+					},
+					"TargetTableName": {
+						"type": "string"
+					},
+					"TargetSchemaName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD-IFS"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-03-27T13:45:56Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_IFS_SalesInvoice')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "IFS_SalesInvoice",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"wildcardFileName": {
+										"value": "@{pipeline().parameters.CSVFile}",
+										"type": "Expression"
+									}
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": {
+									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
+									"type": "Expression"
+								},
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false,
+									"culture": "nl-nl"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_IFS_SalesInvoices",
+								"type": "DatasetReference",
+								"parameters": {
+									"CSVFile": "@{pipeline().parameters.CSVFile}"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
+									"TableName": "@{pipeline().parameters.TargetTableName}"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"parameters": {
+					"CSVFile": {
+						"type": "string"
+					},
+					"StartDateTime": {
+						"type": "string"
+					},
+					"TargetTableName": {
+						"type": "string"
+					},
+					"TargetSchemaName": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "PRD-IFS"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-03-27T13:45:56Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_Invoice_Corrections')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -2766,6 +2966,469 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_tevervroegenorders_C')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Tevervroegenorders_log",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_C_ordersV4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_copy",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_C_export"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_log_productie",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders_log",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_C_logProductie"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "sptevervroegen",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_C_export"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_C",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "sptevervroegen",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "PRD_UpScale",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "process.spProductionReferencesAll"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Tevervroegenorders_export_prod",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders_prod",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_C_export_prod"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('PRDtevervroegenProd_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_prod",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "sptevervroegen",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_C_export_prod"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_prod_C",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "PRD_UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "PRD-TevervroegenOrders"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_tevervroegenorders_zonderSP')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -4122,2217 +4785,6 @@
 					"name": "RefreshPowerBI"
 				},
 				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Sanctielijsten_import_fromBlob')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "USConsolidated",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "truncateSanctionlists",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": false,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": true,
-							"logSettings": {
-								"enableCopyActivityLog": true,
-								"copyActivityLogSettings": {
-									"logLevel": "Warning",
-									"enableReliableLogging": false
-								},
-								"logLocationSettings": {
-									"linkedServiceName": {
-										"referenceName": "blobstoragescm",
-										"type": "LinkedServiceReference"
-									},
-									"path": "sanctielijsten"
-								}
-							},
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "_id",
-											"type": "String"
-										},
-										"sink": {
-											"name": "id",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "source",
-											"type": "String"
-										},
-										"sink": {
-											"name": "source",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "entity_number",
-											"type": "String"
-										},
-										"sink": {
-											"name": "entity_number",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "type",
-											"type": "String"
-										},
-										"sink": {
-											"name": "type",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "programs",
-											"type": "String"
-										},
-										"sink": {
-											"name": "programs",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "name",
-											"type": "String"
-										},
-										"sink": {
-											"name": "name",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "title",
-											"type": "String"
-										},
-										"sink": {
-											"name": "title",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "addresses",
-											"type": "String"
-										},
-										"sink": {
-											"name": "addresses",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "federal_register_notice",
-											"type": "String"
-										},
-										"sink": {
-											"name": "federal_register_notice",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "start_date",
-											"type": "String"
-										},
-										"sink": {
-											"name": "start_date",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "end_date",
-											"type": "String"
-										},
-										"sink": {
-											"name": "end_date",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "standard_order",
-											"type": "String"
-										},
-										"sink": {
-											"name": "standard_order",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "license_requirement",
-											"type": "String"
-										},
-										"sink": {
-											"name": "license_requirement",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "license_policy",
-											"type": "String"
-										},
-										"sink": {
-											"name": "license_policy",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "call_sign",
-											"type": "String"
-										},
-										"sink": {
-											"name": "call_sign",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "vessel_type",
-											"type": "String"
-										},
-										"sink": {
-											"name": "vessel_type",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "gross_tonnage",
-											"type": "String"
-										},
-										"sink": {
-											"name": "gross_tonnage",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "gross_registered_tonnage",
-											"type": "String"
-										},
-										"sink": {
-											"name": "gross_registered_tonnage",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "vessel_flag",
-											"type": "String"
-										},
-										"sink": {
-											"name": "vessel_flag",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "vessel_owner",
-											"type": "String"
-										},
-										"sink": {
-											"name": "vessel_owner",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "remarks",
-											"type": "String"
-										},
-										"sink": {
-											"name": "remarks",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "source_list_url",
-											"type": "String"
-										},
-										"sink": {
-											"name": "source_list_url",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "alt_names",
-											"type": "String"
-										},
-										"sink": {
-											"name": "alt_names",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "citizenships",
-											"type": "String"
-										},
-										"sink": {
-											"name": "citizenships",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "dates_of_birth",
-											"type": "String"
-										},
-										"sink": {
-											"name": "dates_of_birth",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "nationalities",
-											"type": "String"
-										},
-										"sink": {
-											"name": "nationalities",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "places_of_birth",
-											"type": "String"
-										},
-										"sink": {
-											"name": "places_of_birth",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "source_information_url",
-											"type": "String"
-										},
-										"sink": {
-											"name": "source_information_url",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "ids",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ids",
-											"type": "String"
-										}
-									}
-								]
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "sanctielijst_USconsolidated",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ACC_DWH_Dynamic_DataSet",
-								"type": "DatasetReference",
-								"parameters": {
-									"TableName": "sanct.us_sanctions_list"
-								}
-							}
-						]
-					},
-					{
-						"name": "EU_FSD_lists",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "truncateSanctionlists",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": false,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
-							"logSettings": {
-								"enableCopyActivityLog": true,
-								"copyActivityLogSettings": {
-									"logLevel": "Warning",
-									"enableReliableLogging": false
-								},
-								"logLocationSettings": {
-									"linkedServiceName": {
-										"referenceName": "blobstoragescm",
-										"type": "LinkedServiceReference"
-									},
-									"path": "sanctielijsten"
-								}
-							},
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 1
-										},
-										"sink": {
-											"name": "Date_file",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 2
-										},
-										"sink": {
-											"name": "Entity_logical_id1",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 3
-										},
-										"sink": {
-											"name": "Subject_type",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 4
-										},
-										"sink": {
-											"name": "Leba_numtitle",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 5
-										},
-										"sink": {
-											"name": "Leba_publication_date",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 6
-										},
-										"sink": {
-											"name": "Leba_url",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 7
-										},
-										"sink": {
-											"name": "Programme",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 8
-										},
-										"sink": {
-											"name": "Entity_remark",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 9
-										},
-										"sink": {
-											"name": "Naal_logical_id",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 10
-										},
-										"sink": {
-											"name": "Entity_logical_id23",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 11
-										},
-										"sink": {
-											"name": "Naal_leba_numtitle",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 12
-										},
-										"sink": {
-											"name": "Naal_leba_publication_date",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 13
-										},
-										"sink": {
-											"name": "Naal_leba_url",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 14
-										},
-										"sink": {
-											"name": "Naal_programme",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 15
-										},
-										"sink": {
-											"name": "Naal_lastname",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 16
-										},
-										"sink": {
-											"name": "Naal_firstname",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 17
-										},
-										"sink": {
-											"name": "Naal_middlename",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 18
-										},
-										"sink": {
-											"name": "Naal_wholename",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 19
-										},
-										"sink": {
-											"name": "Naal_gender",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 20
-										},
-										"sink": {
-											"name": "Naal_title",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 21
-										},
-										"sink": {
-											"name": "Naal_function",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 22
-										},
-										"sink": {
-											"name": "Naal_language",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 23
-										},
-										"sink": {
-											"name": "Addr_logical_id",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 24
-										},
-										"sink": {
-											"name": "Entity_logical_id35",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 25
-										},
-										"sink": {
-											"name": "Addr_leba_numtitle",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 26
-										},
-										"sink": {
-											"name": "Addr_leba_publication_date",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 27
-										},
-										"sink": {
-											"name": "Addr_leba_url",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 28
-										},
-										"sink": {
-											"name": "Addr_programme",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 29
-										},
-										"sink": {
-											"name": "Addr_number",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 30
-										},
-										"sink": {
-											"name": "Addr_street",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 31
-										},
-										"sink": {
-											"name": "Addr_zipcode",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 32
-										},
-										"sink": {
-											"name": "Addr_city",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 33
-										},
-										"sink": {
-											"name": "Addr_country",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 34
-										},
-										"sink": {
-											"name": "Addr_other",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 35
-										},
-										"sink": {
-											"name": "Birt_logical_id",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 36
-										},
-										"sink": {
-											"name": "Entity_logical_id44",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 37
-										},
-										"sink": {
-											"name": "Birt_leba_numtitle",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 38
-										},
-										"sink": {
-											"name": "Birt_leba_publication_date",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 39
-										},
-										"sink": {
-											"name": "Birt_leba_url",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 40
-										},
-										"sink": {
-											"name": "Birt_programme",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 41
-										},
-										"sink": {
-											"name": "Birt_date",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 42
-										},
-										"sink": {
-											"name": "Birt_place",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 43
-										},
-										"sink": {
-											"name": "Birt_country",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 44
-										},
-										"sink": {
-											"name": "Iden_logical_id",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 45
-										},
-										"sink": {
-											"name": "Entity_logical_id52",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 46
-										},
-										"sink": {
-											"name": "Iden_leba_numtitle",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 47
-										},
-										"sink": {
-											"name": "Iden_leba_publication_date",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 48
-										},
-										"sink": {
-											"name": "Iden_leba_url",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 49
-										},
-										"sink": {
-											"name": "Iden_programme",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 50
-										},
-										"sink": {
-											"name": "Iden_number",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 51
-										},
-										"sink": {
-											"name": "Iden_country",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 52
-										},
-										"sink": {
-											"name": "Citi_logical_id",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 53
-										},
-										"sink": {
-											"name": "Entity_logical_id9",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 54
-										},
-										"sink": {
-											"name": "Citi_leba_numtitle",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 55
-										},
-										"sink": {
-											"name": "Citi_leba_publication_date",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 56
-										},
-										"sink": {
-											"name": "Citi_leba_url",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 57
-										},
-										"sink": {
-											"name": "Citi_programme",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 58
-										},
-										"sink": {
-											"name": "Citi_country",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 59
-										},
-										"sink": {
-											"name": "EU_ref_num",
-											"type": "String"
-										}
-									}
-								]
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "sanctielijst_EU_FSD",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ACC_DWH_Dynamic_DataSet",
-								"type": "DatasetReference",
-								"parameters": {
-									"TableName": "sanct.eu_sanctions_list"
-								}
-							}
-						]
-					},
-					{
-						"name": "truncateSanctionlists",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "sanct.truncateSanctionlists"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_DEV",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "UK_list",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "truncateSanctionlists",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": false,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": true,
-							"logSettings": {
-								"enableCopyActivityLog": true,
-								"copyActivityLogSettings": {
-									"logLevel": "Warning",
-									"enableReliableLogging": false
-								},
-								"logLocationSettings": {
-									"linkedServiceName": {
-										"referenceName": "blobstoragescm",
-										"type": "LinkedServiceReference"
-									},
-									"path": "sanctielijsten"
-								}
-							},
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 1
-										},
-										"sink": {
-											"name": "Last_Updated",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 2
-										},
-										"sink": {
-											"name": "Unique_ID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 3
-										},
-										"sink": {
-											"name": "OFSI_ID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 4
-										},
-										"sink": {
-											"name": "UN_Reference_ID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 5
-										},
-										"sink": {
-											"name": "Primary_Name",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 6
-										},
-										"sink": {
-											"name": "a_k_a",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 7
-										},
-										"sink": {
-											"name": "a_k_a_Non_Latin_Script",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 8
-										},
-										"sink": {
-											"name": "Regime_Name",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 9
-										},
-										"sink": {
-											"name": "Entity_Vessel_or_Individual",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 10
-										},
-										"sink": {
-											"name": "Regime_Type_UK_UN",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 11
-										},
-										"sink": {
-											"name": "Sanctions_Imposed",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 12
-										},
-										"sink": {
-											"name": "Other_Information",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 13
-										},
-										"sink": {
-											"name": "UK_Statement_of_Reasons",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 14
-										},
-										"sink": {
-											"name": "Address_Line_1",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 15
-										},
-										"sink": {
-											"name": "Address_Line_2",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 16
-										},
-										"sink": {
-											"name": "Address_Line_3",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 17
-										},
-										"sink": {
-											"name": "Address_Line_4",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 18
-										},
-										"sink": {
-											"name": "Postcode",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 19
-										},
-										"sink": {
-											"name": "Primary_Address_Country",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 20
-										},
-										"sink": {
-											"name": "Other_suspected_locations",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 21
-										},
-										"sink": {
-											"name": "Phone_number",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 22
-										},
-										"sink": {
-											"name": "Website",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 23
-										},
-										"sink": {
-											"name": "Email_address",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 24
-										},
-										"sink": {
-											"name": "Date_Designated",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 25
-										},
-										"sink": {
-											"name": "Name_1",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 26
-										},
-										"sink": {
-											"name": "Name_2",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 27
-										},
-										"sink": {
-											"name": "Name_3",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 28
-										},
-										"sink": {
-											"name": "Name_4",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 29
-										},
-										"sink": {
-											"name": "Name_5",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 30
-										},
-										"sink": {
-											"name": "Name_6",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 31
-										},
-										"sink": {
-											"name": "Honorary_Professional_Religious_titles",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 32
-										},
-										"sink": {
-											"name": "D_O_B",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 33
-										},
-										"sink": {
-											"name": "Nationality_ies",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 34
-										},
-										"sink": {
-											"name": "National_Identifier_number",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 35
-										},
-										"sink": {
-											"name": "Passport_number",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 36
-										},
-										"sink": {
-											"name": "Position",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 37
-										},
-										"sink": {
-											"name": "Gender",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 38
-										},
-										"sink": {
-											"name": "Town_of_birth",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 39
-										},
-										"sink": {
-											"name": "Country_of_birth",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 40
-										},
-										"sink": {
-											"name": "Type_of_entity",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 41
-										},
-										"sink": {
-											"name": "Subsidiaries",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 42
-										},
-										"sink": {
-											"name": "Parent_company",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 43
-										},
-										"sink": {
-											"name": "Business_registration_number_s",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 44
-										},
-										"sink": {
-											"name": "IMO_number",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 45
-										},
-										"sink": {
-											"name": "Current_owner_operator_s",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 46
-										},
-										"sink": {
-											"name": "Previous_owner_operator_s",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 47
-										},
-										"sink": {
-											"name": "Current_believed_flag_of_ship",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 48
-										},
-										"sink": {
-											"name": "Previous_flags",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 49
-										},
-										"sink": {
-											"name": "Type_of_ship",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 50
-										},
-										"sink": {
-											"name": "Tonnage_of_ship",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 51
-										},
-										"sink": {
-											"name": "Length_of_ship",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 52
-										},
-										"sink": {
-											"name": "Year_Built",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 53
-										},
-										"sink": {
-											"name": "Hull_identification_number_HIN",
-											"type": "String"
-										}
-									}
-								]
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "sanctielijst_UK_list",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ACC_DWH_Dynamic_DataSet",
-								"type": "DatasetReference",
-								"parameters": {
-									"TableName": "sanct.uk_sanctions_list"
-								}
-							}
-						]
-					},
-					{
-						"name": "VN_Individuals",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "truncateSanctionlists",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "XmlSource",
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET"
-								},
-								"formatSettings": {
-									"type": "XmlReadSettings",
-									"validationMode": "none",
-									"namespaces": true
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"path": "[['DATAID']"
-										},
-										"sink": {
-											"name": "DATAID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['VERSIONNUM']"
-										},
-										"sink": {
-											"name": "VERSIONNUM",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['FIRST_NAME']"
-										},
-										"sink": {
-											"name": "FIRST_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['UN_LIST_TYPE']"
-										},
-										"sink": {
-											"name": "UN_LIST_TYPE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['REFERENCE_NUMBER']"
-										},
-										"sink": {
-											"name": "REFERENCE_NUMBER",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['LISTED_ON']"
-										},
-										"sink": {
-											"name": "LISTED_ON",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['COMMENTS1']"
-										},
-										"sink": {
-											"name": "COMMENTS1",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['ENTITY_ALIAS']['ALIAS_NAME']"
-										},
-										"sink": {
-											"name": "ALIAS_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['ENTITY_ADDRESS']['COUNTRY']"
-										},
-										"sink": {
-											"name": "COUNTRY",
-											"type": "String"
-										}
-									}
-								],
-								"collectionReference": "[['CONSOLIDATED_LIST']['ENTITIES']['ENTITY']",
-								"mapComplexValuesToString": true
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "XmlUN",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sanct",
-									"TableName": "vn_sanctions_list"
-								}
-							}
-						]
-					},
-					{
-						"name": "VN_Entities",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "VN_Individuals",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "XmlSource",
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET"
-								},
-								"formatSettings": {
-									"type": "XmlReadSettings",
-									"validationMode": "none",
-									"namespaces": true
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"path": "[['DATAID']"
-										},
-										"sink": {
-											"name": "DATAID",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['VERSIONNUM']"
-										},
-										"sink": {
-											"name": "VERSIONNUM",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['FIRST_NAME']"
-										},
-										"sink": {
-											"name": "FIRST_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['SECOND_NAME']"
-										},
-										"sink": {
-											"name": "SECOND_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['THIRD_NAME']"
-										},
-										"sink": {
-											"name": "THIRD_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['UN_LIST_TYPE']"
-										},
-										"sink": {
-											"name": "UN_LIST_TYPE",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['REFERENCE_NUMBER']"
-										},
-										"sink": {
-											"name": "REFERENCE_NUMBER",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['LISTED_ON']"
-										},
-										"sink": {
-											"name": "LISTED_ON",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['COMMENTS1']"
-										},
-										"sink": {
-											"name": "COMMENTS1",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['INDIVIDUAL_ALIAS']['ALIAS_NAME']"
-										},
-										"sink": {
-											"name": "ALIAS_NAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "[['INDIVIDUAL_ADDRESS']['COUNTRY']"
-										},
-										"sink": {
-											"name": "COUNTRY",
-											"type": "String"
-										}
-									}
-								],
-								"collectionReference": "[['CONSOLIDATED_LIST']['INDIVIDUALS']['INDIVIDUAL']",
-								"mapComplexValuesToString": true
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "XmlUN",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sanct",
-									"TableName": "vn_sanctions_list"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"folder": {
-					"name": "Sanctions"
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "GetKortingsGroups",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.KortingsGroups",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Kortingsgroep",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Kortingsgroep",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ItemGroup",
-											"type": "Double"
-										},
-										"sink": {
-											"name": "ItemGroup",
-											"type": "Double",
-											"physicalType": "float"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SharePointLists_PowerBI",
-								"type": "DatasetReference",
-								"parameters": {
-									"list": "KortingGroups"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "KortingsGroups"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataflow2')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "AzureSqlTable3",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"linkedService": {
-								"referenceName": "AzureDataLakeStorage2",
-								"type": "LinkedServiceReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "rank1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          HSO_DnA_SourceConnectionID as integer,",
-						"          HSO_DnA_TargetMappingID as integer,",
-						"          HSO_DnA_InsertDateTime as timestamp,",
-						"          HSO_DnA_UpdateDateTime as timestamp,",
-						"          HSO_DnA_DeleteDateTime as timestamp,",
-						"          {_9FieldMatrix} as string,",
-						"          AccountSatus as string,",
-						"          AddressCity as string,",
-						"          AddressStreet as string,",
-						"          AddressZipCode as string,",
-						"          AutoSummaryInvoice as integer,",
-						"          Branch as string,",
-						"          CECustomerNumber as string,",
-						"          Channel as string,",
-						"          Classification as string,",
-						"          CompanyChain as string,",
-						"          CountryRegionISOCode as string,",
-						"          CreditLimitCCY as decimal(28,12),",
-						"          CustomerBK as string,",
-						"          CustomerGroup as string,",
-						"          CustomerID as string,",
-						"          CustomerType as string,",
-						"          DataAreaID as string,",
-						"          DaysSinceLastMet as integer,",
-						"          DeliveryTerms as string,",
-						"          DISCOUNTPRICEGROUPID as string,",
-						"          DistributerChannel as string,",
-						"          DistributerType as string,",
-						"          DistributorCustomerNo as string,",
-						"          EmployeeResponsible as string,",
-						"          EndUserType as string,",
-						"          FOCustomerNumber as string,",
-						"          GlobalIndustryCode as string,",
-						"          GlobalIndustryCodeFull as string,",
-						"          HolonNumber as string,",
-						"          Industry as string,",
-						"          IndustryClassification as string,",
-						"          LastVisitDate as date,",
-						"          LineDiscountCode as string,",
-						"          LineOfBusiness as string,",
-						"          LineOfBusinessDescription as string,",
-						"          MarketSharePercentage as integer,",
-						"          Multinational as string,",
-						"          Name as string,",
-						"          NumberOfEmployees as string,",
-						"          PaymentCondition as string,",
-						"          Potential as decimal(28,12),",
-						"          PrimaryDistributorID as string,",
-						"          PrimaryDistributorName as string,",
-						"          rank as integer,",
-						"          SalesGroup as string,",
-						"          SalesGroupDescription as string,",
-						"          Segment as string,",
-						"          SegmentDescription as string,",
-						"          SMCTargetKey as string,",
-						"          Source as string,",
-						"          SubBranch as string,",
-						"          Subsegment as string,",
-						"          SubsegmentDescription as string,",
-						"          SugarCustomerNumber as string,",
-						"          SugarERPAccountId as string,",
-						"          TransportationDays as integer,",
-						"          Type_Code as string,",
-						"          Type_level1 as string,",
-						"          Type_level2 as string,",
-						"          Type_level3 as string,",
-						"          Type1 as string,",
-						"          UserID as string,",
-						"          UserName as string,",
-						"          VisitFrequency as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> source1",
-						"source1 rank(asc(CustomerBK, true),",
-						"     output(customerbk as long)) ~> rank1",
-						"rank1 sink(allowSchemaDrift: false,",
-						"     validateSchema: false,",
-						"     entity: 'core/',",
-						"     format: 'cdm',",
-						"     manifestType: 'manifest',",
-						"     manifestName: 'model.json',",
-						"     folderPath: 'crc90_customers',",
-						"     fileSystem: 'dataverse-dev-org06386f8f',",
-						"     columnNamesAsHeader: false,",
-						"     columnDelimiter: ',',",
-						"     quoteChar: '\\\"',",
-						"     escapeChar: '\\\\',",
-						"     truncate: false,",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     mapColumn(",
-						"          Name",
-						"     )) ~> sink1"
-					]
-				}
 			},
 			"dependsOn": []
 		}

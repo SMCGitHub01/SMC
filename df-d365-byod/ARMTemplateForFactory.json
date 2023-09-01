@@ -16511,6 +16511,476 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_tevervroegenorders_C')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Tevervroegenorders_log",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_C_ordersV4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_copy",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_C_export"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_log_productie",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders_log",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_C_logProductie"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "sptevervroegen",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_C_export"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_C",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "sptevervroegen",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "PRD_UpScale",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "process.spProductionReferencesAll"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Tevervroegenorders_export_prod",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders_prod",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_C_export_prod"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('PRDtevervroegenProd_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_prod",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "sptevervroegen",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_C_export_prod"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_prod_C",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "PRD_UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "PRD-TevervroegenOrders"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
+				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD_log')]",
+				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD_C')]",
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]",
+				"[concat(variables('factoryId'), '/datasets/tevervroegenPRD_prod_C')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_UpScale')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_tevervroegenorders_zonderSP')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -25311,6 +25781,34 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/tevervroegenPRD_C')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ToJPN",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "PRDtevervroegens_C.csv",
+						"folderPath": "jpnvrd/ProdPoLines"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "",
+					"firstRowAsHeader": true,
+					"quoteChar": ""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ToJPN')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/tevervroegenPRD_log')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -25362,6 +25860,34 @@
 					"location": {
 						"type": "FileServerLocation",
 						"fileName": "UpdateProdOrdDateIn.csv",
+						"folderPath": "jpnvrd/ProdPoLines"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "",
+					"firstRowAsHeader": true,
+					"quoteChar": ""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ToJPN')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tevervroegenPRD_prod_C')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ToJPN",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "UpdateProdOrdDateIn_C.csv",
 						"folderPath": "jpnvrd/ProdPoLines"
 					},
 					"columnDelimiter": ";",
