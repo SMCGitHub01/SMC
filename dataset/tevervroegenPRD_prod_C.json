@@ -1,0 +1,23 @@
+{
+	"name": "tevervroegenPRD_prod_C",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ToJPN",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation",
+				"fileName": "UpdateProdOrdDateIn_C.csv",
+				"folderPath": "jpnvrd/ProdPoLines"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "",
+			"firstRowAsHeader": true,
+			"quoteChar": ""
+		},
+		"schema": []
+	}
+}
