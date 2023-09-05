@@ -9,12 +9,6 @@
 					"referenceName": "PRD_FO_ItemsF",
 					"type": "PipelineReference"
 				}
-			},
-			{
-				"pipelineReference": {
-					"referenceName": "3CX_loadLog",
-					"type": "PipelineReference"
-				}
 			}
 		],
 		"type": "ScheduleTrigger",
