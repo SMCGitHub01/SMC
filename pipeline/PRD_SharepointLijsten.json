@@ -21,9 +21,10 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.trackingnumber",
+						"preCopyScript": "--truncate table sharepoint.trackingnumber",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -37,15 +38,11 @@
 								},
 								"sink": {
 									"name": "Id",
-									"type": "Int16",
-									"physicalType": "smallint"
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
-								"source": {
-									"name": "InhoudstypeId",
-									"type": "String"
-								},
 								"sink": {
 									"name": "ContentTypeId",
 									"type": "String",
@@ -59,8 +56,8 @@
 								},
 								"sink": {
 									"name": "KlantId",
-									"type": "Int16",
-									"physicalType": "smallint"
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
@@ -70,8 +67,8 @@
 								},
 								"sink": {
 									"name": "SerieId",
-									"type": "Byte",
-									"physicalType": "tinyint"
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
@@ -81,8 +78,8 @@
 								},
 								"sink": {
 									"name": "StrokeId",
-									"type": "Byte",
-									"physicalType": "tinyint"
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -92,8 +89,8 @@
 								},
 								"sink": {
 									"name": "ProductcategorieId",
-									"type": "Byte",
-									"physicalType": "tinyint"
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
@@ -108,10 +105,6 @@
 								}
 							},
 							{
-								"source": {
-									"name": "OmschrijvingENG",
-									"type": "String"
-								},
 								"sink": {
 									"name": "Omschrijving",
 									"type": "String",
@@ -119,10 +112,6 @@
 								}
 							},
 							{
-								"source": {
-									"name": "StatusValue",
-									"type": "String"
-								},
 								"sink": {
 									"name": "GtnStatus",
 									"type": "String",
@@ -130,10 +119,6 @@
 								}
 							},
 							{
-								"source": {
-									"name": "StatusOpmerking",
-									"type": "String"
-								},
 								"sink": {
 									"name": "Status_Opmerking",
 									"type": "String",
@@ -163,40 +148,36 @@
 								}
 							},
 							{
-								"source": {
-									"name": "StatusD365Id",
-									"type": "Int32"
-								},
 								"sink": {
 									"name": "Status_D365Id",
-									"type": "Byte",
-									"physicalType": "tinyint"
-								}
-							},
-							{
-								"source": {
-									"name": "MeldingD365",
-									"type": "String"
-								},
-								"sink": {
-									"name": "MeldingD365",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "CustomerPartNr",
-									"type": "String"
-								},
-								"sink": {
-									"name": "CustomerPartNr",
 									"type": "Int32",
 									"physicalType": "int"
 								}
 							},
 							{
 								"source": {
+									"name": "MeldingD365",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MeldingD365",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "CustomerPartNr",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CustomerPartNr",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
 									"name": "OmschrijvingFR",
 									"type": "String"
 								},
@@ -224,19 +205,15 @@
 								},
 								"sink": {
 									"name": "RoutesId",
-									"type": "Byte",
-									"physicalType": "tinyint"
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
-								"source": {
-									"name": "SalesEngineerId",
-									"type": "Int32"
-								},
 								"sink": {
 									"name": "Sales_EngineerId",
-									"type": "Byte",
-									"physicalType": "tinyint"
+									"type": "Int32",
+									"physicalType": "int"
 								}
 							},
 							{
@@ -284,14 +261,10 @@
 								}
 							},
 							{
-								"source": {
-									"name": "ClaimStatusId",
-									"type": "String"
-								},
 								"sink": {
 									"name": "Claim_StatusId",
-									"type": "Byte",
-									"physicalType": "tinyint"
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -301,8 +274,8 @@
 								},
 								"sink": {
 									"name": "SerialNumber",
-									"type": "Double",
-									"physicalType": "float"
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -312,8 +285,8 @@
 								},
 								"sink": {
 									"name": "Warranty",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "Boolean",
+									"physicalType": "bit"
 								}
 							},
 							{
@@ -356,8 +329,8 @@
 								},
 								"sink": {
 									"name": "CommodityId",
-									"type": "Byte",
-									"physicalType": "tinyint"
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -367,8 +340,8 @@
 								},
 								"sink": {
 									"name": "Productretour",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "Boolean",
+									"physicalType": "bit"
 								}
 							},
 							{
@@ -378,15 +351,11 @@
 								},
 								"sink": {
 									"name": "CZFasttrack",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "Boolean",
+									"physicalType": "bit"
 								}
 							},
 							{
-								"source": {
-									"name": "RepairTypeId",
-									"type": "String"
-								},
 								"sink": {
 									"name": "Repair_typeId",
 									"type": "String",
@@ -400,8 +369,8 @@
 								},
 								"sink": {
 									"name": "CZSales",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "Boolean",
+									"physicalType": "bit"
 								}
 							},
 							{
@@ -422,8 +391,8 @@
 								},
 								"sink": {
 									"name": "PricecalculationReport",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"type": "Boolean",
+									"physicalType": "bit"
 								}
 							},
 							{
@@ -433,6 +402,13 @@
 								},
 								"sink": {
 									"name": "SalesCheck",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"sink": {
+									"name": "ColorTag",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}

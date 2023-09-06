@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "GetKortingsGroups",
+				"name": "GetTrackinNumberList",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -21,7 +21,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.KortingsGroups",
+						"preCopyScript": "--truncate table sharepoint.trackingnumber",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"tableOption": "autoCreate",
@@ -30,30 +30,6 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "Kortingsgroep",
-									"type": "String"
-								},
-								"sink": {
-									"name": "Kortingsgroep",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "ItemGroup",
-									"type": "Double"
-								},
-								"sink": {
-									"name": "ItemGroup",
-									"type": "Double",
-									"physicalType": "float"
-								}
-							}
-						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -63,10 +39,10 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "SharePointLists_PowerBI",
+						"referenceName": "SharePointLists",
 						"type": "DatasetReference",
 						"parameters": {
-							"list": "KortingGroups"
+							"list": "TrackingNumber"
 						}
 					}
 				],
@@ -76,7 +52,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "sharepoint",
-							"TableName": "KortingsGroups"
+							"TableName": "TrackingNumber"
 						}
 					}
 				]
