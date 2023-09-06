@@ -14817,7 +14817,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table sharepoint.trackingnumber",
+								"preCopyScript": "truncate table sharepoint.trackingnumber",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
