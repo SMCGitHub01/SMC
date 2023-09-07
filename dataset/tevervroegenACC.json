@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "ACCtevervroegens.csv",
+				"fileName": "PRDtevervroegens_C.csv",
 				"folderPath": "jpnvrd/PoLines"
 			},
 			"columnDelimiter": ";",
