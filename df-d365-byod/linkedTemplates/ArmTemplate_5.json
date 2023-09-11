@@ -13,6 +13,152 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/sanctielijst_USconsolidated')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "sanctielijsten"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "consolidated.csv",
+						"container": "sanctielijsten"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "_id",
+						"type": "String"
+					},
+					{
+						"name": "source",
+						"type": "String"
+					},
+					{
+						"name": "entity_number",
+						"type": "String"
+					},
+					{
+						"name": "type",
+						"type": "String"
+					},
+					{
+						"name": "programs",
+						"type": "String"
+					},
+					{
+						"name": "name",
+						"type": "String"
+					},
+					{
+						"name": "title",
+						"type": "String"
+					},
+					{
+						"name": "addresses",
+						"type": "String"
+					},
+					{
+						"name": "federal_register_notice",
+						"type": "String"
+					},
+					{
+						"name": "start_date",
+						"type": "String"
+					},
+					{
+						"name": "end_date",
+						"type": "String"
+					},
+					{
+						"name": "standard_order",
+						"type": "String"
+					},
+					{
+						"name": "license_requirement",
+						"type": "String"
+					},
+					{
+						"name": "license_policy",
+						"type": "String"
+					},
+					{
+						"name": "call_sign",
+						"type": "String"
+					},
+					{
+						"name": "vessel_type",
+						"type": "String"
+					},
+					{
+						"name": "gross_tonnage",
+						"type": "String"
+					},
+					{
+						"name": "gross_registered_tonnage",
+						"type": "String"
+					},
+					{
+						"name": "vessel_flag",
+						"type": "String"
+					},
+					{
+						"name": "vessel_owner",
+						"type": "String"
+					},
+					{
+						"name": "remarks",
+						"type": "String"
+					},
+					{
+						"name": "source_list_url",
+						"type": "String"
+					},
+					{
+						"name": "alt_names",
+						"type": "String"
+					},
+					{
+						"name": "citizenships",
+						"type": "String"
+					},
+					{
+						"name": "dates_of_birth",
+						"type": "String"
+					},
+					{
+						"name": "nationalities",
+						"type": "String"
+					},
+					{
+						"name": "places_of_birth",
+						"type": "String"
+					},
+					{
+						"name": "source_information_url",
+						"type": "String"
+					},
+					{
+						"name": "ids",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/testUpload')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -58,7 +204,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "ACCtevervroegens.csv",
+						"fileName": "PRDtevervroegens_C.csv",
 						"folderPath": "jpnvrd/PoLines"
 					},
 					"columnDelimiter": ";",
@@ -119,7 +265,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "UpdateProdOrdDateIn.csv",
+						"fileName": "UpdateProdOrdDateIn_C.csv",
 						"folderPath": "jpnvrd/PoLines"
 					},
 					"columnDelimiter": ";",
@@ -1979,107 +2125,6 @@
 				},
 				"parameters": {
 					"CSVFile": {
-						"type": "string"
-					},
-					"StartDateTime": {
-						"type": "string"
-					},
-					"TargetTableName": {
-						"type": "string"
-					},
-					"TargetSchemaName": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC-IFS"
-				},
-				"annotations": [],
-				"lastPublishTime": "2020-12-10T13:46:04Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_IFS_Products')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "IFS_Products",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "ExcelSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": false,
-									"wildcardFileName": {
-										"value": "@{pipeline().parameters.Excelfile}",
-										"type": "Expression"
-									},
-									"enablePartitionDiscovery": false
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": {
-									"value": "TRUNCATE TABLE @{pipeline().parameters.TargetSchemaName}.@{pipeline().parameters.TargetTableName}",
-									"type": "Expression"
-								},
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false,
-									"culture": "nl-nl"
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "ACC_IFS_Products",
-								"type": "DatasetReference",
-								"parameters": {
-									"WorkSheet": "@{pipeline().parameters.Worksheet}",
-									"Excelfile": "@{pipeline().parameters.ExcelFile}"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "@{pipeline().parameters.TargetSchemaName}",
-									"TableName": "@{pipeline().parameters.TargetTableName}"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"parameters": {
-					"Worksheet": {
-						"type": "string"
-					},
-					"Excelfile": {
 						"type": "string"
 					},
 					"StartDateTime": {
