@@ -39,111 +39,6 @@
 				}
 			},
 			{
-				"name": "Lookup_Load_Group",
-				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "ForEach DistributeurLijst",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "ForEach BudgetDirectSales",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "ForEach BudgetInDirectSales",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Process_IFS_Stage",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Stage SugarCRM",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT DISTINCT LoadgroupID, LoadOrder FROM process.ProcessView WHERE SourceConnectionID = 1 ORDER BY LoadOrder",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "PRD_BYOD_DS",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "dummy",
-							"TableName": "dummy"
-						}
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
-				"name": "For_Each_Load_Group",
-				"type": "ForEach",
-				"dependsOn": [
-					{
-						"activity": "Lookup_Load_Group",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"items": {
-						"value": "@activity('Lookup_Load_Group').output.value",
-						"type": "Expression"
-					},
-					"isSequential": true,
-					"activities": [
-						{
-							"name": "Execute_Pipeline",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "PRD_Materialize_Views",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"LoadGroupID": {
-										"value": "@{Item().LoadGroupID}",
-										"type": "Expression"
-									},
-									"StartDateTime": {
-										"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-										"type": "Expression"
-									}
-								}
-							}
-						}
-					]
-				}
-			},
-			{
 				"name": "Lookup_Full_ExcelFiles_Distributeur",
 				"description": "Lookup the tables from the source database which are used in the full copy.",
 				"type": "Lookup",
@@ -472,33 +367,6 @@
 				}
 			},
 			{
-				"name": "spLoadDataAfterFullLoad",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "For_Each_Load_Group",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[process].[spLoadDataAfterFullLoad]"
-				},
-				"linkedServiceName": {
-					"referenceName": "Azure_D365_PROD",
-					"type": "LinkedServiceReference"
-				}
-			},
-			{
 				"name": "process Zendesk",
 				"type": "ExecutePipeline",
 				"dependsOn": [
@@ -526,26 +394,6 @@
 				"typeProperties": {
 					"pipeline": {
 						"referenceName": "PRD_UpScale",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
-				}
-			},
-			{
-				"name": "PRD_DownScale",
-				"type": "ExecutePipeline",
-				"dependsOn": [
-					{
-						"activity": "spLoadDataAfterFullLoad",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "PRD_DownScale",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true

@@ -9,6 +9,12 @@
 					"referenceName": "ACC_tevervroegenorders_C",
 					"type": "PipelineReference"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "PRD_Process_DWH_loaddata",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
