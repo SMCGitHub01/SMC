@@ -11361,14 +11361,7 @@
 					{
 						"name": "Lookup_Current_Sync_And_Date",
 						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "PRD_UpScale",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
+						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -11746,20 +11739,6 @@
 						}
 					},
 					{
-						"name": "PRD_UpScale",
-						"type": "ExecutePipeline",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_UpScale",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
 						"name": "PRD_SharepointLijsten",
 						"type": "ExecutePipeline",
 						"dependsOn": [
@@ -11796,7 +11775,6 @@
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_IFS_Stage')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_SugarCRM_DataBase')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_Zendesk')]",
-				"[concat(variables('factoryId'), '/pipelines/PRD_UpScale')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_SharepointLijsten')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_DistributionList')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_BudgetDirectSales')]",
