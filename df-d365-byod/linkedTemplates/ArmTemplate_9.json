@@ -2448,13 +2448,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PRD_DWG_loadblob')]",
+			"name": "[concat(parameters('factoryName'), '/PRD_DWH_loadblob')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"description": "load blob and sharepoint data",
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
