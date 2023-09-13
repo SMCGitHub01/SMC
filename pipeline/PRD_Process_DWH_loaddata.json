@@ -5,14 +5,7 @@
 			{
 				"name": "Lookup_Current_Sync_And_Date",
 				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "PRD_UpScale",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -381,19 +374,6 @@
 				"typeProperties": {
 					"pipeline": {
 						"referenceName": "PRD_Process_Zendesk",
-						"type": "PipelineReference"
-					},
-					"waitOnCompletion": true
-				}
-			},
-			{
-				"name": "PRD_UpScale",
-				"type": "ExecutePipeline",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"pipeline": {
-						"referenceName": "PRD_UpScale",
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
