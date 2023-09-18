@@ -1,0 +1,22 @@
+{
+	"name": "MicrosoftAccess1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\General\\File exchange folder (MAX7D)\\FO\\DWH\\rrp.mdb;Persist Security Info=False;",
+		"annotations": [],
+		"type": "MicrosoftAccess",
+		"typeProperties": {
+			"connectionString": {
+				"type": "SecureString",
+				"value": "**********"
+			},
+			"authenticationType": "Basic",
+			"userName": "FoPowerAutomate@Aquapro.onmicrosoft.com",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyMjg3OGNmOS0yZDY2LTQyYjgtYjE2MS04NGI1MzA4ZWQyZDciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ZenDesk",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
