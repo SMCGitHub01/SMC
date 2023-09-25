@@ -2613,7 +2613,7 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "process.spProductionReferences"
+							"storedProcedureName": "process.spProductionReferencesAll"
 						},
 						"linkedServiceName": {
 							"referenceName": "Azure_D365_PROD",
