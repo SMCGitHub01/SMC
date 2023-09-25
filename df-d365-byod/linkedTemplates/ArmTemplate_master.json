@@ -39,6 +39,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FO'"
 		},
+		"MicrosoftAccess1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'MicrosoftAccess1'"
+		},
+		"MicrosoftAccess1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MicrosoftAccess1'"
+		},
+		"MicrosoftAccess1_credential": {
+			"type": "secureString",
+			"metadata": "Secure string for 'credential' of 'MicrosoftAccess1'"
+		},
 		"SharePoint_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
@@ -126,6 +138,10 @@
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"MicrosoftAccess1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
 		"RestService_properties_typeProperties_url": {
 			"type": "string",
@@ -321,6 +337,15 @@
 					"FO_password": {
 						"value": "[parameters('FO_password')]"
 					},
+					"MicrosoftAccess1_connectionString": {
+						"value": "[parameters('MicrosoftAccess1_connectionString')]"
+					},
+					"MicrosoftAccess1_password": {
+						"value": "[parameters('MicrosoftAccess1_password')]"
+					},
+					"MicrosoftAccess1_credential": {
+						"value": "[parameters('MicrosoftAccess1_credential')]"
+					},
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
 					},
@@ -347,6 +372,9 @@
 					},
 					"FO_properties_typeProperties_userId": {
 						"value": "[parameters('FO_properties_typeProperties_userId')]"
+					},
+					"MicrosoftAccess1_properties_typeProperties_userName": {
+						"value": "[parameters('MicrosoftAccess1_properties_typeProperties_userName')]"
 					},
 					"ToJPN_properties_typeProperties_host": {
 						"value": "[parameters('ToJPN_properties_typeProperties_host')]"

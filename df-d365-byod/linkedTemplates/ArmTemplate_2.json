@@ -19,6 +19,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FO'"
 		},
+		"MicrosoftAccess1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'MicrosoftAccess1'"
+		},
+		"MicrosoftAccess1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MicrosoftAccess1'"
+		},
+		"MicrosoftAccess1_credential": {
+			"type": "secureString",
+			"metadata": "Secure string for 'credential' of 'MicrosoftAccess1'"
+		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
@@ -54,6 +66,10 @@
 		"FO_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "AMSSRV011\\DWHZendesk"
+		},
+		"MicrosoftAccess1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
 		"ToJPN_properties_typeProperties_host": {
 			"type": "string",
@@ -224,6 +240,34 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/MicrosoftAccess1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\General\\File exchange folder (MAX7D)\\FO\\DWH\\rrp.mdb;Persist Security Info=False;",
+				"annotations": [],
+				"type": "MicrosoftAccess",
+				"typeProperties": {
+					"connectionString": "[parameters('MicrosoftAccess1_connectionString')]",
+					"authenticationType": "Basic",
+					"userName": "[parameters('MicrosoftAccess1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('MicrosoftAccess1_password')]"
+					},
+					"credential": {
+						"type": "SecureString",
+						"value": "[parameters('MicrosoftAccess1_credential')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ZenDesk",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SugarCRM_Production')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -368,6 +412,64 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "sptevervroegen",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "ACC_UpScale",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "process.spProductionReferencesAll"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_DEV",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ACC_UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ACC_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/sanctieLijsten_process')]",
@@ -619,88 +721,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/SugarCRM_Production')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_BYOD_DEV_DS')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Azure_D365_DEV",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"SchemaName": {
-						"type": "string"
-					},
-					"TableName": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": {
-						"value": "@dataset().SchemaName",
-						"type": "Expression"
-					},
-					"table": {
-						"value": "@dataset().TableName",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_BudgetDirectSales')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"WorkSheet": {
-						"type": "string"
-					},
-					"Excelfile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC"
-				},
-				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": {
-						"value": "@dataset().Worksheet",
-						"type": "Expression"
-					},
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().Excelfile",
-							"type": "Expression"
-						},
-						"container": "dwhbudgetdirectsales"
-					},
-					"range": "",
-					"firstRowAsHeader": true
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
 			]
 		}
 	]

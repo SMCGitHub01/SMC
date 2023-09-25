@@ -29,6 +29,15 @@
 		"FO_password": {
 			"value": ""
 		},
+		"MicrosoftAccess1_connectionString": {
+			"value": ""
+		},
+		"MicrosoftAccess1_password": {
+			"value": ""
+		},
+		"MicrosoftAccess1_credential": {
+			"value": ""
+		},
 		"SharePoint_servicePrincipalKey": {
 			"value": ""
 		},
@@ -94,6 +103,9 @@
 		},
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"value": "https://KV-SMC-BYODACC.vault.azure.net/"
+		},
+		"MicrosoftAccess1_properties_typeProperties_userName": {
+			"value": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
 		"RestService_properties_typeProperties_url": {
 			"value": "https://api.powerbi.com/v1.0/myorg/"
