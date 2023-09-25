@@ -424,7 +424,7 @@
 						"type": "SqlServerStoredProcedure",
 						"dependsOn": [
 							{
-								"activity": "ACC_UpScale",
+								"activity": "PRD_UpScale",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -439,21 +439,21 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "process.spProductionReferencesAll"
+							"storedProcedureName": "process.spProductionReferences"
 						},
 						"linkedServiceName": {
-							"referenceName": "Azure_D365_DEV",
+							"referenceName": "Azure_D365_PROD",
 							"type": "LinkedServiceReference"
 						}
 					},
 					{
-						"name": "ACC_UpScale",
+						"name": "PRD_UpScale",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "ACC_UpScale",
+								"referenceName": "PRD_UpScale",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
@@ -468,7 +468,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
 			]
 		},
 		{
