@@ -2,7 +2,7 @@
 	"name": "SugarCRM_Pord_cloud",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
-		"description": "Connection to the database server for sugar in the cloud",
+		"description": "Connection to the database server for sugar in the cloud us-azir-ap-P01",
 		"annotations": [],
 		"type": "MySql",
 		"typeProperties": {
