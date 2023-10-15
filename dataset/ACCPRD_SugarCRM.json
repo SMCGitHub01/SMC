@@ -2,7 +2,7 @@
 	"name": "ACCPRD_SugarCRM",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "SugarCRM_Production",
+			"referenceName": "SugarCRM_Pord_cloud",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -10,7 +10,10 @@
 		},
 		"annotations": [],
 		"type": "MySqlTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"tableName": "`NL_BYOD_Accounts`"
+		}
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
