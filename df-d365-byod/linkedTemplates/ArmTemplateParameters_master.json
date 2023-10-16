@@ -47,6 +47,9 @@
 		"SharePoint_powerbi_servicePrincipalKey": {
 			"value": ""
 		},
+		"SugarCRM_Pord_cloud_connectionString": {
+			"value": ""
+		},
 		"SugarCRM_Production_connectionString": {
 			"value": ""
 		},

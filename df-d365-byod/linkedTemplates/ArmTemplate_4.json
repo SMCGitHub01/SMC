@@ -13,6 +13,264 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/FO_ItemsF')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "FO",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Excel",
+				"typeProperties": {
+					"sheetName": "sheet1",
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "FO_ItemsF.xlsx"
+					},
+					"firstRowAsHeader": true
+				},
+				"schema": [
+					{
+						"name": "ItemId",
+						"type": "String"
+					},
+					{
+						"name": "AltItemId",
+						"type": "String"
+					},
+					{
+						"name": "ProdLifecyclestate",
+						"type": "String"
+					},
+					{
+						"name": "Blockingreason",
+						"type": "String"
+					},
+					{
+						"name": "ProductType",
+						"type": "String"
+					},
+					{
+						"name": "ItemType",
+						"type": "String"
+					},
+					{
+						"name": "NetWeight",
+						"type": "String"
+					},
+					{
+						"name": "TaraWeight",
+						"type": "String"
+					},
+					{
+						"name": "CostgroupId",
+						"type": "String"
+					},
+					{
+						"name": "CountryOrigin",
+						"type": "String"
+					},
+					{
+						"name": "Intrastatcode",
+						"type": "String"
+					},
+					{
+						"name": "SalesPrice",
+						"type": "String"
+					},
+					{
+						"name": "LinediscGrp",
+						"type": "String"
+					},
+					{
+						"name": "Unit",
+						"type": "String"
+					},
+					{
+						"name": "TaxItemgrp",
+						"type": "String"
+					},
+					{
+						"name": "Barcode",
+						"type": "String"
+					},
+					{
+						"name": "Cost_price",
+						"type": "String"
+					},
+					{
+						"name": "NameNL",
+						"type": "String"
+					},
+					{
+						"name": "DescriptionNL",
+						"type": "String"
+					},
+					{
+						"name": "NameEN",
+						"type": "String"
+					},
+					{
+						"name": "DescriptionEN",
+						"type": "String"
+					},
+					{
+						"name": "NameFR",
+						"type": "String"
+					},
+					{
+						"name": "DescriptionFR",
+						"type": "String"
+					},
+					{
+						"name": "NameDE",
+						"type": "String"
+					},
+					{
+						"name": "DescriptionDE",
+						"type": "String"
+					},
+					{
+						"name": "PurchLeadtime",
+						"type": "String"
+					},
+					{
+						"name": "PurchMultiple",
+						"type": "String"
+					},
+					{
+						"name": "DefaultOrderType",
+						"type": "String"
+					},
+					{
+						"name": "SalesHigestQty",
+						"type": "String"
+					},
+					{
+						"name": "SalesMultipleQty",
+						"type": "String"
+					},
+					{
+						"name": "ExternalSalesLeadtime",
+						"type": "String"
+					},
+					{
+						"name": "SalesLeadtime",
+						"type": "String"
+					},
+					{
+						"name": "Code3",
+						"type": "String"
+					},
+					{
+						"name": "Code4",
+						"type": "String"
+					},
+					{
+						"name": "TrackingDimensionGroup",
+						"type": "String"
+					},
+					{
+						"name": "ItemCoverageGroup",
+						"type": "String"
+					},
+					{
+						"name": "CoverageMin",
+						"type": "String"
+					},
+					{
+						"name": "CoverageMax",
+						"type": "String"
+					},
+					{
+						"name": "InventStatus",
+						"type": "String"
+					},
+					{
+						"name": "ItemCoverageGroupPlan",
+						"type": "String"
+					},
+					{
+						"name": "EcwStock",
+						"type": "String"
+					},
+					{
+						"name": "PrimaryVendor",
+						"type": "String"
+					},
+					{
+						"name": "BuyerGroup",
+						"type": "String"
+					},
+					{
+						"name": "SourcingFromStock",
+						"type": "String"
+					},
+					{
+						"name": "EcwItem",
+						"type": "String"
+					},
+					{
+						"name": "EcwMaxLeadTime",
+						"type": "String"
+					},
+					{
+						"name": "EcwSourcingTimeFence",
+						"type": "String"
+					},
+					{
+						"name": "VendorExternalItem",
+						"type": "String"
+					},
+					{
+						"name": "DualUseProduct",
+						"type": "String"
+					},
+					{
+						"name": "DualUseCode",
+						"type": "String"
+					},
+					{
+						"name": "InventMultiple",
+						"type": "String"
+					},
+					{
+						"name": "ATPTimeFence",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LeadtimeBatch_F')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ToJPN",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "LeadTime_F.csv",
+						"folderPath": "jpnvrd/ProdPoLines"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LeadtimeBatch_U')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -648,61 +906,6 @@
 					"quoteChar": "\""
 				},
 				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Xml1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Xml",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "owssvr (2).xml",
-						"container": "sanctielijsten"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Zendesk')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ZendeskDownload",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "ACC&PRD"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation",
-						"fileName": "DWHZendeskExport.zip"
-					},
-					"columnDelimiter": ",",
-					"compressionCodec": "ZipDeflate",
-					"compressionLevel": "Fastest",
-					"escapeChar": "\\",
-					"firstRowAsHeader": false,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"type": "String"
-					}
-				]
 			},
 			"dependsOn": []
 		}
