@@ -3494,10 +3494,9 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table sharepoint.UserCategory",
+								"preCopyScript": "truncate table sharepoint.Productgroepcode_C",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
