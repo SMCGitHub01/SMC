@@ -22651,6 +22651,63 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Productgrpupcode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Productgroupcode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SalesPriceGrpNr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SalesPriceGrpNr",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SalesPriceGrpOmschrijving",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SalesPriceGrpOmschrijving",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductcatNr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ProductcatNr",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Productcategorie",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Productcategorie",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
