@@ -3515,7 +3515,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "Productgroepcode(C)"
+									"list": "Productgroepcode_C"
 								}
 							}
 						],
