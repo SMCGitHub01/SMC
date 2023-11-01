@@ -2120,7 +2120,7 @@
 				]
 			},
 			{
-				"name": "GetProductGroupCode_C",
+				"name": "GetProductGroupCode_SMC",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -2138,7 +2138,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.Productgroepcode_C",
+						"preCopyScript": "truncate table sharepoint.Productgroepcode_SMC",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"disableMetricsCollection": false
@@ -2215,7 +2215,7 @@
 						"referenceName": "SharePointLists_PowerBI",
 						"type": "DatasetReference",
 						"parameters": {
-							"list": "Productgroepcode_C"
+							"list": "Productgroepcode_SMC"
 						}
 					}
 				],
@@ -2225,7 +2225,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "sharepoint",
-							"TableName": "Productgroepcode_C"
+							"TableName": "Productgroepcode_SMC"
 						}
 					}
 				]
