@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "GetProductGroupCode_SMC",
+				"name": "GetDistributeur",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -21,7 +21,7 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.Productgroepcode_SMC",
+						"preCopyScript": "truncate table sharepoint.Distributeurs",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
 						"disableMetricsCollection": false
@@ -32,55 +32,66 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "Productgrpupcode",
+									"name": "Id",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Id",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Distributeur",
 									"type": "String"
 								},
 								"sink": {
-									"name": "Productgroupcode",
+									"name": "Distributeur",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "SalesPriceGrpNr",
+									"name": "FOID",
 									"type": "String"
 								},
 								"sink": {
-									"name": "SalesPriceGrpNr",
+									"name": "FOID",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "SalesPriceGrpOmschrijving",
+									"name": "SugarID",
 									"type": "String"
 								},
 								"sink": {
-									"name": "SalesPriceGrpOmschrijving",
+									"name": "SugarID",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "ProductcatNr",
+									"name": "DistributeurGroup",
 									"type": "String"
 								},
 								"sink": {
-									"name": "ProductcatNr",
+									"name": "DistributeurGroup",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
 							},
 							{
 								"source": {
-									"name": "Productcategorie",
+									"name": "DataAreaID",
 									"type": "String"
 								},
 								"sink": {
-									"name": "Productcategorie",
+									"name": "DataAreaID",
 									"type": "String",
 									"physicalType": "nvarchar"
 								}
@@ -98,7 +109,7 @@
 						"referenceName": "SharePointLists_PowerBI",
 						"type": "DatasetReference",
 						"parameters": {
-							"list": "Productgroepcode_SMC"
+							"list": "Distributeurs"
 						}
 					}
 				],
@@ -108,7 +119,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "sharepoint",
-							"TableName": "Productgroepcode_SMC"
+							"TableName": "Distributeurs"
 						}
 					}
 				]
