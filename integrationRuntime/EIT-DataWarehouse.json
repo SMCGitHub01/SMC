@@ -1,0 +1,6 @@
+{
+	"name": "EIT-DataWarehouse",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
