@@ -4595,6 +4595,7 @@
 								"type": "AzureSqlSink",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -7204,7 +7205,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dbo",
-									"TableName": "EIT_MITMAS"
+									"TableName": "EITMITMAS"
 								}
 							}
 						]
