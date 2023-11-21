@@ -509,6 +509,63 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "sptevervroegen",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "PRD_UpScale",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[process].[spProductionReferencesAll]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "PRD_UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/sanctieLijsten_process')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -572,34 +629,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/3CXcdr1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ZendeskDownload",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation",
-						"fileName": "cdr1.log"
-					},
-					"columnDelimiter": ",",
-					"rowDelimiter": "\n",
-					"escapeChar": "",
-					"firstRowAsHeader": false,
-					"quoteChar": ""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
 			]
 		}
 	]
