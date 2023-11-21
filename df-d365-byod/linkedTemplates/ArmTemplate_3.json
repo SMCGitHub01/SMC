@@ -13,32 +13,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/3CXcdr1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ZendeskDownload",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "FileServerLocation",
-						"fileName": "cdr1.log"
-					},
-					"columnDelimiter": ",",
-					"rowDelimiter": "\n",
-					"escapeChar": "",
-					"firstRowAsHeader": false,
-					"quoteChar": ""
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/3CXcdr2')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1446,6 +1420,575 @@
 				"typeProperties": {
 					"schema": "dwh",
 					"table": "DimCustomer"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable4')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_PROD",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "Id",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "SinkCreatedOn",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "SinkModifiedOn",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "statecode",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "statuscode",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "hso_reason",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "hso_occasion",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "prioritycode",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "attachmenterrors",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "instancetypecode",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "isregularactivity",
+						"type": "bit"
+					},
+					{
+						"name": "isalldayevent",
+						"type": "bit"
+					},
+					{
+						"name": "isworkflowcreated",
+						"type": "bit"
+					},
+					{
+						"name": "isbilled",
+						"type": "bit"
+					},
+					{
+						"name": "isdraft",
+						"type": "bit"
+					},
+					{
+						"name": "ismapiprivate",
+						"type": "bit"
+					},
+					{
+						"name": "serviceid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "serviceid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owningteam",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "owningteam_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owningbusinessunit",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "owningbusinessunit_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "transactioncurrencyid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "transactioncurrencyid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdonbehalfby",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "createdonbehalfby_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owninguser",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "owninguser_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedonbehalfby",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "modifiedonbehalfby_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedby",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "modifiedby_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "slainvokedid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "slainvokedid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdby",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "createdby_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "regardingobjectid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "regardingobjectid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "slaid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "slaid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ownerid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "ownerid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "organizer",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "requiredattendees",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "optionalattendees",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "regardingobjectidyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owneridyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "activityid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "modifiedonbehalfbyname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "subscriptionid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "stageid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "actualstart",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "slaname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "traversedpath",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdbyname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "scheduleddurationminutes",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "regardingobjecttypecode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "slainvokedidname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owneridtype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedon",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "modifiedbyname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "attachmentcount",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "onholdtime",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "globalobjectid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "regardingobjectidname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdonbehalfbyyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "processid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "scheduledstart",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "subject",
+						"type": "nvarchar"
+					},
+					{
+						"name": "safedescription",
+						"type": "nvarchar"
+					},
+					{
+						"name": "category",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owneridname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "importsequencenumber",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "modifiedbyyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "actualend",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "lastonholdtime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "seriesid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "actualdurationminutes",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "utcconversiontimezonecode",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "subcategory",
+						"type": "nvarchar"
+					},
+					{
+						"name": "activityadditionalparams",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedonbehalfbyyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "sortdate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "serviceidname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "modifiedfieldsmask",
+						"type": "nvarchar"
+					},
+					{
+						"name": "scheduledend",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "timezoneruleversionnumber",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "overriddencreatedon",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "exchangerate",
+						"type": "decimal",
+						"precision": 38,
+						"scale": 12
+					},
+					{
+						"name": "isunsafe",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "createdbyyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "createdon",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "versionnumber",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "description",
+						"type": "nvarchar"
+					},
+					{
+						"name": "transactioncurrencyidname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "outlookownerapptid",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "activitytypecode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "location",
+						"type": "nvarchar"
+					},
+					{
+						"name": "originalstartdate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "createdonbehalfbyname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "owningbusinessunitname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "onlinemeetingtype",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "isonlinemeeting",
+						"type": "bit"
+					},
+					{
+						"name": "onlinemeetingjoinurl",
+						"type": "nvarchar"
+					},
+					{
+						"name": "onlinemeetingchatid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "onlinemeetingid",
+						"type": "nvarchar"
+					},
+					{
+						"name": "msdyn_ci_translated_transcript",
+						"type": "nvarchar"
+					},
+					{
+						"name": "msdyn_ci_keywords",
+						"type": "nvarchar"
+					},
+					{
+						"name": "msdyn_ci_transcript_json",
+						"type": "nvarchar"
+					},
+					{
+						"name": "msdyn_ci_media_reference_id",
+						"type": "nvarchar"
+					},
+					{
+						"name": "msdyn_ci_insights_json",
+						"type": "nvarchar"
+					},
+					{
+						"name": "msdyn_ci_translated_transcript_json",
+						"type": "nvarchar"
+					},
+					{
+						"name": "msdyn_ci_url",
+						"type": "nvarchar"
+					},
+					{
+						"name": "msdyn_ci_transcript",
+						"type": "nvarchar"
+					},
+					{
+						"name": "msdyn_ci_call_summary_control_field",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "msdyn_ci_id",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_account",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "hso_account_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_appointmentreportid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "hso_appointmentreportid_entitytype",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_accountyominame",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_accountname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "hso_appointmentreportidname",
+						"type": "nvarchar"
+					},
+					{
+						"name": "formattedscheduledstart",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "formattedscheduledend",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "ce",
+					"table": "appointment"
 				}
 			},
 			"dependsOn": []
