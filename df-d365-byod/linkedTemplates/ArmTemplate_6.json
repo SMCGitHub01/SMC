@@ -7204,7 +7204,7 @@
 								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "dbo",
+									"SchemaName": "eit",
 									"TableName": "EITMITMAS"
 								}
 							}
