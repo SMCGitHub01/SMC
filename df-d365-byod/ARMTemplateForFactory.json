@@ -35,6 +35,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DWHloads'"
 		},
+		"EITserver_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'EITserver'"
+		},
 		"FO_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FO'"
@@ -7776,6 +7780,76 @@
 				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]",
 				"[concat(variables('factoryId'), '/datasets/tevervroegenACC_prod')]",
 				"[concat(variables('factoryId'), '/pipelines/ACC_UpScale')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/EIT_test')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "MITMAS",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "EITtest",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dbo",
+									"TableName": "EIT_MITMAS"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/EITtest')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},
 		{
@@ -25747,6 +25821,1028 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/EITtest')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "EITserver",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "MMCONO",
+						"type": "decimal",
+						"precision": 3,
+						"scale": 0
+					},
+					{
+						"name": "MMSTAT",
+						"type": "varchar"
+					},
+					{
+						"name": "MMITNO",
+						"type": "varchar"
+					},
+					{
+						"name": "MMITDS",
+						"type": "varchar"
+					},
+					{
+						"name": "MMFUDS",
+						"type": "varchar"
+					},
+					{
+						"name": "MMDWNO",
+						"type": "varchar"
+					},
+					{
+						"name": "MMRESP",
+						"type": "varchar"
+					},
+					{
+						"name": "MMDCCD",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMUNMS",
+						"type": "varchar"
+					},
+					{
+						"name": "MMITGR",
+						"type": "varchar"
+					},
+					{
+						"name": "MMITCL",
+						"type": "varchar"
+					},
+					{
+						"name": "MMBUAR",
+						"type": "varchar"
+					},
+					{
+						"name": "MMEVGR",
+						"type": "varchar"
+					},
+					{
+						"name": "MMITTY",
+						"type": "varchar"
+					},
+					{
+						"name": "MMTPCD",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "MMMABU",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMCHCD",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMSTCD",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMBACD",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMVOL3",
+						"type": "decimal",
+						"precision": 9,
+						"scale": 3
+					},
+					{
+						"name": "MMNEWE",
+						"type": "decimal",
+						"precision": 9,
+						"scale": 3
+					},
+					{
+						"name": "MMGRWE",
+						"type": "decimal",
+						"precision": 9,
+						"scale": 3
+					},
+					{
+						"name": "MMPPUN",
+						"type": "varchar"
+					},
+					{
+						"name": "MMBYPR",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMWAPC",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 2
+					},
+					{
+						"name": "MMQACD",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMEPCD",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMPOCY",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 2
+					},
+					{
+						"name": "MMACTI",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMHIE1",
+						"type": "varchar"
+					},
+					{
+						"name": "MMHIE2",
+						"type": "varchar"
+					},
+					{
+						"name": "MMHIE3",
+						"type": "varchar"
+					},
+					{
+						"name": "MMHIE4",
+						"type": "varchar"
+					},
+					{
+						"name": "MMHIE5",
+						"type": "varchar"
+					},
+					{
+						"name": "MMGRP1",
+						"type": "varchar"
+					},
+					{
+						"name": "MMGRP2",
+						"type": "varchar"
+					},
+					{
+						"name": "MMGRP3",
+						"type": "varchar"
+					},
+					{
+						"name": "MMGRP4",
+						"type": "varchar"
+					},
+					{
+						"name": "MMGRP5",
+						"type": "varchar"
+					},
+					{
+						"name": "MMCFI1",
+						"type": "varchar"
+					},
+					{
+						"name": "MMCFI2",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 2
+					},
+					{
+						"name": "MMCFI3",
+						"type": "varchar"
+					},
+					{
+						"name": "MMCFI4",
+						"type": "varchar"
+					},
+					{
+						"name": "MMCFI5",
+						"type": "varchar"
+					},
+					{
+						"name": "MMECCC",
+						"type": "varchar"
+					},
+					{
+						"name": "MMTXID",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 0
+					},
+					{
+						"name": "MMDTID",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 0
+					},
+					{
+						"name": "MMECVE",
+						"type": "varchar"
+					},
+					{
+						"name": "MMECAC",
+						"type": "varchar"
+					},
+					{
+						"name": "MMECMA",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMECFL",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMWSCA",
+						"type": "varchar"
+					},
+					{
+						"name": "MMPRGP",
+						"type": "varchar"
+					},
+					{
+						"name": "MMETRF",
+						"type": "varchar"
+					},
+					{
+						"name": "MMACRF",
+						"type": "varchar"
+					},
+					{
+						"name": "MMINDI",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMPUUN",
+						"type": "varchar"
+					},
+					{
+						"name": "MMAUTC",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMALUC",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMPDCC",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMIEAA",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMRIDE",
+						"type": "varchar"
+					},
+					{
+						"name": "MMRIDC",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMGRTI",
+						"type": "varchar"
+					},
+					{
+						"name": "MMGRTS",
+						"type": "varchar"
+					},
+					{
+						"name": "MMEXPD",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMITRF",
+						"type": "varchar"
+					},
+					{
+						"name": "MMPRCM",
+						"type": "varchar"
+					},
+					{
+						"name": "MMGRMT",
+						"type": "varchar"
+					},
+					{
+						"name": "MMHAZI",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMSALE",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMFRAG",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "MMTAXC",
+						"type": "varchar"
+					},
+					{
+						"name": "MMATMO",
+						"type": "varchar"
+					},
+					{
+						"name": "MMATMN",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMTPLI",
+						"type": "varchar"
+					},
+					{
+						"name": "MMFCU1",
+						"type": "decimal",
+						"precision": 11,
+						"scale": 3
+					},
+					{
+						"name": "MMSUNO",
+						"type": "varchar"
+					},
+					{
+						"name": "MMPUPR",
+						"type": "decimal",
+						"precision": 17,
+						"scale": 6
+					},
+					{
+						"name": "MMPUCD",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 0
+					},
+					{
+						"name": "MMCUCD",
+						"type": "varchar"
+					},
+					{
+						"name": "MMPPDT",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 0
+					},
+					{
+						"name": "MMSAPR",
+						"type": "decimal",
+						"precision": 17,
+						"scale": 6
+					},
+					{
+						"name": "MMSTUN",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSACD",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 0
+					},
+					{
+						"name": "MMCUCS",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSPDT",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 0
+					},
+					{
+						"name": "MMDIGI",
+						"type": "varchar"
+					},
+					{
+						"name": "MMBGRP",
+						"type": "varchar"
+					},
+					{
+						"name": "MMPRVG",
+						"type": "varchar"
+					},
+					{
+						"name": "MMFRE3",
+						"type": "varchar"
+					},
+					{
+						"name": "MMFRE4",
+						"type": "varchar"
+					},
+					{
+						"name": "MMOTDI",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMBOGR",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMPRGR",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMLAMA",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 2
+					},
+					{
+						"name": "MMACHK",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMBPEY",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMSPUN",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSPUC",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMALUN",
+						"type": "varchar"
+					},
+					{
+						"name": "MMUNNN",
+						"type": "decimal",
+						"precision": 4,
+						"scale": 0
+					},
+					{
+						"name": "MMUNPA",
+						"type": "varchar"
+					},
+					{
+						"name": "MMHAC1",
+						"type": "varchar"
+					},
+					{
+						"name": "MMHAC2",
+						"type": "varchar"
+					},
+					{
+						"name": "MMHAC3",
+						"type": "varchar"
+					},
+					{
+						"name": "MMDIM1",
+						"type": "varchar"
+					},
+					{
+						"name": "MMDIM2",
+						"type": "varchar"
+					},
+					{
+						"name": "MMDIM3",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSPE1",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSPE2",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSPE3",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSPE4",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSPE5",
+						"type": "varchar"
+					},
+					{
+						"name": "MMCETY",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSTCN",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSPAC",
+						"type": "varchar"
+					},
+					{
+						"name": "MMTRPA",
+						"type": "varchar"
+					},
+					{
+						"name": "MMPROD",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSMFI",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMTANK",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMARPA",
+						"type": "varchar"
+					},
+					{
+						"name": "MMARPR",
+						"type": "varchar"
+					},
+					{
+						"name": "MMAMPT",
+						"type": "decimal",
+						"precision": 3,
+						"scale": 0
+					},
+					{
+						"name": "MMAWDY",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 0
+					},
+					{
+						"name": "MMNPTO",
+						"type": "decimal",
+						"precision": 3,
+						"scale": 0
+					},
+					{
+						"name": "MMMES1",
+						"type": "varchar"
+					},
+					{
+						"name": "MMMES2",
+						"type": "varchar"
+					},
+					{
+						"name": "MMMES3",
+						"type": "varchar"
+					},
+					{
+						"name": "MMMES4",
+						"type": "varchar"
+					},
+					{
+						"name": "MMMVA1",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMMVA2",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMMVA3",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMMVA4",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMPEQ1",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 0
+					},
+					{
+						"name": "MMPEQ2",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 0
+					},
+					{
+						"name": "MMPEQ3",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 0
+					},
+					{
+						"name": "MMPEQ4",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 0
+					},
+					{
+						"name": "MMPET1",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMPET2",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMPET3",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMPET4",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMMPGM",
+						"type": "varchar"
+					},
+					{
+						"name": "MMORTY",
+						"type": "varchar"
+					},
+					{
+						"name": "MMPLCD",
+						"type": "varchar"
+					},
+					{
+						"name": "MMMAPL",
+						"type": "varchar"
+					},
+					{
+						"name": "MMTOHI",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMTORE",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMFEBA",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMMAPN",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMDOID",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSEPR",
+						"type": "decimal",
+						"precision": 17,
+						"scale": 6
+					},
+					{
+						"name": "MMSTCS",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 2
+					},
+					{
+						"name": "MMNESA",
+						"type": "varchar"
+					},
+					{
+						"name": "MMNSUF",
+						"type": "varchar"
+					},
+					{
+						"name": "MMFCCM",
+						"type": "varchar"
+					},
+					{
+						"name": "MMDPID",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "MMCONC",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMPLMZ",
+						"type": "decimal",
+						"precision": 4,
+						"scale": 0
+					},
+					{
+						"name": "MMCCO1",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 3
+					},
+					{
+						"name": "MMCCO2",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 3
+					},
+					{
+						"name": "MMCCO3",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 3
+					},
+					{
+						"name": "MMWADY",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 0
+					},
+					{
+						"name": "MMTBSR",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMMBSR",
+						"type": "varchar"
+					},
+					{
+						"name": "MMTBUR",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMMBUR",
+						"type": "varchar"
+					},
+					{
+						"name": "MMTBFR",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMMBFR",
+						"type": "varchar"
+					},
+					{
+						"name": "MMAESC",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMAES2",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMAMOR",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMFUNC",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSTNC",
+						"type": "varchar"
+					},
+					{
+						"name": "MMDIRR",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMMDIR",
+						"type": "varchar"
+					},
+					{
+						"name": "MMSCGR",
+						"type": "decimal",
+						"precision": 3,
+						"scale": 1
+					},
+					{
+						"name": "MMARR1",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMAEQY",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMLEAI",
+						"type": "decimal",
+						"precision": 3,
+						"scale": 0
+					},
+					{
+						"name": "MMWAL1",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMWAL2",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMWAL3",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMWAL4",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 6
+					},
+					{
+						"name": "MMIACP",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMHDPR",
+						"type": "varchar"
+					},
+					{
+						"name": "MMAAD0",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMAAD1",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMCHCL",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMITRC",
+						"type": "decimal",
+						"precision": 1,
+						"scale": 0
+					},
+					{
+						"name": "MMVTCP",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "MMVTCS",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 0
+					},
+					{
+						"name": "MMRGDT",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 0
+					},
+					{
+						"name": "MMRGTM",
+						"type": "decimal",
+						"precision": 6,
+						"scale": 0
+					},
+					{
+						"name": "MMLMDT",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 0
+					},
+					{
+						"name": "MMCHNO",
+						"type": "decimal",
+						"precision": 3,
+						"scale": 0
+					},
+					{
+						"name": "MMCHID",
+						"type": "varchar"
+					},
+					{
+						"name": "LoadDate",
+						"type": "smalldatetime",
+						"precision": 16,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "MVXCDTA",
+					"table": "MITMAS"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/EITserver')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/FO_ItemsF')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -28047,6 +29143,25 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/EITserver')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('EITserver_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "EIT-DataWarehouse",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/EIT-DataWarehouse')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/FO')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -28887,6 +30002,16 @@
 			"properties": {
 				"type": "SelfHosted",
 				"description": "connection to anywere on amssrv180\\backend",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/EIT-DataWarehouse')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
 				"typeProperties": {}
 			},
 			"dependsOn": []

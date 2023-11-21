@@ -26,6 +26,9 @@
 		"DWHloads_password": {
 			"value": ""
 		},
+		"EITserver_connectionString": {
+			"value": ""
+		},
 		"FO_password": {
 			"value": ""
 		},

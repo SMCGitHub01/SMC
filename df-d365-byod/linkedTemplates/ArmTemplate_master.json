@@ -35,6 +35,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DWHloads'"
 		},
+		"EITserver_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'EITserver'"
+		},
 		"FO_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FO'"
@@ -337,6 +341,9 @@
 					},
 					"DWHloads_password": {
 						"value": "[parameters('DWHloads_password')]"
+					},
+					"EITserver_connectionString": {
+						"value": "[parameters('EITserver_connectionString')]"
 					},
 					"FO_password": {
 						"value": "[parameters('FO_password')]"
