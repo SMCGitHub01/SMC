@@ -2,7 +2,7 @@
 	"name": "SugarCRM_Pord_cloud",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
-		"description": "Connection to the database server for sugar in the cloud us-azir-ap-P01\nconnection set up with Mohammed A. Hassan  and Alex N. Jung 11-10-2023",
+		"description": "Connection to the database server for sugar in the cloud us-azir-ap-P01\nconnection set up with Mohammed A. Hassan  and Alex N. Jung 11-10-2023\nserver name ip could be changed to sc-reports.1smc.com",
 		"annotations": [],
 		"type": "MySql",
 		"typeProperties": {
