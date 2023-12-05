@@ -13,6 +13,587 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ACC_Process_Zendesk')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_Current_Sync_And_Date",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "ACC_ZendDesk_ToBlob",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							}
+						}
+					},
+					{
+						"name": "Lookup_Full_CSVFiles",
+						"description": "Lookup the tables from the source database which are used in the full copy.",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": {
+									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 15 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
+									"type": "Expression"
+								},
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach zendesk",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Full_CSVFiles",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Full_CSVFiles').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "zenDeskTickets",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "ACC_ZenDesk_Tickets",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"CSVFile": {
+												"value": "@{Item().SourceTableName}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											},
+											"TargetTableName": {
+												"value": "@{Item().TargetTableName}",
+												"type": "Expression"
+											},
+											"TargetSchemaName": {
+												"value": "@{Item().TargetSchemaName}",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "ACC_ZendDesk_ToBlob",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ACC_ZendDesk_ToBlob",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "fill_dwhZendesk",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "ForEach zendesk",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[process].[FactZendeskTickets_INCR]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_DEV",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "ACC-Zendesk"
+				},
+				"annotations": [],
+				"lastPublishTime": "2020-12-10T13:46:15Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_Process_DWH_create')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_Current_Sync_And_Date",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "PRD_UpScale",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							}
+						}
+					},
+					{
+						"name": "Lookup_Load_Group",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT DISTINCT LoadgroupID, LoadOrder FROM process.ProcessView WHERE SourceConnectionID = 1 ORDER BY LoadOrder",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "For_Each_Load_Group",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Load_Group",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Load_Group').output.value",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Execute_Pipeline",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PRD_Materialize_Views",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"LoadGroupID": {
+												"value": "@{Item().LoadGroupID}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "spLoadDataAfterFullLoad",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "For_Each_Load_Group",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[process].[spLoadDataAfterFullLoad]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "PRD_UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "PRD_DownScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "spLoadDataAfterFullLoad",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_DownScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD-Process_DWH"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-03-27T14:26:15Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_Process_DWH_zonder_Blob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_Current_Sync_And_Date",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "PRD_UpScale",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							}
+						}
+					},
+					{
+						"name": "Lookup_Load_Group",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT DISTINCT LoadgroupID, LoadOrder FROM process.ProcessView WHERE SourceConnectionID = 1 ORDER BY LoadOrder",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "For_Each_Load_Group",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Load_Group",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Load_Group').output.value",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Execute_Pipeline",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "PRD_Materialize_Views",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"LoadGroupID": {
+												"value": "@{Item().LoadGroupID}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "spLoadDataAfterFullLoad",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "For_Each_Load_Group",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[process].[spLoadDataAfterFullLoad]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "PRD_UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "PRD_DownScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "spLoadDataAfterFullLoad",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_DownScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD-Process_DWH"
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-03-27T14:26:15Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_Process_IFS_Stage')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -4545,7 +5126,9 @@
 				"annotations": [],
 				"lastPublishTime": "2020-12-10T13:46:15Z"
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/ACC_Process_Zendesk')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/PRD_Process_DWH')]",
@@ -6140,119 +6723,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_IFS_Stage')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_Zendesk')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Daily_PRD')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PRD_Process_DWH_create",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2021-03-27T14:30:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								15
-							],
-							"hours": [
-								5
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Daily_ACC')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "ACC_Process_DWH",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2020-08-27T03:05:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								4
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ACC_Process_DWH')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_DWH_loadblob')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "load blob and sharepoint data",
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PRD_Process_DWH_loaddata",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2023-09-12T06:34:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								2
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PRD_Process_DWH_loaddata')]"
 			]
 		}
 	]

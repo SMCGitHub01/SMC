@@ -41,6 +41,9 @@
 		"MicrosoftAccess1_credential": {
 			"value": ""
 		},
+		"Rob Vader_password": {
+			"value": ""
+		},
 		"SharePoint_servicePrincipalKey": {
 			"value": ""
 		},
@@ -118,6 +121,9 @@
 		},
 		"RestService_properties_typeProperties_aadResourceId": {
 			"value": "https://analysis.windows.net/powerbi/api"
+		},
+		"Rob Vader_properties_typeProperties_username": {
+			"value": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
 			"value": "3c9c0d42-fbe6-4add-a30a-92d328806209"

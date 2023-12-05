@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-d365-byod"
 		},
+		"SharePoint_servicePrincipalKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
+		},
 		"SharePointBE_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePointBE'"
@@ -22,6 +26,10 @@
 		"staggingadfsmc_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
+		},
+		"SharePoint_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
 		"SharePointBE_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
@@ -40,6 +48,25 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/SharePoint')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SharePointOnlineList",
+				"typeProperties": {
+					"siteUrl": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/",
+					"tenantId": "fe754037-10dc-495e-90da-045b680fb646",
+					"servicePrincipalId": "[parameters('SharePoint_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalKey": {
+						"type": "SecureString",
+						"value": "[parameters('SharePoint_servicePrincipalKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SharePointBE')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -463,6 +490,24 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DataverseEntity1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Rob Vader",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "CommonDataServiceForAppsEntity",
+				"schema": [],
+				"typeProperties": {
+					"entityName": "crbbc_rrp_december_2023"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DelimitedText2')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -482,53 +527,6 @@
 					"quoteChar": "\""
 				},
 				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/RestResource1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "RestService",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"AdminAPI": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "RestResource",
-				"typeProperties": {},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SharePointLists')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SharePoint",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"list": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "SharePointOnlineListResource",
-				"schema": [],
-				"typeProperties": {
-					"listName": {
-						"value": "@dataset().list",
-						"type": "Expression"
-					}
-				}
 			},
 			"dependsOn": []
 		}

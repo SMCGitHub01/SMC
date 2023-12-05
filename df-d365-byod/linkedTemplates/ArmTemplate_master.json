@@ -55,6 +55,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'credential' of 'MicrosoftAccess1'"
 		},
+		"Rob Vader_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Rob Vader'"
+		},
 		"SharePoint_servicePrincipalKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint'"
@@ -159,6 +163,10 @@
 			"type": "string",
 			"defaultValue": "https://analysis.windows.net/powerbi/api"
 		},
+		"Rob Vader_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
 			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
@@ -241,8 +249,8 @@
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
-					"SharePoint_servicePrincipalKey": {
-						"value": "[parameters('SharePoint_servicePrincipalKey')]"
+					"Rob Vader_password": {
+						"value": "[parameters('Rob Vader_password')]"
 					},
 					"Afas_properties_typeProperties_url": {
 						"value": "[parameters('Afas_properties_typeProperties_url')]"
@@ -274,8 +282,8 @@
 					"RestService_properties_typeProperties_aadResourceId": {
 						"value": "[parameters('RestService_properties_typeProperties_aadResourceId')]"
 					},
-					"SharePoint_properties_typeProperties_servicePrincipalId": {
-						"value": "[parameters('SharePoint_properties_typeProperties_servicePrincipalId')]"
+					"Rob Vader_properties_typeProperties_username": {
+						"value": "[parameters('Rob Vader_properties_typeProperties_username')]"
 					}
 				}
 			},
@@ -295,6 +303,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"SharePoint_servicePrincipalKey": {
+						"value": "[parameters('SharePoint_servicePrincipalKey')]"
+					},
 					"SharePointBE_servicePrincipalKey": {
 						"value": "[parameters('SharePointBE_servicePrincipalKey')]"
 					},
@@ -306,6 +317,9 @@
 					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
+					},
+					"SharePoint_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('SharePoint_properties_typeProperties_servicePrincipalId')]"
 					},
 					"SharePointBE_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePointBE_properties_typeProperties_servicePrincipalId')]"
@@ -552,6 +566,26 @@
 			},
 			"dependsOn": [
 				"[resourceId('Microsoft.Resources/deployments', 'df-d365-byod_ArmTemplate_8')]"
+			]
+		},
+		{
+			"name": "df-d365-byod_ArmTemplate_10",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_10.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'df-d365-byod_ArmTemplate_9')]"
 			]
 		}
 	]

@@ -109,6 +109,53 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/RestResource1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "RestService",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"AdminAPI": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SharePointLists')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SharePoint",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"list": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SharePointOnlineListResource",
+				"schema": [],
+				"typeProperties": {
+					"listName": {
+						"value": "@dataset().list",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SharePointLists_BE')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -349,7 +396,7 @@
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Connection to the database server for sugar in the cloud us-azir-ap-P01\nconnection set up with Mohammed A. Hassan  and Alex N. Jung 11-10-2023",
+				"description": "Connection to the database server for sugar in the cloud us-azir-ap-P01\nconnection set up with Mohammed A. Hassan  and Alex N. Jung 11-10-2023\nserver name ip could be changed to sc-reports.1smc.com",
 				"annotations": [],
 				"type": "MySql",
 				"typeProperties": {
@@ -507,129 +554,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "sptevervroegen",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "PRD_UpScale",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[process].[spProductionReferencesAll]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "PRD_UpScale",
-						"type": "ExecutePipeline",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_UpScale",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/sanctieLijsten_process')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "create sanction list",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[sanct].[CreateSanctionList]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_DEV",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "Check Sanctions",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "create sanction list",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[sanct].[SanctionCheck]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_DEV",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "Sanctions"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
-			]
 		}
 	]
 }
