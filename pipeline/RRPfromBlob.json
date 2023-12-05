@@ -49,8 +49,8 @@
 							},
 							{
 								"source": {
-									"name": "crbbc_rrp",
-									"type": "Double"
+									"name": "crbbc_series",
+									"type": "String"
 								},
 								"sink": {
 									"name": "SERIES",
@@ -59,8 +59,8 @@
 							},
 							{
 								"source": {
-									"name": "crbbc_rrp_december_2023id",
-									"type": "Guid"
+									"name": "crbbc_rrp",
+									"type": "Double"
 								},
 								"sink": {
 									"name": "RRP",
