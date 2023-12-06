@@ -13,61 +13,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "sptevervroegen",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "PRD_UpScale",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[process].[spProductionReferencesAll]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "PRD_UpScale",
-						"type": "ExecutePipeline",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_UpScale",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/sanctieLijsten_process')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -929,6 +874,324 @@
 				"typeProperties": {
 					"schema": "dbo",
 					"table": "View_Test"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlTable2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Azure_D365_PROD",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "HSO_DnA_SourceConnectionID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "HSO_DnA_TargetMappingID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "HSO_DnA_InsertDateTime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "HSO_DnA_UpdateDateTime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "HSO_DnA_DeleteDateTime",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "_9FieldMatrix",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AccountSatus",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AddressCity",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AddressStreet",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AddressZipCode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "AutoSummaryInvoice",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Branch",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CECustomerNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Channel",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Classification",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CompanyChain",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CountryRegionISOCode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CreditLimitCCY",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 12
+					},
+					{
+						"name": "CustomerBK",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CustomerGroup",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CustomerID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "CustomerType",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DataAreaID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DaysSinceLastMet",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "DeliveryTerms",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DISCOUNTPRICEGROUPID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DistributerChannel",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DistributerType",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DistributorCustomerNo",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EmployeeResponsible",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EndUserType",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FOCustomerNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "GlobalIndustryCode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "GlobalIndustryCodeFull",
+						"type": "nvarchar"
+					},
+					{
+						"name": "HolonNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Industry",
+						"type": "nvarchar"
+					},
+					{
+						"name": "IndustryClassification",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LastVisitDate",
+						"type": "date"
+					},
+					{
+						"name": "LineDiscountCode",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LineOfBusiness",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LineOfBusinessDescription",
+						"type": "nvarchar"
+					},
+					{
+						"name": "MarketSharePercentage",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Multinational",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Name",
+						"type": "nvarchar"
+					},
+					{
+						"name": "NumberOfEmployees",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PaymentCondition",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Potential",
+						"type": "decimal",
+						"precision": 28,
+						"scale": 12
+					},
+					{
+						"name": "PrimaryDistributorID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "PrimaryDistributorName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "rank",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SalesGroup",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SalesGroupDescription",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Segment",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SegmentDescription",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SMCTargetKey",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Source",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SubBranch",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Subsegment",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SubsegmentDescription",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SugarCustomerNumber",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SugarERPAccountId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "TransportationDays",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Type_Code",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Type_level1",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Type_level2",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Type_level3",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Type1",
+						"type": "nvarchar"
+					},
+					{
+						"name": "UserID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "UserName",
+						"type": "nvarchar"
+					},
+					{
+						"name": "VisitFrequency",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "dwh",
+					"table": "DimCustomer"
 				}
 			},
 			"dependsOn": []

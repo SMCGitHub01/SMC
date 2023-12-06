@@ -26014,18 +26014,11 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "sptevervroegen",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "PRD_UpScale",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
+						"name": "alterdiagram",
+						"type": "Copy",
+						"dependsOn": [],
 						"policy": {
-							"timeout": "7.00:00:00",
+							"timeout": "0.12:00:00",
 							"retry": 0,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
@@ -26033,26 +26026,53 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"storedProcedureName": "[[process].[spProductionReferencesAll]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "PRD_UpScale",
-						"type": "ExecutePipeline",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_UpScale",
-								"type": "PipelineReference"
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[sp_alterdiagram]",
+								"storedProcedureParameters": {
+									"item": {
+										"type": "String",
+										"value": "%"
+									}
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
 							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "--truncate table eit.ECWStockReportFull",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "EITtest",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "eit",
+									"TableName": "alterdiagram"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -26061,8 +26081,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]",
-				"[concat(variables('factoryId'), '/pipelines/PRD_UpScale')]"
+				"[concat(variables('factoryId'), '/datasets/EITtest')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},
 		{
