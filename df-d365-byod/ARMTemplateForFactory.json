@@ -7797,7 +7797,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "EIT_Stock",
+						"name": "ECWStockReportFull",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -7823,9 +7823,10 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table eit.eitstock",
+								"preCopyScript": "--truncate table eit.ECWStockReportFull",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -8087,7 +8088,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "eit",
-									"TableName": "EITSTock"
+									"TableName": "ECWStockReportFull"
 								}
 							}
 						]
@@ -8112,9 +8113,10 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table eit.eitmitmas",
+								"preCopyScript": "--truncate table eit.mitmas",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -10724,7 +10726,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "eit",
-									"TableName": "EITMITMAS"
+									"TableName": "MITMAS"
 								}
 							}
 						]
