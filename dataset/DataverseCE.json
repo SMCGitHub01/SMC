@@ -5,11 +5,19 @@
 			"referenceName": "DataverseCERami",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"table": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "CommonDataServiceForAppsEntity",
 		"schema": [],
 		"typeProperties": {
-			"entityName": "opportunity"
+			"entityName": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
 		}
 	}
 }
