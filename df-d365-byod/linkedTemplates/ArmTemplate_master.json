@@ -35,6 +35,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DWHloads'"
 		},
+		"DataverseCERami_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'DataverseCERami'"
+		},
 		"EITserver_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'EITserver'"
@@ -130,6 +134,10 @@
 		"DWHloads_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "AMSSRV011\\DWHZendesk"
+		},
+		"DataverseCERami_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
 		"FO_properties_typeProperties_host": {
 			"type": "string",
@@ -249,8 +257,8 @@
 					"AzureSqlMI1_connectionString": {
 						"value": "[parameters('AzureSqlMI1_connectionString')]"
 					},
-					"Rob Vader_password": {
-						"value": "[parameters('Rob Vader_password')]"
+					"DataverseCERami_password": {
+						"value": "[parameters('DataverseCERami_password')]"
 					},
 					"Afas_properties_typeProperties_url": {
 						"value": "[parameters('Afas_properties_typeProperties_url')]"
@@ -267,6 +275,9 @@
 					"AzureDataLakeStorage3_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStorage3_properties_typeProperties_url')]"
 					},
+					"DataverseCERami_properties_typeProperties_username": {
+						"value": "[parameters('DataverseCERami_properties_typeProperties_username')]"
+					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
 					},
@@ -281,9 +292,6 @@
 					},
 					"RestService_properties_typeProperties_aadResourceId": {
 						"value": "[parameters('RestService_properties_typeProperties_aadResourceId')]"
-					},
-					"Rob Vader_properties_typeProperties_username": {
-						"value": "[parameters('Rob Vader_properties_typeProperties_username')]"
 					}
 				}
 			},
@@ -303,6 +311,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"Rob Vader_password": {
+						"value": "[parameters('Rob Vader_password')]"
+					},
 					"SharePoint_servicePrincipalKey": {
 						"value": "[parameters('SharePoint_servicePrincipalKey')]"
 					},
@@ -317,6 +328,9 @@
 					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
+					},
+					"Rob Vader_properties_typeProperties_username": {
+						"value": "[parameters('Rob Vader_properties_typeProperties_username')]"
 					},
 					"SharePoint_properties_typeProperties_servicePrincipalId": {
 						"value": "[parameters('SharePoint_properties_typeProperties_servicePrincipalId')]"
@@ -418,9 +432,6 @@
 					},
 					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
-					},
-					"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -441,6 +452,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},

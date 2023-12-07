@@ -26,6 +26,9 @@
 		"DWHloads_password": {
 			"value": ""
 		},
+		"DataverseCERami_password": {
+			"value": ""
+		},
 		"EITserver_connectionString": {
 			"value": ""
 		},
@@ -97,6 +100,9 @@
 		},
 		"DWHloads_properties_typeProperties_userId": {
 			"value": "AMSSRV011\\DWHZendesk"
+		},
+		"DataverseCERami_properties_typeProperties_username": {
+			"value": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
 		"FO_properties_typeProperties_host": {
 			"value": "d:\\General\\File exchange folder (MAX7D)\\FO\\"
