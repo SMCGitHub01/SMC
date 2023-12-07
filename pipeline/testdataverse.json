@@ -82,7 +82,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@activity('Lookup_LoadGroup_SugarCRM_FULL').output.value",
+						"value": "@activity('Lookup_LoadGroup_CE').output.value",
 						"type": "Expression"
 					},
 					"isSequential": true,
