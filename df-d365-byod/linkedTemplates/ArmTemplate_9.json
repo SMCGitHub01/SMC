@@ -13,6 +13,600 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/dataflow2')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable3",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"linkedService": {
+								"referenceName": "AzureDataLakeStorage2",
+								"type": "LinkedServiceReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "rank1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          HSO_DnA_SourceConnectionID as integer,",
+						"          HSO_DnA_TargetMappingID as integer,",
+						"          HSO_DnA_InsertDateTime as timestamp,",
+						"          HSO_DnA_UpdateDateTime as timestamp,",
+						"          HSO_DnA_DeleteDateTime as timestamp,",
+						"          {_9FieldMatrix} as string,",
+						"          AccountSatus as string,",
+						"          AddressCity as string,",
+						"          AddressStreet as string,",
+						"          AddressZipCode as string,",
+						"          AutoSummaryInvoice as integer,",
+						"          Branch as string,",
+						"          CECustomerNumber as string,",
+						"          Channel as string,",
+						"          Classification as string,",
+						"          CompanyChain as string,",
+						"          CountryRegionISOCode as string,",
+						"          CreditLimitCCY as decimal(28,12),",
+						"          CustomerBK as string,",
+						"          CustomerGroup as string,",
+						"          CustomerID as string,",
+						"          CustomerType as string,",
+						"          DataAreaID as string,",
+						"          DaysSinceLastMet as integer,",
+						"          DeliveryTerms as string,",
+						"          DISCOUNTPRICEGROUPID as string,",
+						"          DistributerChannel as string,",
+						"          DistributerType as string,",
+						"          DistributorCustomerNo as string,",
+						"          EmployeeResponsible as string,",
+						"          EndUserType as string,",
+						"          FOCustomerNumber as string,",
+						"          GlobalIndustryCode as string,",
+						"          GlobalIndustryCodeFull as string,",
+						"          HolonNumber as string,",
+						"          Industry as string,",
+						"          IndustryClassification as string,",
+						"          LastVisitDate as date,",
+						"          LineDiscountCode as string,",
+						"          LineOfBusiness as string,",
+						"          LineOfBusinessDescription as string,",
+						"          MarketSharePercentage as integer,",
+						"          Multinational as string,",
+						"          Name as string,",
+						"          NumberOfEmployees as string,",
+						"          PaymentCondition as string,",
+						"          Potential as decimal(28,12),",
+						"          PrimaryDistributorID as string,",
+						"          PrimaryDistributorName as string,",
+						"          rank as integer,",
+						"          SalesGroup as string,",
+						"          SalesGroupDescription as string,",
+						"          Segment as string,",
+						"          SegmentDescription as string,",
+						"          SMCTargetKey as string,",
+						"          Source as string,",
+						"          SubBranch as string,",
+						"          Subsegment as string,",
+						"          SubsegmentDescription as string,",
+						"          SugarCustomerNumber as string,",
+						"          SugarERPAccountId as string,",
+						"          TransportationDays as integer,",
+						"          Type_Code as string,",
+						"          Type_level1 as string,",
+						"          Type_level2 as string,",
+						"          Type_level3 as string,",
+						"          Type1 as string,",
+						"          UserID as string,",
+						"          UserName as string,",
+						"          VisitFrequency as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     isolationLevel: 'READ_UNCOMMITTED',",
+						"     format: 'table') ~> source1",
+						"source1 rank(asc(CustomerBK, true),",
+						"     output(customerbk as long)) ~> rank1",
+						"rank1 sink(allowSchemaDrift: false,",
+						"     validateSchema: false,",
+						"     entity: 'core/',",
+						"     format: 'cdm',",
+						"     manifestType: 'manifest',",
+						"     manifestName: 'model.json',",
+						"     folderPath: 'crc90_customers',",
+						"     fileSystem: 'dataverse-dev-org06386f8f',",
+						"     columnNamesAsHeader: false,",
+						"     columnDelimiter: ',',",
+						"     quoteChar: '\\\"',",
+						"     escapeChar: '\\\\',",
+						"     truncate: false,",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     mapColumn(",
+						"          Name",
+						"     )) ~> sink1"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow3')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"linkedService": {
+								"referenceName": "AzureDataLakeStorage3",
+								"type": "LinkedServiceReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "AzureSqlTable4",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "rank1"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Id as string,",
+						"          SinkCreatedOn as timestamp,",
+						"          SinkModifiedOn as timestamp,",
+						"          statecode as long,",
+						"          statuscode as long,",
+						"          hso_occasion as long,",
+						"          onlinemeetingtype as long,",
+						"          prioritycode as long,",
+						"          attachmenterrors as long,",
+						"          hso_reason as long,",
+						"          instancetypecode as long,",
+						"          isworkflowcreated as boolean,",
+						"          isbilled as boolean,",
+						"          ismapiprivate as boolean,",
+						"          isdraft as boolean,",
+						"          isonlinemeeting as boolean,",
+						"          isalldayevent as boolean,",
+						"          isregularactivity as boolean,",
+						"          createdonbehalfby as string,",
+						"          createdonbehalfby_entitytype as string,",
+						"          hso_account as string,",
+						"          hso_account_entitytype as string,",
+						"          owningteam as string,",
+						"          owningteam_entitytype as string,",
+						"          regardingobjectid as string,",
+						"          regardingobjectid_entitytype as string,",
+						"          modifiedby as string,",
+						"          modifiedby_entitytype as string,",
+						"          createdby as string,",
+						"          createdby_entitytype as string,",
+						"          slainvokedid as string,",
+						"          slainvokedid_entitytype as string,",
+						"          serviceid as string,",
+						"          serviceid_entitytype as string,",
+						"          owninguser as string,",
+						"          owninguser_entitytype as string,",
+						"          modifiedonbehalfby as string,",
+						"          modifiedonbehalfby_entitytype as string,",
+						"          transactioncurrencyid as string,",
+						"          transactioncurrencyid_entitytype as string,",
+						"          slaid as string,",
+						"          slaid_entitytype as string,",
+						"          hso_appointmentreportid as string,",
+						"          hso_appointmentreportid_entitytype as string,",
+						"          owningbusinessunit as string,",
+						"          owningbusinessunit_entitytype as string,",
+						"          ownerid as string,",
+						"          ownerid_entitytype as string,",
+						"          organizer as string,",
+						"          requiredattendees as string,",
+						"          optionalattendees as string,",
+						"          versionnumber as long,",
+						"          createdon as string,",
+						"          modifiedonbehalfbyyominame as string,",
+						"          owningbusinessunitname as string,",
+						"          attachmentcount as long,",
+						"          seriesid as string,",
+						"          isunsafe as long,",
+						"          traversedpath as string,",
+						"          modifiedbyyominame as string,",
+						"          hso_accountyominame as string,",
+						"          owneridtype as string,",
+						"          modifiedbyname as string,",
+						"          regardingobjectidyominame as string,",
+						"          owneridname as string,",
+						"          overriddencreatedon as timestamp,",
+						"          scheduledstart as timestamp,",
+						"          createdonbehalfbyyominame as string,",
+						"          subscriptionid as string,",
+						"          slaname as string,",
+						"          exchangerate as decimal(38,10),",
+						"          subcategory as string,",
+						"          onlinemeetingjoinurl as string,",
+						"          timezoneruleversionnumber as long,",
+						"          formattedscheduledstart as timestamp,",
+						"          regardingobjectidname as string,",
+						"          onlinemeetingchatid as string,",
+						"          activityadditionalparams as string,",
+						"          createdonbehalfbyname as string,",
+						"          actualstart as timestamp,",
+						"          activitytypecode as string,",
+						"          utcconversiontimezonecode as long,",
+						"          scheduleddurationminutes as long,",
+						"          hso_accountname as string,",
+						"          modifiedon as timestamp,",
+						"          importsequencenumber as long,",
+						"          owneridyominame as string,",
+						"          onholdtime as long,",
+						"          processid as string,",
+						"          description as string,",
+						"          location as string,",
+						"          createdbyname as string,",
+						"          globalobjectid as string,",
+						"          regardingobjecttypecode as string,",
+						"          hso_appointmentreportidname as string,",
+						"          sortdate as timestamp,",
+						"          lastonholdtime as timestamp,",
+						"          stageid as string,",
+						"          safedescription as string,",
+						"          category as string,",
+						"          createdbyyominame as string,",
+						"          transactioncurrencyidname as string,",
+						"          actualend as timestamp,",
+						"          activityid as string,",
+						"          modifiedonbehalfbyname as string,",
+						"          serviceidname as string,",
+						"          slainvokedidname as string,",
+						"          scheduledend as timestamp,",
+						"          originalstartdate as timestamp,",
+						"          formattedscheduledend as timestamp,",
+						"          modifiedfieldsmask as string,",
+						"          outlookownerapptid as long,",
+						"          actualdurationminutes as long,",
+						"          onlinemeetingid as string,",
+						"          subject as string,",
+						"          msft_datastate as long,",
+						"          hso_createappointmentreport as boolean",
+						"     ),",
+						"     allowSchemaDrift: false,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false,",
+						"     entity: 'appointment',",
+						"     format: 'cdm',",
+						"     manifestType: 'model',",
+						"     folderPath: '',",
+						"     fileSystem: 'dataverse-ramiyokotade-orgd3ad9c7e') ~> source1",
+						"source1 rank(asc(Id, true),",
+						"     output(uniqueid as long),",
+						"     dense: true) ~> rank1",
+						"rank1 sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          Id as string,",
+						"          SinkCreatedOn as timestamp,",
+						"          SinkModifiedOn as timestamp,",
+						"          statecode as integer,",
+						"          statuscode as integer,",
+						"          hso_reason as integer,",
+						"          hso_occasion as integer,",
+						"          prioritycode as integer,",
+						"          attachmenterrors as integer,",
+						"          instancetypecode as integer,",
+						"          isregularactivity as boolean,",
+						"          isalldayevent as boolean,",
+						"          isworkflowcreated as boolean,",
+						"          isbilled as boolean,",
+						"          isdraft as boolean,",
+						"          ismapiprivate as boolean,",
+						"          serviceid as string,",
+						"          serviceid_entitytype as string,",
+						"          owningteam as string,",
+						"          owningteam_entitytype as string,",
+						"          owningbusinessunit as string,",
+						"          owningbusinessunit_entitytype as string,",
+						"          transactioncurrencyid as string,",
+						"          transactioncurrencyid_entitytype as string,",
+						"          createdonbehalfby as string,",
+						"          createdonbehalfby_entitytype as string,",
+						"          owninguser as string,",
+						"          owninguser_entitytype as string,",
+						"          modifiedonbehalfby as string,",
+						"          modifiedonbehalfby_entitytype as string,",
+						"          modifiedby as string,",
+						"          modifiedby_entitytype as string,",
+						"          slainvokedid as string,",
+						"          slainvokedid_entitytype as string,",
+						"          createdby as string,",
+						"          createdby_entitytype as string,",
+						"          regardingobjectid as string,",
+						"          regardingobjectid_entitytype as string,",
+						"          slaid as string,",
+						"          slaid_entitytype as string,",
+						"          ownerid as string,",
+						"          ownerid_entitytype as string,",
+						"          organizer as string,",
+						"          requiredattendees as string,",
+						"          optionalattendees as string,",
+						"          regardingobjectidyominame as string,",
+						"          owneridyominame as string,",
+						"          activityid as string,",
+						"          modifiedonbehalfbyname as string,",
+						"          subscriptionid as string,",
+						"          stageid as string,",
+						"          actualstart as timestamp,",
+						"          slaname as string,",
+						"          traversedpath as string,",
+						"          createdbyname as string,",
+						"          scheduleddurationminutes as integer,",
+						"          regardingobjecttypecode as string,",
+						"          slainvokedidname as string,",
+						"          owneridtype as string,",
+						"          modifiedon as timestamp,",
+						"          modifiedbyname as string,",
+						"          attachmentcount as integer,",
+						"          onholdtime as integer,",
+						"          globalobjectid as string,",
+						"          regardingobjectidname as string,",
+						"          createdonbehalfbyyominame as string,",
+						"          processid as string,",
+						"          scheduledstart as timestamp,",
+						"          subject as string,",
+						"          safedescription as string,",
+						"          category as string,",
+						"          owneridname as string,",
+						"          importsequencenumber as integer,",
+						"          modifiedbyyominame as string,",
+						"          actualend as timestamp,",
+						"          lastonholdtime as timestamp,",
+						"          seriesid as string,",
+						"          actualdurationminutes as integer,",
+						"          utcconversiontimezonecode as integer,",
+						"          subcategory as string,",
+						"          activityadditionalparams as string,",
+						"          modifiedonbehalfbyyominame as string,",
+						"          sortdate as timestamp,",
+						"          serviceidname as string,",
+						"          modifiedfieldsmask as string,",
+						"          scheduledend as timestamp,",
+						"          timezoneruleversionnumber as integer,",
+						"          overriddencreatedon as timestamp,",
+						"          exchangerate as decimal(38,12),",
+						"          isunsafe as integer,",
+						"          createdbyyominame as string,",
+						"          createdon as timestamp,",
+						"          versionnumber as long,",
+						"          description as string,",
+						"          transactioncurrencyidname as string,",
+						"          outlookownerapptid as integer,",
+						"          activitytypecode as string,",
+						"          location as string,",
+						"          originalstartdate as timestamp,",
+						"          createdonbehalfbyname as string,",
+						"          owningbusinessunitname as string,",
+						"          onlinemeetingtype as integer,",
+						"          isonlinemeeting as boolean,",
+						"          onlinemeetingjoinurl as string,",
+						"          onlinemeetingchatid as string,",
+						"          onlinemeetingid as string,",
+						"          msdyn_ci_translated_transcript as string,",
+						"          msdyn_ci_keywords as string,",
+						"          msdyn_ci_transcript_json as string,",
+						"          msdyn_ci_media_reference_id as string,",
+						"          msdyn_ci_insights_json as string,",
+						"          msdyn_ci_translated_transcript_json as string,",
+						"          msdyn_ci_url as string,",
+						"          msdyn_ci_transcript as string,",
+						"          msdyn_ci_call_summary_control_field as integer,",
+						"          msdyn_ci_id as string,",
+						"          hso_account as string,",
+						"          hso_account_entitytype as string,",
+						"          hso_appointmentreportid as string,",
+						"          hso_appointmentreportid_entitytype as string,",
+						"          hso_accountyominame as string,",
+						"          hso_accountname as string,",
+						"          hso_appointmentreportidname as string,",
+						"          formattedscheduledstart as timestamp,",
+						"          formattedscheduledend as timestamp",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_Process_DWH_noblob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_Current_Sync_And_Date",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							}
+						}
+					},
+					{
+						"name": "Lookup_Load_Group",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT DISTINCT LoadgroupID, LoadOrder FROM process.ProcessView WHERE SourceConnectionID = 1 ORDER BY LoadOrder",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "For_Each_Load_Group",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Load_Group",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_Load_Group').output.value",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Execute_Pipeline",
+									"type": "ExecutePipeline",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"pipeline": {
+											"referenceName": "ACC_Materialize_Views",
+											"type": "PipelineReference"
+										},
+										"waitOnCompletion": true,
+										"parameters": {
+											"LoadGroupID": {
+												"value": "@{Item().LoadGroupID}",
+												"type": "Expression"
+											},
+											"StartDateTime": {
+												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
+												"type": "Expression"
+											}
+										}
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "spLoadDataAfterFullLoad",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "For_Each_Load_Group",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[process].[spLoadDataAfterFullLoad]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_DEV",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "ACC-Process_DWH"
+				},
+				"annotations": [],
+				"lastPublishTime": "2020-12-10T13:46:15Z"
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACC_Process_IFS_Stage')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -5068,7 +5662,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow3')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Dailyat0700')]",
@@ -5282,1218 +5878,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_Process_Customers_IFS')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_Current_Sync_And_Date",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							}
-						}
-					},
-					{
-						"name": "Process_IFS_Stage",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "ACC_Process_IFS_Stage",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "ACC-Process_DWH"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-04-06T13:11:09Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ACC_Process_IFS_Stage')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_Process_DWH')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_Current_Sync_And_Date",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							}
-						}
-					},
-					{
-						"name": "Lookup_Load_Group",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "ForEach DistributeurLijst",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "ForEach BudgetDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "ForEach BudgetInDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Process_IFS_Stage",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Stage SugarCRM",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT DISTINCT LoadgroupID, LoadOrder FROM process.ProcessView WHERE SourceConnectionID = 1 ORDER BY LoadOrder",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "For_Each_Load_Group",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Load_Group",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Load_Group').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Execute_Pipeline",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "ACC_Materialize_Views",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"LoadGroupID": {
-												"value": "@{Item().LoadGroupID}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_Full_ExcelFiles_Distributeur",
-						"description": "Lookup the tables from the source database which are used in the full copy.",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 2 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach DistributeurLijst",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Full_ExcelFiles_Distributeur",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Full_ExcelFiles_Distributeur').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "DistributionList",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "ACC_DistributionList",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"Worksheet": {
-												"value": "@{Item().SourceSchemaName}",
-												"type": "Expression"
-											},
-											"Excelfile": {
-												"value": "@{Item().SourceTableName}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											},
-											"TargetTableName": {
-												"value": "@{Item().TargetTableName}",
-												"type": "Expression"
-											},
-											"TargetSchemaName": {
-												"value": "@{Item().TargetSchemaName}",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "ForEach BudgetDirectSales",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Full_ExcelFiles_Distributeur",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Lookup_Full_ExcelFiles_BudgetDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Full_ExcelFiles_BudgetDirectSales').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "BudgetDirectSales",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "ACC_BudgetDirectSales",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"Worksheet": {
-												"value": "@{Item().SourceSchemaName}",
-												"type": "Expression"
-											},
-											"Excelfile": {
-												"value": "@{Item().SourceTableName}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											},
-											"TargetTableName": {
-												"value": "@{Item().TargetTableName}",
-												"type": "Expression"
-											},
-											"TargetSchemaName": {
-												"value": "@{Item().TargetSchemaName}",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "ForEach BudgetInDirectSales",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Full_ExcelFiles_Distributeur",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Lookup_Full_ExcelFiles_BudgetInDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Full_ExcelFiles_BudgetInDirectSales').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "BudgetInDirectSales",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "ACC_BudgetInDirectSales",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"Worksheet": {
-												"value": "@{Item().SourceSchemaName}",
-												"type": "Expression"
-											},
-											"Excelfile": {
-												"value": "@{Item().SourceTableName}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											},
-											"TargetTableName": {
-												"value": "@{Item().TargetTableName}",
-												"type": "Expression"
-											},
-											"TargetSchemaName": {
-												"value": "@{Item().TargetSchemaName}",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_Full_ExcelFiles_BudgetInDirectSales",
-						"description": "Lookup the tables from the source database which are used in the full copy.",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 3 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "Lookup_Full_ExcelFiles_BudgetDirectSales",
-						"description": "Lookup the tables from the source database which are used in the full copy.",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 4 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ACC_BYOD_DEV_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "Process_IFS_Stage",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "ACC_Process_IFS_Stage",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "Stage SugarCRM",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "ACC_Process_SugarCRM_DataBase",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "spLoadDataAfterFullLoad",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "For_Each_Load_Group",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[process].[spLoadDataAfterFullLoad]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_DEV",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "ACC_Process_Zendesk",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "ACC_Process_Zendesk",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "ACC-Process_DWH"
-				},
-				"annotations": [],
-				"lastPublishTime": "2020-12-10T13:46:15Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ACC_Process_IFS_Stage')]",
-				"[concat(variables('factoryId'), '/pipelines/ACC_Process_Zendesk')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Process_DWH')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_Current_Sync_And_Date",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "PRD_UpScale",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							}
-						}
-					},
-					{
-						"name": "Lookup_Load_Group",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "ForEach DistributeurLijst",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "ForEach BudgetDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "ForEach BudgetInDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Process_IFS_Stage",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Stage SugarCRM",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT DISTINCT LoadgroupID, LoadOrder FROM process.ProcessView WHERE SourceConnectionID = 1 ORDER BY LoadOrder",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "For_Each_Load_Group",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Load_Group",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Load_Group').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Execute_Pipeline",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "PRD_Materialize_Views",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"LoadGroupID": {
-												"value": "@{Item().LoadGroupID}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_Full_ExcelFiles_Distributeur",
-						"description": "Lookup the tables from the source database which are used in the full copy.",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 2 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach DistributeurLijst",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Full_ExcelFiles_Distributeur",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Full_ExcelFiles_Distributeur').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "DistributionList",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "PRD_DistributionList",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"Worksheet": {
-												"value": "@{Item().SourceSchemaName}",
-												"type": "Expression"
-											},
-											"Excelfile": {
-												"value": "@{Item().SourceTableName}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											},
-											"TargetTableName": {
-												"value": "@{Item().TargetTableName}",
-												"type": "Expression"
-											},
-											"TargetSchemaName": {
-												"value": "@{Item().TargetSchemaName}",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "ForEach BudgetDirectSales",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Full_ExcelFiles_BudgetDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Full_ExcelFiles_BudgetDirectSales').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "BudgetDirectSales",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "PRD_BudgetDirectSales",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"Worksheet": {
-												"value": "@{Item().SourceSchemaName}",
-												"type": "Expression"
-											},
-											"Excelfile": {
-												"value": "@{Item().SourceTableName}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											},
-											"TargetTableName": {
-												"value": "@{Item().TargetTableName}",
-												"type": "Expression"
-											},
-											"TargetSchemaName": {
-												"value": "@{Item().TargetSchemaName}",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "ForEach BudgetInDirectSales",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Full_ExcelFiles_BudgetInDirectSales",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Full_ExcelFiles_BudgetInDirectSales').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "BudgetInDirectSales",
-									"type": "ExecutePipeline",
-									"dependsOn": [],
-									"userProperties": [],
-									"typeProperties": {
-										"pipeline": {
-											"referenceName": "PRD_BudgetInDirectSales",
-											"type": "PipelineReference"
-										},
-										"waitOnCompletion": true,
-										"parameters": {
-											"Worksheet": {
-												"value": "@{Item().SourceSchemaName}",
-												"type": "Expression"
-											},
-											"Excelfile": {
-												"value": "@{Item().SourceTableName}",
-												"type": "Expression"
-											},
-											"StartDateTime": {
-												"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-												"type": "Expression"
-											},
-											"TargetTableName": {
-												"value": "@{Item().TargetTableName}",
-												"type": "Expression"
-											},
-											"TargetSchemaName": {
-												"value": "@{Item().TargetSchemaName}",
-												"type": "Expression"
-											}
-										}
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_Full_ExcelFiles_BudgetInDirectSales",
-						"description": "Lookup the tables from the source database which are used in the full copy.",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 3 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "Lookup_Full_ExcelFiles_BudgetDirectSales",
-						"description": "Lookup the tables from the source database which are used in the full copy.",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 4 AND\n\t (TemplateName = 'FULL' OR IncrementalLoad = 0)",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "Process_IFS_Stage",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_Process_IFS_Stage",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "Stage SugarCRM",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_Process_SugarCRM_DataBase",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "spLoadDataAfterFullLoad",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "For_Each_Load_Group",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[process].[spLoadDataAfterFullLoad]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "process Zendesk",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_Process_Zendesk",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "PRD_UpScale",
-						"type": "ExecutePipeline",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_UpScale",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "PRD_DownScale",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "spLoadDataAfterFullLoad",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_DownScale",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					},
-					{
-						"name": "PRD_SharepointLijsten",
-						"type": "ExecutePipeline",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"pipeline": {
-								"referenceName": "PRD_SharepointLijsten",
-								"type": "PipelineReference"
-							},
-							"waitOnCompletion": true,
-							"parameters": {}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "PRD-Process_DWH"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-03-27T14:26:15Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PRD_Process_IFS_Stage')]",
-				"[concat(variables('factoryId'), '/pipelines/PRD_Process_Zendesk')]",
-				"[concat(variables('factoryId'), '/pipelines/PRD_SharepointLijsten')]"
-			]
 		}
 	]
 }
