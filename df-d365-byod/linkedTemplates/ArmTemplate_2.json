@@ -153,7 +153,7 @@
 				"type": "CommonDataServiceForAppsEntity",
 				"schema": [],
 				"typeProperties": {
-					"entityName": "routes"
+					"entityName": "smc_shared_route_id"
 				}
 			},
 			"dependsOn": []
