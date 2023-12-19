@@ -31,6 +31,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'staggingadfsmc'"
 		},
+		"RestService_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://api.powerbi.com/v1.0/myorg/"
+		},
+		"RestService_properties_typeProperties_aadResourceId": {
+			"type": "string",
+			"defaultValue": "https://analysis.windows.net/powerbi/api"
+		},
 		"Rob Vader_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
@@ -56,6 +64,22 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/RestService')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('RestService_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "ManagedServiceIdentity",
+					"aadResourceId": "[parameters('RestService_properties_typeProperties_aadResourceId')]"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Rob Vader')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -514,32 +538,6 @@
 				"type": "AzureSqlMITable",
 				"schema": [],
 				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DataverseCE')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "DataverseCERami",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"table": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "CommonDataServiceForAppsEntity",
-				"schema": [],
-				"typeProperties": {
-					"entityName": {
-						"value": "@dataset().table",
-						"type": "Expression"
-					}
-				}
 			},
 			"dependsOn": []
 		}

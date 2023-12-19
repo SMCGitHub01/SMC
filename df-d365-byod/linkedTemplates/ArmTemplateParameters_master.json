@@ -29,6 +29,9 @@
 		"DataverseCERami_password": {
 			"value": ""
 		},
+		"Dataverse_smc_dev_crm4_password": {
+			"value": ""
+		},
 		"EITserver_connectionString": {
 			"value": ""
 		},
@@ -59,7 +62,13 @@
 		"SugarCRM_Pord_cloud_connectionString": {
 			"value": ""
 		},
+		"SugarCRM_Pord_cloud_password": {
+			"value": ""
+		},
 		"SugarCRM_Production_connectionString": {
+			"value": ""
+		},
+		"SugarCRM_Production_password": {
 			"value": ""
 		},
 		"ToJPN_password": {
@@ -102,6 +111,9 @@
 			"value": "AMSSRV011\\DWHZendesk"
 		},
 		"DataverseCERami_properties_typeProperties_username": {
+			"value": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+		},
+		"Dataverse_smc_dev_crm4_properties_typeProperties_username": {
 			"value": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
 		"FO_properties_typeProperties_host": {

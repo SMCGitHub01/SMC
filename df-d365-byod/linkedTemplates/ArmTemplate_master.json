@@ -39,6 +39,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DataverseCERami'"
 		},
+		"Dataverse_smc_dev_crm4_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Dataverse_smc_dev_crm4'"
+		},
 		"EITserver_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'EITserver'"
@@ -79,9 +83,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Pord_cloud'"
 		},
+		"SugarCRM_Pord_cloud_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SugarCRM_Pord_cloud'"
+		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
+		},
+		"SugarCRM_Production_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SugarCRM_Production'"
 		},
 		"ToJPN_password": {
 			"type": "secureString",
@@ -136,6 +148,10 @@
 			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"DataverseCERami_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+		},
+		"Dataverse_smc_dev_crm4_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
@@ -260,6 +276,9 @@
 					"DataverseCERami_password": {
 						"value": "[parameters('DataverseCERami_password')]"
 					},
+					"Dataverse_smc_dev_crm4_password": {
+						"value": "[parameters('Dataverse_smc_dev_crm4_password')]"
+					},
 					"Afas_properties_typeProperties_url": {
 						"value": "[parameters('Afas_properties_typeProperties_url')]"
 					},
@@ -278,6 +297,9 @@
 					"DataverseCERami_properties_typeProperties_username": {
 						"value": "[parameters('DataverseCERami_properties_typeProperties_username')]"
 					},
+					"Dataverse_smc_dev_crm4_properties_typeProperties_username": {
+						"value": "[parameters('Dataverse_smc_dev_crm4_properties_typeProperties_username')]"
+					},
 					"HttpServer1_properties_typeProperties_url": {
 						"value": "[parameters('HttpServer1_properties_typeProperties_url')]"
 					},
@@ -286,12 +308,6 @@
 					},
 					"KeyVault_properties_typeProperties_baseUrl": {
 						"value": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
-					},
-					"RestService_properties_typeProperties_url": {
-						"value": "[parameters('RestService_properties_typeProperties_url')]"
-					},
-					"RestService_properties_typeProperties_aadResourceId": {
-						"value": "[parameters('RestService_properties_typeProperties_aadResourceId')]"
 					}
 				}
 			},
@@ -328,6 +344,12 @@
 					},
 					"staggingadfsmc_connectionString": {
 						"value": "[parameters('staggingadfsmc_connectionString')]"
+					},
+					"RestService_properties_typeProperties_url": {
+						"value": "[parameters('RestService_properties_typeProperties_url')]"
+					},
+					"RestService_properties_typeProperties_aadResourceId": {
+						"value": "[parameters('RestService_properties_typeProperties_aadResourceId')]"
 					},
 					"Rob Vader_properties_typeProperties_username": {
 						"value": "[parameters('Rob Vader_properties_typeProperties_username')]"
@@ -388,14 +410,17 @@
 					"SugarCRM_Pord_cloud_connectionString": {
 						"value": "[parameters('SugarCRM_Pord_cloud_connectionString')]"
 					},
+					"SugarCRM_Pord_cloud_password": {
+						"value": "[parameters('SugarCRM_Pord_cloud_password')]"
+					},
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
 					},
+					"SugarCRM_Production_password": {
+						"value": "[parameters('SugarCRM_Production_password')]"
+					},
 					"ToJPN_password": {
 						"value": "[parameters('ToJPN_password')]"
-					},
-					"ZendeskDownload_password": {
-						"value": "[parameters('ZendeskDownload_password')]"
 					},
 					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
@@ -423,15 +448,6 @@
 					},
 					"ToJPN_properties_typeProperties_userId": {
 						"value": "[parameters('ToJPN_properties_typeProperties_userId')]"
-					},
-					"ZendeskDownload_properties_typeProperties_host": {
-						"value": "[parameters('ZendeskDownload_properties_typeProperties_host')]"
-					},
-					"ZendeskDownload_properties_typeProperties_userId": {
-						"value": "[parameters('ZendeskDownload_properties_typeProperties_userId')]"
-					},
-					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -452,6 +468,18 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"ZendeskDownload_password": {
+						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"ZendeskDownload_properties_typeProperties_host": {
+						"value": "[parameters('ZendeskDownload_properties_typeProperties_host')]"
+					},
+					"ZendeskDownload_properties_typeProperties_userId": {
+						"value": "[parameters('ZendeskDownload_properties_typeProperties_userId')]"
+					},
+					"blobstoragescm_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
 					},
 					"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('blobstoragesmcprd_properties_typeProperties_connectionString_secretName')]"

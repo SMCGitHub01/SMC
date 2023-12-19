@@ -31,6 +31,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DataverseCERami'"
 		},
+		"Dataverse_smc_dev_crm4_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Dataverse_smc_dev_crm4'"
+		},
 		"Afas_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://86941.rest.afas.online/profitrestservices/connectors/"
@@ -55,6 +59,10 @@
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
+		"Dataverse_smc_dev_crm4_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+		},
 		"HttpServer1_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://scsanctions.un.org/resources/xml/en/"
@@ -66,14 +74,6 @@
 		"KeyVault_properties_typeProperties_baseUrl": {
 			"type": "string",
 			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
-		},
-		"RestService_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://api.powerbi.com/v1.0/myorg/"
-		},
-		"RestService_properties_typeProperties_aadResourceId": {
-			"type": "string",
-			"defaultValue": "https://analysis.windows.net/powerbi/api"
 		}
 	},
 	"variables": {
@@ -1410,6 +1410,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Dataverse_smc_dev_crm4')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "CommonDataServiceForApps",
+				"typeProperties": {
+					"deploymentType": "Online",
+					"serviceUri": "https:\\\\smc-dev.crm4.dynamics.com",
+					"authenticationType": "Office365",
+					"username": "[parameters('Dataverse_smc_dev_crm4_properties_typeProperties_username')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Dataverse_smc_dev_crm4_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/HttpServer1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -1448,22 +1468,6 @@
 				"type": "AzureKeyVault",
 				"typeProperties": {
 					"baseUrl": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/RestService')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "RestService",
-				"typeProperties": {
-					"url": "[parameters('RestService_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "ManagedServiceIdentity",
-					"aadResourceId": "[parameters('RestService_properties_typeProperties_aadResourceId')]"
 				}
 			},
 			"dependsOn": []

@@ -7,6 +7,22 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-d365-byod"
 		},
+		"ZendeskDownload_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ZendeskDownload'"
+		},
+		"ZendeskDownload_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "d:\\General\\File exchange folder (MAX7D)\\FO\\DWH"
+		},
+		"ZendeskDownload_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "AMSSRV011\\DWHZendesk"
+		},
+		"blobstoragescm_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "BlobStorageDevelopment"
+		},
 		"blobstoragesmcprd_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "BlobStorageProduction"
@@ -16,6 +32,48 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ZendeskDownload')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('ZendeskDownload_properties_typeProperties_host')]",
+					"userId": "[parameters('ZendeskDownload_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('ZendeskDownload_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ZenDesk",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/blobstoragescm')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "KeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/blobstoragesmcprd')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -168,7 +226,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/3CXcdr2')]",
@@ -193,7 +253,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/3CXcdrlog')]",
@@ -300,7 +362,9 @@
 					}
 				]
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACCPRD_SugarCRM')]",
@@ -399,7 +463,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_BudgetInDirectSales')]",
@@ -441,7 +507,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_DWH_Dynamic_DataSet')]",
@@ -512,7 +580,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_IFS_Customer')]",
@@ -554,7 +624,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_IFS_GLAccounts')]",
@@ -596,7 +668,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_IFS_GLTransActions')]",
@@ -633,7 +707,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_IFS_InventoryTransactions')]",
@@ -670,7 +746,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_IFS_Products')]",
@@ -712,7 +790,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ACC_IFS_SalesInvoices')]",
@@ -749,118 +829,9 @@
 				},
 				"schema": []
 			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_Invoice_Corrections')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"CSVFile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().CSVFile",
-							"type": "Expression"
-						},
-						"container": "dwh-invoice-corrections"
-					},
-					"columnDelimiter": ";",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_Zendesk_Blob')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"CSVFile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC&PRD"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().CSVfile",
-							"type": "Expression"
-						},
-						"container": "dwh-zendesk"
-					},
-					"columnDelimiter": ";",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Naam van ticketorganisatie",
-						"type": "String"
-					},
-					{
-						"name": "Ticket-id",
-						"type": "String"
-					},
-					{
-						"name": "Ticketgroep",
-						"type": "String"
-					},
-					{
-						"name": "Ticket gemaakt - Datum",
-						"type": "String"
-					},
-					{
-						"name": "Ticket opgelost - Datum",
-						"type": "String"
-					},
-					{
-						"name": "Naam van medewerker",
-						"type": "String"
-					},
-					{
-						"name": "Id van medewerker",
-						"type": "String"
-					},
-					{
-						"name": "Debiteurnummer",
-						"type": "String"
-					},
-					{
-						"name": "Tickets",
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
 		}
 	]
 }

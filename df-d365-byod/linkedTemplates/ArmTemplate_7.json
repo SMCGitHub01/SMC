@@ -13,6 +13,1455 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ACC_SharePoint_Lijsten')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "GetFeestdagen",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.FeestdagenNL",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "FeestdagenNL"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "FeestdagenNL"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "ACC_SharePoint"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ACC_SharepointLijsten')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "GetTrackinNumberList",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "--truncate table sharepoint.trackingnumber",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int16",
+											"physicalType": "smallint"
+										}
+									},
+									{
+										"source": {
+											"name": "InhoudstypeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContentTypeId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "KlantId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "KlantId",
+											"type": "Int16",
+											"physicalType": "smallint"
+										}
+									},
+									{
+										"source": {
+											"name": "SerieId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "SerieId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "StrokeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "StrokeId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductcategorieId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "ProductcategorieId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "Artikelcode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Artikelcode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingENG",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Omschrijving",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusValue",
+											"type": "String"
+										},
+										"sink": {
+											"name": "GtnStatus",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusOpmerking",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Status_Opmerking",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZ",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZ",
+											"type": "Boolean",
+											"physicalType": "bit"
+										}
+									},
+									{
+										"source": {
+											"name": "Approved",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Approved",
+											"type": "Boolean",
+											"physicalType": "bit"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusD365Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Status_D365Id",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "MeldingD365",
+											"type": "String"
+										},
+										"sink": {
+											"name": "MeldingD365",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CustomerPartNr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CustomerPartNr",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingFR",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingFR",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingDE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingDE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "RoutesId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "RoutesId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "SalesEngineerId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Sales_EngineerId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "ContactPerson",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContactPerson",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Aantal",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Aantal",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingClaim",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingClaim",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ReturnedPartNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ReturnedPartnumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ClaimStatusId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Claim_StatusId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "SerialNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SerialNumber",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "Warranty",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Warranty",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ZendeskNr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ZendeskNr",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "FOBCZ",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "FOBCZ",
+											"type": "Double",
+											"physicalType": "float"
+										}
+									},
+									{
+										"source": {
+											"name": "Email",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Email",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CommodityId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CommodityId",
+											"type": "Byte",
+											"physicalType": "tinyint"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductRetour",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Productretour",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZFastTrack",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZFasttrack",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "RepairTypeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Repair_typeId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZSales",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZSales",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ShipDate",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ShipDate",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "PriceCalculationReport",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "PricecalculationReport",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SalesCheck",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SalesCheck",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "TrackingNumber"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "trackingnumber"
+								}
+							}
+						]
+					},
+					{
+						"name": "GetCustomers",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "--truncate table sharepoint.customers",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "InhoudstypeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "InhoudstypeId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Title",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Title",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ActivumIdVoorCompliance",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ActivumIdVoorCompliance",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Klantnummer",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Klantnummer",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Klant",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Klant",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedById",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "CreatedById",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedById",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "ModifiedById",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "SE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Actief",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Actief",
+											"type": "Boolean",
+											"physicalType": "bit"
+										}
+									},
+									{
+										"source": {
+											"name": "DataArea",
+											"type": "String"
+										},
+										"sink": {
+											"name": "DataArea",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Inhoudstype",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Inhoudstype",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Gewijzigd",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Gewijzigd",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									},
+									{
+										"source": {
+											"name": "Gemaakt",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Gemaakt",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									},
+									{
+										"source": {
+											"name": "Owshiddenversion",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Owshiddenversion",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Versie",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Versie",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Pad",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Pad",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "Customers"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "customers"
+								}
+							}
+						]
+					},
+					{
+						"name": "GetRoutes",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate  table sharepoint.routes",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "InhoudstypeId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "InhoudstypeId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Title",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Title",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ActivumIdVoorCompliance",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ActivumIdVoorCompliance",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Name",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Name",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedById",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "CreatedById",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedById",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "ModifiedById",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Group",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Group",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Text",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Text",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Categorie",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Categorie",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Inhoudstype",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Inhoudstype",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Gewijzigd",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Gewijzigd",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									},
+									{
+										"source": {
+											"name": "Gemaakt",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Gemaakt",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									},
+									{
+										"source": {
+											"name": "Owshiddenversion",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Owshiddenversion",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Versie",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Versie",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Pad",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Pad",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "Routes"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "routes"
+								}
+							}
+						]
+					},
+					{
+						"name": "GetDistributeur",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.Distributeurs",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "ContentTypeID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContentTypeID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ContentType",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContentType",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Distributeur",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Distributeur",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Modified",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Modified",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									},
+									{
+										"source": {
+											"name": "Created",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Created",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									},
+									{
+										"source": {
+											"name": "CreatedById",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "CreatedById",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "ModifiedById",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "ModifiedById",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Owshiddenversion",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Owshiddenversion",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Version",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Version",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Path",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Path",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ComplianceAssetId",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ComplianceAssetId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "FOID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "FOID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SugarID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SugarID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "DistributeurGroup",
+											"type": "String"
+										},
+										"sink": {
+											"name": "DistributeurGroup",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "DataAreaID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "DataAreaID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "Distributeurs"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "Distributeurs"
+								}
+							}
+						]
+					},
+					{
+						"name": "GetFeestdagen",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.FeestdagenNL",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Feestdag",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Feestdag",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Datum",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Datum",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "FeestdagenNL"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "FeestdagenNL"
+								}
+							}
+						]
+					},
+					{
+						"name": "GetEnergyEfficiencyGroups",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.EnergyEfficiencyGroups",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Family",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Family",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Series",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Series",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "Modified",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Modified",
+											"type": "DateTime",
+											"physicalType": "DateTime"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "EnergyEfficiencyGroups"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "EnergyEfficiencyGroups"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "ACC_SharePoint"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ACC_ZenDesk_Tickets')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -5941,714 +7390,6 @@
 				},
 				"annotations": [],
 				"lastPublishTime": "2021-03-27T13:45:56Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Materialize_Views')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_Full_Views",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName NOT IN ('INCR', 'DWHINCR', 'DWHPART') OR IncrementalLoad = 0) ORDER BY LoadPriority",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "For_Each_Full_View",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Full_Views",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Full_Views').output.value",
-								"type": "Expression"
-							},
-							"batchCount": 4,
-							"activities": [
-								{
-									"name": "Materialize_Full_Views",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [
-										{
-											"name": "Source",
-											"value": "@{concat(item().SourceSchemaName, '.', item().SourceTableName)}"
-										},
-										{
-											"name": "Destination",
-											"value": "@{concat(item().TargetSchemaName, '.', item().TargetTableName)}"
-										}
-									],
-									"typeProperties": {
-										"source": {
-											"type": "AzureSqlSource",
-											"sqlReaderQuery": {
-												"value": "SELECT @{item().SourceConnectionID} as HSO_DnA_SourceConnectionID, @{item().TargetMappingID} as HSO_DnA_TargetMappingID, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_InsertDateTime, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_UpdateDateTime, null as HSO_DnA_DeleteDateTime, @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}",
-												"type": "Expression"
-											},
-											"partitionOption": "None"
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"writeBatchSize": 1000000,
-											"preCopyScript": {
-												"value": "TRUNCATE TABLE @{item().TargetSchemaName}.@{item().TargetTableName}",
-												"type": "Expression"
-											},
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": " @{item().SourceSchemaName}",
-												"TableName": "@{item().SourceTableName}"
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": "@{item().TargetSchemaName}",
-												"TableName": "@{item().TargetTableName}"
-											}
-										}
-									]
-								},
-								{
-									"name": "Update_Target_Mapping",
-									"type": "SqlServerStoredProcedure",
-									"dependsOn": [
-										{
-											"activity": "Materialize_Full_Views",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"storedProcedureName": "[[process].[UpdateTargetMapping]",
-										"storedProcedureParameters": {
-											"GetStartDate": {
-												"value": {
-													"value": "@pipeline().parameters.StartDateTime",
-													"type": "Expression"
-												},
-												"type": "DateTime"
-											},
-											"TargetMappingID": {
-												"value": {
-													"value": "@{item().TargetMappingID}",
-													"type": "Expression"
-												},
-												"type": "Int32"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "Azure_D365_PROD",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_Incr_Views",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName = 'INCR' OR TemplateName = 'DWHINCR') AND IncrementalLoad = 1 ORDER BY LoadPriority",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "For_Each_Incr_View",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Incr_Views",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_Incr_Views').output.value",
-								"type": "Expression"
-							},
-							"batchCount": 4,
-							"activities": [
-								{
-									"name": "Materialize_Incr_Views",
-									"description": "Copy data from the on-premises source database to the matching cloud sink database",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [
-										{
-											"name": "Destination",
-											"value": "@{concat(item().TargetSchemaName, '_', item().TargetTableName)}"
-										}
-									],
-									"typeProperties": {
-										"source": {
-											"type": "AzureSqlSource",
-											"sqlReaderQuery": {
-												"value": "SELECT @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}  WHERE ModifiedDateTime >= DATEADD(DAY, -5, GETDATE())",
-												"type": "Expression"
-											},
-											"partitionOption": "None"
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"writeBatchSize": 1000000,
-											"sqlWriterStoredProcedureName": {
-												"value": "@{item().TargetSchemaName}.@{item().StoredProcedureName} ",
-												"type": "Expression"
-											},
-											"sqlWriterTableType": {
-												"value": "@{item().TargetSchemaName}.@{item().TargetTableName}_TYPE ",
-												"type": "Expression"
-											},
-											"storedProcedureParameters": {
-												"GetStartDateTime": {
-													"type": "datetime",
-													"value": {
-														"value": "@pipeline().parameters.StartDateTime",
-														"type": "Expression"
-													}
-												}
-											},
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": {
-													"value": "@{item().SourceSchemaName}",
-													"type": "Expression"
-												},
-												"TableName": {
-													"value": "@{item().SourceTableName}",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": {
-													"value": "@{item().TargetSchemaName}",
-													"type": "Expression"
-												},
-												"TableName": {
-													"value": "@{item().TargetTableName}",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_FULLADD_Views",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName = 'FULL_ADD') AND IncrementalLoad = 0 ORDER BY LoadPriority",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "For_Each_FullAdd_View",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_FULLADD_Views",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_FULLADD_Views').output.value",
-								"type": "Expression"
-							},
-							"batchCount": 4,
-							"activities": [
-								{
-									"name": "Materialize_FullAdd_Views",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [
-										{
-											"name": "Source",
-											"value": "@{concat(item().SourceSchemaName, '.', item().SourceTableName)}"
-										},
-										{
-											"name": "Destination",
-											"value": "@{concat(item().TargetSchemaName, '.', item().TargetTableName)}"
-										}
-									],
-									"typeProperties": {
-										"source": {
-											"type": "AzureSqlSource",
-											"sqlReaderQuery": {
-												"value": "SELECT @{item().SourceConnectionID} as HSO_DnA_SourceConnectionID, @{item().TargetMappingID} as HSO_DnA_TargetMappingID, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_InsertDateTime, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_UpdateDateTime, null as HSO_DnA_DeleteDateTime, @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}",
-												"type": "Expression"
-											},
-											"partitionOption": "None"
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"writeBatchSize": 1000000,
-											"preCopyScript": {
-												"value": "DELETE FROM @{item().TargetSchemaName}.@{item().TargetTableName}\nWHERE [DateExecutionBK] = (SELECT MAX(DateExecutionBK) FROM @{item().SourceSchemaName}.@{item().SourceTableName})",
-												"type": "Expression"
-											},
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": "@{item().SourceSchemaName}",
-												"TableName": "@{item().SourceTableName}"
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": "@{item().TargetSchemaName}",
-												"TableName": "@{item().TargetTableName}"
-											}
-										}
-									]
-								},
-								{
-									"name": "Update_Target_Mapping_FullAdd",
-									"type": "SqlServerStoredProcedure",
-									"dependsOn": [
-										{
-											"activity": "Materialize_FullAdd_Views",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"storedProcedureName": "[[process].[UpdateTargetMapping]",
-										"storedProcedureParameters": {
-											"GetStartDate": {
-												"value": {
-													"value": "@pipeline().parameters.StartDateTime",
-													"type": "Expression"
-												},
-												"type": "DateTime"
-											},
-											"TargetMappingID": {
-												"value": {
-													"value": "@{item().TargetMappingID}",
-													"type": "Expression"
-												},
-												"type": "Int32"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "Azure_D365_PROD",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "For_Each_FULLADDCurrent-EndMonth_View",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_FULLADDCurrent-EndMonth_Views",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_FULLADDCurrent-EndMonth_Views').output.value",
-								"type": "Expression"
-							},
-							"batchCount": 4,
-							"activities": [
-								{
-									"name": "Materialize_FULLADDCurrent-EndMonth_Views",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [
-										{
-											"name": "Source",
-											"value": "@{concat(item().SourceSchemaName, '.', item().SourceTableName)}"
-										},
-										{
-											"name": "Destination",
-											"value": "@{concat(item().TargetSchemaName, '.', item().TargetTableName)}"
-										}
-									],
-									"typeProperties": {
-										"source": {
-											"type": "AzureSqlSource",
-											"sqlReaderQuery": {
-												"value": "SELECT @{item().SourceConnectionID} as HSO_DnA_SourceConnectionID, @{item().TargetMappingID} as HSO_DnA_TargetMappingID, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_InsertDateTime, '@{pipeline().parameters.StartDateTime}' as HSO_DnA_UpdateDateTime, null as HSO_DnA_DeleteDateTime, @{item().FieldList} FROM @{item().SourceSchemaName}.@{item().SourceTableName}",
-												"type": "Expression"
-											},
-											"partitionOption": "None"
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"writeBatchSize": 1000000,
-											"preCopyScript": {
-												"value": "DELETE FROM @{item().TargetSchemaName}.@{item().TargetTableName}\nWHERE CONVERT(INT,CONVERT(VARCHAR,[HSO_DnA_InsertDateTime],112)) = CONVERT(INT,CONVERT(VARCHAR,GETUTCDATE(),112)) \n  AND\tCONVERT(INT,CONVERT(VARCHAR,[HSO_DnA_InsertDateTime],112))   NOT IN (SELECT [DateBK] FROM [dwh].[DimDate] where [IsLastDayOfMonth]=1)",
-												"type": "Expression"
-											},
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": "@{item().SourceSchemaName}",
-												"TableName": "@{item().SourceTableName}"
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": "@{item().TargetSchemaName}",
-												"TableName": "@{item().TargetTableName}"
-											}
-										}
-									]
-								},
-								{
-									"name": "Update_Target_Mapping_FULLADDCurrent-EndMonth",
-									"type": "SqlServerStoredProcedure",
-									"dependsOn": [
-										{
-											"activity": "Materialize_FULLADDCurrent-EndMonth_Views",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"storedProcedureName": "[[process].[UpdateTargetMapping]",
-										"storedProcedureParameters": {
-											"GetStartDate": {
-												"value": {
-													"value": "@pipeline().parameters.StartDateTime",
-													"type": "Expression"
-												},
-												"type": "DateTime"
-											},
-											"TargetMappingID": {
-												"value": {
-													"value": "@{item().TargetMappingID}",
-													"type": "Expression"
-												},
-												"type": "Int32"
-											}
-										}
-									},
-									"linkedServiceName": {
-										"referenceName": "Azure_D365_PROD",
-										"type": "LinkedServiceReference"
-									}
-								}
-							]
-						}
-					},
-					{
-						"name": "Lookup_FULLADDCurrent-EndMonth_Views",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * FROM Process.ProcessView WHERE SourceConnectionID = 1 AND LoadGroupID = @{pipeline().parameters.LoadGroupID} AND (TemplateName = 'FULL_ADD_EOMonth_Cur') AND IncrementalLoad = 0 ORDER BY LoadPriority",
-									"type": "Expression"
-								},
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"parameters": {
-					"LoadGroupID": {
-						"type": "int"
-					},
-					"StartDateTime": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "PRD-Process_DWH"
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-09-01T06:06:41Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Matrix_Import')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ImportMatrix",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "FileServerReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table dbo.SupChainMatrix",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "Matrix",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_DWH_Dynamic_DataSet",
-								"type": "DatasetReference",
-								"parameters": {
-									"TableName": "SupChainMatrix"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "PRD_Matrix"
-				},
-				"annotations": []
 			},
 			"dependsOn": []
 		}

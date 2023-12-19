@@ -39,6 +39,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DataverseCERami'"
 		},
+		"Dataverse_smc_dev_crm4_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Dataverse_smc_dev_crm4'"
+		},
 		"EITserver_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'EITserver'"
@@ -79,9 +83,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Pord_cloud'"
 		},
+		"SugarCRM_Pord_cloud_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SugarCRM_Pord_cloud'"
+		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
+		},
+		"SugarCRM_Production_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SugarCRM_Production'"
 		},
 		"ToJPN_password": {
 			"type": "secureString",
@@ -136,6 +148,10 @@
 			"defaultValue": "AMSSRV011\\DWHZendesk"
 		},
 		"DataverseCERami_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+		},
+		"Dataverse_smc_dev_crm4_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
@@ -26869,6 +26885,74 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/testTOdataverse')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "CommonDataServiceForAppsSink",
+								"writeBatchSize": 10,
+								"writeBehavior": "upsert"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dataverse",
+									"TableName": "routes"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DataverseExport",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
+				"[concat(variables('factoryId'), '/datasets/DataverseExport')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/testdataverse')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -29326,6 +29410,26 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/Rob Vader')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataverseExport')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Dataverse_smc_dev_crm4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "CommonDataServiceForAppsEntity",
+				"schema": [],
+				"typeProperties": {
+					"entityName": "routes"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Dataverse_smc_dev_crm4')]"
 			]
 		},
 		{
@@ -32778,6 +32882,26 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Dataverse_smc_dev_crm4')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "CommonDataServiceForApps",
+				"typeProperties": {
+					"deploymentType": "Online",
+					"serviceUri": "https:\\\\smc-dev.crm4.dynamics.com",
+					"authenticationType": "Office365",
+					"username": "[parameters('Dataverse_smc_dev_crm4_properties_typeProperties_username')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Dataverse_smc_dev_crm4_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/EITserver')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -32995,7 +33119,11 @@
 				"annotations": [],
 				"type": "MySql",
 				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Pord_cloud_connectionString')]"
+					"connectionString": "[parameters('SugarCRM_Pord_cloud_connectionString')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SugarCRM_Pord_cloud_password')]"
+					}
 				},
 				"connectVia": {
 					"referenceName": "SugarCRM",
@@ -33015,7 +33143,11 @@
 				"annotations": [],
 				"type": "MySql",
 				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Production_connectionString')]"
+					"connectionString": "[parameters('SugarCRM_Production_connectionString')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SugarCRM_Production_password')]"
+					}
 				},
 				"connectVia": {
 					"referenceName": "SugarCRM",

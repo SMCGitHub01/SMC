@@ -39,17 +39,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Pord_cloud'"
 		},
+		"SugarCRM_Pord_cloud_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SugarCRM_Pord_cloud'"
+		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
 		},
+		"SugarCRM_Production_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SugarCRM_Production'"
+		},
 		"ToJPN_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ToJPN'"
-		},
-		"ZendeskDownload_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'ZendeskDownload'"
 		},
 		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
@@ -86,24 +90,38 @@
 		"ToJPN_properties_typeProperties_userId": {
 			"type": "string",
 			"defaultValue": "aquapro-dmn\\seeburger_edi"
-		},
-		"ZendeskDownload_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "d:\\General\\File exchange folder (MAX7D)\\FO\\DWH"
-		},
-		"ZendeskDownload_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "AMSSRV011\\DWHZendesk"
-		},
-		"blobstoragescm_properties_typeProperties_connectionString_secretName": {
-			"type": "string",
-			"defaultValue": "BlobStorageDevelopment"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/DataverseCE')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "DataverseCERami",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"table": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "CommonDataServiceForAppsEntity",
+				"schema": [],
+				"typeProperties": {
+					"entityName": {
+						"value": "@dataset().table",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DataverseEntity1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -118,6 +136,24 @@
 				"schema": [],
 				"typeProperties": {
 					"entityName": "crbbc_rrp_december_2023"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataverseExport')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Dataverse_smc_dev_crm4",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "CommonDataServiceForAppsEntity",
+				"schema": [],
+				"typeProperties": {
+					"entityName": "routes"
 				}
 			},
 			"dependsOn": []
@@ -437,7 +473,11 @@
 				"annotations": [],
 				"type": "MySql",
 				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Pord_cloud_connectionString')]"
+					"connectionString": "[parameters('SugarCRM_Pord_cloud_connectionString')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SugarCRM_Pord_cloud_password')]"
+					}
 				},
 				"connectVia": {
 					"referenceName": "SugarCRM",
@@ -455,7 +495,11 @@
 				"annotations": [],
 				"type": "MySql",
 				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Production_connectionString')]"
+					"connectionString": "[parameters('SugarCRM_Production_connectionString')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SugarCRM_Production_password')]"
+					}
 				},
 				"connectVia": {
 					"referenceName": "SugarCRM",
@@ -482,48 +526,6 @@
 				"connectVia": {
 					"referenceName": "ZenDesk",
 					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ZendeskDownload')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "FileServer",
-				"typeProperties": {
-					"host": "[parameters('ZendeskDownload_properties_typeProperties_host')]",
-					"userId": "[parameters('ZendeskDownload_properties_typeProperties_userId')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('ZendeskDownload_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "ZenDesk",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/blobstoragescm')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "KeyVault",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "[parameters('blobstoragescm_properties_typeProperties_connectionString_secretName')]"
-					}
 				}
 			},
 			"dependsOn": []
