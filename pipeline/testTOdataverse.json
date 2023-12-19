@@ -23,7 +23,8 @@
 					"sink": {
 						"type": "CommonDataServiceForAppsSink",
 						"writeBatchSize": 10,
-						"writeBehavior": "upsert"
+						"writeBehavior": "upsert",
+						"ignoreNullValues": true
 					},
 					"enableStaging": false,
 					"translator": {
