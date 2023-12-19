@@ -26912,12 +26912,24 @@
 								"type": "CommonDataServiceForAppsSink",
 								"writeBatchSize": 10,
 								"writeBehavior": "upsert",
-								"ignoreNullValues": true
+								"ignoreNullValues": true,
+								"alternateKeyName": "id"
 							},
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
 								"mappings": [
+									{
+										"source": {
+											"name": "ID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_id_unique",
+											"type": "String"
+										}
+									},
 									{
 										"source": {
 											"name": "VERSIONNAME",
