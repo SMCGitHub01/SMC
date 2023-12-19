@@ -368,7 +368,8 @@
 								"type": "CommonDataServiceForAppsSink",
 								"writeBatchSize": 10,
 								"writeBehavior": "upsert",
-								"ignoreNullValues": true
+								"ignoreNullValues": true,
+								"alternateKeyName": "smc_routeidkey"
 							},
 							"enableStaging": false,
 							"translator": {
