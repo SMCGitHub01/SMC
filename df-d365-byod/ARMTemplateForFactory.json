@@ -26912,8 +26912,7 @@
 								"type": "CommonDataServiceForAppsSink",
 								"writeBatchSize": 10,
 								"writeBehavior": "upsert",
-								"ignoreNullValues": true,
-								"alternateKeyName": "id"
+								"ignoreNullValues": true
 							},
 							"enableStaging": false,
 							"translator": {
