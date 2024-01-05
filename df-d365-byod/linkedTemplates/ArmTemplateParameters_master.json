@@ -62,13 +62,7 @@
 		"SugarCRM_Pord_cloud_connectionString": {
 			"value": ""
 		},
-		"SugarCRM_Pord_cloud_password": {
-			"value": ""
-		},
 		"SugarCRM_Production_connectionString": {
-			"value": ""
-		},
-		"SugarCRM_Production_password": {
 			"value": ""
 		},
 		"ToJPN_password": {

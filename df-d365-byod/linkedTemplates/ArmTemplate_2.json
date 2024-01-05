@@ -39,17 +39,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Pord_cloud'"
 		},
-		"SugarCRM_Pord_cloud_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SugarCRM_Pord_cloud'"
-		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
-		},
-		"SugarCRM_Production_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SugarCRM_Production'"
 		},
 		"ToJPN_password": {
 			"type": "secureString",
@@ -473,11 +465,7 @@
 				"annotations": [],
 				"type": "MySql",
 				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Pord_cloud_connectionString')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('SugarCRM_Pord_cloud_password')]"
-					}
+					"connectionString": "[parameters('SugarCRM_Pord_cloud_connectionString')]"
 				},
 				"connectVia": {
 					"referenceName": "SugarCRM",
@@ -495,11 +483,7 @@
 				"annotations": [],
 				"type": "MySql",
 				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Production_connectionString')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('SugarCRM_Production_password')]"
-					}
+					"connectionString": "[parameters('SugarCRM_Production_connectionString')]"
 				},
 				"connectVia": {
 					"referenceName": "SugarCRM",

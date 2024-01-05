@@ -83,17 +83,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Pord_cloud'"
 		},
-		"SugarCRM_Pord_cloud_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SugarCRM_Pord_cloud'"
-		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
-		},
-		"SugarCRM_Production_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SugarCRM_Production'"
 		},
 		"ToJPN_password": {
 			"type": "secureString",
@@ -410,14 +402,8 @@
 					"SugarCRM_Pord_cloud_connectionString": {
 						"value": "[parameters('SugarCRM_Pord_cloud_connectionString')]"
 					},
-					"SugarCRM_Pord_cloud_password": {
-						"value": "[parameters('SugarCRM_Pord_cloud_password')]"
-					},
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
-					},
-					"SugarCRM_Production_password": {
-						"value": "[parameters('SugarCRM_Production_password')]"
 					},
 					"ToJPN_password": {
 						"value": "[parameters('ToJPN_password')]"
