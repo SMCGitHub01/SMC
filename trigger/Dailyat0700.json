@@ -9,6 +9,12 @@
 					"referenceName": "LeadTimeBatch",
 					"type": "PipelineReference"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "spFactInvoicedQuantityN_v2",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
