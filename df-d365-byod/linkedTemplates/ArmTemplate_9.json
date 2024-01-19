@@ -5839,7 +5839,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Process_Zendesk_copy1')]",
+			"name": "[concat(parameters('factoryName'), '/PRD_Process_Zendesk_zonderblob')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
