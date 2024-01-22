@@ -27117,7 +27117,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table sharepoint.Artikellijst_NIET_AANMAKEN_ECW",
+								"preCopyScript": "truncate table sharepoint.Artikellijst_NIET_AANMAKEN_ECW",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -27126,6 +27126,63 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "PartNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PartNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "C_1BINQty",
+											"type": "String"
+										},
+										"sink": {
+											"name": "C_1BINQty",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ControleLijst",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ControleLijst",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Modified",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Modified",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
