@@ -27512,7 +27512,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table sharepoint.New_Product_Sales",
+								"preCopyScript": "truncate table sharepoint.New_Product_Sales",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -27521,6 +27521,63 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Groep",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Groep",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Subgroep",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Subgroep",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Code4",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Code4",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Modified",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Modified",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
