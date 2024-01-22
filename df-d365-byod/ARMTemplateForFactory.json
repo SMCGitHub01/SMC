@@ -27138,7 +27138,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "Artikellijst NIET AANMAKEN ECW"
+									"list": "Artikellijst_NIET_AANMAKEN_ECW"
 								}
 							}
 						],
