@@ -8036,302 +8036,6 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "BNLGetRRPPrice",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SqlServerSource",
-								"sqlReaderStoredProcedureName": "[[dbo].[p_BNLGetRRPPrice]",
-								"storedProcedureParameters": {
-									"item": {
-										"type": "String",
-										"value": "%"
-									}
-								},
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table eit.ECWStockReportFull",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Warehouse",
-											"type": "String",
-											"physicalType": "varchar"
-										},
-										"sink": {
-											"name": "Warehouse",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "M3 Item Number",
-											"type": "String",
-											"physicalType": "varchar"
-										},
-										"sink": {
-											"name": "M3 Item Number",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Name",
-											"type": "String",
-											"physicalType": "varchar"
-										},
-										"sink": {
-											"name": "Name",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Stock zone",
-											"type": "String",
-											"physicalType": "varchar"
-										},
-										"sink": {
-											"name": "Stock zone",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "OHB approved",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 6,
-											"precision": 15
-										},
-										"sink": {
-											"name": "OHB approved",
-											"type": "Decimal",
-											"physicalType": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "Allocatable ohb",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 6,
-											"precision": 15
-										},
-										"sink": {
-											"name": "Allocatable ohb",
-											"type": "Decimal",
-											"physicalType": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "Allocated qty",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 6,
-											"precision": 15
-										},
-										"sink": {
-											"name": "Allocated qty",
-											"type": "Decimal",
-											"physicalType": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "Bin Qty",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 6,
-											"precision": 15
-										},
-										"sink": {
-											"name": "Bin Qty",
-											"type": "Decimal",
-											"physicalType": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "Acquisition cd.",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 0,
-											"precision": 1
-										},
-										"sink": {
-											"name": "Acquisition cd.",
-											"type": "Decimal",
-											"physicalType": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "Planning policy",
-											"type": "String",
-											"physicalType": "varchar"
-										},
-										"sink": {
-											"name": "Planning policy",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Country of orig",
-											"type": "String",
-											"physicalType": "varchar"
-										},
-										"sink": {
-											"name": "Country of orig",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Item status",
-											"type": "String",
-											"physicalType": "varchar"
-										},
-										"sink": {
-											"name": "Item status",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Planner",
-											"type": "String",
-											"physicalType": "varchar"
-										},
-										"sink": {
-											"name": "Planner",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Available Stock (Allocatable-Allocated)",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 6,
-											"precision": 16
-										},
-										"sink": {
-											"name": "Available Stock (Allocatable-Allocated)",
-											"type": "Decimal",
-											"physicalType": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "Note",
-											"type": "String",
-											"physicalType": "varchar"
-										},
-										"sink": {
-											"name": "Note",
-											"type": "String",
-											"physicalType": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "Timestamp_LastUpdate",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 0,
-											"precision": 8
-										},
-										"sink": {
-											"name": "Timestamp_LastUpdate",
-											"type": "Decimal",
-											"physicalType": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "Safety Stock",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 6,
-											"precision": 15
-										},
-										"sink": {
-											"name": "Safety Stock",
-											"type": "Decimal",
-											"physicalType": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "Max Stock",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 6,
-											"precision": 15
-										},
-										"sink": {
-											"name": "Max Stock",
-											"type": "Decimal",
-											"physicalType": "Decimal"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "EITtest",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "eit",
-									"TableName": "ECWStockReportFull"
-								}
-							}
-						]
-					},
-					{
 						"name": "MITMAS",
 						"type": "Copy",
 						"dependsOn": [],
@@ -11260,6 +10964,66 @@
 								"parameters": {
 									"SchemaName": "eit",
 									"TableName": "ECWStockReportFull"
+								}
+							}
+						]
+					},
+					{
+						"name": "BNLGetRRPPrice",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[p_BNLGetRRPPrice]",
+								"storedProcedureParameters": {
+									"item": {
+										"type": "String",
+										"value": "%"
+									}
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table eit.BNLGetRRPPrice",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "EITtest",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "eit",
+									"TableName": "BNLGetRRPPrice"
 								}
 							}
 						]
@@ -27730,7 +27494,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "BNLGetRRPPrice",
+						"name": "ECWStockReportBNL",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -27744,7 +27508,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "SqlServerSource",
-								"sqlReaderStoredProcedureName": "[[dbo].[p_BNLGetRRPPrice]",
+								"sqlReaderStoredProcedureName": "[[dbo].[p_ECWStockReportBNL]",
 								"storedProcedureParameters": {
 									"item": {
 										"type": "String",
@@ -27756,7 +27520,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table eit.BNLGetRRPPrice",
+								"preCopyScript": "--truncate table eit.ECWStockReportBNL",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -27785,7 +27549,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "eit",
-									"TableName": "BNLGetRRPPrice"
+									"TableName": "ECWStockReportBNL"
 								}
 							}
 						]
