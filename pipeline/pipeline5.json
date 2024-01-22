@@ -3,118 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "GetArtikellijst_NIET_AANMAKEN_ECW",
-				"type": "Copy",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "SharePointOnlineListSource",
-						"httpRequestTimeout": "00:05:00"
-					},
-					"sink": {
-						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table sharepoint.Artikellijst_NIET_AANMAKEN_ECW",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
-						"disableMetricsCollection": false
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "PartNumber",
-									"type": "String"
-								},
-								"sink": {
-									"name": "PartNumber",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "C_1BINQty",
-									"type": "String"
-								},
-								"sink": {
-									"name": "C_1BINQty",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "ControleLijst",
-									"type": "String"
-								},
-								"sink": {
-									"name": "ControleLijst",
-									"type": "String",
-									"physicalType": "nvarchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Id",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "Id",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"source": {
-									"name": "Modified",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "Modified",
-									"type": "DateTime",
-									"physicalType": "datetime2"
-								}
-							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "SharePointLists_PowerBI",
-						"type": "DatasetReference",
-						"parameters": {
-							"list": "Artikellijst_NIET_AANMAKEN_ECW"
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "PRD_BYOD_DS",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "sharepoint",
-							"TableName": "Artikellijst_NIET_AANMAKEN_ECW"
-						}
-					}
-				]
-			},
-			{
 				"name": "BNLGetRRPPrice",
 				"type": "Copy",
 				"dependsOn": [],
@@ -141,9 +29,10 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"preCopyScript": "truncate table eit.ECWStockReportFull",
+						"preCopyScript": "--truncate table eit.BNLGetRRPPrice",
 						"writeBehavior": "insert",
 						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -404,7 +293,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"SchemaName": "eit",
-							"TableName": "ECWStockReportFull"
+							"TableName": "BNLGetRRPPrice"
 						}
 					}
 				]
