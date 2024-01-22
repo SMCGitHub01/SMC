@@ -2328,7 +2328,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetUserCategory",
+						"name": "GetCoverageGroupsTranslation",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -2346,9 +2346,10 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.UserCategory",
+								"preCopyScript": "--truncate table sharepoint.CoverageGroupsTranslation",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -2434,7 +2435,7 @@
 								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
-									"list": "UserCategory"
+									"list": "CoverageGroupsTranslation"
 								}
 							}
 						],
@@ -2444,7 +2445,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "sharepoint",
-									"TableName": "UserCategory"
+									"TableName": "CoverageGroupsTranslation"
 								}
 							}
 						]
