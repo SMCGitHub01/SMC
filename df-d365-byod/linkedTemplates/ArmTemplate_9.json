@@ -2328,11 +2328,11 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "ECWStockReportBNL",
+						"name": "GetNew_Product_Sales",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
-							"timeout": "0.12:00:00",
+							"timeout": "7.00:00:00",
 							"retry": 0,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
@@ -2341,20 +2341,12 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "SqlServerSource",
-								"sqlReaderStoredProcedureName": "[[dbo].[p_ECWStockReportBNL]",
-								"storedProcedureParameters": {
-									"item": {
-										"type": "String",
-										"value": "%"
-									}
-								},
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table eit.ECWStockReportBNL",
+								"preCopyScript": "--truncate table sharepoint.New_Product_Sales",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -2372,9 +2364,11 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "EITtest",
+								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"list": "New_Product_Sales"
+								}
 							}
 						],
 						"outputs": [
@@ -2382,8 +2376,8 @@
 								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "eit",
-									"TableName": "ECWStockReportBNL"
+									"SchemaName": "sharepoint",
+									"TableName": "New_Product_Sales"
 								}
 							}
 						]
