@@ -1521,13 +1521,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
-								"type": "Expression"
-							},
 							"method": "PUT",
 							"headers": {
 								"Content-type": "application/json"
+							},
+							"url": {
+								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
+								"type": "Expression"
 							},
 							"body": {
 								"sku": {
@@ -6890,13 +6890,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
-								"type": "Expression"
-							},
 							"method": "PUT",
 							"headers": {
 								"Content-type": "application/json"
+							},
+							"url": {
+								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
+								"type": "Expression"
 							},
 							"body": {
 								"sku": {
@@ -11027,6 +11027,67 @@
 								}
 							}
 						]
+					},
+					{
+						"name": "ECWStockReportNL",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[p_ECWStockReportBNL]",
+								"storedProcedureParameters": {
+									"item": {
+										"type": "String",
+										"value": "%"
+									}
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "--truncate table eit.ECWStockReportFull",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "EITtest",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "eit",
+									"TableName": "ECWStockReportNL"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -11499,13 +11560,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
-								"type": "Expression"
-							},
 							"method": "PUT",
 							"headers": {
 								"Content-type": "application/json"
+							},
+							"url": {
+								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
+								"type": "Expression"
 							},
 							"body": {
 								"sku": {
@@ -20608,13 +20669,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
-								"type": "Expression"
-							},
 							"method": "PUT",
 							"headers": {
 								"Content-type": "application/json"
+							},
+							"url": {
+								"value": "@concat('https://management.azure.com/subscriptions/',pipeline().parameters.SubscriptionID,'/resourceGroups/',pipeline().parameters.ResourceGroup,'/providers/Microsoft.Sql/servers/',pipeline().parameters.SQLServerName,'/databases/',pipeline().parameters.DBName,'?api-version=2017-10-01-preview')",
+								"type": "Expression"
 							},
 							"body": {
 								"sku": {
@@ -23420,16 +23481,16 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Authorization": {
 									"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
 									"type": "Expression"
 								}
+							},
+							"url": {
+								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')",
+								"type": "Expression"
 							},
 							"body": {
 								"notifyOption": "NoNotification"
@@ -23483,10 +23544,6 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"url": {
-											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes?$top=1')",
-											"type": "Expression"
-										},
 										"method": "GET",
 										"headers": {
 											"Authorization": {
@@ -23494,6 +23551,10 @@
 												"type": "Expression"
 											},
 											"Content-Type": "application/json"
+										},
+										"url": {
+											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes?$top=1')",
+											"type": "Expression"
 										}
 									}
 								}
@@ -23533,13 +23594,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
@@ -23560,12 +23621,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_TenantId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -23588,12 +23649,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPClientId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -23616,12 +23677,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPSecret,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -23711,13 +23772,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
@@ -23738,12 +23799,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_TenantId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -23766,12 +23827,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPClientId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -23794,12 +23855,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPSecret,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -23877,16 +23938,16 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"url": {
-											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',Item().workspaceGuid,'/datasets/',Item().datasetGuid,'/refreshes')",
-											"type": "Expression"
-										},
 										"method": "POST",
 										"headers": {
 											"Authorization": {
 												"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
 												"type": "Expression"
 											}
+										},
+										"url": {
+											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',Item().workspaceGuid,'/datasets/',Item().datasetGuid,'/refreshes')",
+											"type": "Expression"
 										},
 										"body": {
 											"notifyOption": "NoNotification"
@@ -23978,13 +24039,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
@@ -24005,12 +24066,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_TenantId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -24033,12 +24094,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPClientId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -24061,12 +24122,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPSecret,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -24245,13 +24306,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
@@ -24272,12 +24333,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_TenantId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -24300,12 +24361,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPClientId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -24328,12 +24389,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPSecret,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -24493,16 +24554,16 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')\n",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Authorization": {
 									"value": "@pipeline().parameters.autorization",
 									"type": "Expression"
 								}
+							},
+							"url": {
+								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')\n",
+								"type": "Expression"
 							},
 							"body": {
 								"notifyOption": "NoNotification"
@@ -24556,10 +24617,6 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"url": {
-											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes?$top=1')",
-											"type": "Expression"
-										},
 										"method": "GET",
 										"headers": {
 											"Authorization": {
@@ -24567,6 +24624,10 @@
 												"type": "Expression"
 											},
 											"Content-Type": "application/json"
+										},
+										"url": {
+											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes?$top=1')",
+											"type": "Expression"
 										}
 									}
 								}
@@ -26617,16 +26678,16 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Authorization": {
 									"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
 									"type": "Expression"
 								}
+							},
+							"url": {
+								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')",
+								"type": "Expression"
 							},
 							"body": {
 								"notifyOption": "NoNotification"
@@ -26680,10 +26741,6 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"url": {
-											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes?$top=1')",
-											"type": "Expression"
-										},
 										"method": "GET",
 										"headers": {
 											"Authorization": {
@@ -26691,6 +26748,10 @@
 												"type": "Expression"
 											},
 											"Content-Type": "application/json"
+										},
+										"url": {
+											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes?$top=1')",
+											"type": "Expression"
 										}
 									}
 								}
@@ -26750,11 +26811,11 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": "https://login.microsoftonline.com/fe754037-10dc-495e-90da-045b680fb646 /oauth2/token'",
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
 							},
+							"url": "https://login.microsoftonline.com/fe754037-10dc-495e-90da-045b680fb646 /oauth2/token'",
 							"body": "grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=67aedea2-ddab-4439-960c-e9ff638628ca\n&client_secret=jcg8Q~vNqXo91m1xTr9RG3HUfw8alEPkDQWGbccG"
 						}
 					}
@@ -26824,16 +26885,16 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Authorization": {
 									"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
 									"type": "Expression"
 								}
+							},
+							"url": {
+								"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes')",
+								"type": "Expression"
 							},
 							"body": {
 								"notifyOption": "NoNotification"
@@ -26887,10 +26948,6 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"url": {
-											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes?$top=1')",
-											"type": "Expression"
-										},
 										"method": "GET",
 										"headers": {
 											"Authorization": {
@@ -26898,6 +26955,10 @@
 												"type": "Expression"
 											},
 											"Content-Type": "application/json"
+										},
+										"url": {
+											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',pipeline().parameters.workspaceGuid,'/datasets/',pipeline().parameters.datasetGuid,'/refreshes?$top=1')",
+											"type": "Expression"
 										}
 									}
 								}
@@ -26976,13 +27037,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
@@ -27003,12 +27064,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_TenantId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							}
@@ -27027,12 +27088,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPClientId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -27055,12 +27116,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPSecret,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -27494,11 +27555,11 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetNew_Product_Sales",
+						"name": "ECWStockReportNL",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
-							"timeout": "7.00:00:00",
+							"timeout": "0.12:00:00",
 							"retry": 0,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
@@ -27507,12 +27568,20 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
+								"type": "SqlServerSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[p_ECWStockReportBNL]",
+								"storedProcedureParameters": {
+									"item": {
+										"type": "String",
+										"value": "%"
+									}
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.New_Product_Sales",
+								"preCopyScript": "--truncate table eit.ECWStockReportFull",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -27521,63 +27590,6 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Groep",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Groep",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Subgroep",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Subgroep",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Code4",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Code4",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Id",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "Id",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "Modified",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "Modified",
-											"type": "DateTime",
-											"physicalType": "datetime2"
-										}
-									}
-								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -27587,11 +27599,9 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists_PowerBI",
+								"referenceName": "EITtest",
 								"type": "DatasetReference",
-								"parameters": {
-									"list": "New_Product_Sales"
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
@@ -27599,8 +27609,8 @@
 								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "New_Product_Sales"
+									"SchemaName": "eit",
+									"TableName": "ECWStockReportNL"
 								}
 							}
 						]
@@ -27612,7 +27622,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SharePointLists_PowerBI')]",
+				"[concat(variables('factoryId'), '/datasets/EITtest')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},

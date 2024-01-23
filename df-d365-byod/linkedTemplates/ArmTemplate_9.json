@@ -2328,11 +2328,11 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "GetNew_Product_Sales",
+						"name": "ECWStockReportNL",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
-							"timeout": "7.00:00:00",
+							"timeout": "0.12:00:00",
 							"retry": 0,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
@@ -2341,12 +2341,20 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
+								"type": "SqlServerSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[p_ECWStockReportBNL]",
+								"storedProcedureParameters": {
+									"item": {
+										"type": "String",
+										"value": "%"
+									}
+								},
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.New_Product_Sales",
+								"preCopyScript": "--truncate table eit.ECWStockReportFull",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -2355,63 +2363,6 @@
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Groep",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Groep",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Subgroep",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Subgroep",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Code4",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Code4",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Id",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "Id",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "Modified",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "Modified",
-											"type": "DateTime",
-											"physicalType": "datetime2"
-										}
-									}
-								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -2421,11 +2372,9 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists_PowerBI",
+								"referenceName": "EITtest",
 								"type": "DatasetReference",
-								"parameters": {
-									"list": "New_Product_Sales"
-								}
+								"parameters": {}
 							}
 						],
 						"outputs": [
@@ -2433,8 +2382,8 @@
 								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "New_Product_Sales"
+									"SchemaName": "eit",
+									"TableName": "ECWStockReportNL"
 								}
 							}
 						]

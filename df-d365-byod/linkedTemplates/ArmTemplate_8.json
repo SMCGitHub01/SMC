@@ -4269,13 +4269,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
@@ -4296,12 +4296,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_TenantId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -4324,12 +4324,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPClientId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -4352,12 +4352,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPSecret,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -4435,16 +4435,16 @@
 									},
 									"userProperties": [],
 									"typeProperties": {
-										"url": {
-											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',Item().workspaceGuid,'/datasets/',Item().datasetGuid,'/refreshes')",
-											"type": "Expression"
-										},
 										"method": "POST",
 										"headers": {
 											"Authorization": {
 												"value": "@concat(string(activity('Get AAD Token').output.token_type),' ',string(activity('Get AAD Token').output.access_token))",
 												"type": "Expression"
 											}
+										},
+										"url": {
+											"value": "@concat('https://api.powerbi.com/v1.0/myorg/groups/',Item().workspaceGuid,'/datasets/',Item().datasetGuid,'/refreshes')",
+											"type": "Expression"
 										},
 										"body": {
 											"notifyOption": "NoNotification"
@@ -4534,13 +4534,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
@@ -4561,12 +4561,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_TenantId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -4589,12 +4589,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPClientId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -4617,12 +4617,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPSecret,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -4798,13 +4798,13 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
-							"url": {
-								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
-								"type": "Expression"
-							},
 							"method": "POST",
 							"headers": {
 								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							"url": {
+								"value": "@concat('https://login.microsoftonline.com/',activity('Get TenantId from AKV').output.value,'/oauth2/token')",
+								"type": "Expression"
 							},
 							"body": {
 								"value": "@concat('grant_type=client_credentials&resource=https://analysis.windows.net/powerbi/api&client_id=',activity('Get ClientId from AKV').output.value,'&client_secret=',encodeUriComponent(activity('Get Secret from AKV').output.value))",
@@ -4825,12 +4825,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_TenantId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -4853,12 +4853,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPClientId,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
@@ -4881,12 +4881,12 @@
 						},
 						"userProperties": [],
 						"typeProperties": {
+							"method": "GET",
+							"headers": {},
 							"url": {
 								"value": "@concat(pipeline().parameters.KeyVaultDNSName,'secrets/',pipeline().parameters.SecretName_SPSecret,'/?api-version=7.0')",
 								"type": "Expression"
 							},
-							"method": "GET",
-							"headers": {},
 							"body": {
 								"simple": "body"
 							},
