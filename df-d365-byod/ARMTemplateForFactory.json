@@ -27555,7 +27555,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "ECWStockReportNL",
+						"name": "BNLGetRRPPrice",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -27569,7 +27569,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "SqlServerSource",
-								"sqlReaderStoredProcedureName": "[[dbo].[p_ECWStockReportBNL]",
+								"sqlReaderStoredProcedureName": "[[dbo].[p_BNLGetRRPPrice]",
 								"storedProcedureParameters": {
 									"item": {
 										"type": "String",
@@ -27581,7 +27581,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table eit.ECWStockReportFull",
+								"preCopyScript": "drop table eit.BNLGetRRPPrice",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -27610,7 +27610,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "eit",
-									"TableName": "ECWStockReportNL"
+									"TableName": "BNLGetRRPPrice"
 								}
 							}
 						]
