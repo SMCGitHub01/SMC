@@ -329,6 +329,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -469,6 +472,9 @@
 									"name": "Execute_Pipeline",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -553,6 +559,9 @@
 									"name": "DistributionList",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -615,6 +624,9 @@
 									"name": "BudgetDirectSales",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -677,6 +689,9 @@
 									"name": "BudgetInDirectSales",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -802,6 +817,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -823,6 +841,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -871,6 +892,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1018,6 +1042,9 @@
 									"name": "Execute_Pipeline",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -1102,6 +1129,9 @@
 									"name": "DistributionList",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -1158,6 +1188,9 @@
 									"name": "BudgetDirectSales",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -1214,6 +1247,9 @@
 									"name": "BudgetInDirectSales",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -1339,6 +1375,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1360,6 +1399,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1408,6 +1450,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1422,6 +1467,9 @@
 						"name": "PRD_UpScale",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1443,6 +1491,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1464,6 +1515,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1583,6 +1637,9 @@
 									"name": "DistributionList",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -1639,6 +1696,9 @@
 									"name": "BudgetDirectSales",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -1695,6 +1755,9 @@
 									"name": "BudgetInDirectSales",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -1820,6 +1883,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1841,6 +1907,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1862,6 +1931,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -1883,6 +1955,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -2030,6 +2105,9 @@
 									"name": "Execute_Pipeline",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -2114,6 +2192,9 @@
 									"name": "DistributionList",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -2170,6 +2251,9 @@
 									"name": "BudgetDirectSales",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -2226,6 +2310,9 @@
 									"name": "BudgetInDirectSales",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -2351,6 +2438,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -2372,6 +2462,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -2420,6 +2513,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -2434,6 +2530,9 @@
 						"name": "PRD_UpScale",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -2455,6 +2554,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {

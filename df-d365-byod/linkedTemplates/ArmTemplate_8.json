@@ -2148,6 +2148,9 @@
 						"name": "PRD_UpScale",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -3982,6 +3985,9 @@
 						"name": "PRD_UpScale",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -4691,6 +4697,9 @@
 									"name": "RefreshPowerBI_Refresh",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -4955,6 +4964,9 @@
 									"name": "RefreshPowerBI_Refresh",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {

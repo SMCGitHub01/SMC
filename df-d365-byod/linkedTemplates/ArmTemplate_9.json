@@ -2328,7 +2328,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "BNLGetRRPPrice",
+						"name": "ECWStockReportNL",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -2342,7 +2342,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "SqlServerSource",
-								"sqlReaderStoredProcedureName": "[[dbo].[p_BNLGetRRPPrice]",
+								"sqlReaderStoredProcedureName": "[[dbo].[p_ECWStockReportBNL]",
 								"storedProcedureParameters": {
 									"item": {
 										"type": "String",
@@ -2354,7 +2354,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "drop table eit.BNLGetRRPPrice",
+								"preCopyScript": "--truncate table eit.ECWStockReportFull",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -2383,7 +2383,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "eit",
-									"TableName": "BNLGetRRPPrice"
+									"TableName": "ECWStockReportNL"
 								}
 							}
 						]
@@ -3262,6 +3262,9 @@
 									"name": "Execute_Pipeline",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -3421,6 +3424,9 @@
 									"name": "IFS_Products",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -3478,6 +3484,9 @@
 									"name": "IFS_GLAccounts",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -3535,6 +3544,9 @@
 									"name": "IFS_Customer",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -3712,6 +3724,9 @@
 									"name": "IFS_SalesInvoice",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -3805,6 +3820,9 @@
 									"name": "IFS_GLTransActions",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -3898,6 +3916,9 @@
 									"name": "IFS_InventoryTransactions",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -4038,6 +4059,9 @@
 									"name": "SalesInvoice_correction",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -4192,6 +4216,9 @@
 									"name": "zenDeskTickets",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -4226,6 +4253,9 @@
 						"name": "ACC_ZendDesk_ToBlob",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -4376,6 +4406,9 @@
 									"name": "Execute_Pipeline",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -4429,6 +4462,9 @@
 						"name": "PRD_UpScale",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -4450,6 +4486,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -4573,6 +4612,9 @@
 									"name": "Execute_Pipeline",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -4626,6 +4668,9 @@
 						"name": "PRD_UpScale",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -4647,6 +4692,9 @@
 								]
 							}
 						],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -4767,6 +4815,9 @@
 									"name": "IFS_Products",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -4830,6 +4881,9 @@
 									"name": "IFS_GLAccounts",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -4893,6 +4947,9 @@
 									"name": "IFS_Customer",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -5070,6 +5127,9 @@
 									"name": "IFS_SalesInvoice",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -5163,6 +5223,9 @@
 									"name": "IFS_GLTransActions",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -5256,6 +5319,9 @@
 									"name": "IFS_InventoryTransactions",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -5356,6 +5422,9 @@
 									"name": "IFS_Customer",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -5540,6 +5609,9 @@
 									"name": "SalesInvoice_correction",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -5694,6 +5766,9 @@
 									"name": "zenDeskTickets",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -5728,6 +5803,9 @@
 						"name": "PRD_ZendDesk_ToBlob",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
@@ -5874,6 +5952,9 @@
 									"name": "zenDeskTickets",
 									"type": "ExecutePipeline",
 									"dependsOn": [],
+									"policy": {
+										"secureInput": false
+									},
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
@@ -6504,6 +6585,9 @@
 						"name": "PRD_SharpointSalesEngenieer",
 						"type": "ExecutePipeline",
 						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
