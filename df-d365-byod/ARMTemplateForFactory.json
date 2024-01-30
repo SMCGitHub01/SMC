@@ -27782,7 +27782,7 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table eit.ECWStockReportFull",
+								"preCopyScript": "truncate table eit.ECWStockReportNL",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"disableMetricsCollection": false
