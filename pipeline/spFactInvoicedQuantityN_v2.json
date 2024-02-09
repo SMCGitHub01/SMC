@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "spFactInvoicedQuantityN_v2",
+				"name": "spFactInvoicedQuantityN_v2_v2",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[process].[spFactInvoicedQuantityN_v2]"
+					"storedProcedureName": "[process].[spFactInvoicedQuantityN_v2_v2]"
 				},
 				"linkedServiceName": {
 					"referenceName": "Azure_D365_PROD",
