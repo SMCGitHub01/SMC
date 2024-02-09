@@ -88,43 +88,7 @@
 						"value": "@activity('Lookup_Full_CSVFiles_IFS_SalesInvoice').output.value",
 						"type": "Expression"
 					},
-					"isSequential": false,
-					"activities": [
-						{
-							"name": "IFS_SalesInvoice",
-							"type": "ExecutePipeline",
-							"dependsOn": [],
-							"policy": {
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"pipeline": {
-									"referenceName": "PRD_IFS_SalesInvoice",
-									"type": "PipelineReference"
-								},
-								"waitOnCompletion": true,
-								"parameters": {
-									"CSVFile": {
-										"value": "@{Item().SourceTableName}",
-										"type": "Expression"
-									},
-									"StartDateTime": {
-										"value": "@activity('Lookup_Current_Sync_And_Date').output.firstRow.GetStartDateTime",
-										"type": "Expression"
-									},
-									"TargetTableName": {
-										"value": "@{Item().TargetTableName}",
-										"type": "Expression"
-									},
-									"TargetSchemaName": {
-										"value": "@{Item().TargetSchemaName}",
-										"type": "Expression"
-									}
-								}
-							}
-						}
-					]
+					"isSequential": false
 				}
 			}
 		],
