@@ -21138,9 +21138,10 @@
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table eit.BNLGetRRPPrice",
+								"preCopyScript": "--truncate table eit.BNLGetRRPPrice",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
+								"tableOption": "autoCreate",
 								"disableMetricsCollection": false
 							},
 							"enableStaging": false,
@@ -35055,6 +35056,7 @@
 						"          msft_datastate as long,",
 						"          hso_createappointmentreport as boolean",
 						"     ),",
+						"     useSchema: false,",
 						"     allowSchemaDrift: false,",
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false,",
