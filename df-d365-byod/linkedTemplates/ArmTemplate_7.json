@@ -6580,7 +6580,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT SourceTableName \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 19 \n AND TargetMappingID=163\n\n",
+								"sqlReaderQuery": "SELECT SourceTableName \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 19 \n AND TargetMappingID=164\n\n",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
