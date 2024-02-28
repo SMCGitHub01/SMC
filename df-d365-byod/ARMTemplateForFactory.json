@@ -11292,6 +11292,168 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD-LOAD-CE-DATA')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Lookup_Current_Sync_And_Date",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							}
+						}
+					},
+					{
+						"name": "Lookup_LoadGroup_CE",
+						"type": "Lookup",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT SourceTableName \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 19 \n\n",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dummy",
+									"TableName": "dummy"
+								}
+							},
+							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach_LoadGroup_loadCE",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup_LoadGroup_CE",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup_LoadGroup_CE').output.value",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "GetCEtables",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "CommonDataServiceForAppsSource"
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"preCopyScript": {
+												"value": "TRUNCATE TABLE ce.@{item().SourceTableName}",
+												"type": "Expression"
+											},
+											"writeBehavior": "insert",
+											"sqlWriterUseTableLock": false,
+											"disableMetricsCollection": false
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "DataverseCE",
+											"type": "DatasetReference",
+											"parameters": {
+												"table": {
+													"value": "@{item().SourceTableName}",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "PRD_BYOD_DS",
+											"type": "DatasetReference",
+											"parameters": {
+												"SchemaName": "ce",
+												"TableName": {
+													"value": "@{item().SourceTableName}",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD-CE"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
+				"[concat(variables('factoryId'), '/datasets/DataverseCE')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_BudgetDirectSales')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -15192,6 +15354,30 @@
 							"waitOnCompletion": true,
 							"parameters": {}
 						}
+					},
+					{
+						"name": "PRD_FillMetadata_DWH",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Lookup_Current_Sync_And_Date",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_FillMetadata_DWH",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
@@ -15210,6 +15396,7 @@
 				"[concat(variables('factoryId'), '/pipelines/PRD_Process_Zendesk')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_SharepointLijsten')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_getRRP')]",
+				"[concat(variables('factoryId'), '/pipelines/PRD_FillMetadata_DWH')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_DistributionList')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_BudgetDirectSales')]",
 				"[concat(variables('factoryId'), '/pipelines/PRD_BudgetInDirectSales')]"
@@ -27946,165 +28133,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
 				"[concat(variables('factoryId'), '/datasets/DataverseExport')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/testdataverse')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Lookup_Current_Sync_And_Date",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							}
-						}
-					},
-					{
-						"name": "Lookup_LoadGroup_CE",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "Lookup_Current_Sync_And_Date",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT SourceTableName \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 19 \n\n",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dummy",
-									"TableName": "dummy"
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "ForEach_LoadGroup_loadCE",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Lookup_LoadGroup_CE",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Lookup_LoadGroup_CE').output.value",
-								"type": "Expression"
-							},
-							"isSequential": true,
-							"activities": [
-								{
-									"name": "Copy data1",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "CommonDataServiceForAppsSource"
-										},
-										"sink": {
-											"type": "AzureSqlSink",
-											"preCopyScript": {
-												"value": "TRUNCATE TABLE ce.@{item().SourceTableName}",
-												"type": "Expression"
-											},
-											"writeBehavior": "insert",
-											"sqlWriterUseTableLock": false,
-											"disableMetricsCollection": false
-										},
-										"enableStaging": false
-									},
-									"inputs": [
-										{
-											"referenceName": "DataverseCE",
-											"type": "DatasetReference",
-											"parameters": {
-												"table": {
-													"value": "@{item().SourceTableName}",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "PRD_BYOD_DS",
-											"type": "DatasetReference",
-											"parameters": {
-												"SchemaName": "ce",
-												"TableName": {
-													"value": "@{item().SourceTableName}",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
-				"[concat(variables('factoryId'), '/datasets/DataverseCE')]"
 			]
 		},
 		{
