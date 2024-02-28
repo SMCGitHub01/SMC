@@ -442,6 +442,29 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "PRD_FillMetadata_DWH",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Lookup_Current_Sync_And_Date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PRD_FillMetadata_DWH",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"folder": {

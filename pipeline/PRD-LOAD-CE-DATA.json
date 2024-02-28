@@ -1,5 +1,5 @@
 {
-	"name": "testdataverse",
+	"name": "PRD-LOAD-CE-DATA",
 	"properties": {
 		"activities": [
 			{
@@ -88,7 +88,7 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Copy data1",
+							"name": "GetCEtables",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -145,6 +145,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "PRD-CE"
+		},
 		"annotations": []
 	}
 }
