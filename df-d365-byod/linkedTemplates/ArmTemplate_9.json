@@ -2572,7 +2572,7 @@
 						"typeProperties": {
 							"source": {
 								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT SourceTableName \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 19 AND TargetMappingID>153\n",
+								"sqlReaderQuery": "SELECT SourceTableName \n\tFROM process.ProcessView \nWHERE SourceConnectionID = 19 AND TargetMappingID>155\n",
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
