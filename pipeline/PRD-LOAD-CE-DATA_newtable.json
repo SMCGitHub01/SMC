@@ -105,7 +105,10 @@
 								},
 								"sink": {
 									"type": "AzureSqlSink",
-									"preCopyScript": "DROP TABLE IF EXISTS ce.@{item().SourceTableName}",
+									"preCopyScript": {
+										"value": "DROP TABLE IF EXISTS ce.@{item().SourceTableName}",
+										"type": "Expression"
+									},
 									"writeBehavior": "insert",
 									"sqlWriterUseTableLock": false,
 									"tableOption": "autoCreate",
