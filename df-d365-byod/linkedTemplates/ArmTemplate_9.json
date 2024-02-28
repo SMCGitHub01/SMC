@@ -2625,7 +2625,7 @@
 										"sink": {
 											"type": "AzureSqlSink",
 											"preCopyScript": {
-												"value": "TRUNCATE TABLE ce.@item().SourceTableName",
+												"value": "TRUNCATE TABLE ce.@{item().SourceTableName}",
 												"type": "Expression"
 											},
 											"writeBehavior": "insert",
