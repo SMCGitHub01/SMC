@@ -21,7 +21,7 @@
 					"sink": {
 						"type": "AzureSqlSink",
 						"preCopyScript": {
-							"value": "DROP TABLE IF EXISTS ce.@variables('TableName')",
+							"value": "DROP TABLE IF EXISTS ce.@pipeline().parameters.TableName",
 							"type": "Expression"
 						},
 						"writeBehavior": "insert",
@@ -37,7 +37,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"table": {
-								"value": "@variables('TableName')",
+								"value": "@pipeline().parameters.TableName",
 								"type": "Expression"
 							}
 						}
@@ -50,7 +50,7 @@
 						"parameters": {
 							"SchemaName": "ce",
 							"TableName": {
-								"value": "@variables('TableName')",
+								"value": "@pipeline().parameters.TableName",
 								"type": "Expression"
 							}
 						}
@@ -58,9 +58,9 @@
 				]
 			}
 		],
-		"variables": {
+		"parameters": {
 			"TableName": {
-				"type": "String"
+				"type": "string"
 			}
 		},
 		"folder": {
