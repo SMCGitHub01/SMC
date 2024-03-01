@@ -4737,7 +4737,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"pipeline": {
-								"referenceName": "PRD_getRRP",
+								"referenceName": "PRD_LoadDataFromEIT",
 								"type": "PipelineReference"
 							},
 							"waitOnCompletion": true,
