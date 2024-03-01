@@ -11442,7 +11442,7 @@
 							"sink": {
 								"type": "AzureSqlSink",
 								"preCopyScript": {
-									"value": "DROP TABLE IF EXISTS ce.@pipeline().parameters.TableName",
+									"value": "DROP TABLE IF EXISTS ce.@{pipeline().parameters.TableName}",
 									"type": "Expression"
 								},
 								"writeBehavior": "insert",
