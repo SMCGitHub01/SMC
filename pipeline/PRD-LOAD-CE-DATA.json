@@ -3,45 +3,9 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup_Current_Sync_And_Date",
-				"type": "Lookup",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT GETUTCDATE() AS GetStartDateTime",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "PRD_BYOD_DS",
-						"type": "DatasetReference",
-						"parameters": {
-							"SchemaName": "dummy",
-							"TableName": "dummy"
-						}
-					}
-				}
-			},
-			{
 				"name": "Lookup_LoadGroup_CE",
 				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "Lookup_Current_Sync_And_Date",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
