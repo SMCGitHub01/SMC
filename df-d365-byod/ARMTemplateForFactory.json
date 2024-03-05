@@ -27145,11 +27145,11 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "ECWStockReportNL",
+						"name": "RRP_PriceUpdate_ExcludedItems",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
-							"timeout": "0.12:00:00",
+							"timeout": "7.00:00:00",
 							"retry": 0,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
@@ -27158,20 +27158,12 @@
 						"userProperties": [],
 						"typeProperties": {
 							"source": {
-								"type": "SqlServerSource",
-								"sqlReaderStoredProcedureName": "[[dbo].[p_ECWStockReportBNL]",
-								"storedProcedureParameters": {
-									"item": {
-										"type": "String",
-										"value": "%"
-									}
-								},
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
 							},
 							"sink": {
 								"type": "AzureSqlSink",
-								"preCopyScript": "--truncate table eit.ECWStockReportNL",
+								"preCopyScript": "--truncate  table sharepoint.routes",
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false,
 								"tableOption": "autoCreate",
@@ -27189,9 +27181,11 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "EITtest",
+								"referenceName": "SharePointLists",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"list": "RRP_PriceUpdate_ExcludedItems"
+								}
 							}
 						],
 						"outputs": [
@@ -27199,8 +27193,8 @@
 								"referenceName": "PRD_BYOD_DS",
 								"type": "DatasetReference",
 								"parameters": {
-									"SchemaName": "eit",
-									"TableName": "ECWStockReportNL"
+									"SchemaName": "sharepoint",
+									"TableName": "RRP_PriceUpdate_ExcludedItems"
 								}
 							}
 						]
@@ -27212,7 +27206,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/EITtest')]",
+				"[concat(variables('factoryId'), '/datasets/SharePointLists')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},
