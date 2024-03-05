@@ -27181,7 +27181,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists",
+								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
 									"list": "RRP_PriceUpdate_ExcludedItems"
@@ -27206,7 +27206,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SharePointLists')]",
+				"[concat(variables('factoryId'), '/datasets/SharePointLists_PowerBI')]",
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		},

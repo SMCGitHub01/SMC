@@ -2570,7 +2570,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "SharePointLists",
+								"referenceName": "SharePointLists_PowerBI",
 								"type": "DatasetReference",
 								"parameters": {
 									"list": "RRP_PriceUpdate_ExcludedItems"
