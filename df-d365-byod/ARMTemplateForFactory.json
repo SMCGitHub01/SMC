@@ -14348,7 +14348,7 @@
 						"type": "ExecutePipeline",
 						"dependsOn": [
 							{
-								"activity": "spLoadDataAfterFullLoad",
+								"activity": "spFactInvoicedQuantityN",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -14365,6 +14365,33 @@
 							},
 							"waitOnCompletion": true,
 							"parameters": {}
+						}
+					},
+					{
+						"name": "spFactInvoicedQuantityN",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "spLoadDataAfterFullLoad",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[process].[spFactInvoicedQuantityN]"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
 						}
 					}
 				],
@@ -27256,42 +27283,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/spFactInvoicedQuantityN_v2')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "spFactInvoicedQuantityN_v2_v2",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[process].[spFactInvoicedQuantityN_v2_v2]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/testTOdataverse')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -33762,13 +33753,6 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
-					},
-					{
-						"pipelineReference": {
-							"referenceName": "spFactInvoicedQuantityN_v2",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -33790,8 +33774,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/LeadTimeBatch')]",
-				"[concat(variables('factoryId'), '/pipelines/spFactInvoicedQuantityN_v2')]"
+				"[concat(variables('factoryId'), '/pipelines/LeadTimeBatch')]"
 			]
 		},
 		{
