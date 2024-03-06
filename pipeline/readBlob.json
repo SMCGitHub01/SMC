@@ -43,25 +43,14 @@
 				"outputs": [
 					{
 						"referenceName": "PRD_DWH_Dynamic_DataSet",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "zendsk"
+						}
 					}
 				]
 			}
 		],
-		"parameters": {
-			"CSVFile": {
-				"type": "string"
-			},
-			"StartDateTime": {
-				"type": "string"
-			},
-			"TargetTableName": {
-				"type": "string"
-			},
-			"TargetSchemaName": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"lastPublishTime": "2021-03-27T13:45:56Z"
 	},
