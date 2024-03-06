@@ -20186,7 +20186,7 @@
 											"type": "String"
 										},
 										"sink": {
-											"name": "ItemID",
+											"name": "Item number",
 											"type": "String",
 											"physicalType": "nvarchar"
 										}
