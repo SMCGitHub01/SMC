@@ -19,7 +19,8 @@
 						"type": "JsonSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"recursive": true
+							"recursive": true,
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
 							"type": "JsonReadSettings"
@@ -41,8 +42,7 @@
 									"path": "$['url']"
 								},
 								"sink": {
-									"name": "url",
-									"type": "String"
+									"name": "url"
 								}
 							},
 							{
@@ -50,8 +50,7 @@
 									"path": "$['id']"
 								},
 								"sink": {
-									"name": "id",
-									"type": "Int64"
+									"name": "id"
 								}
 							},
 							{
@@ -59,8 +58,63 @@
 									"path": "$['external_id']"
 								},
 								"sink": {
-									"name": "external_id",
-									"type": "String"
+									"name": "external_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['via']['channel']"
+								},
+								"sink": {
+									"name": "via_channel"
+								}
+							},
+							{
+								"source": {
+									"path": "$['via']['source']['from']['address']"
+								},
+								"sink": {
+									"name": "via_source_from_address"
+								}
+							},
+							{
+								"source": {
+									"path": "$['via']['source']['from']['name']"
+								},
+								"sink": {
+									"name": "via_source_from_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['via']['source']['to']['name']"
+								},
+								"sink": {
+									"name": "via_source_to_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['via']['source']['to']['address']"
+								},
+								"sink": {
+									"name": "via_source_to_address"
+								}
+							},
+							{
+								"source": {
+									"path": "$['via']['source']['rel']"
+								},
+								"sink": {
+									"name": "via_source_rel"
+								}
+							},
+							{
+								"source": {
+									"path": "$['via']['id']"
+								},
+								"sink": {
+									"name": "via_id"
 								}
 							},
 							{
@@ -68,8 +122,7 @@
 									"path": "$['created_at']"
 								},
 								"sink": {
-									"name": "created_at",
-									"type": "String"
+									"name": "created_at"
 								}
 							},
 							{
@@ -77,8 +130,7 @@
 									"path": "$['updated_at']"
 								},
 								"sink": {
-									"name": "updated_at",
-									"type": "String"
+									"name": "updated_at"
 								}
 							},
 							{
@@ -86,8 +138,7 @@
 									"path": "$['generated_timestamp']"
 								},
 								"sink": {
-									"name": "generated_timestamp",
-									"type": "Int64"
+									"name": "generated_timestamp"
 								}
 							},
 							{
@@ -95,8 +146,7 @@
 									"path": "$['type']"
 								},
 								"sink": {
-									"name": "type",
-									"type": "String"
+									"name": "type"
 								}
 							},
 							{
@@ -104,8 +154,7 @@
 									"path": "$['subject']"
 								},
 								"sink": {
-									"name": "subject",
-									"type": "String"
+									"name": "subject"
 								}
 							},
 							{
@@ -113,8 +162,7 @@
 									"path": "$['raw_subject']"
 								},
 								"sink": {
-									"name": "raw_subject",
-									"type": "String"
+									"name": "raw_subject"
 								}
 							},
 							{
@@ -122,8 +170,7 @@
 									"path": "$['description']"
 								},
 								"sink": {
-									"name": "description",
-									"type": "String"
+									"name": "description"
 								}
 							},
 							{
@@ -131,8 +178,7 @@
 									"path": "$['priority']"
 								},
 								"sink": {
-									"name": "priority",
-									"type": "String"
+									"name": "priority"
 								}
 							},
 							{
@@ -140,8 +186,63 @@
 									"path": "$['status']"
 								},
 								"sink": {
-									"name": "status",
-									"type": "String"
+									"name": "status"
+								}
+							},
+							{
+								"source": {
+									"path": "$['forum_topic_id']"
+								},
+								"sink": {
+									"name": "forum_topic_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['problem_id']"
+								},
+								"sink": {
+									"name": "problem_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['has_incidents']"
+								},
+								"sink": {
+									"name": "has_incidents"
+								}
+							},
+							{
+								"source": {
+									"path": "$['is_public']"
+								},
+								"sink": {
+									"name": "is_public"
+								}
+							},
+							{
+								"source": {
+									"path": "$['due_at']"
+								},
+								"sink": {
+									"name": "due_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_fields'][0]['id']"
+								},
+								"sink": {
+									"name": "custom_fields'][0]['id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['custom_fields'][0]['value']"
+								},
+								"sink": {
+									"name": "custom_fields'][0]['value"
 								}
 							},
 							{
@@ -149,8 +250,7 @@
 									"path": "$['ticket_form_id']"
 								},
 								"sink": {
-									"name": "ticket_form_id",
-									"type": "String"
+									"name": "ticket_form_id"
 								}
 							},
 							{
@@ -158,8 +258,287 @@
 									"path": "$['brand_id']"
 								},
 								"sink": {
-									"name": "brand_id",
-									"type": "Int64"
+									"name": "brand_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['url']"
+								},
+								"sink": {
+									"name": "metric_set_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['id']"
+								},
+								"sink": {
+									"name": "metric_set_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['ticket_id']"
+								},
+								"sink": {
+									"name": "metric_set_ticket_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['created_at']"
+								},
+								"sink": {
+									"name": "metric_set_created_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['updated_at']"
+								},
+								"sink": {
+									"name": "metric_set_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['group_stations']"
+								},
+								"sink": {
+									"name": "group_stations"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['assignee_stations']"
+								},
+								"sink": {
+									"name": "assignee_stations"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['reopens']"
+								},
+								"sink": {
+									"name": "reopens"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['replies']"
+								},
+								"sink": {
+									"name": "replies"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['assignee_updated_at']"
+								},
+								"sink": {
+									"name": "metric_set_assignee_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['requester_updated_at']"
+								},
+								"sink": {
+									"name": "metric_set_requester_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['status_updated_at']"
+								},
+								"sink": {
+									"name": "metric_set_status_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['initially_assigned_at']"
+								},
+								"sink": {
+									"name": "metric_set_initially_assigned_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['assigned_at']"
+								},
+								"sink": {
+									"name": "metric_set_assigned_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['solved_at']"
+								},
+								"sink": {
+									"name": "metric_set_solved_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['latest_comment_added_at']"
+								},
+								"sink": {
+									"name": "metric_set_latest_comment_added_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['reply_time_in_minutes']['calendar']"
+								},
+								"sink": {
+									"name": "metric_set_reply_time_in_minutes_calendar"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['reply_time_in_minutes']['business']"
+								},
+								"sink": {
+									"name": "metric_set_reply_time_in_minutes_business"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['first_resolution_time_in_minutes']['calendar']"
+								},
+								"sink": {
+									"name": "metric_set_first_resolution_time_in_minutes_calendar"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['first_resolution_time_in_minutes']['business']"
+								},
+								"sink": {
+									"name": "metric_set_first_resolution_time_in_minutes_business"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['full_resolution_time_in_minutes']['calendar']"
+								},
+								"sink": {
+									"name": "metric_set_full_resolution_time_in_minutes_calendar"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['full_resolution_time_in_minutes']['business']"
+								},
+								"sink": {
+									"name": "metric_set_full_resolution_time_in_minutes_business"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['agent_wait_time_in_minutes']['calendar']"
+								},
+								"sink": {
+									"name": "metric_set_agent_wait_time_in_minutes_calendar"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['agent_wait_time_in_minutes']['business']"
+								},
+								"sink": {
+									"name": "metric_set_agent_wait_time_in_minutes_business"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['requester_wait_time_in_minutes']['calendar']"
+								},
+								"sink": {
+									"name": "metric_set_requester_wait_time_in_minutes_calendar"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['requester_wait_time_in_minutes']['business']"
+								},
+								"sink": {
+									"name": "metric_set_requester_wait_time_in_minutes_business"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['on_hold_time_in_minutes']['calendar']"
+								},
+								"sink": {
+									"name": "metric_set_on_hold_time_in_minutes_calendar"
+								}
+							},
+							{
+								"source": {
+									"path": "$['metric_set']['on_hold_time_in_minutes']['business']"
+								},
+								"sink": {
+									"name": "metric_set_on_hold_time_in_minutes_business"
+								}
+							},
+							{
+								"source": {
+									"path": "$['dates']['assignee_updated_at']"
+								},
+								"sink": {
+									"name": "dates_assignee_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['dates']['requester_updated_at']"
+								},
+								"sink": {
+									"name": "dates_requester_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['dates']['status_updated_at']"
+								},
+								"sink": {
+									"name": "dates_status_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['dates']['initially_assigned_at']"
+								},
+								"sink": {
+									"name": "dates_initially_assigned_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['dates']['assigned_at']"
+								},
+								"sink": {
+									"name": "dates_assigned_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['dates']['solved_at']"
+								},
+								"sink": {
+									"name": "dates_solved_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['dates']['latest_comment_added_at']"
+								},
+								"sink": {
+									"name": "dates_latest_comment_added_at"
 								}
 							},
 							{
@@ -167,8 +546,7 @@
 									"path": "$['allow_channelback']"
 								},
 								"sink": {
-									"name": "allow_channelback",
-									"type": "Boolean"
+									"name": "allow_channelback"
 								}
 							},
 							{
@@ -176,8 +554,7 @@
 									"path": "$['allow_attachments']"
 								},
 								"sink": {
-									"name": "allow_attachments",
-									"type": "Boolean"
+									"name": "allow_attachments"
 								}
 							},
 							{
@@ -185,20 +562,1419 @@
 									"path": "$['from_messaging_channel']"
 								},
 								"sink": {
-									"name": "from_messaging_channel",
-									"type": "Boolean"
+									"name": "from_messaging_channel"
 								}
 							},
 							{
 								"source": {
-									"path": "$['recipient']"
+									"path": "$['submitter']['id']"
 								},
 								"sink": {
-									"name": "recipient",
-									"type": "String"
+									"name": "submitter_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['url']"
+								},
+								"sink": {
+									"name": "submitter_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['name']"
+								},
+								"sink": {
+									"name": "submitter_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['email']"
+								},
+								"sink": {
+									"name": "submitter_email"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['created_at']"
+								},
+								"sink": {
+									"name": "submitter_created_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['updated_at']"
+								},
+								"sink": {
+									"name": "submitter_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['time_zone']"
+								},
+								"sink": {
+									"name": "submitter_time_zone"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['iana_time_zone']"
+								},
+								"sink": {
+									"name": "submitter_iana_time_zone"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['phone']"
+								},
+								"sink": {
+									"name": "submitter_phone"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['shared_phone_number']"
+								},
+								"sink": {
+									"name": "submitter_shared_phone_number"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['url']"
+								},
+								"sink": {
+									"name": "submitter_photo_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['id']"
+								},
+								"sink": {
+									"name": "submitter_photo_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['file_name']"
+								},
+								"sink": {
+									"name": "submitter_photo_file_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['content_url']"
+								},
+								"sink": {
+									"name": "submitter_photo_content_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['mapped_content_url']"
+								},
+								"sink": {
+									"name": "submitter_photo_mapped_content_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['content_type']"
+								},
+								"sink": {
+									"name": "submitter_photo_content_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['size']"
+								},
+								"sink": {
+									"name": "submitter_photo_size"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['width']"
+								},
+								"sink": {
+									"name": "submitter_photo_width"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['height']"
+								},
+								"sink": {
+									"name": "submitter_photo_height"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['inline']"
+								},
+								"sink": {
+									"name": "submitter_photo_inline"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['photo']['deleted']"
+								},
+								"sink": {
+									"name": "submitter_photo_deleted"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['locale_id']"
+								},
+								"sink": {
+									"name": "submitter_locale_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['locale']"
+								},
+								"sink": {
+									"name": "submitter_locale"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['organization_id']"
+								},
+								"sink": {
+									"name": "submitter_organization_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['role']"
+								},
+								"sink": {
+									"name": "submitter_role"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['verified']"
+								},
+								"sink": {
+									"name": "submitter_verified"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['external_id']"
+								},
+								"sink": {
+									"name": "submitter_external_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['alias']"
+								},
+								"sink": {
+									"name": "submitter_alias"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['active']"
+								},
+								"sink": {
+									"name": "submitter_active"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['shared']"
+								},
+								"sink": {
+									"name": "submitter_shared"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['shared_agent']"
+								},
+								"sink": {
+									"name": "submitter_shared_agent"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['last_login_at']"
+								},
+								"sink": {
+									"name": "submitter_last_login_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['two_factor_auth_enabled']"
+								},
+								"sink": {
+									"name": "submitter_two_factor_auth_enabled"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['signature']"
+								},
+								"sink": {
+									"name": "submitter_signature"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['details']"
+								},
+								"sink": {
+									"name": "submitter_details"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['notes']"
+								},
+								"sink": {
+									"name": "submitter_notes"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['role_type']"
+								},
+								"sink": {
+									"name": "submitter_role_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['custom_role_id']"
+								},
+								"sink": {
+									"name": "submitter_custom_role_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['moderator']"
+								},
+								"sink": {
+									"name": "submitter_moderator"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['ticket_restriction']"
+								},
+								"sink": {
+									"name": "submitter_ticket_restriction"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['only_private_comments']"
+								},
+								"sink": {
+									"name": "submitter_only_private_comments"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['restricted_agent']"
+								},
+								"sink": {
+									"name": "submitter_restricted_agent"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['suspended']"
+								},
+								"sink": {
+									"name": "submitter_suspended"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['default_group_id']"
+								},
+								"sink": {
+									"name": "submitter_default_group_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['report_csv']"
+								},
+								"sink": {
+									"name": "submitter_report_csv"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['user_fields']['agent_ooo']"
+								},
+								"sink": {
+									"name": "submitter_user_fields_agent_ooo"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['user_fields']['geen_csat']"
+								},
+								"sink": {
+									"name": "submitter_user_fields_geen_csat"
+								}
+							},
+							{
+								"source": {
+									"path": "$['submitter']['user_fields']['ontvangstbevestiging']"
+								},
+								"sink": {
+									"name": "submitter_user_fields_ontvangstbevestiging"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['id']"
+								},
+								"sink": {
+									"name": "requester_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['url']"
+								},
+								"sink": {
+									"name": "requester_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['name']"
+								},
+								"sink": {
+									"name": "requester_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['email']"
+								},
+								"sink": {
+									"name": "requester_email"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['created_at']"
+								},
+								"sink": {
+									"name": "requester_created_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['updated_at']"
+								},
+								"sink": {
+									"name": "requester_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['time_zone']"
+								},
+								"sink": {
+									"name": "requester_time_zone"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['iana_time_zone']"
+								},
+								"sink": {
+									"name": "requester_iana_time_zone"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['phone']"
+								},
+								"sink": {
+									"name": "requester_phone"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['shared_phone_number']"
+								},
+								"sink": {
+									"name": "requester_shared_phone_number"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['url']"
+								},
+								"sink": {
+									"name": "requester_photo_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['id']"
+								},
+								"sink": {
+									"name": "requester_photo_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['file_name']"
+								},
+								"sink": {
+									"name": "requester_photo_file_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['content_url']"
+								},
+								"sink": {
+									"name": "requester_photo_content_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['mapped_content_url']"
+								},
+								"sink": {
+									"name": "requester_photo_mapped_content_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['content_type']"
+								},
+								"sink": {
+									"name": "requester_photo_content_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['size']"
+								},
+								"sink": {
+									"name": "requester_photo_size"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['width']"
+								},
+								"sink": {
+									"name": "requester_photo_width"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['height']"
+								},
+								"sink": {
+									"name": "requester_photo_height"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['inline']"
+								},
+								"sink": {
+									"name": "requester_photo_inline"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['photo']['deleted']"
+								},
+								"sink": {
+									"name": "requester_photo_deleted"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['locale_id']"
+								},
+								"sink": {
+									"name": "requester_locale_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['locale']"
+								},
+								"sink": {
+									"name": "requester_locale"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['organization_id']"
+								},
+								"sink": {
+									"name": "requester_organization_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['role']"
+								},
+								"sink": {
+									"name": "requester_role"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['verified']"
+								},
+								"sink": {
+									"name": "requester_verified"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['external_id']"
+								},
+								"sink": {
+									"name": "requester_external_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['alias']"
+								},
+								"sink": {
+									"name": "requester_alias"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['active']"
+								},
+								"sink": {
+									"name": "requester_active"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['shared']"
+								},
+								"sink": {
+									"name": "requester_shared"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['shared_agent']"
+								},
+								"sink": {
+									"name": "requester_shared_agent"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['last_login_at']"
+								},
+								"sink": {
+									"name": "requester_last_login_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['two_factor_auth_enabled']"
+								},
+								"sink": {
+									"name": "requester_two_factor_auth_enabled"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['signature']"
+								},
+								"sink": {
+									"name": "requester_signature"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['details']"
+								},
+								"sink": {
+									"name": "requester_details"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['notes']"
+								},
+								"sink": {
+									"name": "requester_notes"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['role_type']"
+								},
+								"sink": {
+									"name": "requester_role_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['custom_role_id']"
+								},
+								"sink": {
+									"name": "requester_custom_role_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['moderator']"
+								},
+								"sink": {
+									"name": "requester_moderator"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['ticket_restriction']"
+								},
+								"sink": {
+									"name": "requester_ticket_restriction"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['only_private_comments']"
+								},
+								"sink": {
+									"name": "requester_only_private_comments"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['restricted_agent']"
+								},
+								"sink": {
+									"name": "requester_restricted_agent"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['suspended']"
+								},
+								"sink": {
+									"name": "requester_suspended"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['default_group_id']"
+								},
+								"sink": {
+									"name": "requester_default_group_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['report_csv']"
+								},
+								"sink": {
+									"name": "requester_report_csv"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['user_fields']['agent_ooo']"
+								},
+								"sink": {
+									"name": "requester_user_fields_agent_ooo"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['user_fields']['geen_csat']"
+								},
+								"sink": {
+									"name": "requester_user_fields_geen_csat"
+								}
+							},
+							{
+								"source": {
+									"path": "$['requester']['user_fields']['ontvangstbevestiging']"
+								},
+								"sink": {
+									"name": "requester_user_fields_ontvangstbevestiging"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['id']"
+								},
+								"sink": {
+									"name": "assignee_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['url']"
+								},
+								"sink": {
+									"name": "assignee_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['name']"
+								},
+								"sink": {
+									"name": "assignee_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['email']"
+								},
+								"sink": {
+									"name": "assignee_email"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['created_at']"
+								},
+								"sink": {
+									"name": "assignee_created_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['updated_at']"
+								},
+								"sink": {
+									"name": "assignee_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['time_zone']"
+								},
+								"sink": {
+									"name": "assignee_time_zone"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['iana_time_zone']"
+								},
+								"sink": {
+									"name": "assignee_iana_time_zone"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['phone']"
+								},
+								"sink": {
+									"name": "assignee_phone"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['shared_phone_number']"
+								},
+								"sink": {
+									"name": "assignee_shared_phone_number"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['url']"
+								},
+								"sink": {
+									"name": "assignee_photo_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['id']"
+								},
+								"sink": {
+									"name": "assignee_photo_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['file_name']"
+								},
+								"sink": {
+									"name": "assignee_photo_file_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['content_url']"
+								},
+								"sink": {
+									"name": "assignee_photo_content_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['mapped_content_url']"
+								},
+								"sink": {
+									"name": "assignee_photo_mapped_content_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['content_type']"
+								},
+								"sink": {
+									"name": "assignee_photo_content_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['size']"
+								},
+								"sink": {
+									"name": "assignee_photo_size"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['width']"
+								},
+								"sink": {
+									"name": "assignee_photo_width"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['height']"
+								},
+								"sink": {
+									"name": "assignee_photo_height"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['inline']"
+								},
+								"sink": {
+									"name": "assignee_photo_inline"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['photo']['deleted']"
+								},
+								"sink": {
+									"name": "assignee_photo_deleted"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['locale_id']"
+								},
+								"sink": {
+									"name": "assignee_locale_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['locale']"
+								},
+								"sink": {
+									"name": "assignee_locale"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['organization_id']"
+								},
+								"sink": {
+									"name": "assignee_organization_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['role']"
+								},
+								"sink": {
+									"name": "assignee_role"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['verified']"
+								},
+								"sink": {
+									"name": "assignee_verified"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['external_id']"
+								},
+								"sink": {
+									"name": "assignee_external_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['alias']"
+								},
+								"sink": {
+									"name": "assignee_alias"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['active']"
+								},
+								"sink": {
+									"name": "assignee_active"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['shared']"
+								},
+								"sink": {
+									"name": "assignee_shared"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['shared_agent']"
+								},
+								"sink": {
+									"name": "assignee_shared_agent"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['last_login_at']"
+								},
+								"sink": {
+									"name": "assignee_last_login_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['two_factor_auth_enabled']"
+								},
+								"sink": {
+									"name": "assignee_two_factor_auth_enabled"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['signature']"
+								},
+								"sink": {
+									"name": "assignee_signature"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['details']"
+								},
+								"sink": {
+									"name": "assignee_details"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['notes']"
+								},
+								"sink": {
+									"name": "assignee_notes"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['role_type']"
+								},
+								"sink": {
+									"name": "assignee_role_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['custom_role_id']"
+								},
+								"sink": {
+									"name": "assignee_custom_role_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['moderator']"
+								},
+								"sink": {
+									"name": "assignee_moderator"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['ticket_restriction']"
+								},
+								"sink": {
+									"name": "assignee_ticket_restriction"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['only_private_comments']"
+								},
+								"sink": {
+									"name": "assignee_only_private_comments"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['restricted_agent']"
+								},
+								"sink": {
+									"name": "assignee_restricted_agent"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['suspended']"
+								},
+								"sink": {
+									"name": "assignee_suspended"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['default_group_id']"
+								},
+								"sink": {
+									"name": "assignee_default_group_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['report_csv']"
+								},
+								"sink": {
+									"name": "assignee_report_csv"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['user_fields']['agent_ooo']"
+								},
+								"sink": {
+									"name": "assignee_user_fields_agent_ooo"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['user_fields']['geen_csat']"
+								},
+								"sink": {
+									"name": "assignee_user_fields_geen_csat"
+								}
+							},
+							{
+								"source": {
+									"path": "$['assignee']['user_fields']['ontvangstbevestiging']"
+								},
+								"sink": {
+									"name": "assignee_user_fields_ontvangstbevestiging"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group']['url']"
+								},
+								"sink": {
+									"name": "group_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group']['id']"
+								},
+								"sink": {
+									"name": "group_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group']['is_public']"
+								},
+								"sink": {
+									"name": "group_is_public"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group']['name']"
+								},
+								"sink": {
+									"name": "group_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group']['description']"
+								},
+								"sink": {
+									"name": "group_description"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group']['default']"
+								},
+								"sink": {
+									"name": "default"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group']['deleted']"
+								},
+								"sink": {
+									"name": "group_deleted"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group']['created_at']"
+								},
+								"sink": {
+									"name": "group_created_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['group']['updated_at']"
+								},
+								"sink": {
+									"name": "group_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['url']"
+								},
+								"sink": {
+									"name": "organization_url"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['id']"
+								},
+								"sink": {
+									"name": "organization_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['name']"
+								},
+								"sink": {
+									"name": "organization_name"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['shared_tickets']"
+								},
+								"sink": {
+									"name": "shared_tickets"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['shared_comments']"
+								},
+								"sink": {
+									"name": "shared_comments"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['external_id']"
+								},
+								"sink": {
+									"name": "organization_external_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['created_at']"
+								},
+								"sink": {
+									"name": "organization_created_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['updated_at']"
+								},
+								"sink": {
+									"name": "organization_updated_at"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['details']"
+								},
+								"sink": {
+									"name": "organization_details"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['notes']"
+								},
+								"sink": {
+									"name": "organization_notes"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['group_id']"
+								},
+								"sink": {
+									"name": "group_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['binnendienstmedewerker']"
+								},
+								"sink": {
+									"name": "binnendienstmedewerker"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['company_type']"
+								},
+								"sink": {
+									"name": "company_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['customer_number']"
+								},
+								"sink": {
+									"name": "customer_number"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['debiteurennummer']"
+								},
+								"sink": {
+									"name": "debiteurennummer"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['geen_csat_org']"
+								},
+								"sink": {
+									"name": "geen_csat_org"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['geen_ontvangstbevestiging']"
+								},
+								"sink": {
+									"name": "geen_ontvangstbevestiging"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['klantclassificatie_']"
+								},
+								"sink": {
+									"name": "klantclassificatie_"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['n1_customer']"
+								},
+								"sink": {
+									"name": "n1_customer"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['sales_engineer']"
+								},
+								"sink": {
+									"name": "sales_engineer"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['se_emailadres']"
+								},
+								"sink": {
+									"name": "se_emailadres"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['se_telefoonnummer']"
+								},
+								"sink": {
+									"name": "se_telefoonnummer"
+								}
+							},
+							{
+								"source": {
+									"path": "$['organization']['organization_fields']['top100yn']"
+								},
+								"sink": {
+									"name": "top100yn"
 								}
 							}
-						]
+						],
+						"mapComplexValuesToString": true
 					}
 				},
 				"inputs": [
