@@ -59,7 +59,8 @@
 									"path": "$['created_at']"
 								},
 								"sink": {
-									"name": "created_at"
+									"name": "created_at",
+									"type": "String"
 								}
 							},
 							{
@@ -67,7 +68,8 @@
 									"path": "$['updated_at']"
 								},
 								"sink": {
-									"name": "updated_at"
+									"name": "updated_at",
+									"type": "String"
 								}
 							},
 							{
@@ -75,7 +77,8 @@
 									"path": "$['generated_timestamp']"
 								},
 								"sink": {
-									"name": "generated_timestamp"
+									"name": "generated_timestamp",
+									"type": "Int64"
 								}
 							},
 							{
@@ -83,7 +86,8 @@
 									"path": "$['type']"
 								},
 								"sink": {
-									"name": "type"
+									"name": "type",
+									"type": "String"
 								}
 							},
 							{
@@ -91,7 +95,8 @@
 									"path": "$['subject']"
 								},
 								"sink": {
-									"name": "subject"
+									"name": "subject",
+									"type": "String"
 								}
 							},
 							{
@@ -99,7 +104,8 @@
 									"path": "$['raw_subject']"
 								},
 								"sink": {
-									"name": "raw_subject"
+									"name": "raw_subject",
+									"type": "String"
 								}
 							},
 							{
@@ -107,7 +113,8 @@
 									"path": "$['description']"
 								},
 								"sink": {
-									"name": "description"
+									"name": "description",
+									"type": "String"
 								}
 							},
 							{
@@ -115,7 +122,8 @@
 									"path": "$['priority']"
 								},
 								"sink": {
-									"name": "priority"
+									"name": "priority",
+									"type": "String"
 								}
 							},
 							{
@@ -123,7 +131,8 @@
 									"path": "$['status']"
 								},
 								"sink": {
-									"name": "status"
+									"name": "status",
+									"type": "String"
 								}
 							},
 							{
@@ -131,7 +140,8 @@
 									"path": "$['forum_topic_id']"
 								},
 								"sink": {
-									"name": "forum_topic_id"
+									"name": "forum_topic_id",
+									"type": "String"
 								}
 							},
 							{
@@ -139,7 +149,8 @@
 									"path": "$['problem_id']"
 								},
 								"sink": {
-									"name": "problem_id"
+									"name": "problem_id",
+									"type": "String"
 								}
 							},
 							{
@@ -147,7 +158,8 @@
 									"path": "$['has_incidents']"
 								},
 								"sink": {
-									"name": "has_incidents"
+									"name": "has_incidents",
+									"type": "String"
 								}
 							},
 							{
@@ -155,7 +167,8 @@
 									"path": "$['is_public']"
 								},
 								"sink": {
-									"name": "is_public"
+									"name": "is_public",
+									"type": "String"
 								}
 							},
 							{
@@ -163,7 +176,8 @@
 									"path": "$['due_at']"
 								},
 								"sink": {
-									"name": "due_at"
+									"name": "due_at",
+									"type": "String"
 								}
 							},
 							{
@@ -171,7 +185,8 @@
 									"path": "$['ticket_form_id']"
 								},
 								"sink": {
-									"name": "ticket_form_id"
+									"name": "ticket_form_id",
+									"type": "String"
 								}
 							},
 							{
@@ -179,7 +194,8 @@
 									"path": "$['brand_id']"
 								},
 								"sink": {
-									"name": "brand_id"
+									"name": "brand_id",
+									"type": "String"
 								}
 							}
 						],
