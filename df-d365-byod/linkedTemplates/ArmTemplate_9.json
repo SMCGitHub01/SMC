@@ -2642,7 +2642,8 @@
 								"type": "JsonSource",
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
-									"recursive": true
+									"recursive": true,
+									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
 									"type": "JsonReadSettings"
@@ -2661,20 +2662,10 @@
 								"mappings": [
 									{
 										"source": {
-											"path": "$['url']"
-										},
-										"sink": {
-											"name": "url",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
 											"path": "$['id']"
 										},
 										"sink": {
-											"name": "id",
-											"type": "Int64"
+											"name": "id"
 										}
 									},
 									{
@@ -2682,8 +2673,7 @@
 											"path": "$['external_id']"
 										},
 										"sink": {
-											"name": "external_id",
-											"type": "String"
+											"name": "external_id"
 										}
 									},
 									{
@@ -2691,8 +2681,7 @@
 											"path": "$['created_at']"
 										},
 										"sink": {
-											"name": "created_at",
-											"type": "String"
+											"name": "created_at"
 										}
 									},
 									{
@@ -2700,8 +2689,7 @@
 											"path": "$['updated_at']"
 										},
 										"sink": {
-											"name": "updated_at",
-											"type": "String"
+											"name": "updated_at"
 										}
 									},
 									{
@@ -2709,8 +2697,7 @@
 											"path": "$['generated_timestamp']"
 										},
 										"sink": {
-											"name": "generated_timestamp",
-											"type": "Int64"
+											"name": "generated_timestamp"
 										}
 									},
 									{
@@ -2718,8 +2705,7 @@
 											"path": "$['type']"
 										},
 										"sink": {
-											"name": "type",
-											"type": "String"
+											"name": "type"
 										}
 									},
 									{
@@ -2727,8 +2713,7 @@
 											"path": "$['subject']"
 										},
 										"sink": {
-											"name": "subject",
-											"type": "String"
+											"name": "subject"
 										}
 									},
 									{
@@ -2736,8 +2721,7 @@
 											"path": "$['raw_subject']"
 										},
 										"sink": {
-											"name": "raw_subject",
-											"type": "String"
+											"name": "raw_subject"
 										}
 									},
 									{
@@ -2745,8 +2729,7 @@
 											"path": "$['description']"
 										},
 										"sink": {
-											"name": "description",
-											"type": "String"
+											"name": "description"
 										}
 									},
 									{
@@ -2754,8 +2737,7 @@
 											"path": "$['priority']"
 										},
 										"sink": {
-											"name": "priority",
-											"type": "String"
+											"name": "priority"
 										}
 									},
 									{
@@ -2763,8 +2745,47 @@
 											"path": "$['status']"
 										},
 										"sink": {
-											"name": "status",
-											"type": "String"
+											"name": "status"
+										}
+									},
+									{
+										"source": {
+											"path": "$['forum_topic_id']"
+										},
+										"sink": {
+											"name": "forum_topic_id"
+										}
+									},
+									{
+										"source": {
+											"path": "$['problem_id']"
+										},
+										"sink": {
+											"name": "problem_id"
+										}
+									},
+									{
+										"source": {
+											"path": "$['has_incidents']"
+										},
+										"sink": {
+											"name": "has_incidents"
+										}
+									},
+									{
+										"source": {
+											"path": "$['is_public']"
+										},
+										"sink": {
+											"name": "is_public"
+										}
+									},
+									{
+										"source": {
+											"path": "$['due_at']"
+										},
+										"sink": {
+											"name": "due_at"
 										}
 									},
 									{
@@ -2772,8 +2793,7 @@
 											"path": "$['ticket_form_id']"
 										},
 										"sink": {
-											"name": "ticket_form_id",
-											"type": "String"
+											"name": "ticket_form_id"
 										}
 									},
 									{
@@ -2781,47 +2801,11 @@
 											"path": "$['brand_id']"
 										},
 										"sink": {
-											"name": "brand_id",
-											"type": "Int64"
-										}
-									},
-									{
-										"source": {
-											"path": "$['allow_channelback']"
-										},
-										"sink": {
-											"name": "allow_channelback",
-											"type": "Boolean"
-										}
-									},
-									{
-										"source": {
-											"path": "$['allow_attachments']"
-										},
-										"sink": {
-											"name": "allow_attachments",
-											"type": "Boolean"
-										}
-									},
-									{
-										"source": {
-											"path": "$['from_messaging_channel']"
-										},
-										"sink": {
-											"name": "from_messaging_channel",
-											"type": "Boolean"
-										}
-									},
-									{
-										"source": {
-											"path": "$['recipient']"
-										},
-										"sink": {
-											"name": "recipient",
-											"type": "String"
+											"name": "brand_id"
 										}
 									}
-								]
+								],
+								"mapComplexValuesToString": true
 							}
 						},
 						"inputs": [
