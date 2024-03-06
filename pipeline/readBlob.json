@@ -50,7 +50,8 @@
 									"path": "$['external_id']"
 								},
 								"sink": {
-									"name": "external_id"
+									"name": "external_id",
+									"type": "String"
 								}
 							},
 							{
