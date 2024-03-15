@@ -229,974 +229,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/3CX_loadLog')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "3CX_logfile_cdr",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "FileServerReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "TRUNCATE  TABLE dbo.[3CXlog]\n",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "historyid",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "historyid",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "callid",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "callid",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "duration",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "duration",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "time-start",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "time-start",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "time-answered",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "time-answered",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "time-end",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "time-end",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "reason-terminated",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "reason-terminated",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "from-no",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "from-no",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "to-no",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "to-no",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "from-dn",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "from-dn",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "to-dn",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "to-dn",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "dial-no",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "dial-no",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "reason-changed",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "reason-changed",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "final-number",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "final-number",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "final-dn",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "final-dn",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "bill-code",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "bill-code",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "bill-rate",
-											"type": "String"
-										},
-										"sink": {
-											"name": "bill-rate ",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "bill-cost",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "bill-cost",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "bill-name",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "bill-name",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "chain",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "chain",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "from-type",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "from-type",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "to-type",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "to-type",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "final-type",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "final-type",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "from-dispname",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "from-dispname",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "to-dispname",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "to-dispname",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "final-dispname",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "final-dispname",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "missed-queue-calls�",
-											"type": "String",
-											"physicalType": "String"
-										},
-										"sink": {
-											"name": "missed-queue-calls",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "3CXcdrlog",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dbo",
-									"TableName": "3cxlog"
-								}
-							}
-						]
-					},
-					{
-						"name": "cleanup 3cxlog",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "3CX_logfile_cdr",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "[[dbo].[sp3CX_cleanupLog]"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "create dwh Fact3CXcalls",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "cleanup 3cxlog",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "deploy.3-FillDWHOnly",
-							"storedProcedureParameters": {
-								"tableName": {
-									"value": "Fact3CXcalls",
-									"type": "String"
-								}
-							}
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "create dwh Fact3CXchain",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "create dwh Fact3CXcalls",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "process.spFillFact3CXchain"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "3CX"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/3CXcdrlog')]",
-				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/3CX_loadLog_copy1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "3CX_logfileX",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "3CX_logfile_cdr2",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "FileServerReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "3CXcdr1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "stage",
-									"TableName": "3cxlogX"
-								}
-							}
-						]
-					},
-					{
-						"name": "sp3CX_create_3cxlog",
-						"type": "SqlServerStoredProcedure",
-						"dependsOn": [
-							{
-								"activity": "3CX_logfileX",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"storedProcedureName": "dbo.sp3CX_create_3cxlog"
-						},
-						"linkedServiceName": {
-							"referenceName": "Azure_D365_PROD",
-							"type": "LinkedServiceReference"
-						}
-					},
-					{
-						"name": "3CX_logfile_cdr2",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "FileServerReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "TRUNCATE  TABLE dbo.[3CXlog]\nTRUNCATE  TABLE stage.[3CXlogX]",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 1
-										},
-										"sink": {
-											"name": "historyid",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 2
-										},
-										"sink": {
-											"name": "callid",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 3
-										},
-										"sink": {
-											"name": "duration",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 4
-										},
-										"sink": {
-											"name": "time-start",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 5
-										},
-										"sink": {
-											"name": "time-answered",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 6
-										},
-										"sink": {
-											"name": "time-end",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 7
-										},
-										"sink": {
-											"name": "reason-terminated",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 8
-										},
-										"sink": {
-											"name": "from-no",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 9
-										},
-										"sink": {
-											"name": "to-no",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 10
-										},
-										"sink": {
-											"name": "from-dn",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 11
-										},
-										"sink": {
-											"name": "to-dn",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 12
-										},
-										"sink": {
-											"name": "dial-no",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 13
-										},
-										"sink": {
-											"name": "reason-changed",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 14
-										},
-										"sink": {
-											"name": "final-number",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 15
-										},
-										"sink": {
-											"name": "final-dn",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 16
-										},
-										"sink": {
-											"name": "bill-code",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 17
-										},
-										"sink": {
-											"name": "bill-rate ",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 18
-										},
-										"sink": {
-											"name": "bill-cost",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 19
-										},
-										"sink": {
-											"name": "bill-name",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 20
-										},
-										"sink": {
-											"name": "chain",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 21
-										},
-										"sink": {
-											"name": "from-type",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 22
-										},
-										"sink": {
-											"name": "to-type",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 23
-										},
-										"sink": {
-											"name": "final-type",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 24
-										},
-										"sink": {
-											"name": "from-dispname",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 25
-										},
-										"sink": {
-											"name": "to-dispname",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 26
-										},
-										"sink": {
-											"name": "final-dispname",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"type": "String",
-											"ordinal": 27
-										},
-										"sink": {
-											"name": "missed-queue-calls",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "3CXcdr2",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "dbo",
-									"TableName": "3cxlog"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "3CX"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/3CXcdr1')]",
-				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]",
-				"[concat(variables('factoryId'), '/datasets/3CXcdr2')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/ACC_BudgetDirectSales')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -7176,7 +6208,14 @@
 					{
 						"name": "sptevervroegen",
 						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "ACC_UpScale",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -7596,13 +6635,66 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "ACC_UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ACC_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "ACC_DownScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders_log_productie",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Tevervroegenorders_export",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Tevervroegenorders_export_prod",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ACC_DownScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
 				"folder": {
-					"name": "PRD-TevervroegenOrders"
+					"name": "ACC-Tevervroegenorders"
 				},
 				"annotations": []
 			},
@@ -7611,7 +6703,9 @@
 				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
 				"[concat(variables('factoryId'), '/datasets/tevervroegenACC')]",
 				"[concat(variables('factoryId'), '/datasets/tevervroegenACC_log')]",
-				"[concat(variables('factoryId'), '/datasets/tevervroegenACC_prod')]"
+				"[concat(variables('factoryId'), '/datasets/tevervroegenACC_prod')]",
+				"[concat(variables('factoryId'), '/pipelines/ACC_UpScale')]",
+				"[concat(variables('factoryId'), '/pipelines/ACC_DownScale')]"
 			]
 		},
 		{
@@ -8073,7 +7167,7 @@
 					"elapsedTimeMetric": {}
 				},
 				"folder": {
-					"name": "PRD-TevervroegenOrders"
+					"name": "ACC-Tevervroegenorders"
 				},
 				"annotations": []
 			},
@@ -27365,7 +26459,8 @@
 											"path": "$['external_id']"
 										},
 										"sink": {
-											"name": "external_id"
+											"name": "external_id",
+											"type": "String"
 										}
 									},
 									{
@@ -27373,7 +26468,8 @@
 											"path": "$['created_at']"
 										},
 										"sink": {
-											"name": "created_at"
+											"name": "created_at",
+											"type": "String"
 										}
 									},
 									{
@@ -27381,7 +26477,8 @@
 											"path": "$['updated_at']"
 										},
 										"sink": {
-											"name": "updated_at"
+											"name": "updated_at",
+											"type": "String"
 										}
 									},
 									{
@@ -27389,7 +26486,8 @@
 											"path": "$['generated_timestamp']"
 										},
 										"sink": {
-											"name": "generated_timestamp"
+											"name": "generated_timestamp",
+											"type": "Int64"
 										}
 									},
 									{
@@ -27397,7 +26495,8 @@
 											"path": "$['type']"
 										},
 										"sink": {
-											"name": "type"
+											"name": "type",
+											"type": "String"
 										}
 									},
 									{
@@ -27405,7 +26504,8 @@
 											"path": "$['subject']"
 										},
 										"sink": {
-											"name": "subject"
+											"name": "subject",
+											"type": "String"
 										}
 									},
 									{
@@ -27413,7 +26513,8 @@
 											"path": "$['raw_subject']"
 										},
 										"sink": {
-											"name": "raw_subject"
+											"name": "raw_subject",
+											"type": "String"
 										}
 									},
 									{
@@ -27421,7 +26522,8 @@
 											"path": "$['description']"
 										},
 										"sink": {
-											"name": "description"
+											"name": "description",
+											"type": "String"
 										}
 									},
 									{
@@ -27429,7 +26531,8 @@
 											"path": "$['priority']"
 										},
 										"sink": {
-											"name": "priority"
+											"name": "priority",
+											"type": "String"
 										}
 									},
 									{
@@ -27437,7 +26540,8 @@
 											"path": "$['status']"
 										},
 										"sink": {
-											"name": "status"
+											"name": "status",
+											"type": "String"
 										}
 									},
 									{
@@ -27445,7 +26549,8 @@
 											"path": "$['forum_topic_id']"
 										},
 										"sink": {
-											"name": "forum_topic_id"
+											"name": "forum_topic_id",
+											"type": "String"
 										}
 									},
 									{
@@ -27453,7 +26558,8 @@
 											"path": "$['problem_id']"
 										},
 										"sink": {
-											"name": "problem_id"
+											"name": "problem_id",
+											"type": "String"
 										}
 									},
 									{
@@ -27461,7 +26567,8 @@
 											"path": "$['has_incidents']"
 										},
 										"sink": {
-											"name": "has_incidents"
+											"name": "has_incidents",
+											"type": "String"
 										}
 									},
 									{
@@ -27469,7 +26576,8 @@
 											"path": "$['is_public']"
 										},
 										"sink": {
-											"name": "is_public"
+											"name": "is_public",
+											"type": "String"
 										}
 									},
 									{
@@ -27477,7 +26585,8 @@
 											"path": "$['due_at']"
 										},
 										"sink": {
-											"name": "due_at"
+											"name": "due_at",
+											"type": "String"
 										}
 									},
 									{
@@ -27485,7 +26594,8 @@
 											"path": "$['ticket_form_id']"
 										},
 										"sink": {
-											"name": "ticket_form_id"
+											"name": "ticket_form_id",
+											"type": "String"
 										}
 									},
 									{
@@ -27493,7 +26603,8 @@
 											"path": "$['brand_id']"
 										},
 										"sink": {
-											"name": "brand_id"
+											"name": "brand_id",
+											"type": "String"
 										}
 									}
 								],
@@ -35063,6 +34174,13 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "ACC_tevervroegenorders",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "ScheduleTrigger",
@@ -35084,7 +34202,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PRD_tevervroegenorders')]"
+				"[concat(variables('factoryId'), '/pipelines/PRD_tevervroegenorders')]",
+				"[concat(variables('factoryId'), '/pipelines/ACC_tevervroegenorders')]"
 			]
 		},
 		{
