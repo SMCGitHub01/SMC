@@ -5,7 +5,14 @@
 			{
 				"name": "sptevervroegen",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "ACC_UpScale",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -423,10 +430,61 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "ACC_UpScale",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ACC_UpScale",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "ACC_DownScale",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Tevervroegenorders_log_productie",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Tevervroegenorders_export",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Tevervroegenorders_export_prod",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ACC_DownScale",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"folder": {
-			"name": "PRD-TevervroegenOrders"
+			"name": "ACC-Tevervroegenorders"
 		},
 		"annotations": []
 	}
