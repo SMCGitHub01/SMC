@@ -435,6 +435,9 @@
 				"name": "ACC_UpScale",
 				"type": "ExecutePipeline",
 				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
@@ -446,7 +449,7 @@
 			}
 		],
 		"folder": {
-			"name": "PRD-TevervroegenOrders"
+			"name": "ACC-Tevervroegenorders"
 		},
 		"annotations": []
 	}
