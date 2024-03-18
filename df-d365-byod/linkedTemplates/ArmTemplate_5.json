@@ -1097,7 +1097,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "PRDtevervroegens_C.csv",
+						"fileName": "PRDtevervroegens.csv",
 						"folderPath": "jpnvrd/PoLines"
 					},
 					"columnDelimiter": ";",
@@ -1158,7 +1158,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "FileServerLocation",
-						"fileName": "UpdateProdOrdDateIn_C.csv",
+						"fileName": "UpdateProdOrdDateIn.csv",
 						"folderPath": "jpnvrd/PoLines"
 					},
 					"columnDelimiter": ";",
