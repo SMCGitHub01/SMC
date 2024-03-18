@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "FileServerLocation",
-				"fileName": "UpdateProdOrdDateIn_C.csv",
+				"fileName": "UpdateProdOrdDateIn.csv",
 				"folderPath": "jpnvrd/PoLines"
 			},
 			"columnDelimiter": ";",
