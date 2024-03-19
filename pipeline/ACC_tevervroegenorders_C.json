@@ -279,7 +279,7 @@
 					{
 						"activity": "ACC_UpScale",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
