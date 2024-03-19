@@ -50,7 +50,10 @@
 				"outputs": [
 					{
 						"referenceName": "DataverseExport",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"DataverseTable": "smc_shared_route_id"
+						}
 					}
 				]
 			}
