@@ -27113,7 +27113,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "routeIDlist",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -27207,13 +27207,18 @@
 							{
 								"referenceName": "DataverseExport",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"DataverseTable": "smc_shared_route_id"
+								}
 							}
 						]
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD-TO-DATAVERSE"
 				},
 				"annotations": []
 			},
@@ -27277,7 +27282,9 @@
 							{
 								"referenceName": "DataverseExport",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"DataverseTable": "smc_shared_route_id"
+								}
 							}
 						]
 					}
@@ -29605,11 +29612,19 @@
 					"referenceName": "Dataverse_smc_dev_crm4",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"DataverseTable": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "CommonDataServiceForAppsEntity",
 				"schema": [],
 				"typeProperties": {
-					"entityName": "smc_shared_route_id"
+					"entityName": {
+						"value": "@dataset().DataverseTable",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
