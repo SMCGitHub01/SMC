@@ -2401,7 +2401,7 @@
 							{
 								"activity": "PRD_UpScale",
 								"dependencyConditions": [
-									"Succeeded"
+									"Completed"
 								]
 							}
 						],

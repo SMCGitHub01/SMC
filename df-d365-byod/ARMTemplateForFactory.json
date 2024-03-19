@@ -6992,7 +6992,7 @@
 							{
 								"activity": "ACC_UpScale",
 								"dependencyConditions": [
-									"Succeeded"
+									"Completed"
 								]
 							}
 						],
@@ -20657,7 +20657,7 @@
 							{
 								"activity": "PRD_UpScale",
 								"dependencyConditions": [
-									"Succeeded"
+									"Completed"
 								]
 							}
 						],
