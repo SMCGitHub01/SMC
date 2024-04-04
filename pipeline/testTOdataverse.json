@@ -126,7 +126,7 @@
 						"writeBatchSize": 10,
 						"writeBehavior": "upsert",
 						"ignoreNullValues": true,
-						"alternateKeyName": "smc_dwhDimProductID"
+						"alternateKeyName": "shared_dwh_dimproduct_key"
 					},
 					"enableStaging": false,
 					"translator": {
@@ -235,12 +235,6 @@
 								"sink": {
 									"name": "smc_defaultordertype",
 									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "smc_dwhdimproductid",
-									"type": "Guid"
 								}
 							},
 							{
