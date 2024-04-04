@@ -102,6 +102,826 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "dimProduct_test",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "CommonDataServiceForAppsSink",
+						"writeBatchSize": 10,
+						"writeBehavior": "upsert",
+						"ignoreNullValues": true,
+						"alternateKeyName": "smc_dwhDimProductID"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"sink": {
+									"name": "createdby",
+									"type": "Guid"
+								}
+							},
+							{
+								"sink": {
+									"name": "createdbyname",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "createdbyyominame",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "createdon",
+									"type": "DateTime"
+								}
+							},
+							{
+								"sink": {
+									"name": "createdonbehalfby",
+									"type": "Guid"
+								}
+							},
+							{
+								"sink": {
+									"name": "createdonbehalfbyname",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "createdonbehalfbyyominame",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "importsequencenumber",
+									"type": "Int32"
+								}
+							},
+							{
+								"sink": {
+									"name": "modifiedby",
+									"type": "Guid"
+								}
+							},
+							{
+								"sink": {
+									"name": "modifiedbyname",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "modifiedbyyominame",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "modifiedon",
+									"type": "DateTime"
+								}
+							},
+							{
+								"sink": {
+									"name": "modifiedonbehalfby",
+									"type": "Guid"
+								}
+							},
+							{
+								"sink": {
+									"name": "modifiedonbehalfbyname",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "modifiedonbehalfbyyominame",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "overriddencreatedon",
+									"type": "DateTime"
+								}
+							},
+							{
+								"sink": {
+									"name": "ownerid",
+									"type": "Guid"
+								}
+							},
+							{
+								"sink": {
+									"name": "owneridname",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "owneridtype",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "owneridyominame",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "owningbusinessunit",
+									"type": "Guid"
+								}
+							},
+							{
+								"sink": {
+									"name": "owningbusinessunitname",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "owningteam",
+									"type": "Guid"
+								}
+							},
+							{
+								"sink": {
+									"name": "owninguser",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_AllPriceAgreement",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_allpriceagreement",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_AlterPriceAgreement",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_alterpriceagreement",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_BaseSalesPrice",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_basesalesprice",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_BlockingReason",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_blockingreason",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_BlockingReasonBOM",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_blockingreasonbom",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_CountryOfOrigin",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_countryoforigin",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_CoverageGroupID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_coveragegroupid",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_DataAreaID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_dataareaid",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_DefaultOrderType",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_defaultordertype",
+									"type": "String"
+								}
+							},
+							{
+								"sink": {
+									"name": "smc_dwhdimproductid",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ECW_Item",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "smc_ecw_item",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ECW_Max_leadtime",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "smc_ecw_max_leadtime",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ECWItem",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_ecwitem",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_EINItem",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_einitem",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ExternalProductDescription",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_externalproductdescription",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ExternalSalesLeadTime",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "smc_externalsalesleadtime",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_IntraStatCommodityCode",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_intrastatcommoditycode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ItemGroup",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_itemgroup",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ItemGroupName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_itemgroupname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_LatestCostPrice",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_latestcostprice",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_LineDiscountGroup",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_linediscountgroup",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_MaxOrderQuantity",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_maxorderquantity",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_OrderQuantity",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_orderquantity",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_PrimaryVendor",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_primaryvendor",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ProductBK",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productbk",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ProductGroupCode",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productgroupcode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ProductGroupDescription",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productgroupdescription",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ProductGroupLevel1",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productgrouplevel1",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ProductGroupLevel2",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productgrouplevel2",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ProductLifecycleState",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productlifecyclestate",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ProductName",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_Productname_DE",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productname_de",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_Productname_FR",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productname_fr",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_Productname_NL",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productname_nl",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ProductNumber",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productnumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ProductNumberVendor",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productnumbervendor",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_PurchaseLeadTime",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "smc_purchaseleadtime",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_PurchaseQtyMultiple",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_purchaseqtymultiple",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_PurchLeadtime",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "smc_purchleadtime",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ReplacementPart",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_replacementpart",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_ReplacementPartsList",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_replacementpartslist",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SalesGroup",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "smc_salesgroup",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SalesMaxOrderQty",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_salesmaxorderqty",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SalesMinOrderQty",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_salesminorderqty",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SalesQtyMultiple",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_salesqtymultiple",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SeriesGroupCode",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_seriesgroupcode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SeriesGroupDescription",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_seriesgroupdescription",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_Status",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_stockECW",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "smc_stockecw",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_stockEIN",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "smc_stockein",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SubstitutePartsList",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_substitutepartslist",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_weigth",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "smc_weigth",
+									"type": "Decimal"
+								}
+							},
+							{
+								"sink": {
+									"name": "statecode",
+									"type": "Int32"
+								}
+							},
+							{
+								"sink": {
+									"name": "statuscode",
+									"type": "Int32"
+								}
+							},
+							{
+								"sink": {
+									"name": "timezoneruleversionnumber",
+									"type": "Int32"
+								}
+							},
+							{
+								"sink": {
+									"name": "utcconversiontimezonecode",
+									"type": "Int32"
+								}
+							},
+							{
+								"sink": {
+									"name": "versionnumber",
+									"type": "Int64"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dataverse",
+							"TableName": "DimProduct"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DataverseExport",
+						"type": "DatasetReference",
+						"parameters": {
+							"DataverseTable": "smc_dwhdimproduct"
+						}
+					}
+				]
 			}
 		],
 		"folder": {
