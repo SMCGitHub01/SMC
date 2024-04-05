@@ -2447,7 +2447,7 @@
 								"writeBatchSize": 10,
 								"writeBehavior": "upsert",
 								"ignoreNullValues": true,
-								"alternateKeyName": "shared_dwh_dimproduct_key"
+								"alternateKeyName": "smc_shared_dwh_dimproduct_key"
 							},
 							"enableStaging": false,
 							"translator": {
