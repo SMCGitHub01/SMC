@@ -25,7 +25,7 @@
 						"writeBatchSize": 10,
 						"writeBehavior": "upsert",
 						"ignoreNullValues": true,
-						"alternateKeyName": "smc_routeidkey"
+						"alternateKeyName": "smc_routeidkeyunique"
 					},
 					"enableStaging": false,
 					"translator": {
