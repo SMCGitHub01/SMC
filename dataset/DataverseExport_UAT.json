@@ -2,7 +2,7 @@
 	"name": "DataverseExport_UAT",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "Dataverse_smc_dev_crm4",
+			"referenceName": "Dataverse_smc_uat_crm4",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
