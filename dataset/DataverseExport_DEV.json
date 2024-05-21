@@ -1,5 +1,5 @@
 {
-	"name": "DataverseExport",
+	"name": "DataverseExport_DEV",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Dataverse_smc_dev_crm4",
