@@ -5,6 +5,8 @@
 			{
 				"name": "routeIDlist",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -106,6 +108,8 @@
 			{
 				"name": "dimProduct_test",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -746,6 +750,8 @@
 			{
 				"name": "ChillerServicePriceList",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -906,7 +912,7 @@
 						"writeBatchSize": 10,
 						"writeBehavior": "upsert",
 						"ignoreNullValues": true,
-						"alternateKeyName": ""
+						"alternateKeyName": "smc_chillerservicepricebk_key"
 					},
 					"enableStaging": false,
 					"translator": {
