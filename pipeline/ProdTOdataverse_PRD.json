@@ -1021,7 +1021,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DataverseExport_UAT",
+						"referenceName": "DataverseExport_PRD",
 						"type": "DatasetReference",
 						"parameters": {
 							"DataverseTable": "smc_chillerservice_items_prices"
