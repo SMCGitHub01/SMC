@@ -1,5 +1,5 @@
 {
-	"name": "testTOdataverse",
+	"name": "ProdTOdataverse_DEV",
 	"properties": {
 		"activities": [
 			{
@@ -95,7 +95,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DataverseExport",
+						"referenceName": "DataverseExport_DEV",
 						"type": "DatasetReference",
 						"parameters": {
 							"DataverseTable": "smc_shared_route_id"
@@ -735,7 +735,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DataverseExport",
+						"referenceName": "DataverseExport_DEV",
 						"type": "DatasetReference",
 						"parameters": {
 							"DataverseTable": "smc_dwhdimproduct"
@@ -875,7 +875,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DataverseExport",
+						"referenceName": "DataverseExport_DEV",
 						"type": "DatasetReference",
 						"parameters": {
 							"DataverseTable": "smc_df_chillerservicepricelist"
