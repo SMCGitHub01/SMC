@@ -1,0 +1,23 @@
+{
+	"name": "DataverseExport_PRD",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Dataverse_smc_prd_crm4",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DataverseTable": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "CommonDataServiceForAppsEntity",
+		"schema": [],
+		"typeProperties": {
+			"entityName": {
+				"value": "@dataset().DataverseTable",
+				"type": "Expression"
+			}
+		}
+	}
+}
