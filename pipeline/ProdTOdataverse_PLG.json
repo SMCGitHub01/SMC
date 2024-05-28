@@ -1071,32 +1071,6 @@
 									"precision": 28
 								},
 								"sink": {
-									"name": "crc90_dimproduct_id",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "smc_AlterPriceAgreement",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 12,
-									"precision": 28
-								},
-								"sink": {
-									"name": "crc90_flowtest_dimproductid",
-									"type": "Guid"
-								}
-							},
-							{
-								"source": {
-									"name": "smc_AllPriceAgreement",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 12,
-									"precision": 28
-								},
-								"sink": {
 									"name": "crc90_smc_allpriceagreement",
 									"type": "Decimal"
 								}
