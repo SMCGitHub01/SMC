@@ -1090,13 +1090,26 @@
 							},
 							{
 								"source": {
+									"name": "smc_AllPriceAgreement",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
+								},
+								"sink": {
+									"name": "crc90_smc_allpriceagreement",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
 									"name": "smc_Barcode",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "crc90_smc_allpriceagreement",
-									"type": "Decimal"
+									"name": "crc90_smc_barcode",
+									"type": "String"
 								}
 							},
 							{
@@ -1108,24 +1121,13 @@
 									"precision": 28
 								},
 								"sink": {
-									"name": "crc90_smc_barcode",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "smc_BlockingReason",
-									"type": "String",
-									"physicalType": "nvarchar"
-								},
-								"sink": {
 									"name": "crc90_smc_basesalesprice",
 									"type": "Decimal"
 								}
 							},
 							{
 								"source": {
-									"name": "smc_BlockingReasonBOM",
+									"name": "smc_BlockingReason",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1136,7 +1138,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_BuyerGroup",
+									"name": "smc_BlockingReasonBOM",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1147,7 +1149,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_CommissionGroup",
+									"name": "smc_BuyerGroup",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1158,7 +1160,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_CountryOfOrigin",
+									"name": "smc_CommissionGroup",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1169,7 +1171,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_CoverageGroupID",
+									"name": "smc_CountryOfOrigin",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1180,7 +1182,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_DataAreaID",
+									"name": "smc_CoverageGroupID",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1191,7 +1193,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_DefaultOrderType",
+									"name": "smc_DataAreaID",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1202,9 +1204,9 @@
 							},
 							{
 								"source": {
-									"name": "smc_ECW_Item",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "smc_DefaultOrderType",
+									"type": "String",
+									"physicalType": "nvarchar"
 								},
 								"sink": {
 									"name": "crc90_smc_defaultordertype",
@@ -1213,7 +1215,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ECW_Max_leadtime",
+									"name": "smc_ECW_Item",
 									"type": "Int32",
 									"physicalType": "int"
 								},
@@ -1224,7 +1226,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ECW_sourcing_time_fence",
+									"name": "smc_ECW_Max_leadtime",
 									"type": "Int32",
 									"physicalType": "int"
 								},
@@ -1235,9 +1237,9 @@
 							},
 							{
 								"source": {
-									"name": "smc_ECWItem",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "smc_ECW_sourcing_time_fence",
+									"type": "Int32",
+									"physicalType": "int"
 								},
 								"sink": {
 									"name": "crc90_smc_ecw_sourcing_time_fence",
@@ -1246,7 +1248,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_EINItem",
+									"name": "smc_ECWItem",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1257,13 +1259,24 @@
 							},
 							{
 								"source": {
+									"name": "smc_EINItem",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "crc90_smc_einitem",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
 									"name": "smc_ExpectedLeadtime",
 									"type": "Int32",
 									"physicalType": "int"
 								},
 								"sink": {
-									"name": "crc90_smc_einitem",
-									"type": "String"
+									"name": "crc90_smc_expectedleadtime",
+									"type": "Int32"
 								}
 							},
 							{
@@ -1273,8 +1286,8 @@
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "crc90_smc_expectedleadtime",
-									"type": "Int32"
+									"name": "crc90_smc_externalproductdescription",
+									"type": "String"
 								}
 							},
 							{
@@ -1284,8 +1297,8 @@
 									"physicalType": "int"
 								},
 								"sink": {
-									"name": "crc90_smc_externalproductdescription",
-									"type": "String"
+									"name": "crc90_smc_externalsalesleadtime",
+									"type": "Int32"
 								}
 							},
 							{
@@ -1295,8 +1308,8 @@
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "crc90_smc_externalsalesleadtime",
-									"type": "Int32"
+									"name": "crc90_smc_intrastatcommoditycode",
+									"type": "String"
 								}
 							},
 							{
@@ -1306,8 +1319,8 @@
 									"physicalType": "int"
 								},
 								"sink": {
-									"name": "crc90_smc_intrastatcommoditycode",
-									"type": "String"
+									"name": "crc90_smc_isactieveprijslijst",
+									"type": "Int32"
 								}
 							},
 							{
@@ -1317,8 +1330,8 @@
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "crc90_smc_isactieveprijslijst",
-									"type": "Int32"
+									"name": "crc90_smc_itemgroup",
+									"type": "String"
 								}
 							},
 							{
@@ -1328,7 +1341,7 @@
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "crc90_smc_itemgroup",
+									"name": "crc90_smc_itemgroupname",
 									"type": "String"
 								}
 							},
@@ -1341,8 +1354,8 @@
 									"precision": 28
 								},
 								"sink": {
-									"name": "crc90_smc_itemgroupname",
-									"type": "String"
+									"name": "crc90_smc_latestcostprice",
+									"type": "Decimal"
 								}
 							},
 							{
@@ -1352,26 +1365,13 @@
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "crc90_smc_latestcostprice",
-									"type": "Decimal"
-								}
-							},
-							{
-								"source": {
-									"name": "smc_MaxOrderQuantity",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 12,
-									"precision": 28
-								},
-								"sink": {
 									"name": "crc90_smc_linediscountgroup",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "smc_OrderQuantity",
+									"name": "smc_MaxOrderQuantity",
 									"type": "Decimal",
 									"physicalType": "decimal",
 									"scale": 12,
@@ -1384,9 +1384,11 @@
 							},
 							{
 								"source": {
-									"name": "smc_PrimaryVendor",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "smc_OrderQuantity",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
 								},
 								"sink": {
 									"name": "crc90_smc_orderquantity",
@@ -1395,7 +1397,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ProductBK",
+									"name": "smc_PrimaryVendor",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1406,7 +1408,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ProductGroupCode",
+									"name": "smc_ProductBK",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1417,7 +1419,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ProductGroupDescription",
+									"name": "smc_ProductGroupCode",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1428,7 +1430,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ProductGroupLevel1",
+									"name": "smc_ProductGroupDescription",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1439,7 +1441,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ProductGroupLevel2",
+									"name": "smc_ProductGroupLevel1",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1450,7 +1452,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ProductLifecycleState",
+									"name": "smc_ProductGroupLevel2",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1461,7 +1463,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ProductName",
+									"name": "smc_ProductLifecycleState",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1472,7 +1474,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_Productname_DE",
+									"name": "smc_ProductName",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1483,7 +1485,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_Productname_FR",
+									"name": "smc_Productname_DE",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1494,7 +1496,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_Productname_NL",
+									"name": "smc_Productname_FR",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1505,7 +1507,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ProductNumber",
+									"name": "smc_Productname_NL",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1516,7 +1518,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ProductNumberVendor",
+									"name": "smc_ProductNumber",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1527,7 +1529,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ProductSetYN",
+									"name": "smc_ProductNumberVendor",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1538,9 +1540,9 @@
 							},
 							{
 								"source": {
-									"name": "smc_PurchaseLeadTime",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "smc_ProductSetYN",
+									"type": "String",
+									"physicalType": "nvarchar"
 								},
 								"sink": {
 									"name": "crc90_smc_productsetyn",
@@ -1549,11 +1551,9 @@
 							},
 							{
 								"source": {
-									"name": "smc_PurchaseMaxOrderQty",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 12,
-									"precision": 28
+									"name": "smc_PurchaseLeadTime",
+									"type": "Int32",
+									"physicalType": "int"
 								},
 								"sink": {
 									"name": "crc90_smc_purchaseleadtime",
@@ -1562,7 +1562,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_PurchaseMinOrderQty",
+									"name": "smc_PurchaseMaxOrderQty",
 									"type": "Decimal",
 									"physicalType": "decimal",
 									"scale": 12,
@@ -1575,7 +1575,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_PurchaseQtyMultiple",
+									"name": "smc_PurchaseMinOrderQty",
 									"type": "Decimal",
 									"physicalType": "decimal",
 									"scale": 12,
@@ -1588,7 +1588,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_PurchaseStandardOrderQty",
+									"name": "smc_PurchaseQtyMultiple",
 									"type": "Decimal",
 									"physicalType": "decimal",
 									"scale": 12,
@@ -1601,9 +1601,11 @@
 							},
 							{
 								"source": {
-									"name": "smc_PurchLeadtime",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "smc_PurchaseStandardOrderQty",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
 								},
 								"sink": {
 									"name": "crc90_smc_purchasestandardorderqty",
@@ -1612,9 +1614,9 @@
 							},
 							{
 								"source": {
-									"name": "smc_RaYoSalesGroup",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "smc_PurchLeadtime",
+									"type": "Int32",
+									"physicalType": "int"
 								},
 								"sink": {
 									"name": "crc90_smc_purchleadtime",
@@ -1623,7 +1625,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ReplacementPart",
+									"name": "smc_RaYoSalesGroup",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1634,7 +1636,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ReplacementPartsList",
+									"name": "smc_ReplacementPart",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1645,7 +1647,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_ReportGroupCode",
+									"name": "smc_ReplacementPartsList",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1656,9 +1658,9 @@
 							},
 							{
 								"source": {
-									"name": "smc_SalesGroup",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "smc_ReportGroupCode",
+									"type": "String",
+									"physicalType": "nvarchar"
 								},
 								"sink": {
 									"name": "crc90_smc_reportgroupcode",
@@ -1667,11 +1669,9 @@
 							},
 							{
 								"source": {
-									"name": "smc_SalesMaxOrderQty",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 12,
-									"precision": 28
+									"name": "smc_SalesGroup",
+									"type": "Int32",
+									"physicalType": "int"
 								},
 								"sink": {
 									"name": "crc90_smc_salesgroup",
@@ -1680,7 +1680,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_SalesMinOrderQty",
+									"name": "smc_SalesMaxOrderQty",
 									"type": "Decimal",
 									"physicalType": "decimal",
 									"scale": 12,
@@ -1693,7 +1693,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_SalesQtyMultiple",
+									"name": "smc_SalesMinOrderQty",
 									"type": "Decimal",
 									"physicalType": "decimal",
 									"scale": 12,
@@ -1706,7 +1706,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_SalesStandardOrderQty",
+									"name": "smc_SalesQtyMultiple",
 									"type": "Decimal",
 									"physicalType": "decimal",
 									"scale": 12,
@@ -1719,9 +1719,11 @@
 							},
 							{
 								"source": {
-									"name": "smc_SeriesGroupCode",
-									"type": "String",
-									"physicalType": "nvarchar"
+									"name": "smc_SalesStandardOrderQty",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 12,
+									"precision": 28
 								},
 								"sink": {
 									"name": "crc90_smc_salesstandardorderqty",
@@ -1730,7 +1732,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_SeriesGroupDescription",
+									"name": "smc_SeriesGroupCode",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1741,7 +1743,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_Status",
+									"name": "smc_SeriesGroupDescription",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
@@ -1752,9 +1754,9 @@
 							},
 							{
 								"source": {
-									"name": "smc_stockECW",
-									"type": "Int32",
-									"physicalType": "int"
+									"name": "smc_Status",
+									"type": "String",
+									"physicalType": "nvarchar"
 								},
 								"sink": {
 									"name": "crc90_smc_status",
@@ -1763,7 +1765,7 @@
 							},
 							{
 								"source": {
-									"name": "smc_stockEIN",
+									"name": "smc_stockECW",
 									"type": "Int32",
 									"physicalType": "int"
 								},
@@ -1774,13 +1776,24 @@
 							},
 							{
 								"source": {
+									"name": "smc_stockEIN",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "crc90_smc_stockein",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
 									"name": "smc_SubstitutePartsList",
 									"type": "String",
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "crc90_smc_stockein",
-									"type": "Int32"
+									"name": "crc90_smc_substitutepartslist",
+									"type": "String"
 								}
 							},
 							{
@@ -1790,7 +1803,7 @@
 									"physicalType": "nvarchar"
 								},
 								"sink": {
-									"name": "crc90_smc_substitutepartslist",
+									"name": "crc90_smc_type_non_pneumatic",
 									"type": "String"
 								}
 							},
@@ -1803,188 +1816,8 @@
 									"precision": 28
 								},
 								"sink": {
-									"name": "crc90_smc_type_non_pneumatic",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
 									"name": "crc90_smc_weigth",
 									"type": "Decimal"
-								}
-							},
-							{
-								"sink": {
-									"name": "createdby",
-									"type": "Guid"
-								}
-							},
-							{
-								"sink": {
-									"name": "createdbyname",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "createdbyyominame",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "createdon",
-									"type": "DateTime"
-								}
-							},
-							{
-								"sink": {
-									"name": "createdonbehalfby",
-									"type": "Guid"
-								}
-							},
-							{
-								"sink": {
-									"name": "createdonbehalfbyname",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "createdonbehalfbyyominame",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "importsequencenumber",
-									"type": "Int32"
-								}
-							},
-							{
-								"sink": {
-									"name": "modifiedby",
-									"type": "Guid"
-								}
-							},
-							{
-								"sink": {
-									"name": "modifiedbyname",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "modifiedbyyominame",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "modifiedon",
-									"type": "DateTime"
-								}
-							},
-							{
-								"sink": {
-									"name": "modifiedonbehalfby",
-									"type": "Guid"
-								}
-							},
-							{
-								"sink": {
-									"name": "modifiedonbehalfbyname",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "modifiedonbehalfbyyominame",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "overriddencreatedon",
-									"type": "DateTime"
-								}
-							},
-							{
-								"sink": {
-									"name": "ownerid",
-									"type": "Guid"
-								}
-							},
-							{
-								"sink": {
-									"name": "owneridname",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "owneridtype",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "owneridyominame",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "owningbusinessunit",
-									"type": "Guid"
-								}
-							},
-							{
-								"sink": {
-									"name": "owningbusinessunitname",
-									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "owningteam",
-									"type": "Guid"
-								}
-							},
-							{
-								"sink": {
-									"name": "owninguser",
-									"type": "Guid"
-								}
-							},
-							{
-								"sink": {
-									"name": "statecode",
-									"type": "Int32"
-								}
-							},
-							{
-								"sink": {
-									"name": "statuscode",
-									"type": "Int32"
-								}
-							},
-							{
-								"sink": {
-									"name": "timezoneruleversionnumber",
-									"type": "Int32"
-								}
-							},
-							{
-								"sink": {
-									"name": "utcconversiontimezonecode",
-									"type": "Int32"
-								}
-							},
-							{
-								"sink": {
-									"name": "versionnumber",
-									"type": "Int64"
 								}
 							}
 						],
