@@ -1,0 +1,23 @@
+{
+	"name": "DataverseExport_PLG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Dataverse_smc_plg_crm4",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"DataverseTable": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "CommonDataServiceForAppsEntity",
+		"schema": [],
+		"typeProperties": {
+			"entityName": {
+				"value": "@dataset().DataverseTable",
+				"type": "Expression"
+			}
+		}
+	}
+}
