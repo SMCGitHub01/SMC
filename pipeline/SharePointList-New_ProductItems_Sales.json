@@ -1,0 +1,10 @@
+{
+	"name": "SharePointList-New_ProductItems_Sales",
+	"properties": {
+		"description": "This pipeline refreshed a DB table from a sharepoint list\n",
+		"folder": {
+			"name": "PRD-OnDemand"
+		},
+		"annotations": []
+	}
+}
