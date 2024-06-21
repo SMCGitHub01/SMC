@@ -494,6 +494,22 @@
 									"scale": 0,
 									"precision": 3
 								}
+							},
+							{
+								"source": {
+									"name": "Acquisition code",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 1
+								},
+								"sink": {
+									"name": "AcquisitionCode",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 1
+								}
 							}
 						],
 						"typeConversion": true,
