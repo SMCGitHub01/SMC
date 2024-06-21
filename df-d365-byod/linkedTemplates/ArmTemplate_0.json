@@ -35,6 +35,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Dataverse_smc_dev_crm4'"
 		},
+		"Dataverse_smc_plg_crm4_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Dataverse_smc_plg_crm4'"
+		},
+		"Dataverse_smc_prd_crm4_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Dataverse_smc_prd_crm4'"
+		},
+		"Dataverse_smc_uat_crm4_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Dataverse_smc_uat_crm4'"
+		},
 		"Afas_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://86941.rest.afas.online/profitrestservices/connectors/"
@@ -63,17 +75,17 @@
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
-		"HttpServer1_properties_typeProperties_url": {
+		"Dataverse_smc_plg_crm4_properties_typeProperties_username": {
 			"type": "string",
-			"defaultValue": "https://scsanctions.un.org/resources/xml/en/"
+			"defaultValue": "FoPowerAutomate@aquapro.onmicrosoft.com"
 		},
-		"HttpServer2_properties_typeProperties_url": {
+		"Dataverse_smc_prd_crm4_properties_typeProperties_username": {
 			"type": "string",
-			"defaultValue": "https://aquapro.sharepoint.com/sites/Engineering64/PGMT/_api/web/lists/GetByTitle('Tracking%20Number')/items"
+			"defaultValue": "FoPowerAutomate@aquapro.onmicrosoft.com"
 		},
-		"KeyVault_properties_typeProperties_baseUrl": {
+		"Dataverse_smc_uat_crm4_properties_typeProperties_username": {
 			"type": "string",
-			"defaultValue": "https://KV-SMC-BYODACC.vault.azure.net/"
+			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		}
 	},
 	"variables": {
@@ -1430,44 +1442,62 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/HttpServer1')]",
+			"name": "[concat(parameters('factoryName'), '/Dataverse_smc_plg_crm4')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"type": "HttpServer",
+				"type": "CommonDataServiceForApps",
 				"typeProperties": {
-					"url": "[parameters('HttpServer1_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Anonymous"
+					"deploymentType": "Online",
+					"serviceUri": "https://smcdev.crm4.dynamics.com",
+					"authenticationType": "Office365",
+					"username": "[parameters('Dataverse_smc_plg_crm4_properties_typeProperties_username')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Dataverse_smc_plg_crm4_password')]"
+					}
 				}
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/HttpServer2')]",
+			"name": "[concat(parameters('factoryName'), '/Dataverse_smc_prd_crm4')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"type": "HttpServer",
+				"type": "CommonDataServiceForApps",
 				"typeProperties": {
-					"url": "[parameters('HttpServer2_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
-					"authenticationType": "Anonymous"
+					"deploymentType": "Online",
+					"serviceUri": "https://smc-prd.crm4.dynamics.com",
+					"authenticationType": "Office365",
+					"username": "[parameters('Dataverse_smc_prd_crm4_properties_typeProperties_username')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Dataverse_smc_prd_crm4_password')]"
+					}
 				}
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/KeyVault')]",
+			"name": "[concat(parameters('factoryName'), '/Dataverse_smc_uat_crm4')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"description": "This connection is used to update dataverse tables in UAT environment",
 				"annotations": [],
-				"type": "AzureKeyVault",
+				"type": "CommonDataServiceForApps",
 				"typeProperties": {
-					"baseUrl": "[parameters('KeyVault_properties_typeProperties_baseUrl')]"
+					"deploymentType": "Online",
+					"serviceUri": "https://smc-uat.crm4.dynamics.com",
+					"authenticationType": "Office365",
+					"username": "[parameters('Dataverse_smc_uat_crm4_properties_typeProperties_username')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Dataverse_smc_uat_crm4_password')]"
+					}
 				}
 			},
 			"dependsOn": []

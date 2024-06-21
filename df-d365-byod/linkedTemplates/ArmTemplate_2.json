@@ -11,38 +11,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AnyWhereSQL'"
 		},
-		"DWHloads_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'DWHloads'"
-		},
-		"EITserver_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'EITserver'"
-		},
-		"FO_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'FO'"
-		},
-		"MicrosoftAccess1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'MicrosoftAccess1'"
-		},
-		"MicrosoftAccess1_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'MicrosoftAccess1'"
-		},
-		"MicrosoftAccess1_credential": {
-			"type": "secureString",
-			"metadata": "Secure string for 'credential' of 'MicrosoftAccess1'"
-		},
-		"SugarCRM_Pord_cloud_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Pord_cloud'"
-		},
-		"SugarCRM_Production_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Production'"
-		},
 		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringDEV"
@@ -50,32 +18,177 @@
 		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "DWHConnectionStringPRD"
-		},
-		"DWHloads_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "d:\\General\\ICT\\"
-		},
-		"DWHloads_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "AMSSRV011\\DWHZendesk"
-		},
-		"FO_properties_typeProperties_host": {
-			"type": "string",
-			"defaultValue": "d:\\General\\File exchange folder (MAX7D)\\FO\\"
-		},
-		"FO_properties_typeProperties_userId": {
-			"type": "string",
-			"defaultValue": "AMSSRV011\\DWHZendesk"
-		},
-		"MicrosoftAccess1_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AfasJson')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AfasHttp",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "Medewerker_formatieverdeling_tbv_J-form"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"skip": {
+							"type": "integer"
+						},
+						"take": {
+							"type": "integer"
+						},
+						"rows": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Medewerker": {
+										"type": "string"
+									},
+									"Begindatum_functie": {
+										"type": "string"
+									},
+									"Einddatum_functie": {
+										"type": "null"
+									},
+									"Organisatorische_eenheid": {
+										"type": "string"
+									},
+									"Kostenplaats": {
+										"type": "string"
+									},
+									"Omschrijving_kpl": {
+										"type": "string"
+									},
+									"Kostendrager": {
+										"type": "string"
+									},
+									"Omschrijving_kdr": {
+										"type": "string"
+									},
+									"Percentage": {
+										"type": "number"
+									},
+									"Aantal_FTE": {
+										"type": "number"
+									},
+									"Werkgever": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AfasJson2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AfasHttp",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "Medewerker_formatieverdeling_tbv_J-form?skip=-1&take=-1"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"skip": {
+							"type": "integer"
+						},
+						"take": {
+							"type": "integer"
+						},
+						"rows": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"Medewerker": {
+										"type": "string"
+									},
+									"Begindatum_functie": {
+										"type": "string"
+									},
+									"Einddatum_functie": {
+										"type": "null"
+									},
+									"Organisatorische_eenheid": {
+										"type": "string"
+									},
+									"Kostenplaats": {
+										"type": "string"
+									},
+									"Omschrijving_kpl": {
+										"type": "string"
+									},
+									"Kostendrager": {
+										"type": "string"
+									},
+									"Omschrijving_kdr": {
+										"type": "string"
+									},
+									"Percentage": {
+										"type": "number"
+									},
+									"Aantal_FTE": {
+										"type": "number"
+									},
+									"Werkgever": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Afas_dataset')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Afas",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {
+					"relativeUrl": {
+						"value": "Medewerker_formatieverdeling_tbv_J-form?skip=-1&take=-1",
+						"type": "Expression"
+					}
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AzureSqlMITable1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -137,12 +250,90 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DataverseExport')]",
+			"name": "[concat(parameters('factoryName'), '/DataverseExport_DEV')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "Dataverse_smc_dev_crm4",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"DataverseTable": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "CommonDataServiceForAppsEntity",
+				"schema": [],
+				"typeProperties": {
+					"entityName": {
+						"value": "@dataset().DataverseTable",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataverseExport_PLG')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Dataverse_smc_plg_crm4",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"DataverseTable": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "CommonDataServiceForAppsEntity",
+				"schema": [],
+				"typeProperties": {
+					"entityName": {
+						"value": "@dataset().DataverseTable",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataverseExport_PRD')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Dataverse_smc_prd_crm4",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"DataverseTable": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "CommonDataServiceForAppsEntity",
+				"schema": [],
+				"typeProperties": {
+					"entityName": {
+						"value": "@dataset().DataverseTable",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataverseExport_UAT')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Dataverse_smc_uat_crm4",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
@@ -375,131 +566,6 @@
 						},
 						"secretName": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
 					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DWHloads')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "FileServer",
-				"typeProperties": {
-					"host": "[parameters('DWHloads_properties_typeProperties_host')]",
-					"userId": "[parameters('DWHloads_properties_typeProperties_userId')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('DWHloads_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "ZenDesk",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/EITserver')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('EITserver_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "EIT-DataWarehouse",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/FO')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "FileServer",
-				"typeProperties": {
-					"host": "[parameters('FO_properties_typeProperties_host')]",
-					"userId": "[parameters('FO_properties_typeProperties_userId')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('FO_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "ZenDesk",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/MicrosoftAccess1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\General\\File exchange folder (MAX7D)\\FO\\DWH\\rrp.mdb;Persist Security Info=False;",
-				"annotations": [],
-				"type": "MicrosoftAccess",
-				"typeProperties": {
-					"connectionString": "[parameters('MicrosoftAccess1_connectionString')]",
-					"authenticationType": "Basic",
-					"userName": "[parameters('MicrosoftAccess1_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('MicrosoftAccess1_password')]"
-					},
-					"credential": {
-						"type": "SecureString",
-						"value": "[parameters('MicrosoftAccess1_credential')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "ZenDesk",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SugarCRM_Pord_cloud')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Connection to the database server for sugar in the cloud us-azir-ap-P01\nconnection set up with Mohammed A. Hassan  and Alex N. Jung 11-10-2023\nserver name ip could be changed to sc-reports.1smc.com",
-				"annotations": [],
-				"type": "MySql",
-				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Pord_cloud_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "SugarCRM",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SugarCRM_Production')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "This connection is setup on 2020/09/25 together with Mohammed A Hassan (SMC US IT Department), Kirk Becnel and Stefan Jaenicke (creator of the views)\nFor support@1smc.com",
-				"annotations": [],
-				"type": "MySql",
-				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Production_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "SugarCRM",
-					"type": "IntegrationRuntimeReference"
 				}
 			},
 			"dependsOn": []
