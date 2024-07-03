@@ -1,0 +1,10 @@
+{
+	"name": "PRD_Sharepoint_ProductMaintenance",
+	"properties": {
+		"description": "This Pipeline copies into the BYOD all SharePoint lists used for Product Maintenance",
+		"folder": {
+			"name": "PRD_SharePoint"
+		},
+		"annotations": []
+	}
+}
