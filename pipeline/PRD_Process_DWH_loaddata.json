@@ -465,6 +465,29 @@
 					},
 					"waitOnCompletion": true
 				}
+			},
+			{
+				"name": "PRD_Sharepoint_ProductMaintenance",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Lookup_Current_Sync_And_Date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "PRD_Sharepoint_ProductMaintenance",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"folder": {
