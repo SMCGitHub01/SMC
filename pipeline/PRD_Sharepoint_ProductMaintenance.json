@@ -102,6 +102,117 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "CoverageGroupTranslationByESLT",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SharePointOnlineListSource",
+						"httpRequestTimeout": "00:05:00"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "truncate table sharepoint.CoverageGroupTranslationByESLT",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Title",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CurrentCoverageGroup",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ESLT_Less_3_Months",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ESLT_Less_3_Months",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ESLT_Between_3_And_7_Months",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ESLT_Between_3_And_7_Months",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ESLT_Greater_7_Months",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ESLT_Greater_7_Months",
+									"type": "String",
+									"physicalType": "nvarchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Id",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "Id",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SharePointLists_PowerBI",
+						"type": "DatasetReference",
+						"parameters": {
+							"list": "CoverageGroupTranslationByESLT"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "sharepoint",
+							"TableName": "CoverageGroupTranslationByESLT"
+						}
+					}
+				]
 			}
 		],
 		"folder": {
