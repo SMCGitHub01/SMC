@@ -1195,12 +1195,6 @@
 								}
 							},
 							{
-								"sink": {
-									"name": "smc_concatnamecustomerid",
-									"type": "String"
-								}
-							},
-							{
 								"source": {
 									"name": "smc_CountryRegionISOCode",
 									"type": "String",
@@ -1719,12 +1713,6 @@
 								"sink": {
 									"name": "smc_segmentdescription",
 									"type": "String"
-								}
-							},
-							{
-								"sink": {
-									"name": "smc_shared_dwh_dimcustomerid",
-									"type": "Guid"
 								}
 							},
 							{
