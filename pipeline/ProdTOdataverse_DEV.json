@@ -1187,12 +1187,6 @@
 								}
 							},
 							{
-								"sink": {
-									"name": "smc_concatnamecustomerid",
-									"type": "String"
-								}
-							},
-							{
 								"source": {
 									"name": "smc_CountryRegionISOCode",
 									"type": "String",
@@ -1404,6 +1398,11 @@
 								}
 							},
 							{
+								"source": {
+									"name": "smc_GlobalIndustryCodePercentage",
+									"type": "Int32",
+									"physicalType": "int"
+								},
 								"sink": {
 									"name": "smc_globalindustrycodepercentage",
 									"type": "Int32"
@@ -1709,12 +1708,6 @@
 								}
 							},
 							{
-								"sink": {
-									"name": "smc_shared_dwh_dimcustomerid",
-									"type": "Guid"
-								}
-							},
-							{
 								"source": {
 									"name": "smc_SMCTargetKey",
 									"type": "String",
@@ -1894,18 +1887,12 @@
 							},
 							{
 								"source": {
-									"name": "VisitFrequency",
+									"name": "smc_VisitFrequency",
 									"type": "Int32",
 									"physicalType": "int"
 								},
 								"sink": {
 									"name": "smc_visitfrequency",
-									"type": "Int32"
-								}
-							},
-							{
-								"sink": {
-									"name": "statecode",
 									"type": "Int32"
 								}
 							}
