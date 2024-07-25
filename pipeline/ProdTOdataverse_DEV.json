@@ -2017,6 +2017,17 @@
 									"name": "smc_salesgroupname",
 									"type": "String"
 								}
+							},
+							{
+								"source": {
+									"name": "smc_SalesRepresentativeID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_salesrepresentativeid",
+									"type": "String"
+								}
 							}
 						],
 						"typeConversion": true,
