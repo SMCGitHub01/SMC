@@ -1957,7 +1957,7 @@
 						"writeBatchSize": 10,
 						"writeBehavior": "upsert",
 						"ignoreNullValues": false,
-						"alternateKeyName": "smc_SalesGroup"
+						"alternateKeyName": "smc_dwhdimsalesrepresentative_key"
 					},
 					"enableStaging": false,
 					"translator": {
