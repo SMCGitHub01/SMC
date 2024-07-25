@@ -1955,7 +1955,9 @@
 					"sink": {
 						"type": "CommonDataServiceForAppsSink",
 						"writeBatchSize": 10,
-						"writeBehavior": "upsert"
+						"writeBehavior": "upsert",
+						"ignoreNullValues": false,
+						"alternateKeyName": "smc_SalesGroup"
 					},
 					"enableStaging": false,
 					"translator": {
