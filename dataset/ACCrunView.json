@@ -5,6 +5,9 @@
 			"referenceName": "AzureSqlMI1",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "NOT used"
+		},
 		"annotations": [],
 		"type": "AzureSqlMITable",
 		"schema": []
