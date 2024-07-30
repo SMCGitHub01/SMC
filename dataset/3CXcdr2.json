@@ -5,6 +5,9 @@
 			"referenceName": "ZendeskDownload",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "NOT used"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
