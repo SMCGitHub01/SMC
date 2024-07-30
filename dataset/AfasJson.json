@@ -5,6 +5,9 @@
 			"referenceName": "AfasHttp",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "NOT used"
+		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
