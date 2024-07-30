@@ -5,6 +5,9 @@
 			"referenceName": "blobstoragescm",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "NOT used"
+		},
 		"annotations": [],
 		"type": "Xml",
 		"typeProperties": {
