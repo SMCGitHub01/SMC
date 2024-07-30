@@ -10,6 +10,9 @@
 				"type": "string"
 			}
 		},
+		"folder": {
+			"name": "NOT used"
+		},
 		"annotations": [],
 		"type": "RestResource",
 		"schema": []
