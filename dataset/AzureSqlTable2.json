@@ -5,6 +5,9 @@
 			"referenceName": "Azure_D365_PROD",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "NOT used"
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
