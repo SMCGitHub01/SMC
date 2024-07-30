@@ -5,6 +5,9 @@
 			"referenceName": "HttpServer2",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "NOT used"
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
