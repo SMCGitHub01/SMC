@@ -1018,7 +1018,10 @@
 				"outputs": [
 					{
 						"referenceName": "DataverseExport_UAT",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"DataverseTable": "smc_dwhdimproduct"
+						}
 					}
 				]
 			},
