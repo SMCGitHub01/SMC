@@ -27,6 +27,580 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "InhoudstypeId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "createdby",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "BrutoPrijs",
+									"type": "String"
+								},
+								"sink": {
+									"name": "createdbyname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ActivumIdVoorCompliance",
+									"type": "String"
+								},
+								"sink": {
+									"name": "createdbyyominame",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "KlantId",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "createdon",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "SerieId",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "createdonbehalfby",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "StrokeId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "createdonbehalfbyname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductcategorieId",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "createdonbehalfbyyominame",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Artikelcode",
+									"type": "String"
+								},
+								"sink": {
+									"name": "importsequencenumber",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "OmschrijvingNL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "modifiedby",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "StatusValue",
+									"type": "String"
+								},
+								"sink": {
+									"name": "modifiedbyname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "StatusOpmerking",
+									"type": "String"
+								},
+								"sink": {
+									"name": "modifiedbyyominame",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CZ",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "modifiedon",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Approved",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "modifiedonbehalfby",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "RRPSMCNL",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "modifiedonbehalfbyname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JaarValue",
+									"type": "String"
+								},
+								"sink": {
+									"name": "modifiedonbehalfbyyominame",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "StatusD365Id",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "overriddencreatedon",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "MeldingD365",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ownerid",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "CustomerPartNr",
+									"type": "String"
+								},
+								"sink": {
+									"name": "owneridname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OmschrijvingENG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "owneridtype",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OmschrijvingFR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "owneridyominame",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OmschrijvingDE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "owningbusinessunit",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "RoutesId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "owningbusinessunitname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesEngineerId",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "owningteam",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "ContactPerson",
+									"type": "String"
+								},
+								"sink": {
+									"name": "owninguser",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "Aantal",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_commodity_code",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OmschrijvingClaim",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_createdby",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ReturnedPartNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_createdon",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ClaimStatusId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_customer",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SerialNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_customer_part_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Warranty",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "smc_cz_item",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"name": "ZendeskNr",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_itemnumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FOBCZ",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "smc_lastmodifedby",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Email",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_lastmodifiedon",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "PhoneNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_lastmodifiedpgmt1",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CommodityId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_omschrijving_de",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ProductRetour",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "smc_omschrijving_eng",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Delay",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "smc_omschrijving_fr",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CZFastTrack",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "smc_omschrijving_nl",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RepairTypeId",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_original_creator",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreateSiemensNetPriceReport",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "smc_pgmt1data",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"name": "CZSales",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "smc_productcatagorie",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ShipDate",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_productseries",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PriceCalculationReport",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "smc_route_id",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SalesCheck",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_sales_engineer",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Gemaakt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "smc_sales_status",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "SentToSales",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_sales_status_remarks",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Kleurlabel",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_smart_application_eng_tracking_listid",
+									"type": "Guid"
+								}
+							},
+							{
+								"source": {
+									"name": "TerechteClaim",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "smc_special_file_object_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Gewijzigd",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "smc_statusd365",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Id",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "smc_stroke",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Inhoudstype",
+									"type": "String"
+								},
+								"sink": {
+									"name": "smc_versionnumber",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "GemaaktDoorId",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "smc_year_of_creation",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "GewijzigdDoorId",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "smc_zendesk_ticket_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Owshiddenversion",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "statecode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "Versie",
+									"type": "String"
+								},
+								"sink": {
+									"name": "statuscode",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "Pad",
+									"type": "String"
+								},
+								"sink": {
+									"name": "timezoneruleversionnumber",
+									"type": "Int32"
+								}
+							},
+							{
+								"sink": {
+									"name": "utcconversiontimezonecode",
+									"type": "Int32"
+								}
+							},
+							{
+								"sink": {
+									"name": "versionnumber",
+									"type": "Int64"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
