@@ -5,8 +5,6 @@
 			{
 				"name": "routeIDlist",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -97,11 +95,8 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DataverseExport_DEV",
-						"type": "DatasetReference",
-						"parameters": {
-							"DataverseTable": "smc_shared_route_id"
-						}
+						"referenceName": "DataverseExport_UAT",
+						"type": "DatasetReference"
 					}
 				]
 			},
