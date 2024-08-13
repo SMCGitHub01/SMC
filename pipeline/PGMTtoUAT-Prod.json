@@ -20,9 +20,9 @@
 						"httpRequestTimeout": "00:05:00"
 					},
 					"sink": {
-						"type": "CommonDataServiceForAppsSink",
-						"writeBatchSize": 10,
-						"writeBehavior": "upsert"
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -619,10 +619,11 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DataverseExport_UAT",
+						"referenceName": "ACC_BYOD_DEV_DS",
 						"type": "DatasetReference",
 						"parameters": {
-							"DataverseTable": "smc_smart_application_eng_tracking_list"
+							"SchemaName": "sharepoint",
+							"TableName": "PGMTLiveData"
 						}
 					}
 				]
