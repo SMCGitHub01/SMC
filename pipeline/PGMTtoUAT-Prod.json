@@ -30,82 +30,13 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "InhoudstypeId",
-									"type": "String"
-								},
-								"sink": {
-									"name": "createdby",
-									"type": "Guid"
-								}
-							},
-							{
-								"source": {
-									"name": "BrutoPrijs",
-									"type": "String"
-								},
-								"sink": {
-									"name": "createdbyname",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "ActivumIdVoorCompliance",
-									"type": "String"
-								},
-								"sink": {
-									"name": "createdbyyominame",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "KlantId",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "createdon",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "SerieId",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "createdonbehalfby",
-									"type": "Guid"
-								}
-							},
-							{
-								"source": {
-									"name": "StrokeId",
-									"type": "String"
-								},
-								"sink": {
-									"name": "createdonbehalfbyname",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "ProductcategorieId",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "createdonbehalfbyyominame",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
 									"name": "Artikelcode",
 									"type": "String"
 								},
 								"sink": {
-									"name": "importsequencenumber",
-									"type": "Int32"
+									"name": "Artikelcode",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -114,8 +45,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "modifiedby",
-									"type": "Guid"
+									"name": "OmschrijvingNL",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -124,8 +56,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "modifiedbyname",
-									"type": "String"
+									"name": "StatusValue",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -134,8 +67,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "modifiedbyyominame",
-									"type": "String"
+									"name": "StatusOpmerking",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -144,8 +78,9 @@
 									"type": "Boolean"
 								},
 								"sink": {
-									"name": "modifiedon",
-									"type": "DateTime"
+									"name": "CZ",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -154,8 +89,9 @@
 									"type": "Boolean"
 								},
 								"sink": {
-									"name": "modifiedonbehalfby",
-									"type": "Guid"
+									"name": "Approved",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -164,8 +100,11 @@
 									"type": "Double"
 								},
 								"sink": {
-									"name": "modifiedonbehalfbyname",
-									"type": "String"
+									"name": "RRPSMCNL",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 6,
+									"precision": 32
 								}
 							},
 							{
@@ -174,18 +113,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "modifiedonbehalfbyyominame",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "StatusD365Id",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "overriddencreatedon",
-									"type": "DateTime"
+									"name": "JaarValue",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -194,8 +124,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "ownerid",
-									"type": "Guid"
+									"name": "MeldingD365",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -204,8 +135,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "owneridname",
-									"type": "String"
+									"name": "CustomerPartNr",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -214,8 +146,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "owneridtype",
-									"type": "String"
+									"name": "OmschrijvingENG",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -224,8 +157,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "owneridyominame",
-									"type": "String"
+									"name": "OmschrijvingFR",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -234,28 +168,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "owningbusinessunit",
-									"type": "Guid"
-								}
-							},
-							{
-								"source": {
-									"name": "RoutesId",
-									"type": "String"
-								},
-								"sink": {
-									"name": "owningbusinessunitname",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "SalesEngineerId",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "owningteam",
-									"type": "Guid"
+									"name": "OmschrijvingDE",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -264,8 +179,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "owninguser",
-									"type": "Guid"
+									"name": "ContactPerson",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -274,8 +190,11 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "smc_commodity_code",
-									"type": "String"
+									"name": "Aantal",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 6,
+									"precision": 32
 								}
 							},
 							{
@@ -284,8 +203,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "smc_createdby",
-									"type": "String"
+									"name": "OmschrijvingClaim",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -294,18 +214,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "smc_createdon",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "ClaimStatusId",
-									"type": "String"
-								},
-								"sink": {
-									"name": "smc_customer",
-									"type": "String"
+									"name": "ReturnedPartnumber",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -314,8 +225,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "smc_customer_part_number",
-									"type": "String"
+									"name": "SerialNumber",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -324,8 +236,9 @@
 									"type": "Boolean"
 								},
 								"sink": {
-									"name": "smc_cz_item",
-									"type": "Boolean"
+									"name": "Warranty",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -334,8 +247,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "smc_itemnumber",
-									"type": "String"
+									"name": "ZendeskNr",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -344,8 +258,11 @@
 									"type": "Double"
 								},
 								"sink": {
-									"name": "smc_lastmodifedby",
-									"type": "String"
+									"name": "FOBCZ",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 6,
+									"precision": 32
 								}
 							},
 							{
@@ -354,8 +271,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "smc_lastmodifiedon",
-									"type": "DateTime"
+									"name": "Email",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -364,18 +282,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "smc_lastmodifiedpgmt1",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "CommodityId",
-									"type": "String"
-								},
-								"sink": {
-									"name": "smc_omschrijving_de",
-									"type": "String"
+									"name": "PhoneNumber",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -384,8 +293,9 @@
 									"type": "Boolean"
 								},
 								"sink": {
-									"name": "smc_omschrijving_eng",
-									"type": "String"
+									"name": "Productretour",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -394,8 +304,11 @@
 									"type": "Double"
 								},
 								"sink": {
-									"name": "smc_omschrijving_fr",
-									"type": "String"
+									"name": "Delay",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 6,
+									"precision": 32
 								}
 							},
 							{
@@ -404,18 +317,9 @@
 									"type": "Boolean"
 								},
 								"sink": {
-									"name": "smc_omschrijving_nl",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "RepairTypeId",
-									"type": "String"
-								},
-								"sink": {
-									"name": "smc_original_creator",
-									"type": "String"
+									"name": "CZFasttrack",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -424,8 +328,9 @@
 									"type": "Boolean"
 								},
 								"sink": {
-									"name": "smc_pgmt1data",
-									"type": "Boolean"
+									"name": "CreateSiemensNetpricereport",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -434,8 +339,9 @@
 									"type": "Boolean"
 								},
 								"sink": {
-									"name": "smc_productcatagorie",
-									"type": "String"
+									"name": "CZSales",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -444,8 +350,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "smc_productseries",
-									"type": "String"
+									"name": "ShipDate",
+									"type": "DateTime",
+									"physicalType": "datetime"
 								}
 							},
 							{
@@ -454,8 +361,9 @@
 									"type": "Boolean"
 								},
 								"sink": {
-									"name": "smc_route_id",
-									"type": "String"
+									"name": "PricecalculationReport",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -464,8 +372,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "smc_sales_engineer",
-									"type": "String"
+									"name": "SalesCheck",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -474,8 +383,9 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "smc_sales_status",
-									"type": "Int32"
+									"name": "Gemaakt",
+									"type": "DateTime",
+									"physicalType": "datetime"
 								}
 							},
 							{
@@ -484,18 +394,9 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "smc_sales_status_remarks",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "Kleurlabel",
-									"type": "String"
-								},
-								"sink": {
-									"name": "smc_smart_application_eng_tracking_listid",
-									"type": "Guid"
+									"name": "SenttoSales",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -504,8 +405,9 @@
 									"type": "Boolean"
 								},
 								"sink": {
-									"name": "smc_special_file_object_name",
-									"type": "String"
+									"name": "TerechteClaim",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -514,28 +416,9 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "smc_statusd365",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "Id",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "smc_stroke",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "Inhoudstype",
-									"type": "String"
-								},
-								"sink": {
-									"name": "smc_versionnumber",
-									"type": "Int32"
+									"name": "Gewijzigd",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -544,8 +427,9 @@
 									"type": "Int32"
 								},
 								"sink": {
-									"name": "smc_year_of_creation",
-									"type": "Int32"
+									"name": "GemaaktDoorId",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -554,50 +438,9 @@
 									"type": "Int32"
 								},
 								"sink": {
-									"name": "smc_zendesk_ticket_number",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "Owshiddenversion",
-									"type": "Int32"
-								},
-								"sink": {
-									"name": "statecode",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "Versie",
-									"type": "String"
-								},
-								"sink": {
-									"name": "statuscode",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
-									"name": "Pad",
-									"type": "String"
-								},
-								"sink": {
-									"name": "timezoneruleversionnumber",
-									"type": "Int32"
-								}
-							},
-							{
-								"sink": {
-									"name": "utcconversiontimezonecode",
-									"type": "Int32"
-								}
-							},
-							{
-								"sink": {
-									"name": "versionnumber",
-									"type": "Int64"
+									"name": "GewijzigdDoorId",
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							}
 						],
