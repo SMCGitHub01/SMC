@@ -25,10 +25,23 @@
 						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
-					"enableSkipIncompatibleRow": true,
+					"enableSkipIncompatibleRow": false,
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
+							{
+								"source": {
+									"name": "Id",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "ID",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 0,
+									"precision": 32
+								}
+							},
 							{
 								"source": {
 									"name": "Artikelcode",
@@ -192,10 +205,8 @@
 								},
 								"sink": {
 									"name": "Aantal",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 6,
-									"precision": 32
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
@@ -352,8 +363,8 @@
 								},
 								"sink": {
 									"name": "ShipDate",
-									"type": "DateTime",
-									"physicalType": "datetime"
+									"type": "String",
+									"physicalType": "nvarchar"
 								}
 							},
 							{
