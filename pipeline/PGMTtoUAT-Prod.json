@@ -482,6 +482,85 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "Copy data2",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "CommonDataServiceForAppsSink",
+						"writeBatchSize": 10,
+						"writeBehavior": "upsert",
+						"ignoreNullValues": false,
+						"alternateKeyName": "smc_seriekey"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "smc_name",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_name",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_productcategory",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_productcategory",
+									"type": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ACC_BYOD_DEV_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "sharepoint",
+							"TableName": "series"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DataverseExport_UAT",
+						"type": "DatasetReference",
+						"parameters": {
+							"DataverseTable": "smc_serie"
+						}
+					}
+				]
 			}
 		],
 		"folder": {
