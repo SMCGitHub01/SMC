@@ -456,6 +456,9 @@
 					"referenceName": "ZendeskDownload",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -484,6 +487,9 @@
 					"referenceName": "ZendeskDownload",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -510,6 +516,9 @@
 				"linkedServiceName": {
 					"referenceName": "ZendeskDownload",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "DelimitedText",

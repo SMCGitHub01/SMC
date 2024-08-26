@@ -33,6 +33,9 @@
 					"referenceName": "AfasHttp",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "Json",
 				"typeProperties": {
@@ -105,6 +108,9 @@
 					"referenceName": "AfasHttp",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "Json",
 				"typeProperties": {
@@ -176,6 +182,9 @@
 				"linkedServiceName": {
 					"referenceName": "Afas",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "RestResource",
@@ -362,6 +371,9 @@
 					"referenceName": "HttpServer2",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -389,6 +401,9 @@
 					"AdminAPI": {
 						"type": "string"
 					}
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "RestResource",

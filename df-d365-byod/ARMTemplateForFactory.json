@@ -10446,6 +10446,587 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PGMTtoUAT-Prod')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "ID",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 0,
+											"precision": 32
+										}
+									},
+									{
+										"source": {
+											"name": "Artikelcode",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Artikelcode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingNL",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingNL",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusValue",
+											"type": "String"
+										},
+										"sink": {
+											"name": "StatusValue",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "StatusOpmerking",
+											"type": "String"
+										},
+										"sink": {
+											"name": "StatusOpmerking",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZ",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZ",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Approved",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Approved",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "RRPSMCNL",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "RRPSMCNL",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 6,
+											"precision": 32
+										}
+									},
+									{
+										"source": {
+											"name": "JaarValue",
+											"type": "String"
+										},
+										"sink": {
+											"name": "JaarValue",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "MeldingD365",
+											"type": "String"
+										},
+										"sink": {
+											"name": "MeldingD365",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CustomerPartNr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CustomerPartNr",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingENG",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingENG",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingFR",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingFR",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingDE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingDE",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ContactPerson",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ContactPerson",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Aantal",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Aantal",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OmschrijvingClaim",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OmschrijvingClaim",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ReturnedPartNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ReturnedPartnumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SerialNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SerialNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Warranty",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Warranty",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ZendeskNr",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ZendeskNr",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "FOBCZ",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "FOBCZ",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 6,
+											"precision": 32
+										}
+									},
+									{
+										"source": {
+											"name": "Email",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Email",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "PhoneNumber",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PhoneNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ProductRetour",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "Productretour",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Delay",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "Delay",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 6,
+											"precision": 32
+										}
+									},
+									{
+										"source": {
+											"name": "CZFastTrack",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZFasttrack",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CreateSiemensNetPriceReport",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CreateSiemensNetpricereport",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "CZSales",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "CZSales",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ShipDate",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ShipDate",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "PriceCalculationReport",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "PricecalculationReport",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SalesCheck",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SalesCheck",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Gemaakt",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Gemaakt",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										}
+									},
+									{
+										"source": {
+											"name": "SentToSales",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SenttoSales",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "TerechteClaim",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "TerechteClaim",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Gewijzigd",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Gewijzigd",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "GemaaktDoorId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "GemaaktDoorId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "GewijzigdDoorId",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "GewijzigdDoorId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "TrackingNumber"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "PGMTLiveData"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy data2",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "CommonDataServiceForAppsSink",
+								"writeBatchSize": 10,
+								"writeBehavior": "upsert",
+								"ignoreNullValues": false,
+								"alternateKeyName": "smc_seriekey"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "smc_name",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_productcategory",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_productcategory",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ACC_BYOD_DEV_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "series"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DataverseExport_UAT",
+								"type": "DatasetReference",
+								"parameters": {
+									"DataverseTable": "smc_serie"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD-TO-DATAVERSE"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SharePointLists')]",
+				"[concat(variables('factoryId'), '/datasets/ACC_BYOD_DEV_DS')]",
+				"[concat(variables('factoryId'), '/datasets/DataverseExport_UAT')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD-LOAD-CE-DATA')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -18346,6 +18927,549 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_Sharepoint_ProductMaintenance')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "This Pipeline copies into the BYOD all SharePoint lists used for Product Maintenance",
+				"activities": [
+					{
+						"name": "CoverageGroupTranslationByDefaultOrderType",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.CoverageGroupTranslationByDefaultOrderType",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "CurrentCoverageGroup",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CurrentCoverageGroup",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Production",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Production",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "PurchaseOrder",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PurchaseOrder",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "CoverageGroupTranslationByDefaultOrderType"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "CoverageGroupTranslationByDefaultOrderType"
+								}
+							}
+						]
+					},
+					{
+						"name": "CoverageGroupTranslationByESLT",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.CoverageGroupTranslationByESLT",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Title",
+											"type": "String"
+										},
+										"sink": {
+											"name": "CurrentCoverageGroup",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ESLT_Less_3_Months",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ESLT_Less_3_Months",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ESLT_Between_3_And_7_Months",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ESLT_Between_3_And_7_Months",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ESLT_Greater_7_Months",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ESLT_Greater_7_Months",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "CoverageGroupTranslationByESLT"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "CoverageGroupTranslationByESLT"
+								}
+							}
+						]
+					},
+					{
+						"name": "ATPValue",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.ATPValue",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Title",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ATPValue",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "ATPValue"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "ATPValue"
+								}
+							}
+						]
+					},
+					{
+						"name": "LeadTimePerCode4VendorCode6",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.LeadTimePerCode4VendorCode6",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Title",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Code4",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Vendor",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Vendor",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Standaard",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Standaard",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "SimpleSpecial",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SimpleSpecial",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Special",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Special",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Overig",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Overig",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "LeadTimePerCode4VendorCode6"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "LeadTimePerCode4VendorCode6"
+								}
+							}
+						]
+					},
+					{
+						"name": "CoverageGroupTranslationByECWDescription",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SharePointOnlineListSource",
+								"httpRequestTimeout": "00:05:00"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "truncate table sharepoint.CoverageGroupTranslationByECWDescription",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "JPN",
+											"type": "String"
+										},
+										"sink": {
+											"name": "JPN",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "NONKOGO",
+											"type": "String"
+										},
+										"sink": {
+											"name": "NONKOGO",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ECW",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ECW",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Id",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "Id",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Modified",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "Modified",
+											"type": "DateTime",
+											"physicalType": "datetime2"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SharePointLists_PowerBI",
+								"type": "DatasetReference",
+								"parameters": {
+									"list": "CoverageGroupsTranslation"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "sharepoint",
+									"TableName": "CoverageGroupTranslationByECWDescription"
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD_SharePoint"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/SharePointLists_PowerBI')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_SharpointSalesEngenieer')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -21344,7 +22468,7 @@
 						]
 					},
 					{
-						"name": "dimProduct_test",
+						"name": "dimProduct",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -21986,8 +23110,6 @@
 					{
 						"name": "ChillerServicePriceList",
 						"type": "Copy",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -22128,6 +23250,8 @@
 					{
 						"name": "ChillerServicePriceList_CHSSol",
 						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -22261,6 +23385,1030 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"DataverseTable": "smc_chillerservice_items_prices"
+								}
+							}
+						]
+					},
+					{
+						"name": "DimCustomer",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "CommonDataServiceForAppsSink",
+								"writeBatchSize": 10,
+								"writeBehavior": "upsert",
+								"ignoreNullValues": false,
+								"alternateKeyName": "smc_shared_dwh_dimcustomer_key"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "smc__9FieldMatrix",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc__9fieldmatrix",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_AccountSatus",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_accountsatus",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_AddressCity",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_addresscity",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_AddressStreet",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_addressstreet",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_AddressZipCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_addresszipcode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Annual_Forcast",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_annual_forcast",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_AutoSummaryInvoice",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_autosummaryinvoice",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Branch",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_branch",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CECustomerNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_cecustomernumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Channel",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_channel",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Classification",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_classification",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CompanyChain",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_companychain",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CountryRegionISOCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_countryregionisocode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CreditLimitCCY",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_creditlimitccy",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CustomerBK",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_customerbk",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CustomerGroup",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_customergroup",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CustomerID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_customerid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CustomerType",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_customertype",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DataAreaID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_dataareaid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DateCustomerSince",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "smc_datecustomersince",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DaysSinceLastMet",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_dayssincelastmet",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DeliveryTerms",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_deliveryterms",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DISCOUNTPRICEGROUPID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_discountpricegroupid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DistributerChannel",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_distributerchannel",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DistributerType",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_distributertype",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DistributorCustomerNo",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_distributorcustomerno",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_EmployeeResponsible",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_employeeresponsible",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_EndUserType",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_endusertype",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_FOCustomerNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_focustomernumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_GlobalIndustryCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_globalindustrycode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_GlobalIndustryCodeFull",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_globalindustrycodefull",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_GlobalIndustryCodePercentage",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_globalindustrycodepercentage",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_GUARANTEEEXPIRYDATE",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "smc_guaranteeexpirydate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_GUARANTEEINFO",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_guaranteeinfo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HolonNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_holonnumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HSO_DnA_DeleteDateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "smc_hso_dna_deletedatetime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HSO_DnA_InsertDateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "smc_hso_dna_insertdatetime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HSO_DnA_SourceConnectionID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_hso_dna_sourceconnectionid",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HSO_DnA_TargetMappingID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_hso_dna_targetmappingid",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HSO_DnA_UpdateDateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "smc_hso_dna_updatedatetime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Industry",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_industry",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_IndustryClassification",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_industryclassification",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_LastVisitDate",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "smc_lastvisitdate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_LineDiscountCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_linediscountcode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_LineOfBusiness",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_lineofbusiness",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_LineOfBusinessDescription",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_lineofbusinessdescription",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_MarketSharePercentage",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_marketsharepercentage",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Multinational",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_multinational",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Name",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_NumberOfEmployees",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_numberofemployees",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_PaymentCondition",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_paymentcondition",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Potential",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_potential",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_PrimaryDistributorID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_primarydistributorid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_PrimaryDistributorName",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_primarydistributorname",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_rank",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_rank",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesGroup",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_salesgroup",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesGroupDescription",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_salesgroupdescription",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Segment",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_segment",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SegmentDescription",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_segmentdescription",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SMCTargetKey",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_smctargetkey",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Source",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_source",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SubBranch",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_subbranch",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Subsegment",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_subsegment",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SubsegmentDescription",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_subsegmentdescription",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SugarCustomerNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_sugarcustomernumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SugarERPAccountId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_sugarerpaccountid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_TransportationDays",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_transportationdays",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Type1",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_type1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Type_Code",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_type_code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Type_level1",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_type_level1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Type_level2",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_type_level2",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Type_level3",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_type_level3",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_UserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_userid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_UserName",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_username",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Variable_Potential",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_variable_potential",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_VisitFrequency",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_visitfrequency",
+											"type": "Int32"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dataverse",
+									"TableName": "DimCustomer"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DataverseExport_DEV",
+								"type": "DatasetReference",
+								"parameters": {
+									"DataverseTable": "smc_shared_dwh_dimcustomer"
+								}
+							}
+						]
+					},
+					{
+						"name": "DimSalesRepresentative",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "CommonDataServiceForAppsSink",
+								"writeBatchSize": 10,
+								"writeBehavior": "upsert",
+								"ignoreNullValues": false,
+								"alternateKeyName": "smc_dwhdimsalesrepresentative_key"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "smc_DataAreaID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_dataareaid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesGroup",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_salesgroup",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesGroupDescription",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_salesgroupdescription",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesGroupEmail",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "smc_salesgroupemail",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesGroupName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "smc_salesgroupname",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesRepresentativeID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_salesrepresentativeid",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dataverse",
+									"TableName": "DimSalesRepresentative"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DataverseExport_DEV",
+								"type": "DatasetReference",
+								"parameters": {
+									"DataverseTable": "smc_dwhdimsalesrepresentative"
 								}
 							}
 						]
@@ -25177,8 +27325,6 @@
 					{
 						"name": "routeIDlist",
 						"type": "Copy",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -25269,7 +27415,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "DataverseExport_DEV",
+								"referenceName": "DataverseExport_UAT",
 								"type": "DatasetReference",
 								"parameters": {
 									"DataverseTable": "smc_shared_route_id"
@@ -25278,10 +27424,8 @@
 						]
 					},
 					{
-						"name": "dimProduct_test",
+						"name": "ChillerServicePriceList",
 						"type": "Copy",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -25302,7 +27446,287 @@
 								"writeBatchSize": 10,
 								"writeBehavior": "upsert",
 								"ignoreNullValues": true,
-								"alternateKeyName": "smc_shared_dwh_dimproduct_key"
+								"alternateKeyName": ""
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "smc_BaseSalesPrice",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_basesalesprice",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_ChillerServicePriceBK",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_chillerservicepricebk",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CustomerBK",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_customerbk",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_LatestCostPrice",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_latestcostprice",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_NetPrice",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_price",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_ProductBK",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_productbk",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_ProductNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_productnumber",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dataverse",
+									"TableName": "ChillerServicePriceList"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DataverseExport_UAT",
+								"type": "DatasetReference",
+								"parameters": {
+									"DataverseTable": "smc_df_chillerservicepricelist"
+								}
+							}
+						]
+					},
+					{
+						"name": "ChillerServicePriceList_CHSSol",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "CommonDataServiceForAppsSink",
+								"writeBatchSize": 10,
+								"writeBehavior": "upsert",
+								"ignoreNullValues": true,
+								"alternateKeyName": "smc_chillerservicepricebk_key"
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "smc_BaseSalesPrice",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_basesalesprice",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_ChillerServicePriceBK",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_chillerservicepricebk",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CustomerBK",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_customerbk",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_LatestCostPrice",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_latestcostprice",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_NetPrice",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_netprice",
+											"type": "Decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_ProductBK",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_productbk",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_ProductNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_productnumber",
+											"type": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dataverse",
+									"TableName": "ChillerServicePriceList"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DataverseExport_UAT",
+								"type": "DatasetReference",
+								"parameters": {
+									"DataverseTable": "smc_chillerservice_items_prices"
+								}
+							}
+						]
+					},
+					{
+						"name": "dimProduct",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "CommonDataServiceForAppsSink",
+								"writeBatchSize": 10,
+								"writeBehavior": "upsert",
+								"ignoreNullValues": true,
+								"alternateKeyName": "smc_dwhdimproduct_key"
 							},
 							"enableStaging": false,
 							"translator": {
@@ -25911,7 +28335,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "DataverseExport_DEV",
+								"referenceName": "DataverseExport_UAT",
 								"type": "DatasetReference",
 								"parameters": {
 									"DataverseTable": "smc_dwhdimproduct"
@@ -25920,10 +28344,8 @@
 						]
 					},
 					{
-						"name": "ChillerServicePriceList",
+						"name": "DimCustomer",
 						"type": "Copy",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [],
 						"policy": {
 							"timeout": "0.12:00:00",
@@ -25943,8 +28365,8 @@
 								"type": "CommonDataServiceForAppsSink",
 								"writeBatchSize": 10,
 								"writeBehavior": "upsert",
-								"ignoreNullValues": true,
-								"alternateKeyName": ""
+								"ignoreNullValues": false,
+								"alternateKeyName": "smc_shared_dwh_dimcustomer_key"
 							},
 							"enableStaging": false,
 							"translator": {
@@ -25952,26 +28374,160 @@
 								"mappings": [
 									{
 										"source": {
-											"name": "smc_BaseSalesPrice",
+											"name": "smc__9FieldMatrix",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc__9fieldmatrix",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_AccountSatus",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_accountsatus",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_AddressCity",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_addresscity",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_AddressStreet",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_addressstreet",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_AddressZipCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_addresszipcode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Annual_Forcast",
 											"type": "Decimal",
 											"physicalType": "decimal",
 											"scale": 12,
 											"precision": 28
 										},
 										"sink": {
-											"name": "smc_basesalesprice",
+											"name": "smc_annual_forcast",
 											"type": "Decimal"
 										}
 									},
 									{
 										"source": {
-											"name": "smc_ChillerServicePriceBK",
+											"name": "smc_AutoSummaryInvoice",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_autosummaryinvoice",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Branch",
 											"type": "String",
 											"physicalType": "nvarchar"
 										},
 										"sink": {
-											"name": "smc_chillerservicepricebk",
+											"name": "smc_branch",
 											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CECustomerNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_cecustomernumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Channel",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_channel",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Classification",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_classification",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CompanyChain",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_companychain",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CountryRegionISOCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_countryregionisocode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CreditLimitCCY",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 12,
+											"precision": 28
+										},
+										"sink": {
+											"name": "smc_creditlimitccy",
+											"type": "Decimal"
 										}
 									},
 									{
@@ -25987,50 +28543,677 @@
 									},
 									{
 										"source": {
-											"name": "smc_LatestCostPrice",
+											"name": "smc_CustomerGroup",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_customergroup",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CustomerID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_customerid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_CustomerType",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_customertype",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DataAreaID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_dataareaid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DateCustomerSince",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "smc_datecustomersince",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DaysSinceLastMet",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_dayssincelastmet",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DeliveryTerms",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_deliveryterms",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DISCOUNTPRICEGROUPID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_discountpricegroupid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DistributerChannel",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_distributerchannel",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DistributerType",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_distributertype",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_DistributorCustomerNo",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_distributorcustomerno",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_EmployeeResponsible",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_employeeresponsible",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_EndUserType",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_endusertype",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_FOCustomerNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_focustomernumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_GlobalIndustryCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_globalindustrycode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_GlobalIndustryCodeFull",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_globalindustrycodefull",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_GlobalIndustryCodePercentage",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_globalindustrycodepercentage",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_GUARANTEEEXPIRYDATE",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "smc_guaranteeexpirydate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_GUARANTEEINFO",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_guaranteeinfo",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HolonNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_holonnumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HSO_DnA_DeleteDateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "smc_hso_dna_deletedatetime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HSO_DnA_InsertDateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "smc_hso_dna_insertdatetime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HSO_DnA_SourceConnectionID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_hso_dna_sourceconnectionid",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HSO_DnA_TargetMappingID",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_hso_dna_targetmappingid",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_HSO_DnA_UpdateDateTime",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										},
+										"sink": {
+											"name": "smc_hso_dna_updatedatetime",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Industry",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_industry",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_IndustryClassification",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_industryclassification",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_LastVisitDate",
+											"type": "DateTime",
+											"physicalType": "date"
+										},
+										"sink": {
+											"name": "smc_lastvisitdate",
+											"type": "DateTime"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_LineDiscountCode",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_linediscountcode",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_LineOfBusiness",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_lineofbusiness",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_LineOfBusinessDescription",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_lineofbusinessdescription",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_MarketSharePercentage",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_marketsharepercentage",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Multinational",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_multinational",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Name",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_name",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_NumberOfEmployees",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_numberofemployees",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_PaymentCondition",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_paymentcondition",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Potential",
 											"type": "Decimal",
 											"physicalType": "decimal",
 											"scale": 12,
 											"precision": 28
 										},
 										"sink": {
-											"name": "smc_latestcostprice",
+											"name": "smc_potential",
 											"type": "Decimal"
 										}
 									},
 									{
 										"source": {
-											"name": "smc_NetPrice",
+											"name": "smc_PrimaryDistributorID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_primarydistributorid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_PrimaryDistributorName",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_primarydistributorname",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_rank",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_rank",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesGroup",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_salesgroup",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesGroupDescription",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_salesgroupdescription",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Segment",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_segment",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SegmentDescription",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_segmentdescription",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SMCTargetKey",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_smctargetkey",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Source",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_source",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SubBranch",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_subbranch",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Subsegment",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_subsegment",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SubsegmentDescription",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_subsegmentdescription",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SugarCustomerNumber",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_sugarcustomernumber",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SugarERPAccountId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_sugarerpaccountid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_TransportationDays",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "smc_transportationdays",
+											"type": "Int32"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Type1",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_type1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Type_Code",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_type_code",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Type_level1",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_type_level1",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Type_level2",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_type_level2",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Type_level3",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_type_level3",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_UserID",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_userid",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_UserName",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "smc_username",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_Variable_Potential",
 											"type": "Decimal",
 											"physicalType": "decimal",
 											"scale": 12,
 											"precision": 28
 										},
 										"sink": {
-											"name": "smc_price",
+											"name": "smc_variable_potential",
 											"type": "Decimal"
 										}
 									},
 									{
 										"source": {
-											"name": "smc_ProductBK",
-											"type": "String",
-											"physicalType": "nvarchar"
+											"name": "smc_VisitFrequency",
+											"type": "Int32",
+											"physicalType": "int"
 										},
 										"sink": {
-											"name": "smc_productbk",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"name": "smc_ProductNumber",
-											"type": "String",
-											"physicalType": "nvarchar"
-										},
-										"sink": {
-											"name": "smc_productnumber",
-											"type": "String"
+											"name": "smc_visitfrequency",
+											"type": "Int32"
 										}
 									}
 								],
@@ -26047,7 +29230,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dataverse",
-									"TableName": "ChillerServicePriceList"
+									"TableName": "DimCustomer"
 								}
 							}
 						],
@@ -26056,13 +29239,13 @@
 								"referenceName": "DataverseExport_UAT",
 								"type": "DatasetReference",
 								"parameters": {
-									"DataverseTable": "smc_df_chillerservicepricelist"
+									"DataverseTable": "smc_shared_dwh_dimcustomer"
 								}
 							}
 						]
 					},
 					{
-						"name": "ChillerServicePriceList_CHSSol",
+						"name": "DimSalesRepresentative",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -26083,8 +29266,8 @@
 								"type": "CommonDataServiceForAppsSink",
 								"writeBatchSize": 10,
 								"writeBehavior": "upsert",
-								"ignoreNullValues": true,
-								"alternateKeyName": "smc_chillerservicepricebk_key"
+								"ignoreNullValues": false,
+								"alternateKeyName": "smc_dwhdimsalesrepresentative_key"
 							},
 							"enableStaging": false,
 							"translator": {
@@ -26092,84 +29275,67 @@
 								"mappings": [
 									{
 										"source": {
-											"name": "smc_BaseSalesPrice",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 12,
-											"precision": 28
-										},
-										"sink": {
-											"name": "smc_basesalesprice",
-											"type": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "smc_ChillerServicePriceBK",
+											"name": "smc_DataAreaID",
 											"type": "String",
 											"physicalType": "nvarchar"
 										},
 										"sink": {
-											"name": "smc_chillerservicepricebk",
+											"name": "smc_dataareaid",
 											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "smc_CustomerBK",
+											"name": "smc_SalesGroup",
 											"type": "String",
 											"physicalType": "nvarchar"
 										},
 										"sink": {
-											"name": "smc_customerbk",
+											"name": "smc_salesgroup",
 											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "smc_LatestCostPrice",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 12,
-											"precision": 28
-										},
-										"sink": {
-											"name": "smc_latestcostprice",
-											"type": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "smc_NetPrice",
-											"type": "Decimal",
-											"physicalType": "decimal",
-											"scale": 12,
-											"precision": 28
-										},
-										"sink": {
-											"name": "smc_netprice",
-											"type": "Decimal"
-										}
-									},
-									{
-										"source": {
-											"name": "smc_ProductBK",
+											"name": "smc_SalesGroupDescription",
 											"type": "String",
 											"physicalType": "nvarchar"
 										},
 										"sink": {
-											"name": "smc_productbk",
+											"name": "smc_salesgroupdescription",
 											"type": "String"
 										}
 									},
 									{
 										"source": {
-											"name": "smc_ProductNumber",
+											"name": "smc_SalesGroupEmail",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "smc_salesgroupemail",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesGroupName",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "smc_salesgroupname",
+											"type": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "smc_SalesRepresentativeID",
 											"type": "String",
 											"physicalType": "nvarchar"
 										},
 										"sink": {
-											"name": "smc_productnumber",
+											"name": "smc_salesrepresentativeid",
 											"type": "String"
 										}
 									}
@@ -26187,7 +29353,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"SchemaName": "dataverse",
-									"TableName": "ChillerServicePriceList"
+									"TableName": "DimSalesRepresentative"
 								}
 							}
 						],
@@ -26196,7 +29362,7 @@
 								"referenceName": "DataverseExport_UAT",
 								"type": "DatasetReference",
 								"parameters": {
-									"DataverseTable": "smc_chillerservice_items_prices"
+									"DataverseTable": "smc_dwhdimsalesrepresentative"
 								}
 							}
 						]
@@ -26212,7 +29378,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
-				"[concat(variables('factoryId'), '/datasets/DataverseExport_DEV')]",
 				"[concat(variables('factoryId'), '/datasets/DataverseExport_UAT')]"
 			]
 		},
@@ -30758,6 +33923,9 @@
 					"referenceName": "ZendeskDownload",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -30786,6 +33954,9 @@
 					"referenceName": "ZendeskDownload",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -30812,6 +33983,9 @@
 				"linkedServiceName": {
 					"referenceName": "ZendeskDownload",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -31510,6 +34684,9 @@
 					"referenceName": "AzureSqlMI1",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "AzureSqlMITable",
 				"schema": [],
@@ -31527,6 +34704,9 @@
 				"linkedServiceName": {
 					"referenceName": "AfasHttp",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "Json",
@@ -31602,6 +34782,9 @@
 					"referenceName": "AfasHttp",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "Json",
 				"typeProperties": {
@@ -31676,6 +34859,9 @@
 					"referenceName": "Afas",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "RestResource",
 				"typeProperties": {
@@ -31716,6 +34902,9 @@
 				"linkedServiceName": {
 					"referenceName": "Azure_D365_DEV",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -31802,6 +34991,9 @@
 				"linkedServiceName": {
 					"referenceName": "Azure_D365_PROD",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -33174,6 +36366,9 @@
 					"referenceName": "ZendeskDownload",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
@@ -33199,6 +36394,9 @@
 				"linkedServiceName": {
 					"referenceName": "HttpServer2",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
@@ -36016,6 +39214,9 @@
 						"type": "string"
 					}
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "RestResource",
 				"typeProperties": {},
@@ -36222,6 +39423,9 @@
 				"linkedServiceName": {
 					"referenceName": "blobstoragescm",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "Xml",
@@ -39010,549 +42214,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage3')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable4')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Sharepoint_ProductMaintenance')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "This Pipeline copies into the BYOD all SharePoint lists used for Product Maintenance",
-				"activities": [
-					{
-						"name": "CoverageGroupTranslationByDefaultOrderType",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.CoverageGroupTranslationByDefaultOrderType",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "CurrentCoverageGroup",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CurrentCoverageGroup",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Production",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Production",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "PurchaseOrder",
-											"type": "String"
-										},
-										"sink": {
-											"name": "PurchaseOrder",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Id",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "Id",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SharePointLists_PowerBI",
-								"type": "DatasetReference",
-								"parameters": {
-									"list": "CoverageGroupTranslationByDefaultOrderType"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "CoverageGroupTranslationByDefaultOrderType"
-								}
-							}
-						]
-					},
-					{
-						"name": "CoverageGroupTranslationByESLT",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.CoverageGroupTranslationByESLT",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Title",
-											"type": "String"
-										},
-										"sink": {
-											"name": "CurrentCoverageGroup",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ESLT_Less_3_Months",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ESLT_Less_3_Months",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ESLT_Between_3_And_7_Months",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ESLT_Between_3_And_7_Months",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ESLT_Greater_7_Months",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ESLT_Greater_7_Months",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Id",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "Id",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SharePointLists_PowerBI",
-								"type": "DatasetReference",
-								"parameters": {
-									"list": "CoverageGroupTranslationByESLT"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "CoverageGroupTranslationByESLT"
-								}
-							}
-						]
-					},
-					{
-						"name": "ATPValue",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.ATPValue",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Title",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ATPValue",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SharePointLists_PowerBI",
-								"type": "DatasetReference",
-								"parameters": {
-									"list": "ATPValue"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "ATPValue"
-								}
-							}
-						]
-					},
-					{
-						"name": "LeadTimePerCode4VendorCode6",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.LeadTimePerCode4VendorCode6",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Title",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Code4",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Vendor",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Vendor",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Standaard",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Standaard",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "SimpleSpecial",
-											"type": "String"
-										},
-										"sink": {
-											"name": "SimpleSpecial",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "Special",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Special",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "Overig",
-											"type": "String"
-										},
-										"sink": {
-											"name": "Overig",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "Id",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "Id",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SharePointLists_PowerBI",
-								"type": "DatasetReference",
-								"parameters": {
-									"list": "LeadTimePerCode4VendorCode6"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "LeadTimePerCode4VendorCode6"
-								}
-							}
-						]
-					},
-					{
-						"name": "CoverageGroupTranslationByECWDescription",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SharePointOnlineListSource",
-								"httpRequestTimeout": "00:05:00"
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"preCopyScript": "truncate table sharepoint.CoverageGroupTranslationByECWDescription",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "JPN",
-											"type": "String"
-										},
-										"sink": {
-											"name": "JPN",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "NONKOGO",
-											"type": "String"
-										},
-										"sink": {
-											"name": "NONKOGO",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "ECW",
-											"type": "String"
-										},
-										"sink": {
-											"name": "ECW",
-											"type": "String",
-											"physicalType": "nvarchar"
-										}
-									},
-									{
-										"source": {
-											"name": "Id",
-											"type": "Int32"
-										},
-										"sink": {
-											"name": "Id",
-											"type": "Int32",
-											"physicalType": "int"
-										}
-									},
-									{
-										"source": {
-											"name": "Modified",
-											"type": "DateTime"
-										},
-										"sink": {
-											"name": "Modified",
-											"type": "DateTime",
-											"physicalType": "datetime2"
-										}
-									}
-								],
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SharePointLists_PowerBI",
-								"type": "DatasetReference",
-								"parameters": {
-									"list": "CoverageGroupsTranslation"
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_BYOD_DS",
-								"type": "DatasetReference",
-								"parameters": {
-									"SchemaName": "sharepoint",
-									"TableName": "CoverageGroupTranslationByECWDescription"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"folder": {
-					"name": "PRD_SharePoint"
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SharePointLists_PowerBI')]",
-				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]"
 			]
 		}
 	]

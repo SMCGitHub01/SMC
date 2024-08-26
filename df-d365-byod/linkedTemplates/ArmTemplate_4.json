@@ -440,6 +440,9 @@
 					"referenceName": "Azure_D365_DEV",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "NOT used"
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
@@ -523,6 +526,9 @@
 				"linkedServiceName": {
 					"referenceName": "Azure_D365_PROD",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
@@ -1728,6 +1734,9 @@
 				"linkedServiceName": {
 					"referenceName": "ZendeskDownload",
 					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "NOT used"
 				},
 				"annotations": [],
 				"type": "DelimitedText",
