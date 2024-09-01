@@ -1925,6 +1925,129 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "DimSalesRepresentative",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "CommonDataServiceForAppsSink",
+						"writeBatchSize": 10,
+						"writeBehavior": "upsert",
+						"ignoreNullValues": false,
+						"alternateKeyName": "smc_dwhdimsalesrepresentative_key"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "smc_DataAreaID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_dataareaid",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SalesGroup",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_salesgroup",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SalesGroupDescription",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_salesgroupdescription",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SalesGroupEmail",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "smc_salesgroupemail",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SalesGroupName",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "smc_salesgroupname",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "smc_SalesRepresentativeID",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "smc_salesrepresentativeid",
+									"type": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dataverse",
+							"TableName": "DimSalesRepresentative"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DataverseExport_PRD",
+						"type": "DatasetReference",
+						"parameters": {
+							"DataverseTable": "smc_dwhdimsalesrepresentative"
+						}
+					}
+				]
 			}
 		],
 		"folder": {
