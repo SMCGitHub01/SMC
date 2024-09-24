@@ -240,7 +240,7 @@
 						"referenceName": "DataverseExport_UAT",
 						"type": "DatasetReference",
 						"parameters": {
-							"DataverseTable": "smc_chillerservice_items_prices"
+							"DataverseTable": "smc_ChillerService_Items_Prices"
 						}
 					}
 				]
