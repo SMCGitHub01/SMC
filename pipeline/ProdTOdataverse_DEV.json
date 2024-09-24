@@ -5,6 +5,8 @@
 			{
 				"name": "routeIDlist",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -106,6 +108,8 @@
 			{
 				"name": "dimProduct",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -766,7 +770,7 @@
 						"writeBatchSize": 10,
 						"writeBehavior": "upsert",
 						"ignoreNullValues": true,
-						"alternateKeyName": ""
+						"alternateKeyName": "smc_chillerservicepricebk_key"
 					},
 					"enableStaging": false,
 					"translator": {
@@ -829,7 +833,7 @@
 									"precision": 28
 								},
 								"sink": {
-									"name": "smc_price",
+									"name": "smc_netprice",
 									"type": "Decimal"
 								}
 							},
@@ -878,7 +882,7 @@
 						"referenceName": "DataverseExport_DEV",
 						"type": "DatasetReference",
 						"parameters": {
-							"DataverseTable": "smc_df_chillerservicepricelist"
+							"DataverseTable": "smc_chillerservice_items_prices"
 						}
 					}
 				]
@@ -1028,6 +1032,8 @@
 			{
 				"name": "DimCustomer",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -1929,6 +1935,8 @@
 			{
 				"name": "DimSalesRepresentative",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
