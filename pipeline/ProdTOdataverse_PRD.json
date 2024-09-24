@@ -5,6 +5,8 @@
 			{
 				"name": "routeIDlist",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -106,6 +108,8 @@
 			{
 				"name": "dimProduct",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -746,8 +750,6 @@
 			{
 				"name": "ChillerServicePriceList",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -766,7 +768,9 @@
 					"sink": {
 						"type": "CommonDataServiceForAppsSink",
 						"writeBatchSize": 10,
-						"writeBehavior": "upsert"
+						"writeBehavior": "upsert",
+						"ignoreNullValues": false,
+						"alternateKeyName": "smc_chillerservicepricebk_key"
 					},
 					"enableStaging": false,
 					"translator": {
@@ -878,7 +882,7 @@
 						"referenceName": "DataverseExport_PRD",
 						"type": "DatasetReference",
 						"parameters": {
-							"DataverseTable": "smc_df_chillerservicepricelist"
+							"DataverseTable": "smc_chillerservice_items_prices"
 						}
 					}
 				]
@@ -886,6 +890,8 @@
 			{
 				"name": "ChillerServicePriceList_CHSSol",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -1026,6 +1032,8 @@
 			{
 				"name": "DimCustomer",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -1927,6 +1935,8 @@
 			{
 				"name": "DimSalesRepresentative",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
