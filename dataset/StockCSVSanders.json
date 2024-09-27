@@ -1,0 +1,21 @@
+{
+	"name": "StockCSVSanders",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ftpsBernardSanders",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FtpServerLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
