@@ -125,7 +125,7 @@
 						"type": "CommonDataServiceForAppsSink",
 						"writeBatchSize": 10,
 						"writeBehavior": "upsert",
-						"ignoreNullValues": true,
+						"ignoreNullValues": false,
 						"alternateKeyName": "smc_dwhdimproduct_key"
 					},
 					"enableStaging": false,
@@ -735,7 +735,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DataverseExport_DEV",
+						"referenceName": "DataverseExport_PRD",
 						"type": "DatasetReference",
 						"parameters": {
 							"DataverseTable": "smc_dwhdimproduct"
