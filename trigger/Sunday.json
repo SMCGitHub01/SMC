@@ -9,6 +9,12 @@
 					"referenceName": "PRD_Matrix_Import",
 					"type": "PipelineReference"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "ProdTOdataverse_UAT",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
