@@ -4,7 +4,14 @@
 		"description": "This trigger is used to start the pipeline that updates the master data tables of dataverse in Power Platform. ",
 		"annotations": [],
 		"runtimeState": "Stopped",
-		"pipelines": [],
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "ProdTOdataverse_PRD",
+					"type": "PipelineReference"
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
