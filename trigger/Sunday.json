@@ -15,6 +15,12 @@
 					"referenceName": "ProdTOdataverse_UAT",
 					"type": "PipelineReference"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "ProdTOdataverse_DEV",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
