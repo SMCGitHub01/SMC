@@ -7,9 +7,10 @@
 		"typeProperties": {
 			"deploymentType": "Online",
 			"serviceUri": "https://smcdev.crm4.dynamics.com",
-			"authenticationType": "Office365",
-			"username": "FoPowerAutomate@aquapro.onmicrosoft.com",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDYwN0JEMkZBLTY5NjgtNDRBRS1BRDUzLTJDNjMyNkNCRUIzRV9jMTU3OGMyYS00NmRhLTQyNWMtYjY5OC1kYWQzN2VmMjFmNTQiDQp9"
+			"authenticationType": "AADServicePrincipal",
+			"servicePrincipalId": "02a4a6b1-fec8-49f1-9a32-414592eba3f6",
+			"servicePrincipalCredentialType": "ServicePrincipalKey",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDYwN0JEMkZBLTY5NjgtNDRBRS1BRDUzLTJDNjMyNkNCRUIzRV9hOWU2NWYwYi04ZmJlLTRmOWQtYTk4MS05NzMzNzUyMGUyYzciDQp9"
 		}
 	}
 }
