@@ -1,0 +1,26 @@
+{
+	"name": "UpdateDataverseMasterdataDaily_PRD",
+	"properties": {
+		"description": "This trigger is used to start the pipeline that updates the master data tables of dataverse in Power Platform. ",
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2024-10-18T14:10:00",
+				"timeZone": "W. Europe Standard Time",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						19
+					]
+				}
+			}
+		}
+	}
+}
