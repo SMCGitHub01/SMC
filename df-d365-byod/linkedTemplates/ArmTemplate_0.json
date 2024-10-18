@@ -31,21 +31,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DataverseCERami'"
 		},
-		"Dataverse_smc_dev_crm4_password": {
+		"Dataverse_smc_dev_crm4_servicePrincipalCredential": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Dataverse_smc_dev_crm4'"
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'Dataverse_smc_dev_crm4'"
 		},
-		"Dataverse_smc_plg_crm4_password": {
+		"Dataverse_smc_plg_crm4_servicePrincipalCredential": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Dataverse_smc_plg_crm4'"
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'Dataverse_smc_plg_crm4'"
 		},
-		"Dataverse_smc_prd_crm4_password": {
+		"Dataverse_smc_prd_crm4_servicePrincipalCredential": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Dataverse_smc_prd_crm4'"
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'Dataverse_smc_prd_crm4'"
 		},
-		"Dataverse_smc_uat_crm4_password": {
+		"Dataverse_smc_uat_crm4_servicePrincipalCredential": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Dataverse_smc_uat_crm4'"
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'Dataverse_smc_uat_crm4'"
 		},
 		"Afas_properties_typeProperties_url": {
 			"type": "string",
@@ -71,21 +71,21 @@
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
-		"Dataverse_smc_dev_crm4_properties_typeProperties_username": {
+		"Dataverse_smc_dev_crm4_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
-			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+			"defaultValue": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
-		"Dataverse_smc_plg_crm4_properties_typeProperties_username": {
+		"Dataverse_smc_plg_crm4_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
-			"defaultValue": "FoPowerAutomate@aquapro.onmicrosoft.com"
+			"defaultValue": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
-		"Dataverse_smc_prd_crm4_properties_typeProperties_username": {
+		"Dataverse_smc_prd_crm4_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
-			"defaultValue": "FoPowerAutomate@aquapro.onmicrosoft.com"
+			"defaultValue": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
-		"Dataverse_smc_uat_crm4_properties_typeProperties_username": {
+		"Dataverse_smc_uat_crm4_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
-			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+			"defaultValue": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		}
 	},
 	"variables": {
@@ -1431,12 +1431,13 @@
 				"typeProperties": {
 					"deploymentType": "Online",
 					"serviceUri": "https:\\\\smc-dev.crm4.dynamics.com",
-					"authenticationType": "Office365",
-					"username": "[parameters('Dataverse_smc_dev_crm4_properties_typeProperties_username')]",
-					"password": {
+					"authenticationType": "AADServicePrincipal",
+					"servicePrincipalId": "[parameters('Dataverse_smc_dev_crm4_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalCredential": {
 						"type": "SecureString",
-						"value": "[parameters('Dataverse_smc_dev_crm4_password')]"
-					}
+						"value": "[parameters('Dataverse_smc_dev_crm4_servicePrincipalCredential')]"
+					},
+					"servicePrincipalCredentialType": "ServicePrincipalKey"
 				}
 			},
 			"dependsOn": []
@@ -1451,12 +1452,13 @@
 				"typeProperties": {
 					"deploymentType": "Online",
 					"serviceUri": "https://smcdev.crm4.dynamics.com",
-					"authenticationType": "Office365",
-					"username": "[parameters('Dataverse_smc_plg_crm4_properties_typeProperties_username')]",
-					"password": {
+					"authenticationType": "AADServicePrincipal",
+					"servicePrincipalId": "[parameters('Dataverse_smc_plg_crm4_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalCredential": {
 						"type": "SecureString",
-						"value": "[parameters('Dataverse_smc_plg_crm4_password')]"
-					}
+						"value": "[parameters('Dataverse_smc_plg_crm4_servicePrincipalCredential')]"
+					},
+					"servicePrincipalCredentialType": "ServicePrincipalKey"
 				}
 			},
 			"dependsOn": []
@@ -1471,12 +1473,13 @@
 				"typeProperties": {
 					"deploymentType": "Online",
 					"serviceUri": "https://smc-prd.crm4.dynamics.com",
-					"authenticationType": "Office365",
-					"username": "[parameters('Dataverse_smc_prd_crm4_properties_typeProperties_username')]",
-					"password": {
+					"authenticationType": "AADServicePrincipal",
+					"servicePrincipalId": "[parameters('Dataverse_smc_prd_crm4_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalCredential": {
 						"type": "SecureString",
-						"value": "[parameters('Dataverse_smc_prd_crm4_password')]"
-					}
+						"value": "[parameters('Dataverse_smc_prd_crm4_servicePrincipalCredential')]"
+					},
+					"servicePrincipalCredentialType": "ServicePrincipalKey"
 				}
 			},
 			"dependsOn": []
@@ -1492,12 +1495,13 @@
 				"typeProperties": {
 					"deploymentType": "Online",
 					"serviceUri": "https://smc-uat.crm4.dynamics.com",
-					"authenticationType": "Office365",
-					"username": "[parameters('Dataverse_smc_uat_crm4_properties_typeProperties_username')]",
-					"password": {
+					"authenticationType": "AADServicePrincipal",
+					"servicePrincipalId": "[parameters('Dataverse_smc_uat_crm4_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalCredential": {
 						"type": "SecureString",
-						"value": "[parameters('Dataverse_smc_uat_crm4_password')]"
-					}
+						"value": "[parameters('Dataverse_smc_uat_crm4_servicePrincipalCredential')]"
+					},
+					"servicePrincipalCredentialType": "ServicePrincipalKey"
 				}
 			},
 			"dependsOn": []

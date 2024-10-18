@@ -39,21 +39,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DataverseCERami'"
 		},
-		"Dataverse_smc_dev_crm4_password": {
+		"Dataverse_smc_dev_crm4_servicePrincipalCredential": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Dataverse_smc_dev_crm4'"
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'Dataverse_smc_dev_crm4'"
 		},
-		"Dataverse_smc_plg_crm4_password": {
+		"Dataverse_smc_plg_crm4_servicePrincipalCredential": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Dataverse_smc_plg_crm4'"
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'Dataverse_smc_plg_crm4'"
 		},
-		"Dataverse_smc_prd_crm4_password": {
+		"Dataverse_smc_prd_crm4_servicePrincipalCredential": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Dataverse_smc_prd_crm4'"
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'Dataverse_smc_prd_crm4'"
 		},
-		"Dataverse_smc_uat_crm4_password": {
+		"Dataverse_smc_uat_crm4_servicePrincipalCredential": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'Dataverse_smc_uat_crm4'"
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'Dataverse_smc_uat_crm4'"
 		},
 		"EITserver_connectionString": {
 			"type": "secureString",
@@ -155,21 +155,21 @@
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
-		"Dataverse_smc_dev_crm4_properties_typeProperties_username": {
+		"Dataverse_smc_dev_crm4_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
-			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+			"defaultValue": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
-		"Dataverse_smc_plg_crm4_properties_typeProperties_username": {
+		"Dataverse_smc_plg_crm4_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
-			"defaultValue": "FoPowerAutomate@aquapro.onmicrosoft.com"
+			"defaultValue": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
-		"Dataverse_smc_prd_crm4_properties_typeProperties_username": {
+		"Dataverse_smc_prd_crm4_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
-			"defaultValue": "FoPowerAutomate@aquapro.onmicrosoft.com"
+			"defaultValue": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
-		"Dataverse_smc_uat_crm4_properties_typeProperties_username": {
+		"Dataverse_smc_uat_crm4_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
-			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+			"defaultValue": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
 		"FO_properties_typeProperties_host": {
 			"type": "string",
@@ -263,7 +263,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_0",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -292,17 +292,17 @@
 					"DataverseCERami_password": {
 						"value": "[parameters('DataverseCERami_password')]"
 					},
-					"Dataverse_smc_dev_crm4_password": {
-						"value": "[parameters('Dataverse_smc_dev_crm4_password')]"
+					"Dataverse_smc_dev_crm4_servicePrincipalCredential": {
+						"value": "[parameters('Dataverse_smc_dev_crm4_servicePrincipalCredential')]"
 					},
-					"Dataverse_smc_plg_crm4_password": {
-						"value": "[parameters('Dataverse_smc_plg_crm4_password')]"
+					"Dataverse_smc_plg_crm4_servicePrincipalCredential": {
+						"value": "[parameters('Dataverse_smc_plg_crm4_servicePrincipalCredential')]"
 					},
-					"Dataverse_smc_prd_crm4_password": {
-						"value": "[parameters('Dataverse_smc_prd_crm4_password')]"
+					"Dataverse_smc_prd_crm4_servicePrincipalCredential": {
+						"value": "[parameters('Dataverse_smc_prd_crm4_servicePrincipalCredential')]"
 					},
-					"Dataverse_smc_uat_crm4_password": {
-						"value": "[parameters('Dataverse_smc_uat_crm4_password')]"
+					"Dataverse_smc_uat_crm4_servicePrincipalCredential": {
+						"value": "[parameters('Dataverse_smc_uat_crm4_servicePrincipalCredential')]"
 					},
 					"Afas_properties_typeProperties_url": {
 						"value": "[parameters('Afas_properties_typeProperties_url')]"
@@ -322,17 +322,17 @@
 					"DataverseCERami_properties_typeProperties_username": {
 						"value": "[parameters('DataverseCERami_properties_typeProperties_username')]"
 					},
-					"Dataverse_smc_dev_crm4_properties_typeProperties_username": {
-						"value": "[parameters('Dataverse_smc_dev_crm4_properties_typeProperties_username')]"
+					"Dataverse_smc_dev_crm4_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('Dataverse_smc_dev_crm4_properties_typeProperties_servicePrincipalId')]"
 					},
-					"Dataverse_smc_plg_crm4_properties_typeProperties_username": {
-						"value": "[parameters('Dataverse_smc_plg_crm4_properties_typeProperties_username')]"
+					"Dataverse_smc_plg_crm4_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('Dataverse_smc_plg_crm4_properties_typeProperties_servicePrincipalId')]"
 					},
-					"Dataverse_smc_prd_crm4_properties_typeProperties_username": {
-						"value": "[parameters('Dataverse_smc_prd_crm4_properties_typeProperties_username')]"
+					"Dataverse_smc_prd_crm4_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('Dataverse_smc_prd_crm4_properties_typeProperties_servicePrincipalId')]"
 					},
-					"Dataverse_smc_uat_crm4_properties_typeProperties_username": {
-						"value": "[parameters('Dataverse_smc_uat_crm4_properties_typeProperties_username')]"
+					"Dataverse_smc_uat_crm4_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('Dataverse_smc_uat_crm4_properties_typeProperties_servicePrincipalId')]"
 					}
 				}
 			},
@@ -341,7 +341,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_1",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -409,7 +409,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_2",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -438,7 +438,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_3",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -521,7 +521,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_4",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -541,7 +541,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_5",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -561,7 +561,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_6",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -581,7 +581,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_7",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -601,7 +601,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_8",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -621,7 +621,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_9",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -641,7 +641,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_10",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {
@@ -661,7 +661,7 @@
 		{
 			"name": "df-d365-byod_ArmTemplate_11",
 			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2018-02-01",
+			"apiVersion": "2024-03-01",
 			"properties": {
 				"mode": "incremental",
 				"templateLink": {

@@ -29,16 +29,16 @@
 		"DataverseCERami_password": {
 			"value": ""
 		},
-		"Dataverse_smc_dev_crm4_password": {
+		"Dataverse_smc_dev_crm4_servicePrincipalCredential": {
 			"value": ""
 		},
-		"Dataverse_smc_plg_crm4_password": {
+		"Dataverse_smc_plg_crm4_servicePrincipalCredential": {
 			"value": ""
 		},
-		"Dataverse_smc_prd_crm4_password": {
+		"Dataverse_smc_prd_crm4_servicePrincipalCredential": {
 			"value": ""
 		},
-		"Dataverse_smc_uat_crm4_password": {
+		"Dataverse_smc_uat_crm4_servicePrincipalCredential": {
 			"value": ""
 		},
 		"EITserver_connectionString": {
@@ -116,17 +116,17 @@
 		"DataverseCERami_properties_typeProperties_username": {
 			"value": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
-		"Dataverse_smc_dev_crm4_properties_typeProperties_username": {
-			"value": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+		"Dataverse_smc_dev_crm4_properties_typeProperties_servicePrincipalId": {
+			"value": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
-		"Dataverse_smc_plg_crm4_properties_typeProperties_username": {
-			"value": "FoPowerAutomate@aquapro.onmicrosoft.com"
+		"Dataverse_smc_plg_crm4_properties_typeProperties_servicePrincipalId": {
+			"value": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
-		"Dataverse_smc_prd_crm4_properties_typeProperties_username": {
-			"value": "FoPowerAutomate@aquapro.onmicrosoft.com"
+		"Dataverse_smc_prd_crm4_properties_typeProperties_servicePrincipalId": {
+			"value": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
-		"Dataverse_smc_uat_crm4_properties_typeProperties_username": {
-			"value": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+		"Dataverse_smc_uat_crm4_properties_typeProperties_servicePrincipalId": {
+			"value": "02a4a6b1-fec8-49f1-9a32-414592eba3f6"
 		},
 		"FO_properties_typeProperties_host": {
 			"value": "d:\\General\\File exchange folder (MAX7D)\\FO\\"
