@@ -1,0 +1,23 @@
+{
+	"name": "SharePointLists_PGMT_DEV",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SharePoint",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"list": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SharePointOnlineListResource",
+		"schema": [],
+		"typeProperties": {
+			"listName": {
+				"value": "@dataset().list",
+				"type": "Expression"
+			}
+		}
+	}
+}
