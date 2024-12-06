@@ -110,7 +110,7 @@
 									"typeConversion": true,
 									"typeConversionSettings": {
 										"allowDataTruncation": true,
-										"treatBooleanAsNumber": true
+										"treatBooleanAsNumber": false
 									}
 								}
 							},
