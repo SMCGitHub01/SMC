@@ -6,8 +6,14 @@
 		"annotations": [],
 		"type": "MySql",
 		"typeProperties": {
-			"connectionString": "server=10.201.60.13;port=3306;database=sugarcrm_prod;user=nlbyodrd;sslmode=1;usesystemtruststore=0",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4MmI5MzQ5ZC1kYjU1LTQwM2QtYThiNi03OGE5Y2ZiNTkwYzgiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"server": "10.201.60.13",
+			"port": "3306",
+			"database": "sugarcrm_prod",
+			"username": "nlbyodrd",
+			"sslMode": 1,
+			"useSystemTrustStore": 0,
+			"driverVersion": "v2",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyMGQ2MDYwNC05Y2E2LTQwZTctYTliOS1hZDhmM2U1ZDFlMGUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "SugarCRM",
