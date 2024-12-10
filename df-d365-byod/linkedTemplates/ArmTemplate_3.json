@@ -31,9 +31,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'credential' of 'MicrosoftAccess1'"
 		},
-		"SugarCRM_Pord_cloud_connectionString": {
+		"SugarCRM_Pord_cloud_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Pord_cloud'"
+			"metadata": "Secure string for 'password' of 'SugarCRM_Pord_cloud'"
 		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
@@ -66,6 +66,18 @@
 		"MicrosoftAccess1_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "10.201.60.13"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sugarcrm_prod"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "nlbyodrd"
 		},
 		"ToJPN_properties_typeProperties_host": {
 			"type": "string",
@@ -194,7 +206,17 @@
 				"annotations": [],
 				"type": "MySql",
 				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Pord_cloud_connectionString')]"
+					"server": "[parameters('SugarCRM_Pord_cloud_properties_typeProperties_server')]",
+					"port": "3306",
+					"database": "[parameters('SugarCRM_Pord_cloud_properties_typeProperties_database')]",
+					"username": "[parameters('SugarCRM_Pord_cloud_properties_typeProperties_username')]",
+					"sslMode": 1,
+					"useSystemTrustStore": 0,
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SugarCRM_Pord_cloud_password')]"
+					},
+					"driverVersion": "v2"
 				},
 				"connectVia": {
 					"referenceName": "SugarCRM",

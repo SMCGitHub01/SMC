@@ -91,9 +91,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint_powerbi'"
 		},
-		"SugarCRM_Pord_cloud_connectionString": {
+		"SugarCRM_Pord_cloud_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Pord_cloud'"
+			"metadata": "Secure string for 'password' of 'SugarCRM_Pord_cloud'"
 		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
@@ -218,6 +218,18 @@
 		"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
 			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "10.201.60.13"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sugarcrm_prod"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "nlbyodrd"
 		},
 		"ToJPN_properties_typeProperties_host": {
 			"type": "string",
@@ -467,8 +479,8 @@
 					"MicrosoftAccess1_credential": {
 						"value": "[parameters('MicrosoftAccess1_credential')]"
 					},
-					"SugarCRM_Pord_cloud_connectionString": {
-						"value": "[parameters('SugarCRM_Pord_cloud_connectionString')]"
+					"SugarCRM_Pord_cloud_password": {
+						"value": "[parameters('SugarCRM_Pord_cloud_password')]"
 					},
 					"SugarCRM_Production_connectionString": {
 						"value": "[parameters('SugarCRM_Production_connectionString')]"
@@ -493,6 +505,15 @@
 					},
 					"MicrosoftAccess1_properties_typeProperties_userName": {
 						"value": "[parameters('MicrosoftAccess1_properties_typeProperties_userName')]"
+					},
+					"SugarCRM_Pord_cloud_properties_typeProperties_server": {
+						"value": "[parameters('SugarCRM_Pord_cloud_properties_typeProperties_server')]"
+					},
+					"SugarCRM_Pord_cloud_properties_typeProperties_database": {
+						"value": "[parameters('SugarCRM_Pord_cloud_properties_typeProperties_database')]"
+					},
+					"SugarCRM_Pord_cloud_properties_typeProperties_username": {
+						"value": "[parameters('SugarCRM_Pord_cloud_properties_typeProperties_username')]"
 					},
 					"ToJPN_properties_typeProperties_host": {
 						"value": "[parameters('ToJPN_properties_typeProperties_host')]"

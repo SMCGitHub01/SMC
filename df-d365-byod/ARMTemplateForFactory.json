@@ -91,9 +91,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'servicePrincipalKey' of 'SharePoint_powerbi'"
 		},
-		"SugarCRM_Pord_cloud_connectionString": {
+		"SugarCRM_Pord_cloud_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'SugarCRM_Pord_cloud'"
+			"metadata": "Secure string for 'password' of 'SugarCRM_Pord_cloud'"
 		},
 		"SugarCRM_Production_connectionString": {
 			"type": "secureString",
@@ -218,6 +218,18 @@
 		"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
 			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "10.201.60.13"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sugarcrm_prod"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "nlbyodrd"
 		},
 		"ToJPN_properties_typeProperties_host": {
 			"type": "string",
@@ -14370,6 +14382,8 @@
 					{
 						"name": "Stage SugarCRM",
 						"type": "ExecutePipeline",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Lookup_Current_Sync_And_Date",
@@ -15759,7 +15773,7 @@
 											"typeConversion": true,
 											"typeConversionSettings": {
 												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
+												"treatBooleanAsNumber": true
 											}
 										}
 									},
@@ -41715,7 +41729,17 @@
 				"annotations": [],
 				"type": "MySql",
 				"typeProperties": {
-					"connectionString": "[parameters('SugarCRM_Pord_cloud_connectionString')]"
+					"server": "[parameters('SugarCRM_Pord_cloud_properties_typeProperties_server')]",
+					"port": "3306",
+					"database": "[parameters('SugarCRM_Pord_cloud_properties_typeProperties_database')]",
+					"username": "[parameters('SugarCRM_Pord_cloud_properties_typeProperties_username')]",
+					"sslMode": 1,
+					"useSystemTrustStore": 0,
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SugarCRM_Pord_cloud_password')]"
+					},
+					"driverVersion": "v2"
 				},
 				"connectVia": {
 					"referenceName": "SugarCRM",
@@ -42385,6 +42409,45 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/UpdateDataverseMasterdataDaily_PRD')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "This trigger is used to start the pipeline that updates the master data tables of dataverse in Power Platform. ",
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "ProdTOdataverse_PRD",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2024-10-18T14:10:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								19
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/ProdTOdataverse_PRD')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/everydayat300')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -42916,45 +42979,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage3')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable4')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/UpdateDataverseMasterdataDaily_PRD')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "This trigger is used to start the pipeline that updates the master data tables of dataverse in Power Platform. ",
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "ProdTOdataverse_PRD",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2024-10-18T14:10:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								0
-							],
-							"hours": [
-								19
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ProdTOdataverse_PRD')]"
 			]
 		}
 	]

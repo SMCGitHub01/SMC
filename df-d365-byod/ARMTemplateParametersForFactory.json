@@ -68,7 +68,7 @@
 		"SharePoint_powerbi_servicePrincipalKey": {
 			"value": ""
 		},
-		"SugarCRM_Pord_cloud_connectionString": {
+		"SugarCRM_Pord_cloud_password": {
 			"value": ""
 		},
 		"SugarCRM_Production_connectionString": {
@@ -163,6 +163,15 @@
 		},
 		"SharePoint_powerbi_properties_typeProperties_servicePrincipalId": {
 			"value": "3c9c0d42-fbe6-4add-a30a-92d328806209"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_server": {
+			"value": "10.201.60.13"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_database": {
+			"value": "sugarcrm_prod"
+		},
+		"SugarCRM_Pord_cloud_properties_typeProperties_username": {
+			"value": "nlbyodrd"
 		},
 		"ToJPN_properties_typeProperties_host": {
 			"value": "D:\\General\\ICT\\"
