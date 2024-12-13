@@ -1,0 +1,41 @@
+{
+	"name": "Stock_info_extern",
+	"properties": {
+		"description": "Stock info export for external use",
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT ProductNumber,\n       CAST(ISNULL(stockECW, 0) + ISNULL(stockEIN, 0) AS INT) AS Stock\nFROM dwh.DimProduct\nWHERE DataAreaID = 'F'\n      AND IsActievePrijsLijst = 1\n      AND ProductLifecycleState LIKE '%webshop%'\n",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "PRD_BYOD_DS",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "dwh",
+							"TableName": "DimProduct"
+						}
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
