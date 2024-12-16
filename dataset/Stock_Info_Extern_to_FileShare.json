@@ -1,0 +1,23 @@
+{
+	"name": "Stock_Info_Extern_to_FileShare",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Export to sink",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureFileStorageLocation",
+				"fileName": "Sanders",
+				"folderPath": "StockInfo"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
