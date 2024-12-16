@@ -1,0 +1,25 @@
+{
+	"name": "DailyRun_Stock_Info",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2024-12-16T08:28:00",
+				"timeZone": "W. Europe Standard Time",
+				"schedule": {
+					"minutes": [
+						45
+					],
+					"hours": [
+						7
+					]
+				}
+			}
+		}
+	}
+}
