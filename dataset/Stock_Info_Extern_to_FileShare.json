@@ -11,9 +11,10 @@
 			"location": {
 				"type": "AzureFileStorageLocation",
 				"fileName": {
-					"value": "@concat('Sanders_', formatDateTime(utcNow(), 'yyyy-MM-dd'), '.csv')",
+					"value": "@concat('Directory/', 'Sanders_', formatDateTime(utcNow(), 'yyyy-MM-dd_HHmmss'), '.csv')\n",
 					"type": "Expression"
-				}
+				},
+				"folderPath": "Stock_Info"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
