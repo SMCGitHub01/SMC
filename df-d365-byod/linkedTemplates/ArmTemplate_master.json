@@ -441,6 +441,9 @@
 					},
 					"AnyWhereSQL_connectionString": {
 						"value": "[parameters('AnyWhereSQL_connectionString')]"
+					},
+					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -491,9 +494,6 @@
 					},
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
-					},
-					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
 					},
 					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
 						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
