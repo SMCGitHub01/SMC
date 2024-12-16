@@ -534,7 +534,7 @@
 					"location": {
 						"type": "AzureFileStorageLocation",
 						"fileName": {
-							"value": "@concat('Directory/', 'Sanders_', formatDateTime(utcNow(), 'yyyy-MM-dd_HHmmss'), '.csv')\n",
+							"value": "@concat('Sanders_', formatDateTime(utcNow(), 'yyyy-MM-dd_HHmmss'), '.csv')\n",
 							"type": "Expression"
 						},
 						"folderPath": "stock_info"
