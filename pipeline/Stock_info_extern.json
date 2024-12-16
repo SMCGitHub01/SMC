@@ -19,7 +19,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": "SELECT ProductNumber,\n       CAST(ISNULL(stockECW, 0) + ISNULL(stockEIN, 0) AS INT) AS Stock\nFROM dwh.DimProduct\nWHERE DataAreaID = 'F'\n      AND IsActievePrijsLijst = 1\n      AND ProductLifecycleState LIKE '%webshop%'\n",
-						"queryTimeout": "02:00:00",
+						"queryTimeout": "00:15:00",
 						"partitionOption": "None"
 					},
 					"sink": {
