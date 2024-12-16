@@ -10,10 +10,6 @@
 		"AnyWhereSQL_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AnyWhereSQL'"
-		},
-		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
-			"type": "string",
-			"defaultValue": "DWHConnectionStringDEV"
 		}
 	},
 	"variables": {
@@ -524,6 +520,34 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Stock_Info_Extern_to_FileShare')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Export to sink",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureFileStorageLocation",
+						"fileName": {
+							"value": "@concat('Sanders_', formatDateTime(utcNow(), 'yyyy-MM-dd'), '.csv')",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/XmlUN')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -556,26 +580,6 @@
 				"connectVia": {
 					"referenceName": "AnyWare",
 					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Azure_D365_DEV')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": {
-						"type": "AzureKeyVaultSecret",
-						"store": {
-							"referenceName": "KeyVault",
-							"type": "LinkedServiceReference"
-						},
-						"secretName": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
-					}
 				}
 			},
 			"dependsOn": []

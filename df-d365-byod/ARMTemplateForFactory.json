@@ -40107,6 +40107,36 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Stock_Info_Extern_to_FileShare')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Export to sink",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureFileStorageLocation",
+						"fileName": {
+							"value": "@concat('Sanders_', formatDateTime(utcNow(), 'yyyy-MM-dd'), '.csv')",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Export to sink')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ToJPN')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -42056,6 +42086,44 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DailyRun_Stock_Info')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Stock_info_extern",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2024-12-16T08:28:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"minutes": [
+								45
+							],
+							"hours": [
+								7
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Stock_info_extern')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Daily_ACC')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -43073,72 +43141,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage3')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable4')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Stock_Info_Extern_to_FileShare')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Export to sink",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureFileStorageLocation",
-						"fileName": "Sanders",
-						"folderPath": "StockInfo"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": false,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Export to sink')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DailyRun_Stock_Info')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Stock_info_extern",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2024-12-16T08:28:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								45
-							],
-							"hours": [
-								7
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Stock_info_extern')]"
 			]
 		}
 	]
