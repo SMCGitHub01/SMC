@@ -14,7 +14,7 @@
 					"value": "@concat('Directory/', 'Sanders_', formatDateTime(utcNow(), 'yyyy-MM-dd_HHmmss'), '.csv')\n",
 					"type": "Expression"
 				},
-				"folderPath": "Stock_Info"
+				"folderPath": "stock_info"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
