@@ -47,6 +47,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'ZendeskDownload'"
 		},
+		"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "DWHConnectionStringDEV"
+		},
+		"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "DWHConnectionStringPRD"
+		},
 		"DWHloads_properties_typeProperties_host": {
 			"type": "string",
 			"defaultValue": "d:\\General\\ICT\\"
@@ -108,6 +116,46 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Azure_D365_DEV')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "KeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Azure_D365_PROD')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "KeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DWHloads')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -372,6 +420,32 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Stock_Info_Extern_to_FileShare')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Export to sink",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureFileStorageLocation",
+						"fileName": "Sanders",
+						"folderPath": "StockInfo"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DQM')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -403,7 +477,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_PROD')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/sanctieLijsten_process')]",
@@ -467,7 +543,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
+			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/3CXcdr1')]",
@@ -663,130 +741,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/SugarCRM_Pord_cloud')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_BYOD_DEV_DS')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Azure_D365_DEV",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"SchemaName": {
-						"type": "string"
-					},
-					"TableName": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": {
-						"value": "@dataset().SchemaName",
-						"type": "Expression"
-					},
-					"table": {
-						"value": "@dataset().TableName",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_BudgetDirectSales')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"WorkSheet": {
-						"type": "string"
-					},
-					"Excelfile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC"
-				},
-				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": {
-						"value": "@dataset().Worksheet",
-						"type": "Expression"
-					},
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().Excelfile",
-							"type": "Expression"
-						},
-						"container": "dwhbudgetdirectsales"
-					},
-					"range": "",
-					"firstRowAsHeader": true
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_BudgetInDirectSales')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"WorkSheet": {
-						"type": "string"
-					},
-					"Excelfile": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC"
-				},
-				"annotations": [],
-				"type": "Excel",
-				"typeProperties": {
-					"sheetName": {
-						"value": "@dataset().Worksheet",
-						"type": "Expression"
-					},
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().Excelfile",
-							"type": "Expression"
-						},
-						"container": "dwhbudgetindirectsales"
-					},
-					"range": "",
-					"firstRowAsHeader": true
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
 			]
 		}
 	]

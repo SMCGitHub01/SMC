@@ -13,6 +13,1056 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/PRD_tevervroegenorders')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Tevervroegenorders_log",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_copy",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_log_productie",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders_log",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4 logProductie"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "sptevervroegen",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "sptevervroegen",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "PRD_UpScale",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "process.spProductionReferencesAll"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Tevervroegenorders_export_prod",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders_prod",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export_prod"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('PRDtevervroegenProd_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_prod",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "sptevervroegen",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export_prod"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_prod",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "PRD_UpScale",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "PRD_UpScale",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD-TevervroegenOrders"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_tevervroegenorders_2deRun')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Tevervroegenorders_log",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "sptevervroegen",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_copy",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "sptevervroegen",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_log_productie",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders_log",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4 logProductie"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "sptevervroegen",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "process.spProductionReferences"
+						},
+						"linkedServiceName": {
+							"referenceName": "Azure_D365_PROD",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "Tevervroegenorders_export_prod",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "sptevervroegen",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export_prod"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('PRDtevervroegenProd_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD-TevervroegenOrders"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_tevervroegenorders_2deRun_copy1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Tevervroegenorders_log",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('log_PRD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_copy",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('PRDtevervroegens_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_log_productie",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Tevervroegenorders_log",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4 logProductie"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('log_PRD_PROD_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					},
+					{
+						"name": "Tevervroegenorders_export_prod",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "FileServerWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "vw_te_vervroegen_ordersV4_export_prod"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "tevervroegenPRD_log",
+								"type": "DatasetReference",
+								"parameters": {
+									"logfile": {
+										"value": "@concat('PRDtevervroegenProd_', formatDateTime(utcnow(), 'yyyy-dd-MM'), '_1A.csv')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD-TevervroegenOrders"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/PRD_tevervroegenorders_C')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -12007,6 +13057,79 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Stock_info_extern')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Stock info export for external use",
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT ProductNumber,\n       CAST(ISNULL(stockECW, 0) + ISNULL(stockEIN, 0) AS INT) AS Stock\nFROM dwh.DimProduct\nWHERE DataAreaID = 'F'\n      AND IsActievePrijsLijst = 1\n      AND ProductLifecycleState LIKE '%webshop%'\n",
+								"queryTimeout": "00:15:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureFileStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "DimProduct"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Stock_Info_Extern_to_FileShare",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline5')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -12095,714 +13218,6 @@
 					"elapsedTimeMetric": {}
 				},
 				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/readBlob')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "zendsk",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "JsonSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false,
-								"tableOption": "autoCreate",
-								"disableMetricsCollection": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"path": "$['id']"
-										},
-										"sink": {
-											"name": "id"
-										}
-									},
-									{
-										"source": {
-											"path": "$['external_id']"
-										},
-										"sink": {
-											"name": "external_id",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['created_at']"
-										},
-										"sink": {
-											"name": "created_at",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['updated_at']"
-										},
-										"sink": {
-											"name": "updated_at",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['generated_timestamp']"
-										},
-										"sink": {
-											"name": "generated_timestamp",
-											"type": "Int64"
-										}
-									},
-									{
-										"source": {
-											"path": "$['type']"
-										},
-										"sink": {
-											"name": "type",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['subject']"
-										},
-										"sink": {
-											"name": "subject",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['raw_subject']"
-										},
-										"sink": {
-											"name": "raw_subject",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['description']"
-										},
-										"sink": {
-											"name": "description",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['priority']"
-										},
-										"sink": {
-											"name": "priority",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['status']"
-										},
-										"sink": {
-											"name": "status",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['forum_topic_id']"
-										},
-										"sink": {
-											"name": "forum_topic_id",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['problem_id']"
-										},
-										"sink": {
-											"name": "problem_id",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['has_incidents']"
-										},
-										"sink": {
-											"name": "has_incidents",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['is_public']"
-										},
-										"sink": {
-											"name": "is_public",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['due_at']"
-										},
-										"sink": {
-											"name": "due_at",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['ticket_form_id']"
-										},
-										"sink": {
-											"name": "ticket_form_id",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['brand_id']"
-										},
-										"sink": {
-											"name": "brand_id",
-											"type": "String"
-										}
-									}
-								],
-								"mapComplexValuesToString": false
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "Json_zndsk",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "PRD_DWH_Dynamic_DataSet",
-								"type": "DatasetReference",
-								"parameters": {
-									"TableName": "zendsk"
-								}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2021-03-27T13:45:56Z"
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DailyAT0830')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "DQM",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2024-06-28T14:01:00",
-						"timeZone": "W. Europe Standard Time",
-						"schedule": {
-							"minutes": [
-								30
-							],
-							"hours": [
-								8
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataflow2')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"dataset": {
-								"referenceName": "AzureSqlTable3",
-								"type": "DatasetReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"linkedService": {
-								"referenceName": "AzureDataLakeStorage2",
-								"type": "LinkedServiceReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "rank1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          HSO_DnA_SourceConnectionID as integer,",
-						"          HSO_DnA_TargetMappingID as integer,",
-						"          HSO_DnA_InsertDateTime as timestamp,",
-						"          HSO_DnA_UpdateDateTime as timestamp,",
-						"          HSO_DnA_DeleteDateTime as timestamp,",
-						"          {_9FieldMatrix} as string,",
-						"          AccountSatus as string,",
-						"          AddressCity as string,",
-						"          AddressStreet as string,",
-						"          AddressZipCode as string,",
-						"          AutoSummaryInvoice as integer,",
-						"          Branch as string,",
-						"          CECustomerNumber as string,",
-						"          Channel as string,",
-						"          Classification as string,",
-						"          CompanyChain as string,",
-						"          CountryRegionISOCode as string,",
-						"          CreditLimitCCY as decimal(28,12),",
-						"          CustomerBK as string,",
-						"          CustomerGroup as string,",
-						"          CustomerID as string,",
-						"          CustomerType as string,",
-						"          DataAreaID as string,",
-						"          DaysSinceLastMet as integer,",
-						"          DeliveryTerms as string,",
-						"          DISCOUNTPRICEGROUPID as string,",
-						"          DistributerChannel as string,",
-						"          DistributerType as string,",
-						"          DistributorCustomerNo as string,",
-						"          EmployeeResponsible as string,",
-						"          EndUserType as string,",
-						"          FOCustomerNumber as string,",
-						"          GlobalIndustryCode as string,",
-						"          GlobalIndustryCodeFull as string,",
-						"          HolonNumber as string,",
-						"          Industry as string,",
-						"          IndustryClassification as string,",
-						"          LastVisitDate as date,",
-						"          LineDiscountCode as string,",
-						"          LineOfBusiness as string,",
-						"          LineOfBusinessDescription as string,",
-						"          MarketSharePercentage as integer,",
-						"          Multinational as string,",
-						"          Name as string,",
-						"          NumberOfEmployees as string,",
-						"          PaymentCondition as string,",
-						"          Potential as decimal(28,12),",
-						"          PrimaryDistributorID as string,",
-						"          PrimaryDistributorName as string,",
-						"          rank as integer,",
-						"          SalesGroup as string,",
-						"          SalesGroupDescription as string,",
-						"          Segment as string,",
-						"          SegmentDescription as string,",
-						"          SMCTargetKey as string,",
-						"          Source as string,",
-						"          SubBranch as string,",
-						"          Subsegment as string,",
-						"          SubsegmentDescription as string,",
-						"          SugarCustomerNumber as string,",
-						"          SugarERPAccountId as string,",
-						"          TransportationDays as integer,",
-						"          Type_Code as string,",
-						"          Type_level1 as string,",
-						"          Type_level2 as string,",
-						"          Type_level3 as string,",
-						"          Type1 as string,",
-						"          UserID as string,",
-						"          UserName as string,",
-						"          VisitFrequency as integer",
-						"     ),",
-						"     allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     isolationLevel: 'READ_UNCOMMITTED',",
-						"     format: 'table') ~> source1",
-						"source1 rank(asc(CustomerBK, true),",
-						"     output(customerbk as long)) ~> rank1",
-						"rank1 sink(allowSchemaDrift: false,",
-						"     validateSchema: false,",
-						"     entity: 'core/',",
-						"     format: 'cdm',",
-						"     manifestType: 'manifest',",
-						"     manifestName: 'model.json',",
-						"     folderPath: 'crc90_customers',",
-						"     fileSystem: 'dataverse-dev-org06386f8f',",
-						"     columnNamesAsHeader: false,",
-						"     columnDelimiter: ',',",
-						"     quoteChar: '\\\"',",
-						"     escapeChar: '\\\\',",
-						"     truncate: false,",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     mapColumn(",
-						"          Name",
-						"     )) ~> sink1"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/dataflow3')]",
-			"type": "Microsoft.DataFactory/factories/dataflows",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"type": "MappingDataFlow",
-				"typeProperties": {
-					"sources": [
-						{
-							"linkedService": {
-								"referenceName": "AzureDataLakeStorage3",
-								"type": "LinkedServiceReference"
-							},
-							"name": "source1"
-						}
-					],
-					"sinks": [
-						{
-							"dataset": {
-								"referenceName": "AzureSqlTable4",
-								"type": "DatasetReference"
-							},
-							"name": "sink1"
-						}
-					],
-					"transformations": [
-						{
-							"name": "rank1"
-						}
-					],
-					"scriptLines": [
-						"source(output(",
-						"          Id as string,",
-						"          SinkCreatedOn as timestamp,",
-						"          SinkModifiedOn as timestamp,",
-						"          statecode as long,",
-						"          statuscode as long,",
-						"          hso_occasion as long,",
-						"          onlinemeetingtype as long,",
-						"          prioritycode as long,",
-						"          attachmenterrors as long,",
-						"          hso_reason as long,",
-						"          instancetypecode as long,",
-						"          isworkflowcreated as boolean,",
-						"          isbilled as boolean,",
-						"          ismapiprivate as boolean,",
-						"          isdraft as boolean,",
-						"          isonlinemeeting as boolean,",
-						"          isalldayevent as boolean,",
-						"          isregularactivity as boolean,",
-						"          createdonbehalfby as string,",
-						"          createdonbehalfby_entitytype as string,",
-						"          hso_account as string,",
-						"          hso_account_entitytype as string,",
-						"          owningteam as string,",
-						"          owningteam_entitytype as string,",
-						"          regardingobjectid as string,",
-						"          regardingobjectid_entitytype as string,",
-						"          modifiedby as string,",
-						"          modifiedby_entitytype as string,",
-						"          createdby as string,",
-						"          createdby_entitytype as string,",
-						"          slainvokedid as string,",
-						"          slainvokedid_entitytype as string,",
-						"          serviceid as string,",
-						"          serviceid_entitytype as string,",
-						"          owninguser as string,",
-						"          owninguser_entitytype as string,",
-						"          modifiedonbehalfby as string,",
-						"          modifiedonbehalfby_entitytype as string,",
-						"          transactioncurrencyid as string,",
-						"          transactioncurrencyid_entitytype as string,",
-						"          slaid as string,",
-						"          slaid_entitytype as string,",
-						"          hso_appointmentreportid as string,",
-						"          hso_appointmentreportid_entitytype as string,",
-						"          owningbusinessunit as string,",
-						"          owningbusinessunit_entitytype as string,",
-						"          ownerid as string,",
-						"          ownerid_entitytype as string,",
-						"          organizer as string,",
-						"          requiredattendees as string,",
-						"          optionalattendees as string,",
-						"          versionnumber as long,",
-						"          createdon as string,",
-						"          modifiedonbehalfbyyominame as string,",
-						"          owningbusinessunitname as string,",
-						"          attachmentcount as long,",
-						"          seriesid as string,",
-						"          isunsafe as long,",
-						"          traversedpath as string,",
-						"          modifiedbyyominame as string,",
-						"          hso_accountyominame as string,",
-						"          owneridtype as string,",
-						"          modifiedbyname as string,",
-						"          regardingobjectidyominame as string,",
-						"          owneridname as string,",
-						"          overriddencreatedon as timestamp,",
-						"          scheduledstart as timestamp,",
-						"          createdonbehalfbyyominame as string,",
-						"          subscriptionid as string,",
-						"          slaname as string,",
-						"          exchangerate as decimal(38,10),",
-						"          subcategory as string,",
-						"          onlinemeetingjoinurl as string,",
-						"          timezoneruleversionnumber as long,",
-						"          formattedscheduledstart as timestamp,",
-						"          regardingobjectidname as string,",
-						"          onlinemeetingchatid as string,",
-						"          activityadditionalparams as string,",
-						"          createdonbehalfbyname as string,",
-						"          actualstart as timestamp,",
-						"          activitytypecode as string,",
-						"          utcconversiontimezonecode as long,",
-						"          scheduleddurationminutes as long,",
-						"          hso_accountname as string,",
-						"          modifiedon as timestamp,",
-						"          importsequencenumber as long,",
-						"          owneridyominame as string,",
-						"          onholdtime as long,",
-						"          processid as string,",
-						"          description as string,",
-						"          location as string,",
-						"          createdbyname as string,",
-						"          globalobjectid as string,",
-						"          regardingobjecttypecode as string,",
-						"          hso_appointmentreportidname as string,",
-						"          sortdate as timestamp,",
-						"          lastonholdtime as timestamp,",
-						"          stageid as string,",
-						"          safedescription as string,",
-						"          category as string,",
-						"          createdbyyominame as string,",
-						"          transactioncurrencyidname as string,",
-						"          actualend as timestamp,",
-						"          activityid as string,",
-						"          modifiedonbehalfbyname as string,",
-						"          serviceidname as string,",
-						"          slainvokedidname as string,",
-						"          scheduledend as timestamp,",
-						"          originalstartdate as timestamp,",
-						"          formattedscheduledend as timestamp,",
-						"          modifiedfieldsmask as string,",
-						"          outlookownerapptid as long,",
-						"          actualdurationminutes as long,",
-						"          onlinemeetingid as string,",
-						"          subject as string,",
-						"          msft_datastate as long,",
-						"          hso_createappointmentreport as boolean",
-						"     ),",
-						"     useSchema: false,",
-						"     allowSchemaDrift: false,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     entity: 'appointment',",
-						"     format: 'cdm',",
-						"     manifestType: 'model',",
-						"     folderPath: '',",
-						"     fileSystem: 'dataverse-ramiyokotade-orgd3ad9c7e') ~> source1",
-						"source1 rank(asc(Id, true),",
-						"     output(uniqueid as long),",
-						"     dense: true) ~> rank1",
-						"rank1 sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     input(",
-						"          Id as string,",
-						"          SinkCreatedOn as timestamp,",
-						"          SinkModifiedOn as timestamp,",
-						"          statecode as integer,",
-						"          statuscode as integer,",
-						"          hso_reason as integer,",
-						"          hso_occasion as integer,",
-						"          prioritycode as integer,",
-						"          attachmenterrors as integer,",
-						"          instancetypecode as integer,",
-						"          isregularactivity as boolean,",
-						"          isalldayevent as boolean,",
-						"          isworkflowcreated as boolean,",
-						"          isbilled as boolean,",
-						"          isdraft as boolean,",
-						"          ismapiprivate as boolean,",
-						"          serviceid as string,",
-						"          serviceid_entitytype as string,",
-						"          owningteam as string,",
-						"          owningteam_entitytype as string,",
-						"          owningbusinessunit as string,",
-						"          owningbusinessunit_entitytype as string,",
-						"          transactioncurrencyid as string,",
-						"          transactioncurrencyid_entitytype as string,",
-						"          createdonbehalfby as string,",
-						"          createdonbehalfby_entitytype as string,",
-						"          owninguser as string,",
-						"          owninguser_entitytype as string,",
-						"          modifiedonbehalfby as string,",
-						"          modifiedonbehalfby_entitytype as string,",
-						"          modifiedby as string,",
-						"          modifiedby_entitytype as string,",
-						"          slainvokedid as string,",
-						"          slainvokedid_entitytype as string,",
-						"          createdby as string,",
-						"          createdby_entitytype as string,",
-						"          regardingobjectid as string,",
-						"          regardingobjectid_entitytype as string,",
-						"          slaid as string,",
-						"          slaid_entitytype as string,",
-						"          ownerid as string,",
-						"          ownerid_entitytype as string,",
-						"          organizer as string,",
-						"          requiredattendees as string,",
-						"          optionalattendees as string,",
-						"          regardingobjectidyominame as string,",
-						"          owneridyominame as string,",
-						"          activityid as string,",
-						"          modifiedonbehalfbyname as string,",
-						"          subscriptionid as string,",
-						"          stageid as string,",
-						"          actualstart as timestamp,",
-						"          slaname as string,",
-						"          traversedpath as string,",
-						"          createdbyname as string,",
-						"          scheduleddurationminutes as integer,",
-						"          regardingobjecttypecode as string,",
-						"          slainvokedidname as string,",
-						"          owneridtype as string,",
-						"          modifiedon as timestamp,",
-						"          modifiedbyname as string,",
-						"          attachmentcount as integer,",
-						"          onholdtime as integer,",
-						"          globalobjectid as string,",
-						"          regardingobjectidname as string,",
-						"          createdonbehalfbyyominame as string,",
-						"          processid as string,",
-						"          scheduledstart as timestamp,",
-						"          subject as string,",
-						"          safedescription as string,",
-						"          category as string,",
-						"          owneridname as string,",
-						"          importsequencenumber as integer,",
-						"          modifiedbyyominame as string,",
-						"          actualend as timestamp,",
-						"          lastonholdtime as timestamp,",
-						"          seriesid as string,",
-						"          actualdurationminutes as integer,",
-						"          utcconversiontimezonecode as integer,",
-						"          subcategory as string,",
-						"          activityadditionalparams as string,",
-						"          modifiedonbehalfbyyominame as string,",
-						"          sortdate as timestamp,",
-						"          serviceidname as string,",
-						"          modifiedfieldsmask as string,",
-						"          scheduledend as timestamp,",
-						"          timezoneruleversionnumber as integer,",
-						"          overriddencreatedon as timestamp,",
-						"          exchangerate as decimal(38,12),",
-						"          isunsafe as integer,",
-						"          createdbyyominame as string,",
-						"          createdon as timestamp,",
-						"          versionnumber as long,",
-						"          description as string,",
-						"          transactioncurrencyidname as string,",
-						"          outlookownerapptid as integer,",
-						"          activitytypecode as string,",
-						"          location as string,",
-						"          originalstartdate as timestamp,",
-						"          createdonbehalfbyname as string,",
-						"          owningbusinessunitname as string,",
-						"          onlinemeetingtype as integer,",
-						"          isonlinemeeting as boolean,",
-						"          onlinemeetingjoinurl as string,",
-						"          onlinemeetingchatid as string,",
-						"          onlinemeetingid as string,",
-						"          msdyn_ci_translated_transcript as string,",
-						"          msdyn_ci_keywords as string,",
-						"          msdyn_ci_transcript_json as string,",
-						"          msdyn_ci_media_reference_id as string,",
-						"          msdyn_ci_insights_json as string,",
-						"          msdyn_ci_translated_transcript_json as string,",
-						"          msdyn_ci_url as string,",
-						"          msdyn_ci_transcript as string,",
-						"          msdyn_ci_call_summary_control_field as integer,",
-						"          msdyn_ci_id as string,",
-						"          hso_account as string,",
-						"          hso_account_entitytype as string,",
-						"          hso_appointmentreportid as string,",
-						"          hso_appointmentreportid_entitytype as string,",
-						"          hso_accountyominame as string,",
-						"          hso_accountname as string,",
-						"          hso_appointmentreportidname as string,",
-						"          formattedscheduledstart as timestamp,",
-						"          formattedscheduledend as timestamp",
-						"     ),",
-						"     deletable:false,",
-						"     insertable:true,",
-						"     updateable:false,",
-						"     upsertable:false,",
-						"     truncate:true,",
-						"     format: 'table',",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
-					]
-				}
 			},
 			"dependsOn": []
 		}

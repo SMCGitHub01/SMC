@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-d365-byod"
 		},
+		"Export to sink_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Export to sink'"
+		},
 		"Rob Vader_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'Rob Vader'"
@@ -76,6 +80,20 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Export to sink')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFileStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('Export to sink_connectionString')]",
+					"fileShare": "d365-bistest-fs"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/HttpServer1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -423,25 +441,6 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"type": "SelfHosted",
-				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACCrunView')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlMI1",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "NOT used"
-				},
-				"annotations": [],
-				"type": "AzureSqlMITable",
-				"schema": [],
 				"typeProperties": {}
 			},
 			"dependsOn": []

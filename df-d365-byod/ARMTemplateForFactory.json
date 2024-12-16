@@ -59,6 +59,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'EITserver'"
 		},
+		"Export to sink_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Export to sink'"
+		},
 		"FO_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FO'"
@@ -33650,6 +33654,82 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Stock_info_extern')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Stock info export for external use",
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT ProductNumber,\n       CAST(ISNULL(stockECW, 0) + ISNULL(stockEIN, 0) AS INT) AS Stock\nFROM dwh.DimProduct\nWHERE DataAreaID = 'F'\n      AND IsActievePrijsLijst = 1\n      AND ProductLifecycleState LIKE '%webshop%'\n",
+								"queryTimeout": "00:15:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureFileStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_BYOD_DS",
+								"type": "DatasetReference",
+								"parameters": {
+									"SchemaName": "dwh",
+									"TableName": "DimProduct"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Stock_Info_Extern_to_FileShare",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/PRD_BYOD_DS')]",
+				"[concat(variables('factoryId'), '/datasets/Stock_Info_Extern_to_FileShare')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -41531,6 +41611,20 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Export to sink')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureFileStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('Export to sink_connectionString')]",
+					"fileShare": "d365-bistest-fs"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/FO')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -42980,6 +43074,62 @@
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage3')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable4')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Stock_Info_Extern_to_FileShare')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Export to sink",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureFileStorageLocation",
+						"fileName": "Sanders",
+						"folderPath": "StockInfo"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Export to sink')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DailyRun_Stock_Info')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2024-12-16T08:28:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"minutes": [
+								45
+							],
+							"hours": [
+								7
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }

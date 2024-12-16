@@ -59,6 +59,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'EITserver'"
 		},
+		"Export to sink_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Export to sink'"
+		},
 		"FO_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'FO'"
@@ -364,6 +368,9 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"Export to sink_connectionString": {
+						"value": "[parameters('Export to sink_connectionString')]"
+					},
 					"Rob Vader_password": {
 						"value": "[parameters('Rob Vader_password')]"
 					},
@@ -434,12 +441,6 @@
 					},
 					"AnyWhereSQL_connectionString": {
 						"value": "[parameters('AnyWhereSQL_connectionString')]"
-					},
-					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
-					},
-					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
-						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
 					}
 				}
 			},
@@ -490,6 +491,12 @@
 					},
 					"ZendeskDownload_password": {
 						"value": "[parameters('ZendeskDownload_password')]"
+					},
+					"Azure_D365_DEV_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('Azure_D365_DEV_properties_typeProperties_connectionString_secretName')]"
+					},
+					"Azure_D365_PROD_properties_typeProperties_connectionString_secretName": {
+						"value": "[parameters('Azure_D365_PROD_properties_typeProperties_connectionString_secretName')]"
 					},
 					"DWHloads_properties_typeProperties_host": {
 						"value": "[parameters('DWHloads_properties_typeProperties_host')]"

@@ -44,6 +44,9 @@
 		"EITserver_connectionString": {
 			"value": ""
 		},
+		"Export to sink_connectionString": {
+			"value": ""
+		},
 		"FO_password": {
 			"value": ""
 		},
