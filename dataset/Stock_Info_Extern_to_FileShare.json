@@ -10,8 +10,10 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureFileStorageLocation",
-				"fileName": "Sanders",
-				"folderPath": "StockInfo"
+				"fileName": {
+					"value": "@concat('Sanders_', formatDateTime(utcNow(), 'yyyy-MM-dd'), '.csv')",
+					"type": "Expression"
+				}
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
