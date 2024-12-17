@@ -2,7 +2,7 @@
 	"name": "DailyRun_Stock_Info",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
