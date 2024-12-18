@@ -1,0 +1,27 @@
+{
+	"name": "SQL_Server_Amssrv185",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "amssrv185-keyvault",
+			"database": "MovexEcwCache",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "ECWDWHUpdate@smc.nl",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "KeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "ADF-On-premise-SQL-Amssrv185"
+			}
+		},
+		"connectVia": {
+			"referenceName": "ECWStockToFinOps-Runtime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
