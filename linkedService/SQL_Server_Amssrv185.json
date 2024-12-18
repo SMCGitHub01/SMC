@@ -17,6 +17,9 @@
 					"type": "LinkedServiceReference"
 				},
 				"secretName": "ADF-On-premise-SQL-Amssrv185"
+			},
+			"alwaysEncryptedSettings": {
+				"alwaysEncryptedAkvAuthType": "ManagedIdentity"
 			}
 		},
 		"connectVia": {
