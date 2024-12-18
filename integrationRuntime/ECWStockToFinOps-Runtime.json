@@ -1,0 +1,6 @@
+{
+	"name": "ECWStockToFinOps-Runtime",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
