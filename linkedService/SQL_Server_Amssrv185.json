@@ -5,13 +5,13 @@
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
-			"server": "amssrv185-keyvault",
+			"server": "amssrv185",
 			"database": "MovexEcwCache",
 			"encrypt": "mandatory",
 			"trustServerCertificate": false,
 			"authenticationType": "SQL",
 			"userName": "ECWDWHUpdate@smc.nl",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJmODBkNThlOC1iODIwLTQ4MmUtYWY0Zi1kNDQ5YzIzMjc2YWEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwNDk4MDdjZS1lYWZmLTRlNmItYjVmYy1iNTE3Y2I5NWJhYWYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ECWStockToFinOps-Runtime",
