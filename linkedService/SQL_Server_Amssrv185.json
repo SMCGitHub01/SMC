@@ -9,9 +9,9 @@
 			"database": "MovexEcwCache",
 			"encrypt": "mandatory",
 			"trustServerCertificate": true,
-			"authenticationType": "SQL",
+			"authenticationType": "Windows",
 			"userName": "ECWDWHUpdate@smc.nl",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJiMjAxYjkwNC1hMTBmLTRlNTUtOGI0OS0yY2M3MjBmY2JjZmUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwMDQzNDgxNC02YTVkLTRhNzgtOTg5Mi00MDc3Yjk5NTU3Y2QiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "ECWStockToFinOps-Runtime",
