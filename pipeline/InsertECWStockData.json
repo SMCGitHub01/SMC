@@ -51,11 +51,6 @@
 						"type": "TabularTranslator",
 						"mappings": [
 							{
-								"source": {
-									"name": "Warehouse",
-									"type": "String",
-									"physicalType": "varchar"
-								},
 								"sink": {
 									"name": "Uid",
 									"type": "Guid",
@@ -64,7 +59,7 @@
 							},
 							{
 								"source": {
-									"name": "M3 Item Number",
+									"name": "Name",
 									"type": "String",
 									"physicalType": "varchar"
 								},
@@ -76,9 +71,8 @@
 							},
 							{
 								"source": {
-									"name": "Name",
-									"type": "String",
-									"physicalType": "varchar"
+									"name": "Contract",
+									"type": "String"
 								},
 								"sink": {
 									"name": "Contract",
@@ -88,7 +82,7 @@
 							},
 							{
 								"source": {
-									"name": "Stock zone",
+									"name": "M3 Item Number",
 									"type": "String",
 									"physicalType": "varchar"
 								},
@@ -100,7 +94,7 @@
 							},
 							{
 								"source": {
-									"name": "OHB approved",
+									"name": "Bin Qty",
 									"type": "Decimal",
 									"physicalType": "decimal",
 									"scale": 6,
@@ -114,11 +108,9 @@
 							},
 							{
 								"source": {
-									"name": "Allocatable ohb",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 6,
-									"precision": 15
+									"name": "Item status",
+									"type": "String",
+									"physicalType": "varchar"
 								},
 								"sink": {
 									"name": "EcwStatus",
@@ -128,11 +120,8 @@
 							},
 							{
 								"source": {
-									"name": "Allocated qty",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 6,
-									"precision": 15
+									"name": "CeroValue",
+									"type": "String"
 								},
 								"sink": {
 									"name": "UpdateStatus",
@@ -153,11 +142,8 @@
 							},
 							{
 								"source": {
-									"name": "Acquisition cd.",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 0,
-									"precision": 1
+									"name": "CeroValue",
+									"type": "String"
 								},
 								"sink": {
 									"name": "Requested",
@@ -167,9 +153,8 @@
 							},
 							{
 								"source": {
-									"name": "Planning policy",
-									"type": "String",
-									"physicalType": "varchar"
+									"name": "CeroValue",
+									"type": "String"
 								},
 								"sink": {
 									"name": "Updated",
@@ -179,9 +164,11 @@
 							},
 							{
 								"source": {
-									"name": "Country of orig",
-									"type": "String",
-									"physicalType": "varchar"
+									"name": "Allocated qty",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 6,
+									"precision": 15
 								},
 								"sink": {
 									"name": "EcwStock",
@@ -191,7 +178,7 @@
 							},
 							{
 								"source": {
-									"name": "Item status",
+									"name": "Name",
 									"type": "String",
 									"physicalType": "varchar"
 								},
@@ -203,9 +190,8 @@
 							},
 							{
 								"source": {
-									"name": "Planner",
-									"type": "String",
-									"physicalType": "varchar"
+									"name": "CurrentDate",
+									"type": "String"
 								},
 								"sink": {
 									"name": "EcwIdUpdated",
