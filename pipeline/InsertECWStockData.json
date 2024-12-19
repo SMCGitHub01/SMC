@@ -21,7 +21,7 @@
 							{
 								"name": "CurrentDate",
 								"value": {
-									"value": "Now()",
+									"value": "@utcNow()",
 									"type": "Expression"
 								}
 							},
