@@ -177,7 +177,7 @@
 							},
 							{
 								"source": {
-									"name": "Item status",
+									"name": "Name",
 									"type": "String",
 									"physicalType": "varchar"
 								},
