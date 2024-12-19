@@ -28,6 +28,10 @@
 							{
 								"name": "CeroValue",
 								"value": "0"
+							},
+							{
+								"name": "Contract",
+								"value": "WOV"
 							}
 						],
 						"sqlReaderStoredProcedureName": "[dbo].[p_ECWStockReportFull]",
