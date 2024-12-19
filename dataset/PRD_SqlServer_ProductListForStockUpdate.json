@@ -1,5 +1,5 @@
 {
-	"name": "SqlServer_ProductListForStockUpdate",
+	"name": "PRD_SqlServer_ProductListForStockUpdate",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "SQL_Server_Amssrv185",
