@@ -51,6 +51,10 @@
 						"type": "TabularTranslator",
 						"mappings": [
 							{
+								"source": {
+									"name": "CeroValue",
+									"type": "String"
+								},
 								"sink": {
 									"name": "Uid",
 									"type": "Guid",
