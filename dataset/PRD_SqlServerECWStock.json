@@ -1,0 +1,82 @@
+{
+	"name": "PRD_SqlServerECWStock",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SQL_Server_Amssrv185",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "PRD"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "Uid",
+				"type": "uniqueidentifier"
+			},
+			{
+				"name": "PartNo",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Contract",
+				"type": "nvarchar"
+			},
+			{
+				"name": "EcwId",
+				"type": "nvarchar"
+			},
+			{
+				"name": "EcwBinQty",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EcwStatus",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "UpdateStatus",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "LastUpdate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Requested",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "Updated",
+				"type": "bigint",
+				"precision": 19
+			},
+			{
+				"name": "EcwStock",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SupplierPart",
+				"type": "nvarchar"
+			},
+			{
+				"name": "EcwIdUpdated",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EcwStock_dev"
+		}
+	}
+}
