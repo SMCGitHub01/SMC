@@ -13,7 +13,20 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT PartNo\nfrom [dbo].[EcwRequest]",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "PRD_SqlServer_ProductListForStockUpdate",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
 			},
 			{
 				"name": "ForEach1",
