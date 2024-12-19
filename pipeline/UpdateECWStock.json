@@ -1,0 +1,9 @@
+{
+	"name": "UpdateECWStock",
+	"properties": {
+		"folder": {
+			"name": "PRD-ECWStockToFinOps"
+		},
+		"annotations": []
+	}
+}
