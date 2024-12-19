@@ -39,7 +39,13 @@
 						]
 					}
 				],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('GetProductList').output.value",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"folder": {
