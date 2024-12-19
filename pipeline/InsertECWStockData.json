@@ -1,0 +1,9 @@
+{
+	"name": "InsertECWStockData",
+	"properties": {
+		"folder": {
+			"name": "PRD-ECWStockToFinOps"
+		},
+		"annotations": []
+	}
+}
