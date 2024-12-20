@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlServerSource",
+						"type": "DelimitedTextSource",
 						"additionalColumns": [
 							{
 								"name": "CurrentDate",
@@ -34,9 +34,14 @@
 								"value": "WOV"
 							}
 						],
-						"sqlReaderStoredProcedureName": "[dbo].[p_ECWStockReportFull]",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
 					},
 					"sink": {
 						"type": "SqlServerSink",
@@ -68,7 +73,7 @@
 								"source": {
 									"name": "Name",
 									"type": "String",
-									"physicalType": "varchar"
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "PartNo",
@@ -91,7 +96,7 @@
 								"source": {
 									"name": "M3 Item Number",
 									"type": "String",
-									"physicalType": "varchar"
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "EcwId",
@@ -102,10 +107,8 @@
 							{
 								"source": {
 									"name": "Bin Qty",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 6,
-									"precision": 15
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "EcwBinQty",
@@ -117,7 +120,7 @@
 								"source": {
 									"name": "Item status",
 									"type": "String",
-									"physicalType": "varchar"
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "EcwStatus",
@@ -172,10 +175,8 @@
 							{
 								"source": {
 									"name": "Allocated qty",
-									"type": "Decimal",
-									"physicalType": "decimal",
-									"scale": 6,
-									"precision": 15
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "EcwStock",
@@ -187,7 +188,7 @@
 								"source": {
 									"name": "Name",
 									"type": "String",
-									"physicalType": "varchar"
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "SupplierPart",
@@ -216,7 +217,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "EITtest",
+						"referenceName": "PRD_Blob_ECWStock",
 						"type": "DatasetReference"
 					}
 				],
