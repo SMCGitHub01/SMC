@@ -19,7 +19,7 @@
 						"type": "DelimitedTextSource",
 						"additionalColumns": [
 							{
-								"name": "CurrentDate",
+								"name": "LastUpdate",
 								"value": {
 									"value": "@utcNow()",
 									"type": "Expression"
@@ -44,6 +44,13 @@
 							{
 								"name": "Updated",
 								"value": "0"
+							},
+							{
+								"name": "EcwIdUpdated",
+								"value": {
+									"value": "@utcNow()",
+									"type": "Expression"
+								}
 							}
 						],
 						"storeSettings": {
