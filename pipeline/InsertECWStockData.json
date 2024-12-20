@@ -26,12 +26,24 @@
 								}
 							},
 							{
-								"name": "CeroValue",
+								"name": "UpdateStatus",
 								"value": "0"
 							},
 							{
 								"name": "Contract",
 								"value": "WOV"
+							},
+							{
+								"name": "Uid",
+								"value": "0"
+							},
+							{
+								"name": "Requested",
+								"value": "0"
+							},
+							{
+								"name": "Updated",
+								"value": "0"
 							}
 						],
 						"storeSettings": {
