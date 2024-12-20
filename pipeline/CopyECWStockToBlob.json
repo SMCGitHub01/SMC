@@ -371,12 +371,12 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "truncate table [dbo].[EcwStock_dev]",
+						"preCopyScript": "truncate table [MovexEcwCache].[dbo].[EcwStock_dev]",
 						"writeBehavior": "upsert",
 						"upsertSettings": {
 							"useTempDB": true,
 							"keys": [
-								"PartNo"
+								"Uid"
 							]
 						},
 						"sqlWriterUseTableLock": false
