@@ -375,7 +375,7 @@
 						"upsertSettings": {
 							"useTempDB": true,
 							"keys": [
-								"Uid"
+								"EcwId"
 							]
 						},
 						"sqlWriterUseTableLock": false
