@@ -71,7 +71,6 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "select *\nfrom ECWStock\nwhere len(Name) < 26",
 						"writeBehavior": "upsert",
 						"upsertSettings": {
 							"useTempDB": true,
