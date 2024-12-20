@@ -58,6 +58,10 @@
 							{
 								"name": "SupplierPart",
 								"value": "TEST"
+							},
+							{
+								"name": "PartNo",
+								"value": "TEST"
 							}
 						],
 						"storeSettings": {
@@ -97,9 +101,8 @@
 							},
 							{
 								"source": {
-									"name": "Name",
-									"type": "String",
-									"physicalType": "String"
+									"name": "PartNo",
+									"type": "String"
 								},
 								"sink": {
 									"name": "PartNo",
