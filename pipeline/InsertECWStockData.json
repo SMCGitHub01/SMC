@@ -35,7 +35,10 @@
 							},
 							{
 								"name": "Uid",
-								"value": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+								"value": {
+									"value": "@guid()",
+									"type": "Expression"
+								}
 							},
 							{
 								"name": "Requested",
