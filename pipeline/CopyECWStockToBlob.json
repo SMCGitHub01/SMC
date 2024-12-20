@@ -371,7 +371,6 @@
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"preCopyScript": "truncate table [MovexEcwCache].[dbo].[EcwStock_dev]",
 						"writeBehavior": "upsert",
 						"upsertSettings": {
 							"useTempDB": true,
