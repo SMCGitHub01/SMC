@@ -211,6 +211,18 @@
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
+		"SQL_Server_Amssrv185_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "amssrv185"
+		},
+		"SQL_Server_Amssrv185_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "MovexEcwCache"
+		},
+		"SQL_Server_Amssrv185_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ECWDWHUpdate@smc.nl"
+		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
 			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
@@ -41786,6 +41798,42 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/SQL_Server_Amssrv185')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('SQL_Server_Amssrv185_properties_typeProperties_server')]",
+					"database": "[parameters('SQL_Server_Amssrv185_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": true,
+					"authenticationType": "Windows",
+					"userName": "[parameters('SQL_Server_Amssrv185_properties_typeProperties_userName')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "KeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "ADF-On-premise-SQL-Amssrv185"
+					},
+					"alwaysEncryptedSettings": {
+						"alwaysEncryptedAkvAuthType": "ManagedIdentity"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ECWStockToFinOps-Runtime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ECWStockToFinOps-Runtime')]",
+				"[concat(variables('factoryId'), '/linkedServices/KeyVault')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SharePoint')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -42665,6 +42713,16 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ECWStockToFinOps-Runtime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/EIT-DataWarehouse')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
@@ -43139,6 +43197,842 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage3')]",
 				"[concat(variables('factoryId'), '/datasets/AzureSqlTable4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/UpdateECWStock_Test')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "GetProductList",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderQuery": "SELECT PartNo\nfrom [dbo].[EcwRequest]",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "PRD_SqlServer_ProductListForStockUpdate",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"firstRowOnly": false
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD-ECWStockToFinOps"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/PRD_SqlServer_ProductListForStockUpdate')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_SqlServer_ProductListForStockUpdate')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SQL_Server_Amssrv185",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "PRD"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "Uid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "PartNo",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EcwBinQty",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "StartDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "EndDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "VendorPartno",
+						"type": "nchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "EcwRequest"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SQL_Server_Amssrv185')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_SqlServerECWStock')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SQL_Server_Amssrv185",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "PRD"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "Uid",
+						"type": "uniqueidentifier"
+					},
+					{
+						"name": "PartNo",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Contract",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EcwId",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EcwBinQty",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "EcwStatus",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "UpdateStatus",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "LastUpdate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "Requested",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "Updated",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "EcwStock",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SupplierPart",
+						"type": "nvarchar"
+					},
+					{
+						"name": "EcwIdUpdated",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "EcwStock_dev"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SQL_Server_Amssrv185')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyECWStockToBlob')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data from EIT",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"sqlReaderStoredProcedureName": "[[dbo].[p_ECWStockReportFull]",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Warehouse",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Warehouse",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "M3 Item Number",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "M3 Item Number",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Name",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Name",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Stock zone",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Stock zone",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "OHB approved",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 6,
+											"precision": 15
+										},
+										"sink": {
+											"name": "OHB approved",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Allocatable ohb",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 6,
+											"precision": 15
+										},
+										"sink": {
+											"name": "Allocatable ohb",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Allocated qty",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 6,
+											"precision": 15
+										},
+										"sink": {
+											"name": "Allocated qty",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Bin Qty",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 6,
+											"precision": 15
+										},
+										"sink": {
+											"name": "Bin Qty",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Acquisition cd.",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 0,
+											"precision": 1
+										},
+										"sink": {
+											"name": "Acquisition cd.",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Planning policy",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Planning policy",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Country of orig",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Country of orig",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Item status",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Item status",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Planner",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Planner",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Available Stock (Allocatable-Allocated)",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 6,
+											"precision": 16
+										},
+										"sink": {
+											"name": "Available Stock (Allocatable-Allocated)",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Note",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "Note",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Timestamp_LastUpdate",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 0,
+											"precision": 8
+										},
+										"sink": {
+											"name": "Timestamp_LastUpdate",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Safety Stock",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 6,
+											"precision": 15
+										},
+										"sink": {
+											"name": "Safety Stock",
+											"type": "String",
+											"physicalType": "String"
+										}
+									},
+									{
+										"source": {
+											"name": "Max Stock",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 6,
+											"precision": 15
+										},
+										"sink": {
+											"name": "Max Stock",
+											"type": "String",
+											"physicalType": "String"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "EITtest",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_Blob_ECWStock",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Write into amssrv185",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "Copy data from EIT",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"additionalColumns": [
+									{
+										"name": "LastUpdate",
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										}
+									},
+									{
+										"name": "UpdateStatus",
+										"value": "0"
+									},
+									{
+										"name": "Contract",
+										"value": "WOV"
+									},
+									{
+										"name": "Uid",
+										"value": {
+											"value": "@guid()",
+											"type": "Expression"
+										}
+									},
+									{
+										"name": "Requested",
+										"value": "0"
+									},
+									{
+										"name": "Updated",
+										"value": "0"
+									},
+									{
+										"name": "EcwIdUpdated",
+										"value": {
+											"value": "@utcNow()",
+											"type": "Expression"
+										}
+									},
+									{
+										"name": "SupplierPart",
+										"value": "TEST"
+									}
+								],
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "SqlServerSink",
+								"preCopyScript": "truncate table [MovexEcwCache].[dbo].[EcwStock_dev]",
+								"writeBehavior": "upsert",
+								"upsertSettings": {
+									"useTempDB": true,
+									"keys": [
+										"PartNo"
+									]
+								},
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Name",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "PartNo",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Contract",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Contract",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "M3 Item Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "EcwId",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Bin Qty",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "EcwBinQty",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Item status",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "EcwStatus",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "UpdateStatus",
+											"type": "String"
+										},
+										"sink": {
+											"name": "UpdateStatus",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "LastUpdate",
+											"type": "String"
+										},
+										"sink": {
+											"name": "LastUpdate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										}
+									},
+									{
+										"source": {
+											"name": "Requested",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Requested",
+											"type": "Int64",
+											"physicalType": "bigint"
+										}
+									},
+									{
+										"source": {
+											"name": "Updated",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Updated",
+											"type": "Int64",
+											"physicalType": "bigint"
+										}
+									},
+									{
+										"source": {
+											"name": "Available Stock (Allocatable-Allocated)",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "EcwStock",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "SupplierPart",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SupplierPart",
+											"type": "String",
+											"physicalType": "nvarchar"
+										}
+									},
+									{
+										"source": {
+											"name": "EcwIdUpdated",
+											"type": "String"
+										},
+										"sink": {
+											"name": "EcwIdUpdated",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "PRD_Blob_ECWStock",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "PRD_SqlServerECWStock",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "PRD-ECWStockToFinOps"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/EITtest')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_Blob_ECWStock')]",
+				"[concat(variables('factoryId'), '/datasets/PRD_SqlServerECWStock')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PRD_Blob_ECWStock')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "PRD"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "ECWStock.csv",
+						"container": "eit-stock-update"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Uid;Name;M3 Item Number;Bin Qty;Item Status;Allocated qty",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/blobstoragescm')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Daily_Hourly')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Runs every day. every hour, from 8am to 8pm",
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "CopyECWStockToBlob",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2024-12-21T19:03:00",
+						"timeZone": "W. Europe Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								8,
+								9,
+								10,
+								11,
+								12,
+								13,
+								14,
+								15,
+								16,
+								17,
+								18,
+								19,
+								20
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/CopyECWStockToBlob')]"
 			]
 		}
 	]

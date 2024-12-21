@@ -211,6 +211,18 @@
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
+		"SQL_Server_Amssrv185_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "amssrv185"
+		},
+		"SQL_Server_Amssrv185_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "MovexEcwCache"
+		},
+		"SQL_Server_Amssrv185_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ECWDWHUpdate@smc.nl"
+		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
 			"type": "string",
 			"defaultValue": "3c9c0d42-fbe6-4add-a30a-92d328806209"
@@ -438,9 +450,6 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
-					},
-					"AnyWhereSQL_connectionString": {
-						"value": "[parameters('AnyWhereSQL_connectionString')]"
 					}
 				}
 			},
@@ -461,6 +470,9 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"AnyWhereSQL_connectionString": {
+						"value": "[parameters('AnyWhereSQL_connectionString')]"
 					},
 					"DWHloads_password": {
 						"value": "[parameters('DWHloads_password')]"
@@ -512,6 +524,15 @@
 					},
 					"MicrosoftAccess1_properties_typeProperties_userName": {
 						"value": "[parameters('MicrosoftAccess1_properties_typeProperties_userName')]"
+					},
+					"SQL_Server_Amssrv185_properties_typeProperties_server": {
+						"value": "[parameters('SQL_Server_Amssrv185_properties_typeProperties_server')]"
+					},
+					"SQL_Server_Amssrv185_properties_typeProperties_database": {
+						"value": "[parameters('SQL_Server_Amssrv185_properties_typeProperties_database')]"
+					},
+					"SQL_Server_Amssrv185_properties_typeProperties_userName": {
+						"value": "[parameters('SQL_Server_Amssrv185_properties_typeProperties_userName')]"
 					},
 					"SugarCRM_Pord_cloud_properties_typeProperties_server": {
 						"value": "[parameters('SugarCRM_Pord_cloud_properties_typeProperties_server')]"

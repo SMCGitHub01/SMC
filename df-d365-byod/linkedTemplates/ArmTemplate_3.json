@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-d365-byod"
 		},
+		"AnyWhereSQL_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AnyWhereSQL'"
+		},
 		"DWHloads_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'DWHloads'"
@@ -75,6 +79,18 @@
 			"type": "string",
 			"defaultValue": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
+		"SQL_Server_Amssrv185_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "amssrv185"
+		},
+		"SQL_Server_Amssrv185_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "MovexEcwCache"
+		},
+		"SQL_Server_Amssrv185_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ECWDWHUpdate@smc.nl"
+		},
 		"SugarCRM_Pord_cloud_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "10.201.60.13"
@@ -116,6 +132,23 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AnyWhereSQL')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('AnyWhereSQL_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AnyWare",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Azure_D365_DEV')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -240,6 +273,39 @@
 				},
 				"connectVia": {
 					"referenceName": "ZenDesk",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SQL_Server_Amssrv185')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('SQL_Server_Amssrv185_properties_typeProperties_server')]",
+					"database": "[parameters('SQL_Server_Amssrv185_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": true,
+					"authenticationType": "Windows",
+					"userName": "[parameters('SQL_Server_Amssrv185_properties_typeProperties_userName')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "KeyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "ADF-On-premise-SQL-Amssrv185"
+					},
+					"alwaysEncryptedSettings": {
+						"alwaysEncryptedAkvAuthType": "ManagedIdentity"
+					}
+				},
+				"connectVia": {
+					"referenceName": "ECWStockToFinOps-Runtime",
 					"type": "IntegrationRuntimeReference"
 				}
 			},
@@ -692,67 +758,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ZendeskDownload')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACCPRD_SugarCRM')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SugarCRM_Pord_cloud",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "ACC&PRD"
-				},
-				"annotations": [],
-				"type": "MySqlTable",
-				"schema": [],
-				"typeProperties": {
-					"tableName": "`NL_BYOD_Accounts`"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/SugarCRM_Pord_cloud')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ACC_BYOD_DEV_DS')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "Azure_D365_DEV",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"SchemaName": {
-						"type": "string"
-					},
-					"TableName": {
-						"type": "string"
-					}
-				},
-				"folder": {
-					"name": "ACC"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": {
-						"value": "@dataset().SchemaName",
-						"type": "Expression"
-					},
-					"table": {
-						"value": "@dataset().TableName",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/Azure_D365_DEV')]"
 			]
 		}
 	]

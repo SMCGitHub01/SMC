@@ -158,6 +158,15 @@
 		"Rob Vader_properties_typeProperties_username": {
 			"value": "FoPowerAutomate@Aquapro.onmicrosoft.com"
 		},
+		"SQL_Server_Amssrv185_properties_typeProperties_server": {
+			"value": "amssrv185"
+		},
+		"SQL_Server_Amssrv185_properties_typeProperties_database": {
+			"value": "MovexEcwCache"
+		},
+		"SQL_Server_Amssrv185_properties_typeProperties_userName": {
+			"value": "ECWDWHUpdate@smc.nl"
+		},
 		"SharePoint_properties_typeProperties_servicePrincipalId": {
 			"value": "3c9c0d42-fbe6-4add-a30a-92d328806209"
 		},
