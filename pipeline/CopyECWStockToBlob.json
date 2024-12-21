@@ -486,7 +486,7 @@
 							},
 							{
 								"source": {
-									"name": "Allocated qty",
+									"name": "Available Stock (Allocatable-Allocated)",
 									"type": "String",
 									"physicalType": "String"
 								},
