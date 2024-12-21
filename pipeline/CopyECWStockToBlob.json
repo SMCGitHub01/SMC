@@ -354,10 +354,6 @@
 							{
 								"name": "SupplierPart",
 								"value": "TEST"
-							},
-							{
-								"name": "PartNo",
-								"value": "TEST"
 							}
 						],
 						"storeSettings": {
@@ -376,7 +372,7 @@
 						"upsertSettings": {
 							"useTempDB": true,
 							"keys": [
-								"EcwId"
+								"PartNo"
 							]
 						},
 						"sqlWriterUseTableLock": false
@@ -398,8 +394,9 @@
 							},
 							{
 								"source": {
-									"name": "PartNo",
-									"type": "String"
+									"name": "Name",
+									"type": "String",
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "PartNo",
