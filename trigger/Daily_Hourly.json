@@ -1,9 +1,17 @@
 {
 	"name": "Daily_Hourly",
 	"properties": {
+		"description": "Runs every day. every hour, from 8am to 8pm",
 		"annotations": [],
 		"runtimeState": "Stopped",
-		"pipelines": [],
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "CopyECWStockToBlob",
+					"type": "PipelineReference"
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
