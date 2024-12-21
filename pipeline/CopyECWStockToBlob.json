@@ -383,17 +383,6 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "Uid",
-									"type": "String"
-								},
-								"sink": {
-									"name": "Uid",
-									"type": "Guid",
-									"physicalType": "uniqueidentifier"
-								}
-							},
-							{
-								"source": {
 									"name": "Name",
 									"type": "String",
 									"physicalType": "String"
