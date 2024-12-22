@@ -13,6 +13,85 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/ToJPN')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ToJPN",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "GISBE71.csv",
+						"folderPath": "jpnvrd"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "",
+					"firstRowAsHeader": true,
+					"quoteChar": ""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ToUncBOM')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ToJPN",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": "UncBOM.csv",
+						"folderPath": "jpnvrd/UncBom"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "",
+					"firstRowAsHeader": true,
+					"quoteChar": ""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Unzip')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "blobstoragescm",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "ACC&PRD"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "dwh-zendesk"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Xml1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1055,177 +1134,6 @@
 					"quoteChar": ""
 				},
 				"schema": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_SqlServer_ProductListForStockUpdate')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SQL_Server_Amssrv185",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "PRD"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "Uid",
-						"type": "uniqueidentifier"
-					},
-					{
-						"name": "PartNo",
-						"type": "nvarchar"
-					},
-					{
-						"name": "EcwBinQty",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "StartDate",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					},
-					{
-						"name": "EndDate",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					},
-					{
-						"name": "VendorPartno",
-						"type": "nchar"
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "EcwRequest"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_SqlServerECWStock')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "SQL_Server_Amssrv185",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "PRD"
-				},
-				"annotations": [],
-				"type": "SqlServerTable",
-				"schema": [
-					{
-						"name": "Uid",
-						"type": "uniqueidentifier"
-					},
-					{
-						"name": "PartNo",
-						"type": "nvarchar"
-					},
-					{
-						"name": "Contract",
-						"type": "nvarchar"
-					},
-					{
-						"name": "EcwId",
-						"type": "nvarchar"
-					},
-					{
-						"name": "EcwBinQty",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "EcwStatus",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "UpdateStatus",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "LastUpdate",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					},
-					{
-						"name": "Requested",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "Updated",
-						"type": "bigint",
-						"precision": 19
-					},
-					{
-						"name": "EcwStock",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "SupplierPart",
-						"type": "nvarchar"
-					},
-					{
-						"name": "EcwIdUpdated",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "EcwStock_dev"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PRD_Blob_ECWStock')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "blobstoragescm",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "PRD"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "ECWStock.csv",
-						"container": "eit-stock-update"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Uid;Name;M3 Item Number;Bin Qty;Item Status;Allocated qty",
-						"type": "String"
-					}
-				]
 			},
 			"dependsOn": []
 		},
