@@ -14960,8 +14960,6 @@
 					{
 						"name": "Stage SugarCRM",
 						"type": "ExecutePipeline",
-						"state": "Inactive",
-						"onInactiveMarkAs": "Succeeded",
 						"dependsOn": [
 							{
 								"activity": "Lookup_Current_Sync_And_Date",
